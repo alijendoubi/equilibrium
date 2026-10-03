@@ -12,7 +12,10 @@ def test_defaults_work_without_any_secrets() -> None:
     assert settings.openai_api_key is None
     assert settings.ncbi_api_key is None
     assert settings.omim_api_key is None
-    assert settings.openai_model == "gpt-4.1-mini"
+    assert settings.openai_model_extract == "gpt-6.1-sol"
+    assert settings.openai_model_explain == "gpt-6.1-sol"
+    assert settings.openai_model_reconcile == "gpt-6-luna"
+    assert settings.openai_embed_model == "text-embedding-3-small"
     assert settings.cors_origin_list == ("http://localhost:3000",)
     assert settings.log_level == "INFO"
     assert settings.has_openai_key is False
@@ -20,7 +23,10 @@ def test_defaults_work_without_any_secrets() -> None:
 
 def test_reads_values_from_environment(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test-secret")
-    monkeypatch.setenv("OPENAI_MODEL", "gpt-4.1")
+    monkeypatch.setenv("OPENAI_MODEL_EXTRACT", "model-extract")
+    monkeypatch.setenv("OPENAI_MODEL_EXPLAIN", "model-explain")
+    monkeypatch.setenv("OPENAI_MODEL_RECONCILE", "gpt-5.4-mini")
+    monkeypatch.setenv("OPENAI_EMBED_MODEL", "text-embedding-3-large")
     monkeypatch.setenv("NCBI_API_KEY", "ncbi-secret")
     monkeypatch.setenv("OMIM_API_KEY", "omim-secret")
     monkeypatch.setenv("CORS_ORIGINS", " https://a.example , ,https://b.example ")
@@ -31,7 +37,10 @@ def test_reads_values_from_environment(monkeypatch: pytest.MonkeyPatch) -> None:
     assert settings.openai_api_key is not None
     assert settings.openai_api_key.get_secret_value() == "sk-test-secret"
     assert settings.has_openai_key is True
-    assert settings.openai_model == "gpt-4.1"
+    assert settings.openai_model_extract == "model-extract"
+    assert settings.openai_model_explain == "model-explain"
+    assert settings.openai_model_reconcile == "gpt-5.4-mini"
+    assert settings.openai_embed_model == "text-embedding-3-large"
     assert settings.cors_origin_list == ("https://a.example", "https://b.example")
     assert settings.log_level == "DEBUG"
 
@@ -78,8 +87,21 @@ def test_settings_are_immutable() -> None:
     settings = Settings()
 
     with pytest.raises(ValidationError):
-        settings.openai_model = "other"  # type: ignore[misc]
+        settings.openai_model_extract = "other"  # type: ignore[misc]
 
 
 def test_get_settings_is_cached() -> None:
     assert get_settings() is get_settings()
+
+
+def test_legacy_openai_model_variable_is_ignored(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("OPENAI_MODEL", "gpt-4.1-mini")
+
+    assert Settings().openai_model_extract == "gpt-6.1-sol"
+
+
+def test_blank_model_name_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("OPENAI_MODEL_RECONCILE", "")
+
+    with pytest.raises(ValidationError):
+        Settings()

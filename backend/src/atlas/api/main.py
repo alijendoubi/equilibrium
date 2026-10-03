@@ -28,8 +28,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     application.include_router(router)
     logger.info(
-        "Atlas API configured (model=%s, openai_key_configured=%s, cors_origins=%d)",
-        resolved.openai_model,
+        "Atlas API configured (models: extract=%s explain=%s reconcile=%s embed=%s, "
+        "openai_key_configured=%s, cors_origins=%d)",
+        resolved.openai_model_extract,
+        resolved.openai_model_explain,
+        resolved.openai_model_reconcile,
+        resolved.openai_embed_model,
         resolved.has_openai_key,
         len(resolved.cors_origin_list),
     )

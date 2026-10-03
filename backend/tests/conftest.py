@@ -11,7 +11,10 @@ from atlas.config import Settings, get_settings
 
 _ENV_VARS = (
     "OPENAI_API_KEY",
-    "OPENAI_MODEL",
+    "OPENAI_MODEL_EXTRACT",
+    "OPENAI_MODEL_EXPLAIN",
+    "OPENAI_MODEL_RECONCILE",
+    "OPENAI_EMBED_MODEL",
     "NCBI_API_KEY",
     "OMIM_API_KEY",
     "CORS_ORIGINS",

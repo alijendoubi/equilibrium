@@ -147,7 +147,10 @@ Run `make help` to list all targets. The common ones are `make check` (lint, typ
 | Variable | Required | Purpose |
 |---|---|---|
 | `OPENAI_API_KEY` | yes, for Extract / Reconcile / Explain | OpenAI API access |
-| `OPENAI_MODEL` | no (default `gpt-4.1-mini`) | Model used by the pipeline |
+| `OPENAI_MODEL_EXTRACT` | no (default `gpt-6.1-sol`) | Model for Extract (abstract -> claim edges) |
+| `OPENAI_MODEL_EXPLAIN` | no (default `gpt-6.1-sol`) | Model for Explain (path -> plain language) |
+| `OPENAI_MODEL_RECONCILE` | no (default `gpt-6-luna`) | Model for Reconcile (ambiguous entity matches); fallback `gpt-5.4-mini` if structured outputs fail |
+| `OPENAI_EMBED_MODEL` | no (default `text-embedding-3-small`) | Embedding model for Reconcile and semantic search |
 | `NCBI_API_KEY` | no | Higher E-utilities rate limits (PubMed, ClinVar) |
 | `OMIM_API_KEY` | no | OMIM API (license terms apply) |
 | `CORS_ORIGINS` | no | Allowed frontend origins |

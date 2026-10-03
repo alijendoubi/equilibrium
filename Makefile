@@ -8,7 +8,7 @@ BACKEND  := backend
 FRONTEND := frontend
 
 .PHONY: help setup dev dev-backend dev-frontend lint fmt typecheck test check build \
-        docker-up docker-down data clean
+        docker-up docker-down data openai-smoke clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
@@ -63,6 +63,9 @@ docker-down: ## Stop containers
 
 data: ## Ingest data sources (Phase 2)
 	@echo "Data ingestion is coming in Phase 2: cd $(BACKEND) && uv run python -m atlas.ingest"
+
+openai-smoke: ## Check OpenAI models/embeddings with a real key (BATCH=1 also submits a Batch)
+	cd $(BACKEND) && uv run python scripts/openai_smoke.py $(if $(BATCH),--batch,)
 
 clean: ## Remove caches and build output
 	rm -rf $(BACKEND)/.pytest_cache $(BACKEND)/.mypy_cache $(BACKEND)/.ruff_cache \

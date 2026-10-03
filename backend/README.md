@@ -37,7 +37,10 @@ Copy `.env.example` to `.env`. All are optional; the app and tests run without a
 | Variable         | Default                  | Purpose                                  |
 |------------------|--------------------------|------------------------------------------|
 | `OPENAI_API_KEY` | unset                    | OpenAI access for extraction/explanation |
-| `OPENAI_MODEL`   | `gpt-4.1-mini`           | Model id for OpenAI calls                |
+| `OPENAI_MODEL_EXTRACT` | `gpt-6.1-sol`      | Model for Extract                        |
+| `OPENAI_MODEL_EXPLAIN` | `gpt-6.1-sol`      | Model for Explain                        |
+| `OPENAI_MODEL_RECONCILE` | `gpt-6-luna`     | Model for Reconcile (fallback `gpt-5.4-mini`) |
+| `OPENAI_EMBED_MODEL` | `text-embedding-3-small` | Embedding model                        |
 | `NCBI_API_KEY`   | unset                    | Higher E-utilities rate limits (PubMed, ClinVar) |
 | `OMIM_API_KEY`   | unset                    | OMIM API access                          |
 | `CORS_ORIGINS`   | `http://localhost:3000`  | Comma-separated allowed browser origins  |

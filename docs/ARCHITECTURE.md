@@ -77,7 +77,7 @@ The brief asks to cluster by **variant effect, pathway and phenotype rather than
 
 ## OpenAI usage points
 
-All three points use **structured outputs** (JSON schema), use a low temperature, and log each call with the model, prompt version and input hash, so the snapshot can be reproduced. The model comes from `OPENAI_MODEL`, default `gpt-4.1-mini`.
+All three points use **structured outputs** (JSON schema), use a low temperature, and log each call with the model, prompt version and input hash, so the snapshot can be reproduced. Models come from `OPENAI_MODEL_EXTRACT` (default `gpt-6.1-sol`), `OPENAI_MODEL_EXPLAIN` (`gpt-6.1-sol`), `OPENAI_MODEL_RECONCILE` (`gpt-6-luna`) and `OPENAI_EMBED_MODEL` (`text-embedding-3-small`).
 
 | Point | Input | Output schema (sketch) | Guardrails |
 |---|---|---|---|

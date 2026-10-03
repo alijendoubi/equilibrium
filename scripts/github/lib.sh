@@ -91,7 +91,7 @@ apply_ruleset() {
   [[ -f "$RULESET_FILE" ]] || die "Ruleset file not found: $RULESET_FILE"
   log "Applying ruleset '$RULESET_NAME' to $repo"
 
-  if ! out="$(gh_api_retry_403 "repos/$repo/rulesets" --paginate       --jq ".[] | select(.name == \"$RULESET_NAME\") | .id")"; then
+  if ! out="$(gh_api_retry_403 "repos/$repo/rulesets" --paginate \n      --jq ".[] | select(.name == \"$RULESET_NAME\") | .id")"; then
     handle_ruleset_failure "$repo" "Listing rulesets" "$out"
     return 0
   fi

@@ -225,8 +225,12 @@ Last updated: 2026-10-03
 - [ ] CI, security, deploy workflows green on `main` (Actions jobs are not starting on this account yet)
 - [ ] Vercel and Render connected (secrets not set)
 
+Full project plan: [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) (cluster, data, OpenAI usage, timeline, risks, open decisions).
+Task breakdown: [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md) (phases, gates, task IDs, owners, issues).
+
 **Phase 2: Graph slice (M2), not started**
-- [ ] Disease cluster chosen (see [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))
+- [x] Disease cluster chosen: GBA1/GCase–lysosomal dysfunction, Gaucher / GBA1 -> Parkinson's ([ADR 0003](docs/adr/0003-demo-cluster-gaucher-gba1.md), seed list in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))
+- [x] Curated orgs and assets drafted in `data/curated/` (needs human check)
 - [ ] Ingest for MONDO, HPO, ClinVar and PubMed in the slice
 - [ ] OpenAI Extract and Reconcile into evidence edges
 - [ ] `make data` reproduces a dated snapshot

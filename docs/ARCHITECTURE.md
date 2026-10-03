@@ -132,7 +132,7 @@ flowchart LR
 
 ## Open questions
 
-- [ ] Which disease cluster to start with (team decision, see [DATA_SOURCES.md](DATA_SOURCES.md))
+- [x] Which disease cluster to start with: Gaucher / GBA1 -> Parkinson's (see [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md))
 - [ ] Pathway source: Reactome, GO biological process, or mechanism nodes from Extract only
 - [ ] Phenotype similarity: IC-weighted Jaccard (simpler) or Resnik BMA (needs the HPO DAG). Default to Jaccard and upgrade if time allows.
 - [ ] Should Explain run live per request (cost and latency) or be pre-computed for demo paths and cached in the snapshot?

@@ -29,7 +29,7 @@ This Code of Conduct applies in all project spaces: issues, pull requests, discu
 
 ## Enforcement
 
-Report instances of abusive, harassing or otherwise unacceptable behavior to the project maintainers at **`[CONDUCT CONTACT EMAIL - TODO]`**. All complaints will be reviewed and investigated promptly and fairly, and the reporter's privacy will be respected.
+Report instances of abusive, harassing or otherwise unacceptable behavior to the project maintainer, [@alijendoubi](https://github.com/alijendoubi), via GitHub. If the report involves a security issue, use [private vulnerability reporting](https://github.com/alijendoubi/equilibrium/security/advisories/new) instead. All complaints will be reviewed and investigated promptly and fairly, and the reporter's privacy will be respected.
 
 Maintainers follow the Enforcement Guidelines (Correction, Warning, Temporary Ban, Permanent Ban) defined in the Contributor Covenant 2.1, linked above. The linked text is authoritative.
 

@@ -221,6 +221,7 @@ Last updated: 2026-10-03
 - [x] Monorepo scaffold (backend FastAPI `/health`, frontend Next.js) merged (#1); checks pass locally
 - [x] Ruleset applied: PR required, code-owner (@alijendoubi) approval only, squash, required checks (#6)
 - [x] Labels, milestones, teammates invited; Dependabot major bumps frozen until submission
+- [x] Repo public; private vulnerability reporting enabled, so security and conduct reports go through GitHub (no contact email in the repo)
 - [ ] CI, security, deploy workflows green on `main` (Actions jobs are not starting on this account yet)
 - [ ] Vercel and Render connected (secrets not set)
 

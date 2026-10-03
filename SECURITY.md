@@ -8,8 +8,8 @@ This is a hackathon prototype. Only the latest commit on `main` and the deployed
 
 **Do not open a public issue for a vulnerability.**
 
-- Preferred: use GitHub private vulnerability reporting (**Security** tab, then **Report a vulnerability**) once the repository is public.
-- Alternatively, email the maintainers at `[SECURITY CONTACT EMAIL - TODO]`.
+- Report it privately through GitHub private vulnerability reporting: [open a draft security advisory](https://github.com/alijendoubi/equilibrium/security/advisories/new) (or **Security** tab, then **Report a vulnerability**).
+- This is the only reporting channel. The report is visible only to you and the maintainer (@alijendoubi).
 
 Include the affected component, steps to reproduce and the impact. During the event we aim to acknowledge reports within 24 hours.
 
@@ -31,7 +31,7 @@ Include the affected component, steps to reproduce and the impact. During the ev
 4. Check provider usage logs for abuse, especially OpenAI spend.
 5. Tell the team in the team channel and record the incident in the PR.
 
-All keys are rotated before the repository goes public. See [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md).
+The repository is now public: rotate every key used during the hackathon at submission. See [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md).
 
 ## Data handling
 
@@ -48,8 +48,9 @@ All keys are rotated before the repository goes public. See [docs/SUBMISSION_CHE
 ## Repository protections
 
 The `main-protection` ruleset requires:
-- a PR with 1 approval
+- a PR approved by the code owner (@alijendoubi), with the approval given after the last push (stale approvals are dismissed)
+- all review threads resolved
 - passing required checks
 - linear, squash-only history with no force pushes
 
-The ruleset is enforced only once the repository is public or on a paid plan. See [docs/RUNBOOK.md](docs/RUNBOOK.md).
+The repository is public and the ruleset is enforced (`enforcement: active`). See [docs/RUNBOOK.md](docs/RUNBOOK.md).

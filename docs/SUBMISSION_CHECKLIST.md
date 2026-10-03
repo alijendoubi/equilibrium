@@ -21,7 +21,7 @@ Work through this list top to bottom before submitting. Owner: `[NAME - TODO]`. 
 - [ ] `docs/DATA_SOURCES.md` has no remaining "verify" entries for sources that were actually used
 - [ ] README Status section is updated with the date and the honest state of each milestone
 - [ ] Team table is filled in with names, roles and GitHub handles
-- [ ] All placeholders removed or filled: search the repo for `TODO`, `TBD`, `[TEAM DECISION` and `CONTACT EMAIL`
+- [ ] All placeholders removed or filled: search the repo for `TODO`, `TBD` and `[TEAM DECISION` (the `CONTACT EMAIL` placeholders are resolved)
 - [ ] Planned features are still labelled as planned. Nothing claims to exist when it does not.
 - [ ] LICENSE present (MIT). Third-party data attribution present.
 
@@ -37,9 +37,9 @@ Work through this list top to bottom before submitting. Owner: `[NAME - TODO]`. 
 - [ ] Rotate all keys used during the hackathon: OpenAI, Vercel token, Render deploy hook, NCBI and OMIM. Update GitHub secrets and the deploy dashboards. See [SECURITY.md](../SECURITY.md).
 - [ ] `secrets-scan` is green on `main`. Optionally run a full-history gitleaks scan: `gitleaks detect --source . --log-opts="--all"`
 - [ ] No restricted data (for example OMIM) is committed or included in the published snapshot
-- [ ] Run `scripts/github/go-public.sh` to flip the repository to public
-- [ ] Verify the ruleset is now enforced: `gh api repos/alijendoubi/equilibrium/rulesets`. Then confirm that a direct push to `main` is rejected.
-- [ ] Enable private vulnerability reporting (Settings, then Security)
+- [x] Run `scripts/github/go-public.sh` to flip the repository to public (the repository is public)
+- [x] Verify the ruleset is now enforced: `gh api repos/alijendoubi/equilibrium/rulesets` reports `enforcement: active`. A direct push to `main` is rejected for non-admins; the repository admin role has bypass, so do not test it with an admin account.
+- [x] Enable private vulnerability reporting (Settings, then Security). Done 2026-10-03; SECURITY.md and CODE_OF_CONDUCT.md point to it and to @alijendoubi, with no contact email.
 
 ## Release
 

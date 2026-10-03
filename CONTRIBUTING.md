@@ -51,7 +51,7 @@ Examples:
 4. Push and open a **draft PR** right away: `gh pr create --draft --fill`
 5. Fill in the PR template: what changed, how it was tested, and screenshots for UI changes. Link the issue with `Closes #N`.
 6. When `make check` passes locally, mark the PR ready: `gh pr ready`
-7. Request 1 reviewer. Approvals are dismissed when new commits are pushed.
+7. Request review from @alijendoubi (the code owner). Only his approval counts toward merge, and it must come after the last push: approvals are dismissed when new commits are pushed.
 8. Resolve all review threads.
 9. When required checks are green, **squash merge**: `gh pr merge --squash --delete-branch`
 

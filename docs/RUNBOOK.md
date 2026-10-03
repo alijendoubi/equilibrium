@@ -20,7 +20,7 @@ The script applies the following. Read the script for the exact behavior.
 - labels: `type:*`, `area:*`, `priority:P0-P2`, `module:*`, `size/*` and `run-e2e`
 - milestones M1 to M5
 
-**Note:** rulesets on a **private** repository are enforced only on a paid plan. On the free plan, the ruleset is stored but has no effect until the repository is public. Until then, follow the rules by convention. At submission, `scripts/github/go-public.sh` flips the visibility, and the ruleset takes effect.
+**Note:** the repository is **public**, so the ruleset is enforced on the free plan. (Rulesets on a private repository are enforced only on a paid plan; `apply_ruleset` warns and continues in that case, and retries transient HTTP 403s that GitHub can return right after a visibility change.) `scripts/github/go-public.sh` is kept for re-running the flip on a fork or a fresh copy.
 
 Verify:
 

@@ -226,6 +226,7 @@ Last updated: 2026-10-03
 - [ ] Vercel and Render connected (secrets not set)
 
 Full project plan: [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) (cluster, data, OpenAI usage, timeline, risks, open decisions).
+Task breakdown: [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md) (phases, gates, task IDs, owners, issues).
 
 **Phase 2: Graph slice (M2), not started**
 - [ ] Disease cluster chosen (see [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))

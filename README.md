@@ -225,6 +225,8 @@ Last updated: 2026-10-03
 - [ ] CI, security, deploy workflows green on `main` (Actions jobs are not starting on this account yet)
 - [ ] Vercel and Render connected (secrets not set)
 
+Full project plan: [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) (cluster, data, OpenAI usage, timeline, risks, open decisions).
+
 **Phase 2: Graph slice (M2), not started**
 - [ ] Disease cluster chosen (see [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))
 - [ ] Ingest for MONDO, HPO, ClinVar and PubMed in the slice

@@ -10,6 +10,9 @@ Status: **conventions only**. The pipeline (`make data`) is Phase 2 and does not
 data/
 ├── README.md          this file (committed)
 ├── scripts/           dataset build scripts (committed)
+├── curated/           hand-curated orgs, assets, mechanisms, condition aliases (committed)
+├── cache/             compact source payloads for the slice (committed, < 5 MB)
+│   └── <source>/payload.json
 ├── raw/               downloaded source records (NOT committed)
 │   └── <source>/<YYYY-MM-DD>/...
 └── processed/         built snapshots (NOT committed)
@@ -20,6 +23,7 @@ data/
         └── manifest.json
 ```
 
+- `cache/` is committed. Each `payload.json` holds only the fields the normalizers need, plus `meta` (`url`, `source_version`, `retrieved_at`). Refresh it online with `cd backend && uv run python -m atlas.ingest fetch [--source monarch|hpo|go|clinvar|clinicaltrials]`. The HPO step downloads `phenotype.hpoa` and `hp.obo` (about 47 MB) to `raw/hpo/` and commits only the IC map for slice phenotypes.
 - `raw/` and `processed/` are gitignored. Raw dumps can be large, and some sources (for example OMIM) restrict redistribution.
 - `scripts/` is committed. Everything in `processed/` must be reproducible from `scripts/`, the backend packages and the public sources.
 - Never put patient-identifying data anywhere under `data/`. See [SECURITY.md](../SECURITY.md).

@@ -1,0 +1,80 @@
+{
+ "counts": {
+  "HGNC:11120": {
+   "likely_pathogenic": 251,
+   "pathogenic": 231,
+   "pathogenic_or_likely_pathogenic": 401,
+   "total": 1231
+  },
+  "HGNC:11138": {
+   "likely_pathogenic": 4,
+   "pathogenic": 36,
+   "pathogenic_or_likely_pathogenic": 40,
+   "total": 208
+  },
+  "HGNC:1665": {
+   "likely_pathogenic": 19,
+   "pathogenic": 48,
+   "pathogenic_or_likely_pathogenic": 63,
+   "total": 595
+  },
+  "HGNC:18618": {
+   "likely_pathogenic": 6,
+   "pathogenic": 16,
+   "pathogenic_or_likely_pathogenic": 20,
+   "total": 4089
+  },
+  "HGNC:18986": {
+   "likely_pathogenic": 33,
+   "pathogenic": 97,
+   "pathogenic_or_likely_pathogenic": 126,
+   "total": 514
+  },
+  "HGNC:2529": {
+   "likely_pathogenic": 25,
+   "pathogenic": 68,
+   "pathogenic_or_likely_pathogenic": 89,
+   "total": 871
+  },
+  "HGNC:30213": {
+   "likely_pathogenic": 49,
+   "pathogenic": 83,
+   "pathogenic_or_likely_pathogenic": 121,
+   "total": 1321
+  },
+  "HGNC:4177": {
+   "likely_pathogenic": 281,
+   "pathogenic": 151,
+   "pathogenic_or_likely_pathogenic": 385,
+   "total": 814
+  },
+  "HGNC:9498": {
+   "likely_pathogenic": 60,
+   "pathogenic": 67,
+   "pathogenic_or_likely_pathogenic": 116,
+   "total": 1047
+  }
+ },
+ "meta": {
+  "retrieved_at": "2026-10-03T23:10:03Z",
+  "source_version": "Build260929-0200.1",
+  "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+ },
+ "queries": {
+  "likely_pathogenic": "{symbol}[gene] AND clinsig_likely_pathogenic[prop]",
+  "pathogenic": "{symbol}[gene] AND clinsig_pathogenic[prop]",
+  "pathogenic_or_likely_pathogenic": "{symbol}[gene] AND (clinsig_pathogenic[prop] OR clinsig_likely_pathogenic[prop])",
+  "total": "{symbol}[gene]"
+ },
+ "symbols": {
+  "HGNC:11120": "SMPD1",
+  "HGNC:11138": "SNCA",
+  "HGNC:1665": "SCARB2",
+  "HGNC:18618": "LRRK2",
+  "HGNC:18986": "GBA2",
+  "HGNC:2529": "CTSD",
+  "HGNC:30213": "ATP13A2",
+  "HGNC:4177": "GBA1",
+  "HGNC:9498": "PSAP"
+ }
+}

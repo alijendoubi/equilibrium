@@ -1,0 +1,262 @@
+{
+ "meta": {
+  "retrieved_at": "2026-10-03T23:10:59Z",
+  "source_version": "ctgov data 2026-10-02T09:00:04",
+  "url": "https://clinicaltrials.gov/api/v2/studies"
+ },
+ "queries": [
+  {
+   "limit": 200,
+   "name": "gaucher",
+   "params": {
+    "query.cond": "Gaucher Disease"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "saposin_c",
+   "params": {
+    "query.cond": "saposin C deficiency"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "prosaposin",
+   "params": {
+    "query.cond": "prosaposin deficiency"
+   }
+  },
+  {
+   "limit": 100,
+   "name": "pd_gba",
+   "params": {
+    "query.cond": "Parkinson Disease",
+    "query.term": "GBA OR GBA1"
+   }
+  },
+  {
+   "limit": 30,
+   "name": "lbd_gba",
+   "params": {
+    "query.cond": "Lewy Body Disease",
+    "query.term": "GBA OR GBA1"
+   }
+  },
+  {
+   "limit": 50,
+   "name": "ambroxol",
+   "params": {
+    "query.intr": "ambroxol"
+   }
+  },
+  {
+   "limit": 50,
+   "name": "venglustat",
+   "params": {
+    "query.intr": "venglustat"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "pr001",
+   "params": {
+    "query.intr": "LY3884961 OR PR001"
+   }
+  },
+  {
+   "limit": 50,
+   "name": "niemann_pick_ab",
+   "params": {
+    "query.cond": "Niemann-Pick Disease, Type A OR Niemann-Pick Disease, Type B"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "amrf",
+   "params": {
+    "query.cond": "action myoclonus renal failure"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "kufor_rakeb",
+   "params": {
+    "query.cond": "Kufor-Rakeb syndrome"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "cln10",
+   "params": {
+    "query.cond": "CLN10 OR neuronal ceroid lipofuscinosis 10"
+   }
+  },
+  {
+   "limit": 20,
+   "name": "spg46",
+   "params": {
+    "query.cond": "spastic paraplegia 46"
+   }
+  }
+ ],
+ "query_counts": {
+  "ambroxol": 40,
+  "amrf": 0,
+  "cln10": 7,
+  "gaucher": 181,
+  "kufor_rakeb": 2,
+  "lbd_gba": 4,
+  "niemann_pick_ab": 44,
+  "pd_gba": 57,
+  "pr001": 3,
+  "prosaposin": 0,
+  "saposin_c": 0,
+  "spg46": 0,
+  "venglustat": 19
+ },
+ "studies": {
+  "NCT00029965": {
+   "acronym": null,
+   "brief_summary": "Study description: This is a natural history study that will evaluate any patient with enzyme or DNA confirmed GM1 or GM2 gangliosidosis, sialidosis or galactosialidosis. Patients may be evaluated every 6 months for infantile onset disease, yearly for juvenile onset and approximately every two years for adult-onset disease as long as they are clinically stable to travel. Data will be evaluated...",
+   "brief_title": "Natural History of Glycosphingolipid Storage Disorders and Glycoprotein Disorders",
+   "conditions": [
+    "Neurological Regression",
+    "Myoclonus",
+    "Cherry Red Spot",
+    "Brain Atrophy"
+   ],
+   "enrollment": 200,
+   "enrollment_type": "ESTIMATED",
+   "has_results": false,
+   "interventions": [],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "nct_id": "NCT00029965",
+   "phases": [],
+   "primary_completion": null,
+   "sponsor": "National Human Genome Research Institute (NHGRI)",
+   "start_date": "2002-02-06",
+   "status": "RECRUITING",
+   "study_type": "OBSERVATIONAL",
+   "why_stopped": null
+  },
+  "NCT04411654": {
+   "acronym": null,
+   "brief_summary": "J3Z-MC-OJAB is an open-label, Phase 1/2, multicenter study to evaluate the safety and efficacy of single-dose LY3884961 (formerly PR001) in infants diagnosed with Type 2 Gaucher disease (GD2). For each patient, the study will be approximately 5 years in duration. During the first 12 months after dosing, patients will be evaluated for the effects of LY3884961 on safety, tolerability,...",
+   "brief_title": "Phase 1/2 Clinical Trial of PR001 in Infants With Type 2 Gaucher Disease (PROVIDE)",
+   "conditions": [
+    "Gaucher Disease, Type 2"
+   ],
+   "enrollment": 7,
+   "enrollment_type": "ACTUAL",
+   "has_results": false,
+   "interventions": [
+    {
+     "name": "LY3884961",
+     "type": "GENETIC"
+    },
+    {
+     "name": "Methylprednisolone",
+     "type": "DRUG"
+    },
+    {
+     "name": "Sirolimus",
+     "type": "DRUG"
+    },
+    {
+     "name": "Prednisone",
+     "type": "DRUG"
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "pr001",
+    "seed"
+   ],
+   "nct_id": "NCT04411654",
+   "phases": [
+    "PHASE1",
+    "PHASE2"
+   ],
+   "primary_completion": "2027-02",
+   "sponsor": "Prevail Therapeutics",
+   "start_date": "2021-06-29",
+   "status": "ACTIVE_NOT_RECRUITING",
+   "study_type": "INTERVENTIONAL",
+   "why_stopped": null
+  },
+  "NCT05222906": {
+   "acronym": "LEAP2MONO",
+   "brief_summary": "This is a parallel arm, Phase 3, double-blind, double-dummy, active-comparator, 2 arm study to evaluate the efficacy and safety of daily oral venglustat versus intravenous Cerezyme infusions every two weeks for improvement or stabilization of the neurological manifestations and maintenance of systemic disease stability in participants aged ≥12 and \\<18 years and adult patients with Gaucher...",
+   "brief_title": "Study to Evaluate the Efficacy and Safety of Venglustat in Adult and Pediatric Patients With Gaucher Disease Type 3",
+   "conditions": [
+    "Gaucher's Disease Type III"
+   ],
+   "enrollment": 43,
+   "enrollment_type": "ACTUAL",
+   "has_results": false,
+   "interventions": [
+    {
+     "name": "Venglustat",
+     "type": "DRUG"
+    },
+    {
+     "name": "imiglucerase",
+     "type": "DRUG"
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "seed",
+    "venglustat"
+   ],
+   "nct_id": "NCT05222906",
+   "phases": [
+    "PHASE3"
+   ],
+   "primary_completion": "2025-10-02",
+   "sponsor": "Sanofi",
+   "start_date": "2022-04-18",
+   "status": "ACTIVE_NOT_RECRUITING",
+   "study_type": "INTERVENTIONAL",
+   "why_stopped": null
+  },
+  "NCT05778617": {
+   "acronym": "ASPro-PD",
+   "brief_summary": "This is a UK only clinical trial in patients with Parkinson's disease (PD) of a drug called ambroxol hydrochloride, which is an already licensed drug for the treatment of respiratory conditions (such as a common cold) in many European countries. The aim of this trial is to find out whether ambroxol hydrochloride can slow down the progression of Parkinson's disease and to evaluate it's safety and...",
+   "brief_title": "Ambroxol to Slow Progression in Parkinson Disease",
+   "conditions": [
+    "Parkinson Disease"
+   ],
+   "enrollment": 330,
+   "enrollment_type": "ESTIMATED",
+   "has_results": false,
+   "interventions": [
+    {
+     "name": "Ambroxol Hydrochloride (420mg)",
+     "type": "DRUG"
+    },
+    {
+     "name": "Placebo",
+     "type": "DRUG"
+    }
+   ],
+   "matched_queries": [
+    "ambroxol",
+    "pd_gba",
+    "seed"
+   ],
+   "nct_id": "NCT05778617",
+   "phases": [
+    "PHASE3"
+   ],
+   "primary_completion": "2029-02",
+   "sponsor": "University College, London",
+   "start_date": "2025-02-25",
+   "status": "RECRUITING",
+   "study_type": "INTERVENTIONAL",
+   "why_stopped": null
+  }
+ }
+}

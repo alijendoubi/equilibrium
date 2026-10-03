@@ -58,7 +58,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 ## 4. Connect Vercel (frontend)
 
 1. In Vercel, add a new project and import `alijendoubi/equilibrium`.
-2. Set **Root Directory** to `frontend`. The framework preset is Next.js and the install command is pnpm, both detected automatically.
+2. Leave **Root Directory** empty. `deploy.yml` already runs the Vercel CLI from `frontend/`, so setting it to `frontend` would make Vercel look for `frontend/frontend`. The framework preset (Next.js) and the pnpm install command are detected automatically.
 3. Add environment variables for both Production and Preview:
    - `NEXT_PUBLIC_API_URL`: the Render backend URL, for example `https://<service>.onrender.com`
    - `BACKEND_URL`: the same URL
@@ -72,13 +72,13 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 ## 5. Connect Render (backend)
 
 1. In Render, create a new **Web Service** from `alijendoubi/equilibrium`.
-2. Set the runtime to **Docker**, the **Root Directory** to `backend`, and the Dockerfile path to `backend/Dockerfile` (relative to the root as configured).
+2. Set the runtime to **Docker**, the **Root Directory** to `backend`, and the Dockerfile path to `./Dockerfile` (Render resolves it relative to the Root Directory).
 3. Set the **Health Check Path** to `/health`.
 4. Add environment variables:
    - `OPENAI_API_KEY`
    - `OPENAI_MODEL=gpt-4.1-mini`
    - `CORS_ORIGINS`: the Vercel production URL and the preview pattern
-   - `LOG_LEVEL=info`
+   - `LOG_LEVEL=INFO`
    - optionally `NCBI_API_KEY` and `OMIM_API_KEY`
 5. Turn auto-deploy off if deploys should come only from `deploy.yml` on `main`.
 6. Under Settings, then **Deploy Hook**, copy the URL and run `gh secret set RENDER_DEPLOY_HOOK_URL`.
@@ -101,10 +101,10 @@ make check            # same gates as CI
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `pr-title` fails | Title is not a Conventional Commit | Edit the title, for example `feat(ui): add edge panel`. The check re-runs. |
-| `secrets-scan` fails | gitleaks found a secret-like string | If it is real: **rotate the key** (see SECURITY.md) and remove it. If it is a false positive: add a narrow allowlist entry to the gitleaks config in a `chore/` PR. |
+| `secrets-scan` fails | gitleaks found a secret-like string | If it is real: **rotate the key** (see SECURITY.md) and remove it. If it is a false positive: add a narrow allowlist entry to `.gitleaks.toml` in a `chore/` PR. |
 | `backend` fails on lint or format | ruff | `make fmt`, then `make lint` |
 | `backend` fails on coverage | Coverage below 80% | Add tests. Do not lower the threshold. |
-| `backend` fails on typecheck | mypy or pyright errors | Run `make typecheck` locally and fix the types |
+| `backend` fails on typecheck | mypy errors | Run `make typecheck` locally and fix the types |
 | `frontend` fails on install | Lockfile out of date | `cd frontend && pnpm install` and commit `pnpm-lock.yaml` |
 | `frontend` fails on build | Type errors or a missing env | `make build`. Env vars needed at build time must have safe defaults. |
 | Required check shows "Expected - waiting" forever | The job name differs from the required check name, or the workflow was path-filtered out | Make sure the job names are exactly `backend` and `frontend`. Path-filtered workflows still need to report a status. |

@@ -3,7 +3,7 @@
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import Field, SecretStr
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 LogLevel = Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]
@@ -29,6 +29,20 @@ class Settings(BaseSettings):
     omim_api_key: SecretStr | None = Field(default=None, alias="OMIM_API_KEY")
     cors_origins: str = Field(default=DEFAULT_CORS_ORIGINS, alias="CORS_ORIGINS")
     log_level: LogLevel = Field(default="INFO", alias="LOG_LEVEL")
+
+    @field_validator("log_level", mode="before")
+    @classmethod
+    def _normalise_log_level(cls, value: object) -> object:
+        """Accept `info`, `Info`, etc. so a lowercase env value does not crash startup."""
+        return value.strip().upper() if isinstance(value, str) else value
+
+    @field_validator("cors_origins")
+    @classmethod
+    def _reject_wildcard_origin(cls, value: str) -> str:
+        """Refuse `*`: list explicit origins so CORS stays safe if credentials are added later."""
+        if any(origin.strip() == "*" for origin in value.split(",")):
+            raise ValueError("CORS_ORIGINS must list explicit origins, not '*'")
+        return value
 
     @property
     def cors_origin_list(self) -> tuple[str, ...]:

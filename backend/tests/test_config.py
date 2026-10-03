@@ -59,6 +59,21 @@ def test_invalid_log_level_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
         Settings()
 
 
+@pytest.mark.parametrize("raw", ["info", "Info", " debug "])
+def test_log_level_is_case_insensitive(monkeypatch: pytest.MonkeyPatch, raw: str) -> None:
+    monkeypatch.setenv("LOG_LEVEL", raw)
+
+    assert Settings().log_level == raw.strip().upper()
+
+
+@pytest.mark.parametrize("raw", ["*", "https://a.example, *"])
+def test_wildcard_cors_origin_is_rejected(monkeypatch: pytest.MonkeyPatch, raw: str) -> None:
+    monkeypatch.setenv("CORS_ORIGINS", raw)
+
+    with pytest.raises(ValidationError):
+        Settings()
+
+
 def test_settings_are_immutable() -> None:
     settings = Settings()
 

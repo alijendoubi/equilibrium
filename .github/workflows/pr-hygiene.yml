@@ -44,6 +44,8 @@ jobs:
 
   labeler:
     name: labeler
+    # Fork PRs get a read-only token; skip instead of failing on label writes.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -58,6 +60,8 @@ jobs:
 
   size:
     name: size
+    # Fork PRs get a read-only token; skip instead of failing on label writes.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:

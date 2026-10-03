@@ -24,6 +24,7 @@ This repo is built in a 24-hour hackathon. These rules exist to keep `main` demo
 | `docs/` | Documentation only |
 | `chore/` | Tooling, CI, deps, repo config |
 | `data/` | New or changed data source, ingest or snapshot logic |
+| `refactor/`, `test/`, `perf/`, `ci/` | Optional, finer-grained prefixes that match the PR title types |
 
 Use kebab-case and keep it short, for example `feat/cluster-view`, `data/clinvar-ingest` or `fix/cors-origins`.
 

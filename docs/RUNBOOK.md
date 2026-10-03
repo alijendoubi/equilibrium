@@ -76,7 +76,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 3. Set the **Health Check Path** to `/health`.
 4. Add environment variables:
    - `OPENAI_API_KEY`
-   - `OPENAI_MODEL=gpt-4.1-mini`
+   - optionally `OPENAI_MODEL_EXTRACT`, `OPENAI_MODEL_EXPLAIN`, `OPENAI_MODEL_RECONCILE`, `OPENAI_EMBED_MODEL` (defaults: `gpt-6.1-sol`, `gpt-6.1-sol`, `gpt-6-luna`, `text-embedding-3-small`)
    - `CORS_ORIGINS`: the Vercel production URL and the preview pattern
    - `LOG_LEVEL=INFO`
    - optionally `NCBI_API_KEY` and `OMIM_API_KEY`

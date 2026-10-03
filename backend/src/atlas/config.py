@@ -9,7 +9,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 LogLevel = Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]
 
 DEFAULT_CORS_ORIGINS = "http://localhost:3000"
-DEFAULT_OPENAI_MODEL = "gpt-4.1-mini"
+DEFAULT_OPENAI_MODEL_EXTRACT = "gpt-6.1-sol"
+DEFAULT_OPENAI_MODEL_EXPLAIN = "gpt-6.1-sol"
+DEFAULT_OPENAI_MODEL_RECONCILE = "gpt-6-luna"
+DEFAULT_OPENAI_EMBED_MODEL = "text-embedding-3-small"
 
 
 class Settings(BaseSettings):
@@ -24,7 +27,18 @@ class Settings(BaseSettings):
     )
 
     openai_api_key: SecretStr | None = Field(default=None, alias="OPENAI_API_KEY")
-    openai_model: str = Field(default=DEFAULT_OPENAI_MODEL, alias="OPENAI_MODEL")
+    openai_model_extract: str = Field(
+        default=DEFAULT_OPENAI_MODEL_EXTRACT, min_length=1, alias="OPENAI_MODEL_EXTRACT"
+    )
+    openai_model_explain: str = Field(
+        default=DEFAULT_OPENAI_MODEL_EXPLAIN, min_length=1, alias="OPENAI_MODEL_EXPLAIN"
+    )
+    openai_model_reconcile: str = Field(
+        default=DEFAULT_OPENAI_MODEL_RECONCILE, min_length=1, alias="OPENAI_MODEL_RECONCILE"
+    )
+    openai_embed_model: str = Field(
+        default=DEFAULT_OPENAI_EMBED_MODEL, min_length=1, alias="OPENAI_EMBED_MODEL"
+    )
     ncbi_api_key: SecretStr | None = Field(default=None, alias="NCBI_API_KEY")
     omim_api_key: SecretStr | None = Field(default=None, alias="OMIM_API_KEY")
     cors_origins: str = Field(default=DEFAULT_CORS_ORIGINS, alias="CORS_ORIGINS")

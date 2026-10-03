@@ -1,0 +1,155 @@
+# Curated reusable assets (trials, registries, biomarkers, publications) for the gba1 slice.
+# Schema and rules: data/curated/README.md
+# Trial fields are copied from ClinicalTrials.gov API v2 on the retrieved date. They describe
+# registry records only and make no efficacy or dosing recommendation.
+
+assets:
+  - id: aspro-pd
+    name: ASPro-PD - Ambroxol to Slow Progression in Parkinson Disease
+    type: interventional_trial
+    url: https://clinicaltrials.gov/study/NCT05778617
+    source_record_id: NCT05778617
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {phase: "3", status: RECRUITING, enrollment_estimated: 330, sponsor: University College London, primary_completion: 2029-02}
+    notes: >-
+      UK only. PD within 7 years, age 35-75, GBA1 status known (positive or negative).
+      Ambroxol titrated to 1260 mg/day vs placebo for 104 weeks; primary endpoint MDS-UPDRS I-III.
+      Reusable for nGD: safety data, GBA1 stratification, biomarker protocols.
+
+  - id: ambroxol-iir-registry
+    name: Registry of real-world data on ambroxol for Gaucher disease or GBA carriers with PD
+    type: observational_registry
+    url: https://clinicaltrials.gov/study/NCT04388969
+    source_record_id: NCT04388969
+    disease_ids: [MONDO:0018150, MONDO:0008199]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {status: RECRUITING, enrollment_estimated: 300, sponsor: Shaare Zedek Medical Center, completion: 2030-11-30}
+    notes: Already spans both communities - the strongest existing bridge asset.
+
+  - id: provide-pr001-gd2
+    name: PROVIDE - PR001 (LY3884961) gene therapy in infants with type 2 Gaucher disease
+    type: interventional_trial
+    url: https://clinicaltrials.gov/study/NCT04411654
+    source_record_id: NCT04411654
+    disease_ids: [MONDO:0009266]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {phase: "1/2", status: ACTIVE_NOT_RECRUITING, enrollment_actual: 7, sponsor: Prevail Therapeutics}
+    notes: Same product as PROPEL (NCT04127578) in GBA1-PD.
+
+  - id: propel-pr001-gba-pd
+    name: PROPEL - PR001 (LY3884961) in PD with at least one GBA1 variant
+    type: interventional_trial
+    url: https://clinicaltrials.gov/study/NCT04127578
+    source_record_id: NCT04127578
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {phase: "1/2", status: ACTIVE_NOT_RECRUITING, enrollment_estimated: 32, sponsor: Prevail Therapeutics}
+    notes: Same product as PROVIDE (NCT04411654) in Gaucher type 2.
+
+  - id: leap2mono-venglustat-gd3
+    name: LEAP2MONO - venglustat vs imiglucerase in Gaucher disease type 3
+    type: interventional_trial
+    url: https://clinicaltrials.gov/study/NCT05222906
+    source_record_id: NCT05222906
+    disease_ids: [MONDO:0009267]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {phase: "3", status: ACTIVE_NOT_RECRUITING, enrollment_actual: 43, sponsor: Sanofi}
+    notes: >-
+      Sanofi press release 2026-02-02 reports both primary endpoints met (SARA modified, RBANS
+      at week 52 vs ERT): https://www.sanofi.com/en/media-room/press-releases/2026/2026-02-02-06-00-00-3229947
+      Counterexample pair with MOVES-PD. FDA target action date 2026-11-25 reported in press
+      coverage [U on fda.gov].
+
+  - id: moves-pd-venglustat
+    name: MOVES-PD - venglustat in PD with a GBA mutation
+    type: interventional_trial
+    url: https://clinicaltrials.gov/study/NCT02906020
+    source_record_id: NCT02906020
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {phase: "2", status: TERMINATED, enrollment_actual: 273, sponsor: Genzyme, has_results: true}
+    notes: >-
+      whyStopped - did not meet the primary or secondary endpoints. Giladi et al. Lancet Neurol
+      2023, PMID 37479372: no beneficial effect vs placebo. Counterexample to "shared mechanism
+      means shared therapy".
+
+  - id: activate-bia-28-6156
+    name: ACTIVATE - BIA 28-6156 (GCase activator) in GBA-PD
+    type: interventional_trial
+    url: https://clinicaltrials.gov/study/NCT05819359
+    source_record_id: NCT05819359
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {phase: "2", status: ACTIVE_NOT_RECRUITING, enrollment_estimated: 237, sponsor: Bial}
+    notes: PD-side GCase-targeted asset; results pending.
+
+  - id: icgg-gaucher-registry
+    name: International Collaborative Gaucher Group (ICGG) Gaucher Disease Registry
+    type: natural_history_registry
+    url: https://clinicaltrials.gov/study/NCT00358943
+    source_record_id: NCT00358943
+    disease_ids: [MONDO:0018150]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {status: RECRUITING, enrollment_estimated: 12000, sponsor: Genzyme (Sanofi), start: 1991-04-01}
+    notes: >-
+      Do NOT link gaucherregistry.com - on 2026-10-03 it served an online casino.
+      https://www.icgg.org resolves but was not read.
+
+  - id: gaucher-outcome-survey
+    name: Gaucher Disease Outcome Survey (GOS)
+    type: natural_history_registry
+    url: https://clinicaltrials.gov/study/NCT03291223
+    source_record_id: NCT03291223
+    disease_ids: [MONDO:0018150]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    attributes: {status: RECRUITING, enrollment_estimated: 1257, sponsor: Shire (Takeda), start: 2010-12-29}
+    notes: Second long-running Gaucher registry.
+
+  - id: narita-2016-ambroxol-ngd-pilot
+    name: Ambroxol chaperone therapy for neuronopathic Gaucher disease - a pilot study (Narita et al. 2016)
+    type: publication_clinical_evidence
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4774255/
+    source_record_id: PMID:27042680
+    disease_ids: [MONDO:0009266, MONDO:0009267]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    notes: >-
+      Open-label, 5 patients, ambroxol with ERT, target 25 mg/kg/day (max 1300 mg/day).
+      Reported BBB penetration, higher lymphocyte GCase, lower CSF glucosylsphingosine.
+      Pilot evidence only, not treatment guidance.
+
+  - id: biomarker-lyso-gb1
+    name: Glucosylsphingosine (lyso-Gb1)
+    type: biomarker
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9966520/
+    source_record_id: PMID:36835356
+    disease_ids: [MONDO:0018150, MONDO:0009266, MONDO:0009267]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    notes: >-
+      Review of lyso-Gb1 in Gaucher treatment decisions (Int J Mol Sci 2023). CSF lyso-Gb1 was
+      a pharmacodynamic readout in Narita 2016; a candidate shared biomarker with GBA1-PD
+      studies [hypothesis - check whether ASPro-PD measures it, U].
+
+  - id: sapc-eliglustat-case
+    name: Repurposing Gaucher disease therapy for saposin C deficiency - eliglustat case
+    type: publication_case_report
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC13220302/
+    source_record_id: PMID:41812503
+    disease_ids: [MONDO:0012517]
+    retrieved: 2026-10-03
+    curator: claude-agent, needs human check
+    notes: >-
+      Single patient, 9 years of eliglustat: systemic improvement, no seizure improvement.
+      States no specific therapy is approved for saposin C deficiency. The only weak lead on the
+      honest-gap card.

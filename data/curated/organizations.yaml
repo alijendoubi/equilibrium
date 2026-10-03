@@ -1,0 +1,90 @@
+# Curated patient and research organizations for the gba1 slice.
+# Schema and rules: data/curated/README.md
+# Every entry needs a url and a retrieved date. "verified" says what was actually checked.
+
+organizations:
+  - id: national-gaucher-foundation
+    name: National Gaucher Foundation
+    type: patient_org
+    url: https://www.gaucherdisease.org
+    disease_ids: [MONDO:0018150, MONDO:0009265, MONDO:0009266, MONDO:0009267]
+    retrieved: 2026-10-03
+    verified: url resolves (HTTP 200); scope page not read
+    curator: claude-agent, needs human check
+    notes: US Gaucher patient organization. Confirm it covers types 2 and 3 and the GBA1-PD link.
+
+  - id: international-gaucher-alliance
+    name: International Gaucher Alliance
+    type: patient_org_umbrella
+    url: https://www.gaucheralliance.org
+    disease_ids: [MONDO:0018150, MONDO:0009266, MONDO:0009267]
+    retrieved: 2026-10-03
+    verified: homepage read
+    curator: claude-agent, needs human check
+    notes: >-
+      Umbrella of national Gaucher patient organisations; UK charity 1192011.
+      Self-description says it brings together patient organisations, people living with
+      Gaucher disease and families to improve diagnosis, access to treatment and care.
+      Closest community for saposin C deficiency families (no dedicated org found).
+
+  - id: gauchers-association-uk
+    name: The Gauchers Association
+    type: patient_org
+    url: https://www.gaucher.org.uk
+    disease_ids: [MONDO:0018150, MONDO:0009266, MONDO:0009267, MONDO:0008199]
+    retrieved: 2026-10-03
+    verified: homepage read
+    curator: claude-agent, needs human check
+    notes: >-
+      UK charity 1095657. Covers types 1, 2 and 3 and has a "Parkinsons and Gaucher disease"
+      page, so it already bridges both communities.
+
+  - id: mjff-gba1-pd-catalyst
+    name: Michael J. Fox Foundation - GBA1 Parkinson's Disease Research Catalyst Program
+    type: research_funder_program
+    url: https://www.michaeljfox.org/grant/gba1-parkinsons-disease-research-catalyst-program
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    verified: url resolves (HTTP 200); content summarised via web search
+    curator: claude-agent, needs human check
+    notes: >-
+      Funding programme for GBA1-associated PD with partners ASAP, Parkinson's UK and
+      Parkinson Canada / McGill (G-Can). Emphasises shared datasets, research assets and model
+      standardisation, a natural partner for a Gaucher-PD collaboration brief.
+
+  - id: cure-parkinsons
+    name: Cure Parkinson's
+    type: research_charity
+    url: https://cureparkinsons.org.uk/research/research-projects/ambroxol/
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    verified: page read
+    curator: claude-agent, needs human check
+    notes: >-
+      Co-funder of ASPro-PD (NCT05778617) with Van Andel Institute, John Black Charitable
+      Foundation and Parkinson's Virtual Biotech. States about 165 of 330 participants carry
+      GBA1 variants.
+
+  - id: parkinsons-uk
+    name: Parkinson's UK
+    type: patient_org
+    url: https://www.parkinsons.org.uk
+    disease_ids: [MONDO:0008199]
+    retrieved: 2026-10-03
+    verified: url resolves (HTTP 200)
+    curator: claude-agent, needs human check
+    notes: Listed as a partner of the MJFF GBA1-PD Research Catalyst Program (per MJFF programme description).
+
+# Diseases in the slice with NO dedicated patient organization found (feeds the coverage report).
+no_dedicated_org_found:
+  - disease_id: MONDO:0012517
+    name: Gaucher disease due to saposin C deficiency
+    searched: [web search, NORD (disease page only), Global Genes (disease page only)]
+    not_searched: [Orphanet patient-org directory]
+    retrieved: 2026-10-03
+    closest_communities: [international-gaucher-alliance, national-gaucher-foundation]
+  - disease_id: MONDO:0009699
+    name: action myoclonus-renal failure syndrome
+    searched: [web search]
+    retrieved: 2026-10-03
+    notes: not searched in depth [U]

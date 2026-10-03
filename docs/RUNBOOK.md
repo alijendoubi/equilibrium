@@ -12,7 +12,7 @@ bash scripts/github/bootstrap-repo.sh
 
 The script applies the following. Read the script for the exact behavior.
 - the `main-protection` ruleset from `.github/rulesets/main.json`:
-  - PR required, 1 approval, stale approvals dismissed
+  - PR required, code-owner approval (@alijendoubi only), stale approvals dismissed, approval must come after the last push
   - review threads must be resolved
   - squash-only merges, linear history, no force push
   - required checks `backend`, `frontend`, `pr-title` and `secrets-scan`

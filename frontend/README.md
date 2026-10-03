@@ -30,10 +30,24 @@ the app itself unless `E2E_BASE_URL` points at a running instance.
 Copy `.env.example` to `.env.local`. Both default to `http://localhost:8000` and are
 validated in `src/lib/env.ts`.
 
-| Variable              | Scope   | Purpose                                  |
-| --------------------- | ------- | ---------------------------------------- |
-| `NEXT_PUBLIC_API_URL` | browser | Backend base URL (inlined at build time) |
-| `BACKEND_URL`         | server  | Backend base URL used by route handlers  |
+| Variable                | Scope   | Purpose                                                  |
+| ----------------------- | ------- | -------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL`   | browser | Backend base URL (inlined at build time)                 |
+| `BACKEND_URL`           | server  | Backend base URL used by route handlers                  |
+| `NEXT_PUBLIC_USE_MOCKS` | both    | `false` switches the UI from `src/mocks` to the live API |
+
+## Routes and data
+
+| Route             | What it shows                                                                                      |
+| ----------------- | -------------------------------------------------------------------------------------------------- |
+| `/`               | Global search, example chips, Maria's three questions                                              |
+| `/search?q=`      | Results with type and match reason (exact, synonym, semantic); honest empty state                  |
+| `/disease/[id]`   | Summary first (cause, top symptoms, mechanism), then "Who shares this", "What exists", "What next" |
+| `/path?from=&to=` | Chain of chips; solid = data, dashed = hypothesis; side panel with the edge evidence               |
+
+Pages read data only through `AtlasClient` (`src/lib/api/client.ts`). Wire types are in
+`src/lib/api/types.ts`, and zod schemas in `src/lib/api/schemas.ts` validate both the mock
+JSON and live responses. Mocks are on by default: see `src/mocks/README.md`.
 
 `GET /api/health` returns `{ "status": "ok", "backend": "ok" | "unreachable" }`, probing
 `${BACKEND_URL}/health` with a 2 s timeout.

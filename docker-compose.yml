@@ -1,0 +1,38 @@
+name: equilibrium
+
+services:
+  backend:
+    build:
+      context: ./backend
+    image: equilibrium-backend:local
+    ports:
+      - '8000:8000'
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    healthcheck:
+      # Uses python (present in the backend image) so curl is not required.
+      test: ['CMD', 'python', '-c', "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 15s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    image: equilibrium-frontend:local
+    ports:
+      - '3000:3000'
+    environment:
+      BACKEND_URL: http://backend:8000
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

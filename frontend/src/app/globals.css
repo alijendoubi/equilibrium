@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Color carries meaning:
+ *   cluster  (teal)   - who shares our disease characteristics
+ *   evidence (amber)  - what useful work already exists
+ *   action   (violet) - what we should do together next
+ */
+:root {
+  --background: #fbfbf9;
+  --surface: #ffffff;
+  --foreground: #16181d;
+  --muted: #5b6170;
+  --border: #e3e5ea;
+  --cluster: #0f766e;
+  --evidence: #b45309;
+  --action: #6d28d9;
+  --focus: #2563eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0e1014;
+    --surface: #161920;
+    --foreground: #eceef2;
+    --muted: #a2a8b6;
+    --border: #2a2f3a;
+    --cluster: #2dd4bf;
+    --evidence: #fbbf24;
+    --action: #a78bfa;
+    --focus: #60a5fa;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-cluster: var(--cluster);
+  --color-evidence: var(--evidence);
+  --color-action: var(--action);
+  --color-focus: var(--focus);
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}

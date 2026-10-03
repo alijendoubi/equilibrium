@@ -1,0 +1,106 @@
+name: E2E
+
+# Non-required. Runs on demand, or on PRs carrying the `run-e2e` label.
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [labeled, opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: e2e
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.pull_request.labels.*.name, 'run-e2e')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+      BACKEND_URL: http://localhost:8000
+      CORS_ORIGINS: http://localhost:3000
+      NEXT_TELEMETRY_DISABLED: '1'
+      # Real API keys are intentionally NOT injected; e2e must run against fixtures/mocks.
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+          python-version: '3.12'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install backend
+        working-directory: backend
+        run: uv sync --frozen
+
+      - name: Install frontend
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        working-directory: frontend
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build frontend
+        working-directory: frontend
+        run: pnpm build
+
+      - name: Start backend
+        working-directory: backend
+        run: |
+          nohup uv run uvicorn atlas.api.main:app --host 127.0.0.1 --port 8000 > "$RUNNER_TEMP/backend.log" 2>&1 &
+
+      - name: Start frontend
+        working-directory: frontend
+        run: |
+          nohup pnpm start --port 3000 > "$RUNNER_TEMP/frontend.log" 2>&1 &
+
+      - name: Wait for services
+        run: |
+          for url in http://127.0.0.1:8000/health http://127.0.0.1:3000; do
+            for i in $(seq 1 60); do
+              if curl -fsS "$url" > /dev/null; then echo "up: $url"; break; fi
+              if [ "$i" = 60 ]; then echo "::error::timeout waiting for $url"; exit 1; fi
+              sleep 2
+            done
+          done
+
+      - name: Run Playwright
+        working-directory: frontend
+        env:
+          E2E_BASE_URL: http://localhost:3000  # playwright.config.ts skips its own webServer when set
+        run: pnpm test:e2e --reporter=github,html
+
+      - name: Service logs
+        if: always()
+        run: |
+          echo "::group::backend.log"; cat "$RUNNER_TEMP/backend.log" || true; echo "::endgroup::"
+          echo "::group::frontend.log"; cat "$RUNNER_TEMP/frontend.log" || true; echo "::endgroup::"
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            frontend/playwright-report/
+            frontend/test-results/
+          if-no-files-found: ignore
+          retention-days: 7

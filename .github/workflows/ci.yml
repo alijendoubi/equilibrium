@@ -1,0 +1,181 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  changes:
+    name: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      # Outside PRs (push to main, manual dispatch) everything runs.
+      backend: ${{ steps.filter.outputs.backend || 'true' }}
+      frontend: ${{ steps.filter.outputs.frontend || 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: github.event_name == 'pull_request'
+      - uses: dorny/paths-filter@v3
+        id: filter
+        if: github.event_name == 'pull_request'
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/ci.yml'
+            frontend:
+              - 'frontend/**'
+              - '.github/workflows/ci.yml'
+
+  # Required status check: name must stay exactly "backend".
+  # The job always runs and reports; real steps are gated on path changes.
+  backend:
+    name: backend
+    needs: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RUN: ${{ needs.changes.outputs.backend == 'true' || github.event_name == 'push' }}
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+        if: env.RUN == 'true'
+
+      - uses: astral-sh/setup-uv@v6
+        if: env.RUN == 'true'
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+          python-version: '3.12'
+
+      - name: Install dependencies
+        if: env.RUN == 'true'
+        run: uv sync --frozen
+
+      - name: Ruff lint
+        if: env.RUN == 'true'
+        run: uv run ruff check .
+
+      - name: Ruff format check
+        if: env.RUN == 'true'
+        run: uv run ruff format --check .
+
+      - name: Mypy
+        if: env.RUN == 'true'
+        run: uv run mypy src
+
+      - name: Pytest (coverage gate configured in pyproject)
+        if: env.RUN == 'true'
+        run: uv run pytest --cov-report=xml:coverage.xml --cov-report=term-missing
+
+      - name: Coverage summary
+        if: env.RUN == 'true' && always()
+        run: |
+          if [ ! -f coverage.xml ]; then
+            echo "No coverage.xml produced." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import xml.etree.ElementTree as ET
+          root = ET.parse("coverage.xml").getroot()
+          rate = float(root.get("line-rate", 0)) * 100
+          covered = root.get("lines-covered", "?")
+          valid = root.get("lines-valid", "?")
+          print("### Backend coverage")
+          print("")
+          print(f"**{rate:.1f}%** lines covered ({covered}/{valid})")
+          print("")
+          print("| Package | Line rate |")
+          print("|---|---|")
+          for pkg in root.iter("package"):
+              print(f"| `{pkg.get('name') or '.'}` | {float(pkg.get('line-rate', 0)) * 100:.1f}% |")
+          PY
+
+      - name: Upload coverage.xml
+        if: env.RUN == 'true' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: backend/coverage.xml
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Skipped
+        if: env.RUN != 'true'
+        working-directory: .
+        run: echo "skipped — no changes under backend/"
+
+  # Required status check: name must stay exactly "frontend".
+  frontend:
+    name: frontend
+    needs: changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RUN: ${{ needs.changes.outputs.frontend == 'true' || github.event_name == 'push' }}
+      NEXT_TELEMETRY_DISABLED: '1'
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+        if: env.RUN == 'true'
+
+      - uses: pnpm/action-setup@v4
+        if: env.RUN == 'true'
+        with:
+          package_json_file: frontend/package.json
+
+      - uses: actions/setup-node@v4
+        if: env.RUN == 'true'
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        if: env.RUN == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        if: env.RUN == 'true'
+        run: pnpm lint
+
+      - name: Format check
+        if: env.RUN == 'true'
+        run: pnpm format:check
+
+      - name: Typecheck
+        if: env.RUN == 'true'
+        run: pnpm typecheck
+
+      - name: Unit tests
+        if: env.RUN == 'true'
+        run: pnpm test
+
+      - name: Build
+        if: env.RUN == 'true'
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:8000
+          BACKEND_URL: http://localhost:8000
+        run: pnpm build
+
+      - name: Skipped
+        if: env.RUN != 'true'
+        working-directory: .
+        run: echo "skipped — no changes under frontend/"

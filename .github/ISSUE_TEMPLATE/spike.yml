@@ -1,0 +1,30 @@
+name: Spike
+description: Timeboxed investigation to answer one question
+title: "spike: "
+labels: ["type:chore"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: The single question this spike answers.
+    validations:
+      required: true
+  - type: dropdown
+    id: timebox
+    attributes:
+      label: Timebox
+      options:
+        - 30 min
+        - 1 hour
+        - 2 hours
+        - 4 hours
+    validations:
+      required: true
+  - type: textarea
+    id: exit
+    attributes:
+      label: Exit criteria
+      description: What output ends the spike (decision, prototype, numbers)? Where is it recorded?
+    validations:
+      required: true

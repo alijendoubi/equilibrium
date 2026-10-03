@@ -1,0 +1,50 @@
+name: Feature
+description: A new capability or improvement
+title: "feat: "
+labels: ["type:feat"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / user story
+      description: Who needs this and why?
+      placeholder: As a clinician researching a rare disease, I want ... so that ...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Challenge module
+      options:
+        - Graph Builder
+        - Trust
+        - Action
+        - UX
+        - Infra
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 - blocks demo/submission
+        - P1 - needed for submission
+        - P2 - nice to have
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true

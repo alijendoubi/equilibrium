@@ -1,5 +1,6 @@
 import type { z } from "zod";
 import { getPublicEnv } from "@/lib/env";
+import { displayId } from "@/lib/format";
 import { loadMockDataset, type MockDataset } from "./mock-data";
 import {
   actionsResponseSchema,
@@ -42,7 +43,7 @@ const normalize = (s: string) => s.trim().toLowerCase();
 
 function matchNode(node: AtlasNode, q: string): SearchResult | null {
   const label = normalize(node.label);
-  if (label === q || normalize(node.id) === q) {
+  if (label === q || normalize(node.id) === q || normalize(displayId(node.id)) === q) {
     return { node, score: 1, match_reason: "exact", matched_text: node.label };
   }
   if (label.includes(q)) {
@@ -54,7 +55,7 @@ function matchNode(node: AtlasNode, q: string): SearchResult | null {
     return { node, score, match_reason: "synonym", matched_text: synonym };
   }
   const words = q.split(/\s+/).filter((w) => w.length > 3);
-  const description = node.description ?? "";
+  const description = node.attributes.description ?? "";
   const hits = words.filter((w) => normalize(description).includes(w));
   if (words.length > 0 && hits.length > 0) {
     const score = 0.4 * (hits.length / words.length);

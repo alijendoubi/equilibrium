@@ -14,6 +14,9 @@ function Row({ label, items, empty }: { label: string; items: LinkedNode[]; empt
             {items.map(({ node, edge }) => (
               <li key={node.id} className="flex items-center gap-1">
                 <NodeChip node={node} />
+                {edge.relation === "risk_factor_for" && (
+                  <span className="text-xs text-muted">risk factor</span>
+                )}
                 {edge.evidence_type === "inferred" && <EvidenceBadge type="inferred" />}
               </li>
             ))}

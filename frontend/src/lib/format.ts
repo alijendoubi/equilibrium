@@ -70,6 +70,7 @@ export const EVIDENCE_DESCRIPTION: Record<EvidenceType, string> = {
 
 const RELATION_LABEL: Record<string, string> = {
   caused_by: "caused by",
+  risk_factor_for: "is a risk factor for",
   participates_in: "takes part in",
   has_mechanism: "has mechanism",
   has_phenotype: "has symptom",
@@ -85,6 +86,15 @@ const RELATION_LABEL: Record<string, string> = {
 
 export function relationLabel(relation: string): string {
   return RELATION_LABEL[relation] ?? relation.replaceAll("_", " ");
+}
+
+/** Prefixes shown without the namespace, e.g. "clinicaltrials:NCT05778617" -> "NCT05778617". */
+const BARE_DISPLAY_PREFIXES = ["clinicaltrials:"];
+
+/** Human display text for a node id. The full CURIE stays the key in data and URLs. */
+export function displayId(id: string): string {
+  const prefix = BARE_DISPLAY_PREFIXES.find((p) => id.startsWith(p));
+  return prefix ? id.slice(prefix.length) : id;
 }
 
 /** Page for a node. Every node type uses the summary-first node page. */

@@ -10,7 +10,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { getAtlasClient } from "@/lib/api/client";
 import type { NodeSummary } from "@/lib/api/types";
 import { buildDiseaseSummary } from "@/lib/disease-summary";
-import { pathHref, relationLabel } from "@/lib/format";
+import { displayId, pathHref, relationLabel } from "@/lib/format";
 import { decodeSegment } from "@/lib/params";
 
 interface NodePageProps {
@@ -67,6 +67,7 @@ export default async function NodePage({ params }: NodePageProps) {
 
   const { node } = summary;
   const isDisease = node.type === "disease";
+  const description = node.attributes.description;
   const actions = isDisease ? await client.getActions(id) : null;
 
   return (
@@ -79,7 +80,7 @@ export default async function NodePage({ params }: NodePageProps) {
       <header className="mt-8">
         <div className="flex flex-wrap items-center gap-2">
           <TypeBadge type={node.type} />
-          <span className="text-xs text-muted">{node.id}</span>
+          <span className="text-xs text-muted">{displayId(node.id)}</span>
           {summary.coverage_status === "gap" && (
             <span className="rounded-full border border-dashed border-muted px-2 py-0.5 text-xs text-muted">
               Coverage gap
@@ -90,7 +91,7 @@ export default async function NodePage({ params }: NodePageProps) {
         {node.synonyms.length > 0 && (
           <p className="mt-2 text-sm text-muted">Also known as: {node.synonyms.join(", ")}</p>
         )}
-        {node.description && <p className="mt-4 leading-relaxed">{node.description}</p>}
+        {description && <p className="mt-4 leading-relaxed">{description}</p>}
       </header>
 
       {isDisease ? (

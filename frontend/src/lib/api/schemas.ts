@@ -9,13 +9,21 @@ import type {
   SearchResponse,
 } from "./types";
 
-/** Runtime validators for the wire types in ./types.ts. */
+/**
+ * Runtime validators. They mirror backend/src/atlas/models/evidence.py (the source of truth):
+ * node ids are CURIEs, edge ids are "E:" + 16 lowercase hex, and fields the backend may omit
+ * are defaulted so the parsed shapes match ./types.ts exactly.
+ */
 
-const CURIE = /^[A-Za-z][A-Za-z0-9_.-]*:\S+$/;
-const STUDY_ID = /^NCT\d{8}$/;
-const nodeId = z.string().refine((v) => CURIE.test(v) || STUDY_ID.test(v), {
-  message: "must be a CURIE (PREFIX:local) or an NCT id",
-});
+export const CURIE_PATTERN = /^[A-Za-z][A-Za-z0-9_.-]*:\S+$/;
+export const EDGE_ID_PATTERN = /^E:[0-9a-f]{16}$/;
+const EXTRACTOR_PATTERN = /^[a-z][a-z0-9_-]*:\S+$/;
+const LLM_EXTRACTOR_PREFIX = "openai:";
+
+export const curie = z.string().trim().regex(CURIE_PATTERN, "must be a CURIE (PREFIX:local)");
+export const edgeId = z.string().trim().regex(EDGE_ID_PATTERN, 'must be "E:" + 16 lowercase hex');
+const nonBlank = z.string().trim().min(1);
+const strMap = z.record(nonBlank, z.string());
 
 export const nodeTypeSchema = z.enum([
   "disease",
@@ -31,45 +39,96 @@ export const nodeTypeSchema = z.enum([
   "funder",
 ]);
 
+export const relationSchema = z.enum([
+  "caused_by",
+  "risk_factor_for",
+  "has_variant",
+  "variant_associated_with",
+  "has_mechanism",
+  "participates_in",
+  "has_phenotype",
+  "shares_mechanism_with",
+  "similar_phenotype_to",
+  "mentions",
+  "claims",
+  "authored_by",
+  "studies_condition",
+  "tests_intervention",
+  "investigates",
+  "funds",
+  "works_on",
+  "represents",
+  "operates",
+  "contradicts",
+]);
+
 export const evidenceTypeSchema = z.enum(["observed", "curated", "inferred"]);
 export const matchReasonSchema = z.enum(["exact", "synonym", "semantic"]);
 
 export const nodeSchema = z.object({
-  id: nodeId,
+  id: curie,
   type: nodeTypeSchema,
-  label: z.string().min(1),
-  synonyms: z.array(z.string().min(1)),
-  description: z.string().optional(),
-  xrefs: z.array(z.string().min(1)).optional(),
-  attributes: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(),
+  label: nonBlank,
+  synonyms: z.array(z.string()).default([]),
+  xrefs: z.array(curie).default([]),
+  attributes: strMap.default({}),
 });
 
-export const provenanceSchema = z
+export const provenanceSchema = z.object({
+  source: nonBlank,
+  source_record_id: nonBlank,
+  url: z
+    .url({ protocol: /^https?$/ })
+    .nullable()
+    .default(null),
+  retrieved_at: z.iso.datetime({ offset: true }),
+  source_version: nonBlank.nullish(),
+  evidence_quote: nonBlank.nullish(),
+  extractor: z.string().regex(EXTRACTOR_PATTERN).nullish(),
+  supporting_edge_ids: z.array(edgeId).default([]),
+});
+
+export const edgeSchema = z
   .object({
-    source: z.string().min(1),
-    source_record_id: z.string().min(1),
-    url: z.url({ protocol: /^https?$/ }).nullable(),
-    retrieved_at: z.iso.datetime(),
-    evidence_quote: z.string().min(1).optional(),
-    supporting_edge_ids: z.array(z.string().min(1)).optional(),
+    id: edgeId,
+    source_id: curie,
+    target_id: curie,
+    relation: relationSchema,
+    provenance: provenanceSchema,
+    confidence: z.number().min(0).max(1),
+    confidence_reasons: z.array(nonBlank).default([]),
+    evidence_type: evidenceTypeSchema,
+    contradicted_by: z.array(nonBlank).default([]),
+    qualifiers: strMap.default({}),
   })
-  .refine((p) => p.url !== null || p.source === "analytics", {
-    message: "url is required unless source is analytics",
-    path: ["url"],
+  .superRefine((edge, ctx) => {
+    // Same rules as backend Edge._evidence_is_checkable.
+    const p = edge.provenance;
+    if (p.url === null && edge.evidence_type !== "inferred") {
+      ctx.addIssue({
+        code: "custom",
+        path: ["provenance", "url"],
+        message: `${edge.evidence_type} edges must have provenance.url`,
+      });
+    }
+    if (p.url === null && edge.evidence_type === "inferred" && p.supporting_edge_ids.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["provenance", "supporting_edge_ids"],
+        message: "inferred edges without provenance.url must list supporting_edge_ids",
+      });
+    }
+    if (p.extractor?.startsWith(LLM_EXTRACTOR_PREFIX) && edge.evidence_type !== "inferred") {
+      ctx.addIssue({
+        code: "custom",
+        path: ["evidence_type"],
+        message: "LLM-extracted edges must have evidence_type 'inferred'",
+      });
+    }
+    if (p.supporting_edge_ids.includes(edge.id)) {
+      ctx.addIssue({ code: "custom", message: "an edge cannot list itself as supporting" });
+    }
   });
-
-export const edgeSchema = z.object({
-  id: z.string().regex(/^e_[a-z0-9_]+$/),
-  source_id: nodeId,
-  target_id: nodeId,
-  relation: z.string().min(1),
-  provenance: provenanceSchema,
-  confidence: z.number().min(0).max(1),
-  confidence_reasons: z.array(z.string().min(1)),
-  evidence_type: evidenceTypeSchema,
-  contradicted_by: z.array(z.string().min(1)),
-  qualifiers: z.record(z.string(), z.string()).optional(),
-});
 
 export const searchResponseSchema = z.object({
   query: z.string(),
@@ -85,7 +144,7 @@ export const searchResponseSchema = z.object({
 });
 
 export const coverageReportSchema = z.object({
-  query: z.string(),
+  query: curie,
   result: z.enum(["supported", "weak_routes_only", "no_supported_route"]),
   searched: z.array(
     z.object({
@@ -99,7 +158,7 @@ export const coverageReportSchema = z.object({
   missing_evidence: z.array(z.string()),
   weak_leads: z.array(
     z.object({
-      path_edge_ids: z.array(z.string()),
+      path_edge_ids: z.array(edgeId),
       min_confidence: z.number().min(0).max(1),
       why_weak: z.string(),
     }),
@@ -120,8 +179,8 @@ export const nodeSummarySchema = z.object({
 });
 
 export const pathResponseSchema = z.object({
-  from: z.string(),
-  to: z.string(),
+  from: curie,
+  to: curie,
   paths: z.array(
     z.object({
       nodes: z.array(nodeSchema),
@@ -135,18 +194,18 @@ export const pathResponseSchema = z.object({
 });
 
 export const actionsResponseSchema = z.object({
-  disease_id: z.string(),
-  partners: z.array(z.object({ node: nodeSchema, why: z.string(), edge_ids: z.array(z.string()) })),
+  disease_id: curie,
+  partners: z.array(z.object({ node: nodeSchema, why: z.string(), edge_ids: z.array(edgeId) })),
   assets: z.array(
     z.object({
       node: nodeSchema,
       reusable: z.string(),
       differs: z.string(),
-      edge_ids: z.array(z.string()),
+      edge_ids: z.array(edgeId),
     }),
   ),
   next_experiment: z
-    .object({ text: z.string(), is_hypothesis: z.boolean(), edge_ids: z.array(z.string()) })
+    .object({ text: z.string(), is_hypothesis: z.boolean(), edge_ids: z.array(edgeId) })
     .nullable(),
   review_checklist: z.array(z.string()),
   coverage: coverageReportSchema.nullable(),

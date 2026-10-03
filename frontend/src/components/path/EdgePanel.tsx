@@ -72,19 +72,30 @@ export function EdgePanel({ edge, nodesById }: EdgePanelProps) {
             </ul>
           )}
         </dd>
-        {p.supporting_edge_ids && p.supporting_edge_ids.length > 0 && (
+        {p.source_version && (
+          <>
+            <dt className="text-muted">Source version</dt>
+            <dd>{p.source_version}</dd>
+          </>
+        )}
+        {p.extractor && (
+          <>
+            <dt className="text-muted">Extracted by</dt>
+            <dd>{p.extractor}</dd>
+          </>
+        )}
+        {p.supporting_edge_ids.length > 0 && (
           <>
             <dt className="text-muted">Derived from</dt>
             <dd className="text-xs">{p.supporting_edge_ids.join(", ")}</dd>
           </>
         )}
-        {edge.qualifiers &&
-          Object.entries(edge.qualifiers).map(([k, v]) => (
-            <div key={k} className="contents">
-              <dt className="text-muted">{k.replaceAll("_", " ")}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
+        {Object.entries(edge.qualifiers).map(([k, v]) => (
+          <div key={k} className="contents">
+            <dt className="text-muted">{k.replaceAll("_", " ")}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
       </dl>
 
       {p.evidence_quote && (

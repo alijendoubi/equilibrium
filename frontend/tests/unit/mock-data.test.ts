@@ -13,9 +13,20 @@ describe("mock data", () => {
     expect(data.edges.length).toBeGreaterThan(10);
   });
 
-  it("gives every edge a source URL or marks it as analytics, plus an evidence type", () => {
+  it("uses backend id formats: CURIE node ids and E:<16 hex> edge ids", () => {
+    const data = loadMockDataset();
+    for (const node of data.nodes) expect(node.id).toMatch(/^[A-Za-z][A-Za-z0-9_.-]*:\S+$/);
+    for (const edge of data.edges) expect(edge.id).toMatch(/^E:[0-9a-f]{16}$/);
+    expect(new Set(data.edges.map((e) => e.id)).size).toBe(data.edges.length);
+    expect(data.nodes.some((n) => n.id === "clinicaltrials:NCT05778617")).toBe(true);
+  });
+
+  it("gives every edge a source URL, or marks it inferred with supporting edges", () => {
     for (const edge of loadMockDataset().edges) {
-      expect(edge.provenance.url !== null || edge.provenance.source === "analytics").toBe(true);
+      if (edge.provenance.url === null) {
+        expect(edge.evidence_type).toBe("inferred");
+        expect(edge.provenance.supporting_edge_ids.length).toBeGreaterThan(0);
+      }
       expect(["observed", "curated", "inferred"]).toContain(edge.evidence_type);
     }
   });
@@ -26,11 +37,43 @@ describe("mock data", () => {
     expect(() => parseMockDataset(raw)).toThrow(/unknown node HGNC:0000000/);
   });
 
-  it("rejects a non-analytics edge without a URL", () => {
+  it("rejects a bare NCT node id and an old-style edge id", () => {
+    const raw = clone();
+    raw.nodes[0] = { ...(raw.nodes[0] as object), id: "NCT05778617" };
+    raw.edges[0] = { ...raw.edges[0], id: "e_gd_gba1" };
+    expect(() => parseMockDataset(raw)).toThrow(/must be a CURIE/);
+    expect(() => parseMockDataset(raw)).toThrow(/16 lowercase hex/);
+  });
+
+  it("rejects a curated edge without a URL", () => {
     const raw = clone();
     const first = raw.edges[0]!;
     raw.edges[0] = { ...first, provenance: { ...(first.provenance as object), url: null } };
-    expect(() => parseMockDataset(raw)).toThrow(/url is required/);
+    expect(() => parseMockDataset(raw)).toThrow(/curated edges must have provenance.url/);
+  });
+
+  it("rejects an LLM-extracted edge that is not inferred", () => {
+    const raw = clone();
+    const first = raw.edges[0]!;
+    raw.edges[0] = {
+      ...first,
+      provenance: { ...(first.provenance as object), extractor: "openai:extract@v1" },
+    };
+    expect(() => parseMockDataset(raw)).toThrow(/LLM-extracted edges must have evidence_type/);
+  });
+
+  it("defaults fields the backend may omit", () => {
+    const raw = clone();
+    const { confidence_reasons, contradicted_by, qualifiers, ...rest } = raw.edges[0]!;
+    void confidence_reasons;
+    void contradicted_by;
+    void qualifiers;
+    raw.edges[0] = rest;
+    const edge = parseMockDataset(raw).edges[0]!;
+    expect(edge.confidence_reasons).toEqual([]);
+    expect(edge.contradicted_by).toEqual([]);
+    expect(edge.qualifiers).toEqual({});
+    expect(edge.provenance.supporting_edge_ids).toEqual([]);
   });
 
   it("rejects an invalid evidence type", () => {
@@ -46,7 +89,9 @@ describe("mock client", () => {
   it("returns API-shaped node, path and actions responses", async () => {
     expect(nodeSummarySchema.safeParse(await client.getNode("MONDO:0009267")).success).toBe(true);
     expect(
-      pathResponseSchema.safeParse(await client.getPath("NCT05778617", "MONDO:0009267")).success,
+      pathResponseSchema.safeParse(
+        await client.getPath("clinicaltrials:NCT05778617", "MONDO:0009267"),
+      ).success,
     ).toBe(true);
     expect(actionsResponseSchema.safeParse(await client.getActions("MONDO:0009267")).success).toBe(
       true,
@@ -54,8 +99,8 @@ describe("mock client", () => {
   });
 
   it("reverses a stored path when asked from the other end", async () => {
-    const res = await client.getPath("NCT05778617", "MONDO:0009267");
-    expect(res.paths[0]!.nodes[0]!.id).toBe("NCT05778617");
+    const res = await client.getPath("clinicaltrials:NCT05778617", "MONDO:0009267");
+    expect(res.paths[0]!.nodes[0]!.id).toBe("clinicaltrials:NCT05778617");
     expect(res.paths[0]!.nodes.at(-1)!.id).toBe("MONDO:0009267");
   });
 

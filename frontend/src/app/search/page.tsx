@@ -4,7 +4,7 @@ import { MatchReasonBadge, TypeBadge } from "@/components/Badges";
 import { MockBanner } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { getAtlasClient } from "@/lib/api/client";
-import { nodeHref } from "@/lib/format";
+import { displayId, nodeHref } from "@/lib/format";
 import { firstParam } from "@/lib/params";
 
 export const metadata: Metadata = { title: "Search · Equilibrium" };
@@ -67,7 +67,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   <div className="flex flex-wrap items-center gap-2">
                     <TypeBadge type={r.node.type} />
                     <MatchReasonBadge reason={r.match_reason} />
-                    <span className="text-xs text-muted">{r.node.id}</span>
+                    <span className="text-xs text-muted">{displayId(r.node.id)}</span>
                   </div>
                   <p className="mt-2 font-semibold">{r.node.label}</p>
                   {r.match_reason !== "exact" && (

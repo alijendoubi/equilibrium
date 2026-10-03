@@ -1,6 +1,6 @@
 [
   {
-    "id": "e_gd_gba1",
+    "id": "E:9d7d51b880a23486",
     "source_id": "MONDO:0018150",
     "target_id": "HGNC:4177",
     "relation": "caused_by",
@@ -16,7 +16,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd2_gba1",
+    "id": "E:685afda62f30e82a",
     "source_id": "MONDO:0009266",
     "target_id": "HGNC:4177",
     "relation": "caused_by",
@@ -32,7 +32,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_gba1",
+    "id": "E:277fc6b6e1911b65",
     "source_id": "MONDO:0009267",
     "target_id": "HGNC:4177",
     "relation": "caused_by",
@@ -48,7 +48,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gba1_lysosomal",
+    "id": "E:0123bcf2d717e9f0",
     "source_id": "HGNC:4177",
     "target_id": "MECH:lysosomal_dysfunction",
     "relation": "participates_in",
@@ -62,13 +62,15 @@
     "confidence_reasons": ["GO annotation with experimental evidence code: base 0.90"],
     "evidence_type": "curated",
     "contradicted_by": [],
-    "qualifiers": { "go_term": "GO:0006680 glucosylceramide catabolic process" }
+    "qualifiers": {
+      "go_term": "GO:0006680 glucosylceramide catabolic process"
+    }
   },
   {
-    "id": "e_pdgba1_gba1",
-    "source_id": "MONDO:1040030",
-    "target_id": "HGNC:4177",
-    "relation": "caused_by",
+    "id": "E:93468e247aa8c342",
+    "source_id": "HGNC:4177",
+    "target_id": "MONDO:1040030",
+    "relation": "risk_factor_for",
     "provenance": {
       "source": "monarch",
       "source_record_id": "MONDO:1040030",
@@ -79,10 +81,12 @@
     "confidence_reasons": ["curated knowledge base: base 0.90"],
     "evidence_type": "curated",
     "contradicted_by": [],
-    "qualifiers": { "association": "susceptibility (risk factor, not fully causal)" }
+    "qualifiers": {
+      "zygosity": "heterozygous"
+    }
   },
   {
-    "id": "e_pdgba1_lysosomal",
+    "id": "E:36c6e1a96c92e376",
     "source_id": "MONDO:1040030",
     "target_id": "MECH:lysosomal_dysfunction",
     "relation": "has_mechanism",
@@ -91,7 +95,7 @@
       "source_record_id": "rule:gene_mechanism_propagation@r1",
       "url": null,
       "retrieved_at": "2026-10-03T12:00:00Z",
-      "supporting_edge_ids": ["e_pdgba1_gba1", "e_gba1_lysosomal"]
+      "supporting_edge_ids": ["E:93468e247aa8c342", "E:0123bcf2d717e9f0"]
     },
     "confidence": 0.62,
     "confidence_reasons": [
@@ -102,7 +106,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_lysosomal",
+    "id": "E:85cb8958e184d978",
     "source_id": "MONDO:0009267",
     "target_id": "MECH:lysosomal_dysfunction",
     "relation": "has_mechanism",
@@ -111,7 +115,7 @@
       "source_record_id": "rule:gene_mechanism_propagation@r1",
       "url": null,
       "retrieved_at": "2026-10-03T12:00:00Z",
-      "supporting_edge_ids": ["e_gd3_gba1", "e_gba1_lysosomal"]
+      "supporting_edge_ids": ["E:277fc6b6e1911b65", "E:0123bcf2d717e9f0"]
     },
     "confidence": 0.71,
     "confidence_reasons": [
@@ -122,7 +126,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_hp_spleno",
+    "id": "E:1988aa7d342b0b00",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0001744",
     "relation": "has_phenotype",
@@ -138,7 +142,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_hp_hepato",
+    "id": "E:13ec26cc40f98085",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0002240",
     "relation": "has_phenotype",
@@ -154,7 +158,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_hp_oculo",
+    "id": "E:d918a9bf008b3a02",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0000657",
     "relation": "has_phenotype",
@@ -170,7 +174,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_hp_seizure",
+    "id": "E:8aeba637a987976f",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0001250",
     "relation": "has_phenotype",
@@ -186,7 +190,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd3_hp_thrombo",
+    "id": "E:d967843726e30d13",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0001873",
     "relation": "has_phenotype",
@@ -202,7 +206,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd2_hp_seizure",
+    "id": "E:9417491330c3efae",
     "source_id": "MONDO:0009266",
     "target_id": "HP:0001250",
     "relation": "has_phenotype",
@@ -218,7 +222,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_gd2_hp_oculo",
+    "id": "E:fc102349c7ca77bb",
     "source_id": "MONDO:0009266",
     "target_id": "HP:0000657",
     "relation": "has_phenotype",
@@ -234,7 +238,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_pdgba1_hp_brady",
+    "id": "E:a05be51d9125ff8a",
     "source_id": "MONDO:1040030",
     "target_id": "HP:0002067",
     "relation": "has_phenotype",
@@ -250,7 +254,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_pdgba1_hp_cog",
+    "id": "E:6b8ed9776d2d09d3",
     "source_id": "MONDO:1040030",
     "target_id": "HP:0100543",
     "relation": "has_phenotype",
@@ -266,7 +270,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_ngf_gd",
+    "id": "E:2f71210211ad660c",
     "source_id": "ORG:national-gaucher-foundation",
     "target_id": "MONDO:0018150",
     "relation": "represents",
@@ -282,7 +286,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_cp_pdgba1",
+    "id": "E:119c21583f5f6a55",
     "source_id": "ORG:cure-parkinsons",
     "target_id": "MONDO:1040030",
     "relation": "represents",
@@ -301,9 +305,9 @@
     "contradicted_by": []
   },
   {
-    "id": "e_cp_aspro",
+    "id": "E:11d2b7cd5c593849",
     "source_id": "ORG:cure-parkinsons",
-    "target_id": "NCT05778617",
+    "target_id": "clinicaltrials:NCT05778617",
     "relation": "funds",
     "provenance": {
       "source": "curated",
@@ -321,8 +325,8 @@
     "contradicted_by": []
   },
   {
-    "id": "e_aspro_pdgba1",
-    "source_id": "NCT05778617",
+    "id": "E:d99bd4495f7dbc55",
+    "source_id": "clinicaltrials:NCT05778617",
     "target_id": "MONDO:1040030",
     "relation": "studies_condition",
     "provenance": {
@@ -342,8 +346,8 @@
     }
   },
   {
-    "id": "e_aspro_ambroxol",
-    "source_id": "NCT05778617",
+    "id": "E:aaf6fb9814e43d1c",
+    "source_id": "clinicaltrials:NCT05778617",
     "target_id": "ASSET:intervention/ambroxol",
     "relation": "tests_intervention",
     "provenance": {
@@ -359,7 +363,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_narita_gd3",
+    "id": "E:a2144c8a83a43c36",
     "source_id": "PMID:27042680",
     "target_id": "MONDO:0009267",
     "relation": "mentions",
@@ -368,7 +372,8 @@
       "source_record_id": "PMID:27042680",
       "url": "https://pubmed.ncbi.nlm.nih.gov/27042680/",
       "retrieved_at": "2026-10-03T12:00:00Z",
-      "evidence_quote": "Pharmacological chaperone therapy with high-dose oral ambroxol shows promise in treating neuronopathic GD, necessitating further clinical trials."
+      "evidence_quote": "Pharmacological chaperone therapy with high-dose oral ambroxol shows promise in treating neuronopathic GD, necessitating further clinical trials.",
+      "extractor": "openai:extract@v1"
     },
     "confidence": 0.4,
     "confidence_reasons": [
@@ -379,7 +384,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_narita_ambroxol",
+    "id": "E:dc85c36a4b200459",
     "source_id": "PMID:27042680",
     "target_id": "ASSET:intervention/ambroxol",
     "relation": "claims",
@@ -388,7 +393,8 @@
       "source_record_id": "PMID:27042680",
       "url": "https://pubmed.ncbi.nlm.nih.gov/27042680/",
       "retrieved_at": "2026-10-03T12:00:00Z",
-      "evidence_quote": "High-dose oral ambroxol had good safety and tolerability, significantly increased lymphocyte glucocerebrosidase activity, permeated the blood-brain barrier, and decreased glucosylsphingosine levels in the cerebrospinal fluid."
+      "evidence_quote": "High-dose oral ambroxol had good safety and tolerability, significantly increased lymphocyte glucocerebrosidase activity, permeated the blood-brain barrier, and decreased glucosylsphingosine levels in the cerebrospinal fluid.",
+      "extractor": "openai:extract@v1"
     },
     "confidence": 0.5,
     "confidence_reasons": [
@@ -397,10 +403,13 @@
     ],
     "evidence_type": "inferred",
     "contradicted_by": [],
-    "qualifiers": { "polarity": "supports", "design": "open-label pilot, 5 patients" }
+    "qualifiers": {
+      "polarity": "supports",
+      "design": "open-label pilot, 5 patients"
+    }
   },
   {
-    "id": "e_sapc_psap",
+    "id": "E:6dd22710e2416e83",
     "source_id": "MONDO:0012517",
     "target_id": "HGNC:9498",
     "relation": "caused_by",
@@ -416,7 +425,7 @@
     "contradicted_by": []
   },
   {
-    "id": "e_sapc_hp_spleno",
+    "id": "E:b98dcbc74f509b35",
     "source_id": "MONDO:0012517",
     "target_id": "HP:0001744",
     "relation": "has_phenotype",

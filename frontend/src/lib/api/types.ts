@@ -1,8 +1,8 @@
 /**
  * Types mirroring the planned Atlas API (PROJECT_PLAN section 9, docs/EVIDENCE_MODEL.md).
  *
- * These are the wire shapes the backend must return under /api/v1. Field names are
- * snake_case on purpose so the JSON can be passed through without mapping.
+ * Field names are snake_case so backend JSON (backend/src/atlas/models/evidence.py,
+ * the source of truth) passes through without mapping.
  * Runtime validation lives in ./schemas.ts and is checked against these types.
  */
 
@@ -25,18 +25,50 @@ export type EvidenceType = "observed" | "curated" | "inferred";
 /** Why a search hit matched: label/xref, a stored synonym, or embedding similarity. */
 export type MatchReason = "exact" | "synonym" | "semantic";
 
-export type AttributeValue = string | number | boolean;
+/** Controlled edge vocabulary, identical to backend `Relation`. Direction is source -> target. */
+export type Relation =
+  | "caused_by"
+  | "risk_factor_for"
+  | "has_variant"
+  | "variant_associated_with"
+  | "has_mechanism"
+  | "participates_in"
+  | "has_phenotype"
+  | "shares_mechanism_with"
+  | "similar_phenotype_to"
+  | "mentions"
+  | "claims"
+  | "authored_by"
+  | "studies_condition"
+  | "tests_intervention"
+  | "investigates"
+  | "funds"
+  | "works_on"
+  | "represents"
+  | "operates"
+  | "contradicts";
+
+/*
+ * Shapes below are what the UI holds AFTER zod parsing (src/lib/api/schemas.ts).
+ * Fields the backend may omit (lists, maps, optional provenance fields) are defaulted
+ * during parsing, so components never deal with `undefined` for them.
+ */
 
 export interface AtlasNode {
-  /** Stable CURIE-like id, e.g. "MONDO:0009267", "HGNC:4177", "NCT05778617". */
+  /** CURIE, e.g. "MONDO:0009267", "HGNC:4177", "clinicaltrials:NCT05778617". */
   id: string;
   type: NodeType;
   label: string;
+  /** Defaulted to [] when omitted. */
   synonyms: string[];
-  description?: string;
-  xrefs?: string[];
-  /** e.g. { ic: 6.1 } for phenotypes; { phase, status, enrollment } for studies; { url } for orgs. */
-  attributes?: Record<string, AttributeValue>;
+  /** CURIEs. Defaulted to [] when omitted. */
+  xrefs: string[];
+  /**
+   * str -> str card data (backend `FrozenStrMap`), e.g. { ic: "6.1" } for phenotypes,
+   * { phase, status, enrollment } for studies, { url } for orgs, { description } for any node.
+   * Defaulted to {} when omitted.
+   */
+  attributes: Record<string, string>;
 }
 
 export interface Provenance {
@@ -44,31 +76,36 @@ export interface Provenance {
   source: string;
   /** The specific record that asserts the relation. */
   source_record_id: string;
-  /** Human-checkable link. Null only when source === "analytics". */
+  /** Human-checkable link. Null only for inferred edges that list supporting_edge_ids. */
   url: string | null;
-  /** ISO 8601 UTC. */
+  /** ISO 8601 with timezone. */
   retrieved_at: string;
-  /** Verbatim supporting text (required for extracted edges). */
-  evidence_quote?: string;
-  /** For computed (analytics) edges: the edges they were derived from. */
-  supporting_edge_ids?: string[];
+  /** Release or dump date of the source. Optional. */
+  source_version?: string | null;
+  /** Verbatim supporting text (expected for extracted edges). Optional. */
+  evidence_quote?: string | null;
+  /** `<kind>:<name>`, e.g. "openai:gpt-...". "openai:" edges must be inferred. Optional. */
+  extractor?: string | null;
+  /** Edges a computed edge was derived from. Defaulted to [] when omitted. */
+  supporting_edge_ids: string[];
 }
 
 export interface Edge {
-  /** Deterministic id ("e_" + sha1 prefix in the real snapshot). Explain cites these. */
+  /** Deterministic backend id: "E:" + first 16 hex of sha256. Explain cites these. */
   id: string;
   source_id: string;
   target_id: string;
-  relation: string;
+  relation: Relation;
   provenance: Provenance;
   /** Rubric-derived, never LLM self-confidence. In [0, 1]. */
   confidence: number;
-  /** Human-readable rubric lines, e.g. "curated KB base 0.90". */
+  /** Human-readable rubric lines, e.g. "curated KB base 0.90". Defaulted to []. */
   confidence_reasons: string[];
   evidence_type: EvidenceType;
-  /** Ids of edges that contradict this one. */
+  /** Ids of edges that contradict this one. Defaulted to []. */
   contradicted_by: string[];
-  qualifiers?: Record<string, string>;
+  /** str -> str, e.g. { zygosity: "heterozygous" }. Defaulted to {}. */
+  qualifiers: Record<string, string>;
 }
 
 /** GET /api/v1/search?q=&types= */

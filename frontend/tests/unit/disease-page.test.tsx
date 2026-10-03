@@ -34,6 +34,10 @@ describe("/disease/[id]", () => {
       "href",
       "/path?from=MONDO%3A0009267&to=MONDO%3A1040030",
     );
+    const exploreLinks = screen
+      .getAllByRole("link", { name: /Explore connection/ })
+      .map((a) => a.getAttribute("href"));
+    expect(exploreLinks).toContain("/path?from=MONDO%3A0009267&to=clinicaltrials%3ANCT05778617");
   });
 
   it("shows an honest coverage report for the gap disease", async () => {
@@ -42,6 +46,19 @@ describe("/disease/[id]", () => {
     expect(within(report).getByText(/No supported route/)).toBeInTheDocument();
     expect(within(report).getByText(/query.cond=saposin C deficiency/)).toBeInTheDocument();
     expect(screen.getByText("No connected community found yet")).toBeInTheDocument();
+  });
+
+  it("shows the GBA1 risk-factor gene as the cause of GBA1-related Parkinson disease", async () => {
+    await renderNode("MONDO:1040030");
+    const summary = screen.getByRole("region", { name: "Summary" });
+    expect(within(summary).getByText("GBA1")).toBeInTheDocument();
+    expect(within(summary).getByText("risk factor")).toBeInTheDocument();
+  });
+
+  it("shows a trial id without its namespace", async () => {
+    await renderNode("clinicaltrials:NCT05778617");
+    expect(screen.getByText("NCT05778617")).toBeInTheDocument();
+    expect(screen.queryByText("clinicaltrials:NCT05778617")).toBeNull();
   });
 
   it("lists connections for non-disease nodes", async () => {

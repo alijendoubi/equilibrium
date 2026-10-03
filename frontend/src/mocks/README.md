@@ -2,7 +2,7 @@
 
 **These files are mocks. The snapshot built by `make data` will replace them.**
 They let us build the UI before the API is live (task B6, issue #23). Any node description
-we have not checked against a source starts with `[MOCK]`. When mocks are on, every page shows a
+(`attributes.description`) we have not checked against a source starts with `[MOCK]`. When mocks are on, every page shows a
 "Mock data" banner.
 
 | File            | Shape                                                                                     | Mirrors                            |
@@ -15,6 +15,17 @@ we have not checked against a source starts with `[MOCK]`. When mocks are on, ev
 
 When the mock client loads (`src/lib/api/mock-data.ts`), zod validates every file. It also checks
 referential integrity: each edge endpoint and each referenced id must exist.
+
+## Id formats (match backend `evidence.py`, PR #41)
+
+- Node ids are CURIEs. Trials are `clinicaltrials:NCT05778617`; the UI shows `NCT05778617`.
+- Edge ids are `E:` + 16 lowercase hex, computed exactly like the backend's `compute_edge_id`:
+  `sha256(json.dumps([source_id, relation, target_id, provenance.source, source_record_id],
+separators=(",", ":")))[:16]`. If you change one of those five fields, recompute the id.
+- `attributes` and `qualifiers` are `str -> str` maps, so numbers such as `ic` are strings.
+- Node descriptions live in `attributes.description`. The backend `Node` has no `description` field.
+- On 2026-10-04 the backend `Node` and `Edge` pydantic models (branch `feat/evidence-model-v2`)
+  accepted all 20 nodes and 25 edges, and every edge id matched its content.
 
 ## What is verified and what is a placeholder (checked 2026-10-03)
 

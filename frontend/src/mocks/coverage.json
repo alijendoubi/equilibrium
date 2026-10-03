@@ -3,8 +3,16 @@
     "query": "MONDO:0012517",
     "result": "no_supported_route",
     "searched": [
-      { "source": "monarch", "source_version": "MOCK", "records_found": 1 },
-      { "source": "hpo", "source_version": "MOCK", "records_found": 1 },
+      {
+        "source": "monarch",
+        "source_version": "MOCK",
+        "records_found": 1
+      },
+      {
+        "source": "hpo",
+        "source_version": "MOCK",
+        "records_found": 1
+      },
       {
         "source": "ctgov",
         "source_version": "MOCK",
@@ -32,7 +40,7 @@
     ],
     "weak_leads": [
       {
-        "path_edge_ids": ["e_sapc_hp_spleno", "e_gd3_hp_spleno"],
+        "path_edge_ids": ["E:b98dcbc74f509b35", "E:1988aa7d342b0b00"],
         "min_confidence": 0.3,
         "why_weak": "Only one shared symptom (enlarged spleen) with Gaucher disease type III: too little to call it a shared community"
       }

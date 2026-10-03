@@ -4,31 +4,31 @@ import coverageJson from "@/mocks/coverage.json";
 import edgesJson from "@/mocks/edges.json";
 import nodesJson from "@/mocks/nodes.json";
 import pathsJson from "@/mocks/paths.json";
-import { coverageReportSchema, edgeSchema, nodeSchema } from "./schemas";
+import { coverageReportSchema, curie, edgeId, edgeSchema, nodeSchema } from "./schemas";
 
 /** Mock store: the raw JSON in src/mocks, validated and checked for broken references. */
 
 const storedPathSchema = z.object({
   id: z.string().min(1),
-  node_ids: z.array(z.string()).min(2),
-  edge_ids: z.array(z.string()).min(1),
+  node_ids: z.array(curie).min(2),
+  edge_ids: z.array(edgeId).min(1),
 });
 
 const storedActionsSchema = z.object({
-  disease_id: z.string(),
+  disease_id: curie,
   partners: z.array(
-    z.object({ node_id: z.string(), why: z.string().min(1), edge_ids: z.array(z.string()) }),
+    z.object({ node_id: curie, why: z.string().min(1), edge_ids: z.array(edgeId) }),
   ),
   assets: z.array(
     z.object({
-      node_id: z.string(),
+      node_id: curie,
       reusable: z.string().min(1),
       differs: z.string().min(1),
-      edge_ids: z.array(z.string()),
+      edge_ids: z.array(edgeId),
     }),
   ),
   next_experiment: z
-    .object({ text: z.string().min(1), is_hypothesis: z.boolean(), edge_ids: z.array(z.string()) })
+    .object({ text: z.string().min(1), is_hypothesis: z.boolean(), edge_ids: z.array(edgeId) })
     .nullable(),
   review_checklist: z.array(z.string()),
 });

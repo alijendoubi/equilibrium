@@ -33,6 +33,13 @@ describe("/search", () => {
     ).toBeInTheDocument();
   });
 
+  it("finds a trial by its bare NCT number and links with an encoded CURIE", async () => {
+    await renderSearch("NCT05778617");
+    const link = screen.getByRole("link", { name: /ASPro-PD/ });
+    expect(within(link).getByText("Exact match")).toBeInTheDocument();
+    expect(link).toHaveAttribute("href", "/disease/clinicaltrials%3ANCT05778617");
+  });
+
   it("is honest when nothing matches", async () => {
     await renderSearch("zzqx");
     expect(screen.getByRole("heading", { name: "No match." })).toBeInTheDocument();

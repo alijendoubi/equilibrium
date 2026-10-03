@@ -56,13 +56,11 @@ gh_api_retry_403() {
   local out attempt=1 max_attempts=$(( ${#RULESET_RETRY_DELAYS[@]} + 1 ))
   while true; do
     if out="$(gh api "$@" 2>&1)"; then
-      printf '%s
-' "$out"
+      printf '%s\n' "$out"
       return 0
     fi
     if ! is_http_403 "$out" || (( attempt >= max_attempts )); then
-      printf '%s
-' "$out"
+      printf '%s\n' "$out"
       return 1
     fi
     local delay="${RULESET_RETRY_DELAYS[$((attempt - 1))]}"
@@ -91,7 +89,8 @@ apply_ruleset() {
   [[ -f "$RULESET_FILE" ]] || die "Ruleset file not found: $RULESET_FILE"
   log "Applying ruleset '$RULESET_NAME' to $repo"
 
-  if ! out="$(gh_api_retry_403 "repos/$repo/rulesets" --paginate \n      --jq ".[] | select(.name == \"$RULESET_NAME\") | .id")"; then
+  if ! out="$(gh_api_retry_403 "repos/$repo/rulesets" --paginate \
+      --jq ".[] | select(.name == \"$RULESET_NAME\") | .id")"; then
     handle_ruleset_failure "$repo" "Listing rulesets" "$out"
     return 0
   fi

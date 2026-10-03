@@ -1,0 +1,45 @@
+[
+  {
+    "query": "MONDO:0012517",
+    "result": "no_supported_route",
+    "searched": [
+      { "source": "monarch", "source_version": "MOCK", "records_found": 1 },
+      { "source": "hpo", "source_version": "MOCK", "records_found": 1 },
+      {
+        "source": "ctgov",
+        "source_version": "MOCK",
+        "query": "query.cond=saposin C deficiency",
+        "records_found": 0
+      },
+      {
+        "source": "pubmed",
+        "source_version": "MOCK",
+        "query": "\"saposin C deficiency\" AND Gaucher",
+        "records_found": 0
+      },
+      {
+        "source": "curated_orgs",
+        "source_version": "MOCK",
+        "query": "NORD + Orphanet patient organisations",
+        "records_found": 0
+      }
+    ],
+    "not_searched": ["omim (no license)", "rareconnect (stretch)"],
+    "missing_evidence": [
+      "No patient organization found for this disease in the curated directories",
+      "No registered study lists this disease as a condition",
+      "No mechanism annotation linking PSAP to the GCase pathway in the snapshot"
+    ],
+    "weak_leads": [
+      {
+        "path_edge_ids": ["e_sapc_hp_spleno", "e_gd3_hp_spleno"],
+        "min_confidence": 0.3,
+        "why_weak": "Only one shared symptom (enlarged spleen) with Gaucher disease type III: too little to call it a shared community"
+      }
+    ],
+    "next_questions": [
+      "Would Gaucher natural history registries accept families with saposin C deficiency, given the similar symptoms?",
+      "Does the National Gaucher Foundation already support families with atypical Gaucher disease? Ask before building a new community."
+    ]
+  }
+]

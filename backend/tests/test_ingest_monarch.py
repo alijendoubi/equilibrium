@@ -131,6 +131,8 @@ def test_fetch_pages_and_trims_records() -> None:
             for a in fixture["gene_disease"] + fixture["disease_phenotype"]
             if a["subject"] == subject
         ]
+        # Monarch also returns associations of descendant subjects; they must be dropped.
+        items.append({**fixture["disease_phenotype"][0], "subject": "MONDO:9999999"})
         offset = int(request.url.params["offset"])
         return httpx.Response(
             200, json={"items": items[offset : offset + 500], "total": len(items)}
@@ -143,3 +145,12 @@ def test_fetch_pages_and_trims_records() -> None:
     assert "extra" not in payload["entities"]["HGNC:4177"]
     assert all("object_closure" not in a for a in payload["gene_disease"])
     assert len(payload["gene_disease"]) == len(fixture["gene_disease"])
+    assert {a["subject"] for a in payload["disease_phenotype"]} <= set(monarch.SEED_DISEASES)
+
+
+def test_normalize_ignores_phenotypes_of_unknown_subjects() -> None:
+    payload = load_fixture("monarch")
+    stray = {**payload["disease_phenotype"][0], "subject": "MONDO:0013060"}
+    payload["disease_phenotype"] = [*payload["disease_phenotype"], stray]
+    edges = monarch.normalize(payload).edges
+    assert all(e.source_id != "MONDO:0013060" for e in edges)

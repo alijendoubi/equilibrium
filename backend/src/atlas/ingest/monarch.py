@@ -120,7 +120,13 @@ def fetch_associations(client: PoliteClient, params: Mapping[str, Any]) -> list[
             f"{API}/association", params={**params, "limit": PAGE_SIZE, "offset": offset}
         )
         batch = page.get("items") or []
-        items.extend(_pick(item, ASSOCIATION_FIELDS) for item in batch)
+        # Monarch matches the subject *closure*: a grouping disease also returns its subtypes'
+        # associations. Keep direct assertions only.
+        items.extend(
+            _pick(item, ASSOCIATION_FIELDS)
+            for item in batch
+            if "subject" not in params or item.get("subject") == params["subject"]
+        )
         offset += len(batch)
         if not batch or offset >= int(page.get("total") or 0):
             return items
@@ -339,7 +345,9 @@ def normalize(payload: Mapping[str, Any]) -> IngestResult:
     retrieved_at, version = str(meta["retrieved_at"]), meta.get("source_version")
     entities: Mapping[str, JsonDict] = payload.get("entities") or {}
     gene_disease: list[JsonDict] = list(payload.get("gene_disease") or [])
-    disease_phenotype: list[JsonDict] = list(payload.get("disease_phenotype") or [])
+    disease_phenotype: list[JsonDict] = [
+        item for item in payload.get("disease_phenotype") or [] if item.get("subject") in entities
+    ]
 
     nodes = [entity_node(entity) for entity in entities.values()]
     for item in gene_disease:

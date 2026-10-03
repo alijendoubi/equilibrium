@@ -1,4 +1,7 @@
 # syntax=docker/dockerfile:1
+# Build context is the REPO ROOT (so the committed data/snapshot/ is baked in):
+#   docker build -f backend/Dockerfile .
+# backend/Dockerfile.dockerignore limits what is sent to the daemon.
 
 # ---- build stage: resolve and install deps with uv ----
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
@@ -10,12 +13,12 @@ ENV UV_COMPILE_BYTECODE=1 \
 WORKDIR /app
 
 # Dependencies first for better layer caching.
-COPY pyproject.toml uv.lock ./
+COPY backend/pyproject.toml backend/uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
 
 # Then the project itself.
-COPY README.md ./
-COPY src ./src
+COPY backend/README.md ./
+COPY backend/src ./src
 RUN uv sync --frozen --no-dev --no-editable
 
 # ---- runtime stage ----
@@ -24,13 +27,16 @@ FROM python:3.12-slim AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/app/.venv/bin:$PATH" \
-    PORT=8000
+    PORT=8000 \
+    SNAPSHOT_PATH=/app/data/snapshot/atlas-snapshot.json
 
 RUN groupadd --system --gid 10001 atlas \
     && useradd --system --uid 10001 --gid atlas --no-create-home --shell /usr/sbin/nologin atlas
 
 WORKDIR /app
 COPY --from=builder --chown=atlas:atlas /app/.venv /app/.venv
+# Read-only graph snapshot, loaded once at startup (atlas.graph.store).
+COPY --chown=atlas:atlas data/snapshot /app/data/snapshot
 
 USER atlas
 

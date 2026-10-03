@@ -2,7 +2,7 @@
 
 These are the conventions for building and storing the atlas dataset.
 
-Status: **conventions only**. The pipeline (`make data`) is Phase 2 and does not exist yet. See [docs/DATA_SOURCES.md](../docs/DATA_SOURCES.md) and [docs/EVIDENCE_MODEL.md](../docs/EVIDENCE_MODEL.md).
+Status: **pipeline live for the gba1 slice** (`make data`, `make data-offline`; see the root README, Reproducing the dataset). See [docs/DATA_SOURCES.md](../docs/DATA_SOURCES.md) and [docs/EVIDENCE_MODEL.md](../docs/EVIDENCE_MODEL.md).
 
 ## Layout
 
@@ -13,6 +13,9 @@ data/
 ├── curated/           hand-curated orgs, assets, mechanisms, condition aliases (committed)
 ├── cache/             compact source payloads for the slice (committed, < 5 MB)
 │   └── <source>/payload.json
+├── snapshot/          the built snapshot the API serves (committed)
+│   ├── atlas-snapshot.json   nodes, edges (sorted), coverage seeds
+│   └── manifest.json         snapshot id, sources + versions, counts, openai_usage
 ├── raw/               downloaded source records (NOT committed)
 │   └── <source>/<YYYY-MM-DD>/...
 └── processed/         built snapshots (NOT committed)
@@ -66,11 +69,13 @@ Every snapshot includes a `manifest.json`:
 
 The manifest also feeds the honest-gap coverage report: a source missing from `sources` was not searched.
 
-## Reproducing (planned)
+## Reproducing
 
 ```bash
-cp .env.example .env    # OPENAI_API_KEY; NCBI_API_KEY recommended
-make data               # PLANNED: ingest -> extract/reconcile -> graph -> snapshot
+make data-offline       # committed cache -> data/snapshot/ (no network, deterministic)
+make data               # refresh data/cache/ online (NCBI_API_KEY optional), then rebuild
 ```
+
+The snapshot above is the current format (`data/snapshot/`); the `processed/` layout and the manifest example earlier in this file are the original plan and will be aligned when Extract lands.
 
 LLM outputs can vary between runs. The pipeline caches every OpenAI response by input hash under `data/raw/_llm_cache/`, so a rebuild from the same cache is deterministic.

@@ -30,3 +30,7 @@ uv.lock        linguist-generated=true -diff
 *.parquet binary
 *.sqlite binary
 *.db    binary
+
+# Built dataset artefacts: collapse in diffs (rebuild with make data-offline)
+data/snapshot/*.json  linguist-generated=true -diff
+data/cache/**/*.json  linguist-generated=true -diff

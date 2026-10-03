@@ -160,31 +160,38 @@ Run `make help` to list all targets. The common ones are `make check` (lint, typ
 
 ## Reproducing the dataset
 
-> **Phase 2: not implemented yet.** This section describes the intended pipeline. It will be updated as the pipeline lands.
-
-Planned:
+The committed snapshot (`data/snapshot/atlas-snapshot.json` + `manifest.json`) is what the API serves. It is built from a compact source cache that is also committed (`data/cache/<source>/payload.json`, about 1 MB) plus the hand-curated YAML in `data/curated/`.
 
 ```bash
-make data    # PLANNED: ingest -> extract/reconcile -> build graph -> write snapshot
+make data-offline   # rebuild data/snapshot/ from the committed cache: no network, no keys, ~3 s
+make data-report    # counts by node type / relation + hero-path and honest-gap checks
+make data           # refresh every source online (rewrites data/cache/), then rebuild (~3-5 min)
 ```
 
-The planned stages are:
-1. Fetch raw records for one focused disease cluster into `data/raw/`.
-2. Run OpenAI Extract and Reconcile into normalized nodes and edges.
-3. Build the graph and compute clusters.
-4. Write a dated snapshot to `data/processed/` with a provenance manifest. See [data/README.md](data/README.md).
+The same as raw commands, from `backend/`:
 
-| Source | Feeds | Access | License / terms |
-|---|---|---|---|
-| MONDO | disease IDs, synonyms | OBO/JSON download | CC BY 4.0 (verify) |
-| HPO | disease-phenotype, IC | annotations download | HPO license, free with attribution (verify) |
-| ClinVar | gene-variant-disease | NCBI FTP / E-utilities | public domain, NCBI terms (verify) |
-| OMIM | gene-phenotype, mechanism | API key | license required, restricted redistribution |
-| Orphanet | disease, patient orgs | Orphadata | CC BY 4.0 (verify) |
-| PubMed / PMC | claims, investigators | E-utilities | abstracts subject to publisher copyright; store IDs and extracted facts |
-| ClinicalTrials.gov | studies, interventions | API v2 | public, NLM terms (verify) |
-| NIH RePORTER | funding, investigators | API v2 | public (verify) |
-| Patient org directories | patient groups, registries | manual curation / site terms | per-site terms (verify) |
+```bash
+uv run python -m atlas.pipeline build --offline
+uv run python -m atlas.pipeline report
+uv run python -m atlas.pipeline build           # online
+uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one source's cache
+```
+
+- **Deterministic.** The same cache gives a byte-identical snapshot and manifest (`snapshot_id` is the SHA-256 of the snapshot file; `created_at` is the latest source `retrieved_at`). A test fails if the committed snapshot is stale against the committed cache.
+- **Validated.** Every node and edge passes the evidence-model pydantic models; every edge endpoint exists; supporting edge ids resolve; no id has two types. The build fails otherwise.
+- **Online refresh** is polite: identifying User-Agent, timeouts, retries with backoff, rate limits (ClinicalTrials.gov ~50 req/min, NCBI 3 req/s or 10 with `NCBI_API_KEY`). HPO downloads `phenotype.hpoa` and `hp.obo` (~47 MB) into `data/raw/hpo/` (gitignored); only the IC map for slice phenotypes is committed.
+- **No OpenAI step yet.** `manifest.openai_usage` is a zero placeholder until Extract/Reconcile land.
+
+| Source (connector) | What we take | Cached |
+|---|---|---|
+| Monarch API v3 (`ingest/monarch.py`) | seed MONDO diseases and HGNC genes (labels, synonyms, xrefs, descriptions); OMIM- and Orphanet-sourced gene-disease links (`caused_by`, `risk_factor_for`); HPO disease-phenotype annotations (`has_phenotype`) | trimmed records |
+| HPO release (`ingest/hpo.py`) | phenotype information content, IC = -ln(fraction of annotated diseases with the term or a descendant), propagated over `hp.obo` | IC map + release version |
+| GO via Monarch (`ingest/go.py`) | biological-process annotations of seed genes under the whitelist in `data/curated/mechanisms.yaml` (`participates_in`) | matching annotations |
+| ClinVar E-utilities (`ingest/clinvar.py`) | pathogenic / likely-pathogenic record counts per seed gene (gene attributes) | counts |
+| ClinicalTrials.gov v2 (`ingest/clinicaltrials.py`) | bounded queries for Gaucher, saposin C, GBA-PD, ambroxol, venglustat, PR001 and neighbour diseases, plus the seed NCTs (`studies_condition`) | trimmed studies |
+| Curated (`ingest/curated.py`) | patient groups, funders, assets (`represents`, `funds`, `studies_condition`, `mentions`); "no dedicated org found" coverage seeds | YAML in `data/curated/` |
+
+Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
 
 Full table, priorities and slice choice: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
@@ -237,7 +244,7 @@ Task breakdown: [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md) (phases, gates,
 - [x] Ingest connectors for the slice: Monarch (MONDO/HGNC/OMIM-sourced links/HPO annotations/GO), HPO IC, ClinVar counts, ClinicalTrials.gov, curated YAML; cache committed in `data/cache/` (#15, #16, #17)
 - [ ] PubMed ingest
 - [ ] OpenAI Extract and Reconcile into evidence edges
-- [ ] `make data` reproduces a dated snapshot
+- [x] `make data` / `make data-offline` build a validated, deterministic snapshot; the API loads it at startup and reports it in `/health` and `/api/v1/meta` (#33)
 
 **Phase 3: Trust layer (M3), not started.** Confidence, contradictions, coverage report, Explain with edge citations.
 

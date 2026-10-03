@@ -208,21 +208,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) and [docs/RUN
 
 | Name | Role | GitHub |
 |---|---|---|
-| Ali Jendoubi | TBD | [@alijendoubi](https://github.com/alijendoubi) |
-| TBD | TBD | TBD |
-| TBD | TBD | TBD |
-| TBD | TBD | TBD |
+| Ali Jendoubi | Lead, code owner | [@alijendoubi](https://github.com/alijendoubi) |
+| Khaled Md Saifullah | TBD | [@sagorhossain972](https://github.com/sagorhossain972) |
+| Clara Hajj | TBD | [@clara578](https://github.com/clara578) |
 
 ## Status
 
 Last updated: 2026-10-03
 
-**Phase 1: Repo bootstrap (M1), in progress**
+**Phase 1: Repo bootstrap (M1), done except CI execution and deploy wiring**
 - [x] Challenge brief reviewed; docs, ADRs, evidence model and data source plan written
-- [ ] Monorepo scaffold (backend FastAPI `/health`, frontend Next.js) merged
-- [ ] CI, security, deploy workflows green on `main`
-- [ ] Ruleset and labels applied (`scripts/github/bootstrap-repo.sh`)
-- [ ] Vercel and Render connected
+- [x] Monorepo scaffold (backend FastAPI `/health`, frontend Next.js) merged (#1); checks pass locally
+- [x] Ruleset applied: PR required, code-owner (@alijendoubi) approval only, squash, required checks (#6)
+- [x] Labels, milestones, teammates invited; Dependabot major bumps frozen until submission
+- [ ] CI, security, deploy workflows green on `main` (Actions jobs are not starting on this account yet)
+- [ ] Vercel and Render connected (secrets not set)
 
 **Phase 2: Graph slice (M2), not started**
 - [ ] Disease cluster chosen (see [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))

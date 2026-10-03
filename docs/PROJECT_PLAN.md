@@ -9,12 +9,27 @@ Legend: **[V]** = verified live during planning (API call, file HEAD, or officia
 
 ## 1. Executive summary
 
-**What we build.** An evidence-first atlas for one disease cluster: **presynaptic SNAREopathies / synaptic vesicle cycle disorders** (STXBP1, SNAP25, VAMP2, SYT1, STX1B, CPLX1, UNC13A, plus bridge genes SYNGAP1 and SLC6A1). Maria types her disease into one search box. The atlas walks her from her disease to a shared mechanism, then to another gene and disease, a patient group, a reusable natural history study, and a sourced proposal. Every step cites an edge, and every edge has a source link. For a sparse disease (CPLX1) the atlas returns an honest-gap coverage report instead of a guess.
+**What we build.** An evidence-first atlas for one disease cluster: **Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours**. The neighbour genes are PSAP, SCARB2, SMPD1, ATP13A2, CTSD and GBA2. The decision is in [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md), and the verified seed list is in [DATA_SOURCES.md](DATA_SOURCES.md#demo-cluster-gaucher--gba1---parkinsons).
+
+Maria types her disease into one search box. The atlas walks her through a chain where every step cites an edge and every edge has a source link:
+1. her disease (neuronopathic Gaucher)
+2. the shared gene and mechanism (GBA1 / GCase, lysosomal)
+3. a common disease that shares it (GBA1-associated Parkinson's)
+4. its patient and research organizations
+5. reusable trials
+6. a sourced collaboration brief
+
+For a sparse neighbour (saposin C deficiency), the atlas returns an honest-gap coverage report instead of a guess.
 
 **The winning angle.** The bar is trust plus action, not graph size. Three things to show:
-1. Every sentence the AI writes cites an edge id, and the edge opens its source record. An AI label on screen says "AI-generated, cites edge e_123".
-2. One real, verifiable story. VAMP2 and STXBP1 share the SNARE-complex-assembly mechanism ([V] GO:0035493 annotations). A natural history study already spans two genes: NCT06555965, STXBP1 + SYNGAP1, CHOP, recruiting, est. 600 [V]. A multi-gene drug trial already exists: NCT04937062, phenylbutyrate for STXBP1 + SLC6A1 [V]. Together they show that a study design can be extended to Maria's gene, which supports the 10x claim.
-3. Counterexamples and contradictions on screen. SNAP25 is filed in MONDO/OMIM as "congenital myasthenic syndrome 18" [V], so the name hides the mechanism. STXBP1 has a haploinsufficiency vs dominant-negative debate. CAP-002 gene therapy, NCT06983158, was terminated with "stopping rule met" [V].
+1. **Cited AI.** Every sentence the AI writes cites an edge id, and the edge opens its source record. An AI label on screen says "AI-generated, cites edge e_123".
+2. **One real, verifiable story.** Two faulty GBA1 copies cause Gaucher disease. One faulty copy is a Parkinson's risk factor (Monarch `contributes_to` MONDO:0008199, OMIM-sourced [V]). An N370S or L444P variant was found in 15% of Ashkenazi Jewish PD patients vs 3% of non-Ashkenazi patients (Sidransky 2009, PMID 19846850 [V]). The PD side has reusable assets:
+   - ASPro-PD, NCT05778617: phase 3 ambroxol trial, 330 participants, about half GBA1 carriers, recruiting [V].
+   - PR001 / LY3884961: the same gene therapy is in trials for GBA1-PD (NCT04127578) and for Gaucher type 2 (NCT04411654) [V].
+   - An ambroxol registry already enrols both communities (NCT04388969) [V].
+3. **Counterexamples and contradictions on screen.**
+   - Venglustat failed in GBA1-PD: MOVES-PD was terminated after missing its endpoints (PMID 37479372 [V]). It met its primary endpoints in Gaucher type 3 (LEAP2MONO, Sanofi 2026-02-02 [V]). Same mechanism, different outcome.
+   - The PSAP link to PD susceptibility is curated in OMIM but contested in replication letters [V].
 
 **OpenAI is a visible first pillar** (Section 8a): Extract, Reconcile, Explain and semantic search all run on OpenAI. We use the Responses API with structured outputs, the Batch API, and embeddings. All outputs are precomputed into the snapshot, so the demo survives an API outage.
 
@@ -35,10 +50,10 @@ Legend: **[V]** = verified live during planning (API call, file HEAD, or officia
 
 | Criterion | What judges look for | Concrete proof in our demo | Owner |
 |---|---|---|---|
-| Graph quality | Node/edge design, defensible clusters, useful paths, counterexamples, uncertainty | Typed graph with CURIE ids. Cluster view where each membership lists its top shared HPO terms and GO terms. "Not clustered, and why" card for SNAP25 (the CMS18 label) and for SLC6A1 (shared therapy mechanism, different pathway) | Ali |
+| Graph quality | Node/edge design, defensible clusters, useful paths, counterexamples, uncertainty | Typed graph with CURIE ids. Cluster view where each membership lists its top shared HPO terms and GO terms. "Same mechanism, different outcome" card for venglustat (GBA1-PD vs GD3). "Hypothesis only" labels on literature-only neighbours (SMPD1-PD, contested PSAP-PD) | Ali |
 | Evidence integrity | Sourced, cross-checked; data vs hypothesis vs clinical proof | Edge panel shows source link, retrieved date, evidence type badge (observed / curated / inferred-hypothesis), the confidence rubric reasons, and `contradicted_by`. Trial status badges (recruiting / terminated) | Ali + B |
-| Patient progress | Diagnosis -> justified collaboration -> reusable asset -> next milestone | Action view for VAMP2. Partner: STXBP1 Foundation / CHOP NHS team. Asset: NCT06555965 protocol. Next step: a proposal to add a VAMP2 cohort, plus an expert-check list | C |
-| 10x impact | Milestone, existing timeline vs ours, assumptions | Milestone: "VAMP2 families enrolled in a running natural history study". About 24-36 months from scratch vs about 3-6 months by protocol extension, with assumptions stated (Section 13) | Ali + C |
+| Patient progress | Diagnosis -> justified collaboration -> reusable asset -> next milestone | Action view for neuronopathic Gaucher. Partners: Gauchers Association / International Gaucher Alliance, plus the GBA1-PD research community (MJFF GBA1-PD Catalyst, Cure Parkinson's). Assets: ASPro-PD, the ambroxol registry NCT04388969, PR001 trials. Next step: a collaboration brief, plus an expert-check list | C |
+| 10x impact | Milestone, existing timeline vs ours, assumptions | Milestone: "a Gaucher group launches a collaboration that reuses GBA1-PD trial infrastructure, biomarkers and safety data". 10x is on the find-mechanism / asset / partner step, with assumptions stated (Section 13) | Ali + C |
 | Ambition & product craft | Intuitive, collaboration at scale | One global search, progressive reveal, low-ink design, the AI label on every generated sentence, the honest-gap card | C |
 
 ### 2.3 Traps to avoid
@@ -49,7 +64,7 @@ Legend: **[V]** = verified live during planning (API call, file HEAD, or officia
 | Too-broad scope | One cluster of 9-12 diseases. Hard feature freeze at T+20. |
 | A pretty graph with no action | The demo ends in the action view and the proposal, not in the graph. |
 | Hiding uncertainty | Inferred edges are dashed and labelled "hypothesis". The contradiction chip is visible without a click. |
-| Overclaiming | No efficacy claims about 4-PBA or gene therapy. Trials are described by registry fields only. |
+| Overclaiming | No efficacy claims about ambroxol, venglustat or gene therapy. Trials are described by registry fields only. Dose differences are shown as research evidence, never as dosing advice. "No approved therapy" is shown with its date (the venglustat NDA for GD3 has an FDA target date of 2026-11-25 [U: press coverage]). |
 | Demo dies on API or cold start | Precomputed Explain cache in the snapshot, static JSON fallback in the frontend, and the backend warmed before recording |
 
 ---
@@ -62,26 +77,49 @@ Legend: **[V]** = verified live during planning (API call, file HEAD, or officia
 | 1 | **Maria** (patient org leader) | Full golden journey: search -> path -> cluster -> action view -> proposal | Main build |
 | 2 | **Devon** (new caregiver) | Same search box with synonym resolution. A "Plain language" toggle on Explain output. Honest-gap card says "no group found; closest communities are X, Y" | Near zero, reuses Explain |
 | 3 | **Dr. Osei** (researcher) | A "Who works on this mechanism" list: RePORTER PIs and PubMed authors grouped by gene, with a shared-investigator badge for people who span two genes | Small (one endpoint plus a list) |
-| 4 | **Priya** (pharma scout) | A "Mechanism lens" dropdown, e.g. "protein stabilization / chaperone" or "SNARE complex assembly", that ranks diseases by mechanism evidence, org presence, assets and unmet need | Should-have. Cut first |
+| 4 | **Priya** (pharma scout) | A "Mechanism lens" dropdown, e.g. "pharmacological chaperone" or "glucosylceramide synthase inhibition", that ranks diseases by mechanism evidence, org presence, assets and unmet need | Should-have. Cut first |
 
-### 3.2 Golden demo journey (Maria, VAMP2)
-Maria leads a small family group for **VAMP2-related neurodevelopmental disorder** (MONDO:0032900, OMIM:618760, 15 HPO annotations [V]). No approved therapy is known [U: confirm there is no approved VAMP2-specific therapy; none appears on ClinicalTrials.gov, where 3 VAMP2 hits are mostly non-disease studies [V]].
+### 3.2 Golden demo journey (Maria, neuronopathic Gaucher)
+Maria leads a family group for **neuronopathic Gaucher disease**:
+- Type 2: MONDO:0009266, OMIM:230900, 51 HPO annotations [V]
+- Type 3: MONDO:0009267, OMIM:231000, 50 HPO annotations [V]
+
+Enzyme replacement does not cross the blood-brain barrier. As of 2026-10-03 there is no approved therapy for the neurological disease (Sanofi press release, 2026-02-02 [V]). Venglustat for GD3 is under FDA review, with a target date of 2026-11-25 [U: press coverage, not fda.gov]. The UI shows this as dated status, not a timeless claim.
 
 | Step | Screen | Graph evidence (edge type, source) |
 |---|---|---|
-| 1 | Search "VAMP2" or "synaptobrevin". Results show the disease, the gene and the synonym match | Node synonyms from MONDO + HGNC. Reconcile via embeddings plus exact match |
-| 2 | Disease card: cause, key phenotypes ranked by information content, mechanism | `caused_by` VAMP2 (OMIM via Monarch, curated). `has_phenotype` (HPO, curated) |
-| 3 | Mechanism hop: VAMP2 -> "SNARE complex assembly" (GO:0035493) <- STXBP1 | `participates_in` (GO annotations, curated) [V: STX1A, STXBP1, VAMP2 are annotated to GO:0035493] |
-| 4 | Related disease: STXBP1 -> DEE4 (MONDO:0012812, 46 HPO terms [V]). Phenotype overlap score with top shared informative terms. Also SYT1 / Baker-Gordon (MONDO:0033864) as a phenotype neighbour (hypotonia, hyperkinetic movements) | `caused_by` (OMIM). `similar_phenotype_to` (analytics, inferred) |
-| 5 | Patient group: STXBP1 Foundation; Baker-Gordon Syndrome Foundation (listed on NORD) | `represents` (curated from org site / NORD page) |
-| 6 | Reusable asset: NCT06555965 "STXBP1 and SYNGAP1 Related Disorders Natural History Study" (CHOP, recruiting, est. 600) [V]; NCT06625112 European STXBP1 trial-readiness study (recruiting, est. 120) [V] | `studies_condition` (CT.gov, observed) |
-| 7 | "What differs" panel: eligibility today lists STXBP1 and SYNGAP1 only. VAMP2 variant mechanism (dominant-negative vs LoF) is unconfirmed. Outcome measures (seizures, development) overlap | Eligibility fields (CT.gov). Mechanism edges marked inferred |
-| 8 | Proposal (Explain): a plain-language draft to the NHS team. Every sentence cites edge ids. It lists expert-review questions and one next experiment | Explain output with edge citations and the "AI-generated" label |
+| 1 | Search "Gaucher" (or "GBA", the old symbol). Results show the disease grouping, the types and the gene | Node synonyms from MONDO + HGNC (GBA is a previous symbol of GBA1 [V]) |
+| 2 | Disease card for type 3: cause, key phenotypes ranked by information content (supranuclear gaze palsy, myoclonus, ataxia, seizures), mechanism | `caused_by` GBA1 (OMIM via Monarch, curated). `has_phenotype` (HPO, curated) |
+| 3 | Mechanism hop: GBA1 -> GCase / lysosomal glucosylceramide degradation | `participates_in` (GO annotations, curated) [U: pick the exact GO terms at ingest] |
+| 4 | Related disease: GBA1 -> late-onset Parkinson disease (MONDO:0008199). The card shows "one faulty copy raises PD risk", with 15% (Ashkenazi Jewish) vs 3% (other ancestries) for two common variants, and 7% with full sequencing | `contributes_to` (OMIM via Monarch [V]). Publication edge, Sidransky 2009, PMID 19846850 [V] |
+| 5 | Organizations: The Gauchers Association and the International Gaucher Alliance on the Gaucher side; the MJFF GBA1-PD Research Catalyst and Cure Parkinson's on the PD side | `represents` / `funds` (curated, `data/curated/organizations.yaml`) |
+| 6 | Reusable assets: ASPro-PD NCT05778617 (phase 3, ambroxol, 330, recruiting). Narita 2016 nGD ambroxol pilot (PMC4774255). Ambroxol registry NCT04388969 (both populations). PR001 in PD (NCT04127578) and in Gaucher type 2 (NCT04411654) | `studies_condition` (CT.gov, observed). Publication (curated) |
+| 7 | "What differs" panel (see below) | Eligibility and arm fields (CT.gov). Publication fields |
+| 8 | Collaboration brief (Explain): a plain-language draft to the ASPro-PD investigators and the MJFF GBA1-PD programme. Asks: can nGD studies reuse the safety data, the GBA1-stratified design and the biomarker protocols? Every sentence cites edge ids; it lists expert-review questions | Explain output with edge citations and the "AI-generated" label |
+| 9 | Hypothesis hop: GBA1 -> GCase trafficking -> SCARB2 (LIMP-2) -> action myoclonus-renal failure. Dashed and labelled "hypothesis" | SCARB2 `gene_associated_with_condition` Gaucher type I (Orphanet via Monarch [V]). LIMP-2 targets GCase to the lysosome, Reczek 2007, PMID 18022370 [V], extracted, `inferred` |
+| 10 | Counterexample card: venglustat was negative in GBA1-PD (MOVES-PD) and positive in GD3 (LEAP2MONO) | CT.gov `whyStopped` [V]. PMID 37479372 [V]. Sanofi release [V] |
 
-**Next experiment, stated as a hypothesis:** functional assay of reported VAMP2 variants (dominant-negative vs haploinsufficient) in the neuronal exocytosis models already used for STXBP1. The result decides whether shared outcome measures or therapies are plausible.
+What the step 7 panel shows. All of it is research evidence from the sources, not dosing advice.
 
-### 3.3 Honest-gap journey (CPLX1)
-Search "CPLX1" -> DEE63 (MONDO:0033372, 32 HPO terms [V]). Mechanism edge to SNARE regulation exists (GO annotations [V]). But: 0 ClinicalTrials.gov records [V], about 2 RePORTER hits [V], and no patient org found in the curated directories [U: confirm no org]. The coverage report lists sources searched with counts, what is missing, weak leads (eligibility for multi-gene NHS: not stated), and the next question: "Would the CHOP multi-gene NHS accept recessive CPLX1 families? Contact the PI; collect 3+ families' consent to be contacted."
+| | ASPro-PD | Narita 2016 nGD pilot |
+|---|---|---|
+| Population | Adults 35-75 with PD, GBA1 carriers and non-carriers | Patients with neuronopathic Gaucher disease, on ERT |
+| Dose | Fixed, titrated to 1260 mg/day | Weight-based target of 25 mg/kg/day, max 1300 mg/day |
+| Endpoints | MDS-UPDRS at 104 weeks | Myoclonus, seizures, CSF glucosylsphingosine |
+| Design | Placebo-controlled | Open-label, n=5 |
+
+**Next experiment, stated as a hypothesis:** does the ASPro-PD biomarker protocol include GCase activity or lyso-Gb1 [U]? If so, a shared readout could link PD carrier data with nGD natural-history data from the ICGG registry (NCT00358943).
+
+### 3.3 Honest-gap journey (saposin C deficiency)
+1. Search "saposin C". The result is Gaucher disease due to saposin C deficiency (MONDO:0012517, OMIM:610539, 36 HPO terms [V]). The mechanism edge exists: PSAP `causes` (OMIM via Monarch [V]). GCase is normal, but its activator is missing.
+2. The coverage report shows the counts searched [V]:
+   - 0 ClinicalTrials.gov condition matches
+   - 0 NIH RePORTER projects
+   - 20 PubMed records
+   - no dedicated patient organization (NORD and Global Genes have disease pages only)
+   - one source says "no specific therapy is approved" (PMID 41812503)
+3. Weak lead (hypothesis): one patient treated with eliglustat for 9 years improved systemically but not in seizures. Venglustat is a brain-penetrant drug of the same class, positive in GD3.
+4. Next question: "Would GD3 venglustat investigators or the ICGG registry include saposin C deficiency patients? Contact the IGA to find families."
 
 ### 3.4 MoSCoW (24h)
 | Must | Should | Could | Won't |
@@ -97,41 +135,58 @@ Search "CPLX1" -> DEE63 (MONDO:0033372, 32 HPO terms [V]). Mechanism edge to SNA
 
 ---
 
-## 4. Disease cluster: recommendation and seed list
+## 4. Disease cluster: decision and seed list
+
+**Decided (A1, issue #14, 2026-10-03): Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours.**
+- Rationale and alternatives: [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md).
+- Full verified seed list (MONDO, ORPHA, OMIM, HGNC, HPO, NCT, orgs, gap evidence): [DATA_SOURCES.md](DATA_SOURCES.md#demo-cluster-gaucher--gba1---parkinsons).
+- Curated records: `data/curated/organizations.yaml` and `data/curated/assets.yaml`.
 
 ### 4.1 Candidates compared
-| Criterion | **Presynaptic SNAREopathies (recommended)** | Lysosomal: NCL / CLN family | CDG (PMM2-CDG etc.) | Channelopathy DEE (SCN2A/KCNQ2) |
+| Criterion | **Gaucher / GBA1 -> PD (chosen)** | Presynaptic SNAREopathies (alternative) | Lysosomal: NCL / CLN family | CDG (PMM2-CDG etc.) |
 |---|---|---|---|---|
-| Mechanism story | Different genes, one process (vesicle fusion). Same-gene mechanism debate (STXBP1). A name-hides-mechanism case (SNAP25 = "CMS18") | Strong: shared lysosomal clearance | Strong: one glycosylation pathway | Best "same gene, GoF vs LoF" story |
-| Public data | Rich. STXBP1 has 495 P/LP ClinVar records; 46-77 HPO terms for the main members [V] | Rich | Moderate | Rich |
-| Patient orgs | STXBP1 Foundation, SynGAP Research Fund, SLC6A1 Connect [V sites resolve]; Baker-Gordon Syndrome Foundation on NORD [V via search]. VAMP2, CPLX1: none found (useful for the gap) | BDSRA and others | CDG CARE [U] | FamilieSCN2A [U] |
-| No approved therapy for hero | Yes [U, low risk] | CLN2 has cerliponase alfa, which muddies the story | PMM2: none approved [U] | ASOs in trials [U] |
-| Reusable assets | Multi-gene NHS NCT06555965; European readiness NCT06625112; multi-gene trial NCT04937062 [V] | Many registries (45 CT.gov hits for CLN3 [V]) | Frontiers in CDG NHS [U] | NHS exists [U] |
-| Matches brief mock | "STXBP1" is in the search placeholder | "lysosomal storage" is in the placeholder | No | Partially |
-| Honest-gap candidate | CPLX1 (0 trials [V]) | Weak; most CLNs have assets | Several | Several |
-| Prior art to reuse | Monarch DisMech grouping "Synaptic Vesicle Cycle Disorders", 10 members (AI-curated, human-reviewed) [V] | | | |
+| Mechanism story | One gene, two diseases: recessive Gaucher, and dominant PD risk. Lysosomal neighbours (PSAP, SCARB2, SMPD1, ATP13A2, CTSD, GBA2) | Different genes, one process (vesicle fusion). A name-hides-mechanism case (SNAP25 = "CMS18") | Shared lysosomal clearance | One glycosylation pathway |
+| Public data | 50-92 HPO terms per Gaucher entry. OMIM + Orphanet gene-disease edges in Monarch [V] | Rich (46-77 HPO terms for the main members [V]) | Rich | Moderate |
+| Patient orgs | Gaucher: NGF, IGA, Gauchers Association. PD: MJFF, Cure Parkinson's, Parkinson's UK [V] | STXBP1 Foundation, SynGAP Research Fund, SLC6A1 Connect [V] | BDSRA and others | CDG CARE [U] |
+| No approved therapy for hero | Yes for the neurological disease, as of 2026-10-03 [V]. Venglustat GD3 FDA decision expected 2026-11-25 [U] | Yes [U, low risk] | CLN2 has cerliponase alfa | PMM2: none [U] |
+| Reusable assets | ASPro-PD; ambroxol registry spanning both communities; PR001 in PD and GD2; ICGG registry; GOS [V] | Multi-gene NHS NCT06555965; NCT06625112; NCT04937062 [V] | Many registries | Frontiers in CDG NHS [U] |
+| Counterexample | Venglustat: negative in GBA1-PD, positive in GD3 [V] | SNAP25 label; CAP-002 terminated [V] | Weak | Weak |
+| Honest-gap candidate | Saposin C deficiency: 0 trials, 0 RePORTER projects [V] | CPLX1 (0 trials [V]) | Weak | Several |
+| 10x lever | Rare community borrows from a large, funded common-disease programme | One sponsor adds a gene to a running study | Registry reuse | Pathway reuse |
 
-**Recommendation: presynaptic SNAREopathies**, with SYNGAP1 and SLC6A1 as bridge diseases. The cluster has all three of the brief's mechanism patterns. It has real multi-gene assets that make the 10x argument concrete. It has a natural honest gap (CPLX1, VAMP2 has no org). It also matches the brief's own search example. The fallback, if the cluster cannot be verified by T+3, is NCL (CLN3 hero, no approved therapy [U]) because the lysosomal data is just as rich.
+**Why Gaucher/GBA1:** it is the only candidate with a rare-to-common bridge, so the reusable assets are large, funded and already GBA1-stratified. It also has assets that span both communities today, a well-documented counterexample, and a one-hop honest gap.
 
-### 4.2 Seed entities
-| Disease (MONDO) | Xrefs | Gene (HGNC) | HPO count [V] | Org | Key assets | Role in demo |
-|---|---|---|---|---|---|---|
-| MONDO:0032900 NDD with hypotonia and autistic features +/- hyperkinetic movements | OMIM:618760 | VAMP2 (HGNC:12643) | 15 | none found [U] | none | **Hero (Maria)** |
-| MONDO:0012812 DEE 4 (STXBP1) | OMIM:612164, Orphanet:599373 | STXBP1 (HGNC:11444) | 46 | STXBP1 Foundation (stxbp1disorders.org) | NCT06555965, NCT06625112, NCT04937062, NCT06983158 (terminated), NCT06356233 | Partner community |
-| MONDO:0033864 Baker-Gordon syndrome (SYT1) | OMIM:618218, Orphanet:522077 | SYT1 (HGNC:11509) | 70 | Baker-Gordon Syndrome Foundation (NORD) | [U] | Phenotype neighbour |
-| MONDO:0014590 congenital myasthenic syndrome 18 (SNAP25) | OMIM:616330 | SNAP25 (HGNC:11132) | 13 | [U] | [U] | Name hides mechanism (counterexample) |
-| MONDO:0014517 GEFS+ type 9 (STX1B) | OMIM:616172 | STX1B (HGNC:18539) | 8 | [U] | 1 CT.gov hit | Milder epilepsy phenotype, different cluster edge |
-| MONDO:0033372 DEE 63 (CPLX1) | OMIM:617976 | CPLX1 (HGNC:2309) | 32 | none [U] | 0 trials [V] | **Honest gap** |
-| MONDO:0980940 / 0980941 / 0980942 (UNC13A NDDs) | OMIM:621455 etc. | UNC13A (HGNC:23150) | 77 (0980940) | [U] | 3 CT.gov hits | Same gene, several diseases |
-| MONDO:0012960 ID AD 5 (SYNGAP1) | OMIM:612621, Orphanet:544254 | SYNGAP1 (HGNC:11497) | 52 | SynGAP Research Fund | NCT06555965 | Bridge: shared NHS, different pathway |
-| MONDO:0014633 epilepsy with myoclonic-atonic seizures (SLC6A1) | OMIM:616421, Orphanet:1942 | SLC6A1 (HGNC:11042) | 47 | SLC6A1 Connect | NCT04937062 | Bridge: shared chaperone hypothesis |
-| (optional) DNM1, SYN1 encephalopathies | [U ids] | DNM1, SYN1 | [U] | [U] | | Extra cluster members if time allows |
+**Documented alternative:** presynaptic SNAREopathies, with the seed data below kept from the earlier recommendation. Switch only if the GBA1 seeds fail at G1.
 
-Mechanism nodes: GO:0035493 SNARE complex assembly (STX1A, STXBP1, VAMP2), GO:0016079 synaptic vesicle exocytosis (CPLX1, SNAP25, STX1A, STX1B, VAMP2), GO:0007269 neurotransmitter secretion (7 genes), plus `MECH:` terms for variant effect: `loss_of_function`, `dominant_negative`, `protein_misfolding`. All GO memberships [V] from goa_human.gaf (direct annotations). Note: STXBP1 is **not** directly annotated to GO:0016079. Use GO-DAG closure, or the curated SNARE-assembly term. Do not overclaim.
+### 4.2 Seed entities (summary; IDs verified 2026-10-03)
+| Disease (MONDO) | Xrefs | Gene (HGNC) | Role in demo |
+|---|---|---|---|
+| MONDO:0009266 Gaucher type II; MONDO:0009267 Gaucher type III | OMIM:230900, 231000; ORPHA:77260, 77261 | GBA1 (HGNC:4177) | **Hero (Maria)** |
+| MONDO:0009265 Gaucher type I; MONDO:0011945 perinatal lethal | OMIM:230800, 608013 | GBA1 | Context (type I has approved therapy) |
+| MONDO:0008199 late-onset Parkinson disease | OMIM:168600; ORPHA:411602 | GBA1 `contributes_to` | **Partner disease** |
+| MONDO:0012517 Gaucher due to saposin C deficiency | OMIM:610539; ORPHA:309252 | PSAP (HGNC:9498) | **Honest gap** |
+| MONDO:0859183 PD 24 susceptibility | OMIM:619491 | PSAP | Contested hypothesis |
+| MONDO:0009699 action myoclonus-renal failure | OMIM:254900; ORPHA:163696 | SCARB2 (HGNC:1665) | Hypothesis hop (GCase trafficking) |
+| MONDO:0009756 / MONDO:0011871 Niemann-Pick A / B | OMIM:257200, 607616 | SMPD1 (HGNC:11120) | Neighbour; PD link is literature-only (PMID 30788890) |
+| MONDO:0011706 Kufor-Rakeb syndrome | OMIM:606693; ORPHA:306674 | ATP13A2 (HGNC:30213) | Neighbour: lysosomal and parkinsonism |
+| MONDO:0012414 NCL 10 | OMIM:610127; ORPHA:228337 | CTSD (HGNC:2529) | Neighbour |
+| MONDO:0013737 SPG46 | OMIM:614409; ORPHA:320391 | GBA2 (HGNC:18986) | Neighbour (same substrate) |
 
-Key literature, Extract seed: 4-PBA for STXBP1 and SLC6A1 case series, medRxiv 10.1101/2024.11.06.24316676 [V], preprint so low confidence. STXBP1 NHS with 162 individuals (PMC10197795) [V via search]. SNAREopathy review (Verhage & Sorensen) [U: find the PMID].
+Key trials: NCT05778617, NCT04388969, NCT04127578, NCT04411654, NCT05222906, NCT02906020, NCT05819359. Registries: NCT00358943 (ICGG), NCT03291223 (GOS). Key literature: PMID 27042680 (Narita 2016), 19846850 (Sidransky 2009), 37479372 (MOVES-PD), 18022370 (LIMP-2), 41812503 (saposin C and eliglustat).
 
-Sources: Monarch API v3 (https://api-v3.monarchinitiative.org/v3/api), ClinicalTrials.gov v2 (https://clinicaltrials.gov/api/v2/studies), DisMech grouping (https://dismech.monarchinitiative.org/pages/groupings/Synaptic_Vesicle_Cycle_Disorders.html), NORD Baker-Gordon (https://rarediseases.org/organizations/the-baker-gordon-syndrome-foundation/), https://www.stxbp1disorders.org, https://syngapresearchfund.org, https://slc6a1connect.org, https://clinicaltrials.gov/study/NCT06555965, https://www.medrxiv.org/content/10.1101/2024.11.06.24316676v2, https://pmc.ncbi.nlm.nih.gov/articles/PMC10197795.
+**Correction to the original brief for this task:** PMC4351661 (Gan-Or 2015) does not state "15% vs 3%". Cite Sidransky 2009 for those figures.
+
+### 4.3 Alternative kept on file: presynaptic SNAREopathies (verified 2026-10-03)
+| Disease (MONDO) | Xrefs | Gene (HGNC) | Notes |
+|---|---|---|---|
+| MONDO:0032900 VAMP2 NDD | OMIM:618760 | VAMP2 (HGNC:12643) | Would be the hero; 15 HPO terms; no org found |
+| MONDO:0012812 DEE 4 | OMIM:612164, Orphanet:599373 | STXBP1 (HGNC:11444) | NCT06555965, NCT06625112, NCT04937062, NCT06983158 (terminated) |
+| MONDO:0033864 Baker-Gordon syndrome | OMIM:618218 | SYT1 (HGNC:11509) | Phenotype neighbour |
+| MONDO:0014590 CMS18 | OMIM:616330 | SNAP25 (HGNC:11132) | Name hides mechanism |
+| MONDO:0033372 DEE 63 | OMIM:617976 | CPLX1 (HGNC:2309) | Honest gap (0 trials) |
+| MONDO:0012960 / MONDO:0014633 | OMIM:612621 / 616421 | SYNGAP1 / SLC6A1 | Bridges |
+
+Sources: Monarch API v3, ClinicalTrials.gov v2, DisMech "Synaptic Vesicle Cycle Disorders" grouping.
 
 ---
 
@@ -161,7 +216,7 @@ The **Monarch KG and API v3** already join MONDO, HPO, HGNC and OMIM-derived gen
 
 ### 5.3 `make data` design
 ```
-make data            -> uv run python -m atlas.pipeline all --slice data/slices/snareopathy.yaml
+make data            -> uv run python -m atlas.pipeline all --slice data/slices/gba1.yaml
   1 fetch      data/raw/<source>/<YYYY-MM-DD>/...  (cached; skip if present; --refresh to refetch)
   2 normalize  per-source parsers -> data/interim/*.jsonl  (Node/Edge models, deterministic)
   3 extract    OpenAI Batch job over abstracts -> data/interim/extract/*.jsonl (cached by input hash)
@@ -205,11 +260,11 @@ LLM self-confidence is never used. Rubric version `r1`.
 - Observed: CT.gov, RePORTER, ClinVar submissions. Curated: Monarch/OMIM, HPO, GO, Orphanet, team curation with URL. Inferred: Extract claims and all analytics edges, drawn dashed and labelled "hypothesis".
 - Contradictions are detected two ways:
   - Extract polarity `contradicts` on the same (subject, relation, object).
-  - Same gene with different `has_mechanism` values. Seed case: STXBP1 haploinsufficiency vs dominant-negative, if both appear in the extracted abstracts [U: depends on the corpus]. If Extract does not surface it, add a curated contradiction pair with two PMIDs, which a team member must read and verify.
+  - Same gene with different `has_mechanism` values. Seed cases: PSAP-PD susceptibility (Oji 2020, PMID 32201884, vs replication letters such as PMID 33793763) and venglustat (negative in GBA1-PD, positive in GD3). If Extract does not surface them, add curated contradiction pairs with their PMIDs, which a team member must read and verify.
 - Paths through a contradicted edge are flagged, and Explain must mention the contradiction (the validator checks this).
 
 ### 6.4 Coverage report
-Per disease: sources searched, with query and record count. Example: "ctgov: query.cond=CPLX1 -> 0". The report also lists what is missing (org, study, mechanism evidence, variant-effect evidence), weak leads (paths with min confidence < 0.4) and templated next questions. Explain rewrites them in plain language and cites coverage ids.
+Per disease: sources searched, with query and record count. Example: "ctgov: query.cond=saposin C deficiency -> 0". The report also lists what is missing (org, study, mechanism evidence, variant-effect evidence), weak leads (paths with min confidence < 0.4) and templated next questions. Explain rewrites them in plain language and cites coverage ids.
 
 ---
 
@@ -218,14 +273,14 @@ Per disease: sources searched, with query and record count. Example: "ctgov: que
 | Component | Method | 24h feasible? |
 |---|---|---|
 | Phenotype similarity | IC from the **whole** phenotype.hpoa (IC = -log p(term or descendant annotated)). Score = IC-weighted Jaccard over propagated term sets. Store the top 5 shared terms by IC | Yes (about 1.5 h). Resnik BMA is a Should |
-| Mechanism similarity | Jaccard over gene -> GO BP closure, restricted to a curated whitelist of about 30 synaptic terms to avoid generic terms like "protein binding" | Yes (about 1 h) |
+| Mechanism similarity | Jaccard over gene -> GO BP closure, restricted to a curated whitelist of about 30 lysosomal / sphingolipid terms to avoid generic terms like "protein binding" | Yes (about 1 h) |
 | Variant-effect signal | `MECH:` labels from Extract and ClinVar molecular consequence. Pairs with conflicting mechanisms on the same gene get **negative** weight -> counterexample card | Partial. Present as hypothesis |
 | Combined weight | `w = 0.5*pheno + 0.4*mech + 0.1*shared_asset`. kNN (k=4) above threshold 0.15 | Yes |
-| Community detection | `networkx.community.louvain_communities(seed=42)` on the disease-disease graph. Expect 2-3 groups: vesicle-fusion core (STXBP1, VAMP2, SNAP25, SYT1, CPLX1, STX1B), priming (UNC13A), and bridges (SYNGAP1 postsynaptic, SLC6A1 GABA transporter) | Yes. With about 12 nodes this is near-trivial, so we explain memberships rather than claim scale |
+| Community detection | `networkx.community.louvain_communities(seed=42)` on the disease-disease graph. Expect 2-3 groups: the glucosylceramide core (Gaucher types, saposin C deficiency, SPG46), other lysosomal storage (Niemann-Pick A/B, NCL10, AMRF), and parkinsonism (GBA1-PD, Kufor-Rakeb) | Yes. With about 12 nodes this is near-trivial, so we explain memberships rather than claim scale |
 | Bridges | Betweenness on the combined graph. Plus "shared asset bridges" (a study whose conditions span two genes, e.g. NCT06555965) and "shared investigator bridges" (the same RePORTER profile_id or PubMed author linked to 2+ genes) | Yes for assets. Investigators are a Should |
 | Priya ranking | For a mechanism m: score = mech_evidence(m) x (1 + has_org) x (1 + n_assets) x unmet_need (no approved therapy = 1). Shown with columns, not a black box | Could |
 
-Defensibility: the cluster card says "in cluster because: shares GO:0035493 (curated, 3 genes) and 4 high-IC HPO terms; not with SLC6A1 because it shares only the chaperone-therapy hypothesis (inferred)".
+Defensibility: the cluster card says "in cluster because: shares glucosylceramide catabolism (GBA1, PSAP; curated) and 4 high-IC HPO terms; GBA1-PD is linked by the gene, not by phenotype similarity".
 
 ---
 
@@ -298,10 +353,10 @@ Keep `OPENAI_MODEL` as a single override. Update `.env.example` and the README e
   - Relation must be in the enum.
   - All claims are `inferred`, with base 0.50, or 0.30 if hedged or from a preprint.
 - Prompt outline: role (biomedical curator); "extract only what the text states"; allowed relations; examples for LoF, dominant-negative and misfolding; "return an empty list if none".
-- Corpus selection: `GENE[tiab] AND (variant* OR patient* OR encephalopathy OR epilep* OR mechanism)`, 2010+, top 80 per gene. This avoids SNAP25/VAMP2 basic-neuroscience noise (about 3,000 and about 1,000 tiab hits [V]).
+- Corpus selection: `GENE[tiab] AND (variant* OR patient* OR Gaucher OR Parkinson* OR mechanism)`, 2010+, top 80 per gene. GBA1/PD literature is huge, so filter to GBA/GCase abstracts [U: count hits at ingest].
 
 ### 8c. Reconcile design
-Deterministic exact match first: label, synonyms and xrefs from MONDO, HGNC and HPO. Then embedding top-5 candidates. Then Luna picks `{chosen_id | none, match: exact|synonym|broader|none, rationale}` from the candidates only. Matches that are `broader` lower confidence by 0.10. Showcase: "SNAP25 encephalopathy" resolves to MONDO:0014590 (labelled CMS18) as `broader`, which the UI explains as a "Name hides mechanism" note.
+Deterministic exact match first: label, synonyms and xrefs from MONDO, HGNC and HPO. Then embedding top-5 candidates. Then Luna picks `{chosen_id | none, match: exact|synonym|broader|none, rationale}` from the candidates only. Matches that are `broader` lower confidence by 0.10. Showcase: "GBA" (previous symbol) resolves to GBA1 (HGNC:4177), and "atypical Gaucher" resolves to saposin C deficiency (MONDO:0012517).
 
 ### 8d. Explain design
 - Input: ordered edges with labels, provenance, evidence type and contradictions.
@@ -351,7 +406,7 @@ Sources --fetch--> data/raw --normalize--> interim --(OpenAI Extract/Reconcile, 
 
 | Screen | Content | Brief principle |
 |---|---|---|
-| Home | One search box. Three example chips: "VAMP2", "jerky movements and low tone", "CPLX1". The three Maria questions | One global search |
+| Home | One search box. Three example chips: "Gaucher", "eye movement problems and myoclonus", "saposin C". The three Maria questions | One global search |
 | Disease page | Summary card: cause, top 5 informative symptoms (IC-ranked), mechanism, "who shares this", "what exists", "what next". Depth on click | Progressive reveal |
 | Path view | Horizontal chain of chips: disease -> gene -> mechanism -> gene -> disease -> org -> study. Solid edges are data; dashed edges are hypotheses | Low ink, color carries meaning |
 | Edge panel (side) | Source link, record id, date, evidence type, confidence + reasons, contradictions (red chip), quote | Explain every edge |
@@ -361,7 +416,13 @@ Sources --fetch--> data/raw --normalize--> interim --(OpenAI Extract/Reconcile, 
 
 Library choices: Tailwind (already in place), `react-force-graph-2d` or `cytoscape` for the cluster view [U: pick at T+8; skip it if it's late, the path view is enough]. Accessibility: color plus label, never color alone.
 
-**1-minute video beats:** search VAMP2 (0:00-0:08) -> path to STXBP1 via SNARE assembly, edge panel open (0:08-0:20) -> cluster plus the SNAP25 counterexample (0:20-0:28) -> action view: STXBP1 Foundation + NCT06555965, what differs (0:28-0:42) -> AI proposal with cited edges and the OpenAI label (0:42-0:52) -> CPLX1 gap card (0:52-1:00).
+**1-minute video beats:**
+- 0:00-0:08: search "Gaucher"
+- 0:08-0:20: path to GBA1-PD via GBA1 / GCase, with the edge panel open on the Sidransky 15% / 3% source
+- 0:20-0:28: venglustat counterexample card, plus the dashed SCARB2 hypothesis hop
+- 0:28-0:42: action view: ASPro-PD + the ambroxol registry + the Gauchers Association, and the "what differs" panel
+- 0:42-0:52: AI collaboration brief with cited edges and the OpenAI label
+- 0:52-1:00: saposin C deficiency gap card
 
 ---
 
@@ -370,7 +431,7 @@ Library choices: Tailwind (already in place), `react-force-graph-2d` or `cytosca
 ### 11.1 Existing issues mapped
 | Issue | Scope adjustment | Owner | Est. |
 |---|---|---|---|
-| #14 Choose cluster | Adopt the SNAREopathy slice. Write ADR 0003. Update DATA_SOURCES | Ali | 0.5 h |
+| #14 Choose cluster | **Done:** Gaucher/GBA1 -> PD. ADR 0003 written; seed list in DATA_SOURCES | Ali | 0.5 h |
 | #15 MONDO + HPO | Via Monarch API + phenotype.hpoa (whole-file IC) | B | 2.5 h |
 | #16 ClinVar/OMIM | **Rename:** "Gene-disease (Monarch/OMIM-sourced), GO mechanisms, ClinVar counts". No OMIM API | B | 2 h |
 | #17 Orgs, registries, studies | CT.gov ingest + **curated orgs.yaml** | B (CT.gov), C (curation) | 2 h + 1.5 h |
@@ -394,7 +455,7 @@ Library choices: Tailwind (already in place), `react-force-graph-2d` or `cytosca
 | OpenAI model config split + smoke test | M2 | type:chore, area:backend, P0 | Four env settings; Luna structured-output test passes, or the fallback is documented |
 | Extraction gold set + eval script | M3 | type:test, P1 | 30 labelled abstracts; precision/recall printed and stored in the manifest |
 | Explain cache + template fallback + offline mode | M3 | type:feat, P0 | With no key set, every demo screen still renders with cited explanations |
-| Actions endpoint (`/actions/{id}`) incl. "what differs" | M3 | type:feat, P0 | VAMP2 returns STXBP1 Foundation, NCT06555965 and its differences; CPLX1 returns a coverage report |
+| Actions endpoint (`/actions/{id}`) incl. "what differs" | M3 | type:feat, P0 | Gaucher type 3 returns the Gauchers Association / IGA, ASPro-PD and its differences; saposin C deficiency returns a coverage report |
 | "Built with OpenAI" README section + UI AI label + /meta usage | M5 | type:docs, P0 | All three visible; numbers come from the manifest |
 | Frontend static demo fallback | M4 | type:feat, area:frontend, P1 | Golden and gap journeys work with the backend offline |
 | RePORTER investigators + shared-investigator bridges | M3 | type:data, P1 | At least 1 investigator bridge shown or explicitly "none found" |
@@ -404,12 +465,14 @@ Library choices: Tailwind (already in place), `react-force-graph-2d` or `cytosca
 `#14 cluster -> evidence model v2 -> #15/#16 ingest -> pipeline+snapshot -> #22 API (search/node/path) -> #24 action view -> video`
 Extract (#18) and clustering (#20) run in parallel and feed the snapshot. The **demo does not block on Extract**, because the golden path uses curated + observed edges. Extract adds the contradiction and investigator layer.
 
-### 11.4 Workstreams (roles for Sagor and Clara are a **question for the team**)
-| Person | Primary (if a coder) | Fallback (if not a coder) |
-|---|---|---|
-| **Ali** (lead, sole approver) | AI layer (Extract/Reconcile/Explain), evidence model, trust layer, API core, deploy, reviews every 2-3 h in batches | Same, plus ingest |
-| **Sagor** (proposed: data/backend) | Ingest connectors (Monarch, HPO, GO, CT.gov, PubMed, RePORTER), analytics, pipeline, tests | Curation of orgs/assets, gold-set labelling, verifying every [U] in this plan, README dataset section |
-| **Clara** (proposed: frontend/UX + story) | Next.js screens, edge panel, action view, cluster viz, video | Figma/HTML mock -> Ali/Sagor implement; curation; demo script, moonshot narrative, video editing, submission checklist |
+### 11.4 Workstreams (roles confirmed)
+| Person | Role |
+|---|---|
+| **Ali** (lead, sole approver) | AI layer (Extract/Reconcile/Explain), evidence model, trust layer, API core, deploy. **Also the frontend** (screens, edge panel, action view, gap card, static fallback), with agent help. Reviews every 2-3 h in batches |
+| **Sagor** (data/backend) | Ingest connectors (Monarch, HPO, GO, CT.gov, PubMed, RePORTER), analytics, pipeline, tests, verifying every [U] in the seed list |
+| **Clara** (limited availability) | Review of the curated YAML (spot-check URLs, about 30 min) and the video narration (async) |
+
+Task-level owners are in [EXECUTION_PLAN.md](EXECUTION_PLAN.md). Where the Clara column in section 12 lists frontend work, Ali now owns it.
 
 PR flow: small PRs, `make check` locally as the gate (Actions are not running), Ali approves with admin bypass. Batch reviews at gates to avoid blocking.
 
@@ -431,7 +494,7 @@ PR flow: small PRs, `make check` locally as the gate (Actions are not running), 
 | T+22-23.5 | Submission checklist (#27), README status, rotate keys after judging | Docs pass | Upload, test links in a private window | **T+23.5 SUBMIT** (30 min buffer) |
 
 Cut-lines summary:
-- Behind at G1: switch to the NCL fallback only if SNARE seeds fail verification; otherwise cut OMIM/Orphadata.
+- Behind at G1: switch to the SNAREopathy fallback only if GBA1 seeds fail verification; otherwise cut OMIM/Orphadata.
 - Behind at G2: Extract runs on 150 abstracts only; drop RePORTER.
 - Behind at G3: Explain runs only on precomputed demo paths; drop the cluster visualization (show a cluster list).
 - Behind at G4: record from local `docker compose` and keep the deployed URL as best effort, with the static fallback.
@@ -440,25 +503,28 @@ Cut-lines summary:
 
 ## 13. 10x moonshot narrative (draft)
 
-**Milestone:** VAMP2 families have prospective, standardized natural-history data collected under an existing protocol. This is the step that makes any future trial (including a basket trial with STXBP1) designable.
+**Milestone:** a neuronopathic Gaucher family group launches a research collaboration that reuses GBA1-PD trial infrastructure, biomarkers and safety data. Examples: ambroxol safety data from ASPro-PD, a GBA1-stratified design, and a shared biomarker protocol. This is the step that makes an nGD study designable without starting from zero.
 
-| Step | Status quo for a new tiny community (assumption-based) | Equilibrium route |
+The realistic framing: **10x applies to the early find-mechanism, asset and partner step**. It does not apply to curing anything, or to regulatory timelines.
+
+| Step | Status quo for a small rare community (assumption-based) | Equilibrium route |
 |---|---|---|
-| Find related communities and mechanism | 6-12 months of networking, conferences, cold emails | Minutes: cited path VAMP2 -> SNARE assembly -> STXBP1 |
-| Find an existing study design | Often never found; groups design their own | Same session: NCT06555965 already spans 2 genes; NCT04937062 shows a 2-gene trial is feasible |
-| Write protocol, IRB, sites, funding | 12-24 months for a de novo NHS | Protocol amendment to add a cohort: est. 3-6 months [assumption] |
-| Recruit | Slow, families scattered | Shared outreach through partner orgs and registries |
-| **Total** | **~24-36 months** | **~3-6 months (6-10x)** |
+| Find the shared mechanism and the larger community | Months of conferences, cold emails and literature reading; the GBA1-PD link is well known to specialists but not mapped for families | Minutes: cited path Gaucher -> GBA1 / GCase -> GBA1-PD |
+| Find reusable assets | Scattered across registries, press releases and papers | Same session: ASPro-PD, the ambroxol registry spanning both communities, PR001 in both populations, ICGG registry |
+| Find partners | Personal networks | MJFF GBA1-PD Catalyst, Cure Parkinson's, IGA, with the evidence for why each is relevant |
+| Write a first collaboration brief | Weeks of expert time | A sourced draft for expert review, with "what differs" (population, dose, endpoints, age) already laid out |
+| **Total for this step** | **~6-12 months [team estimate]** | **~2-4 weeks including expert review [team estimate]**, about 10x |
 
 Assumptions to state on screen:
-1. The NHS sponsor is willing to add genes. The study already combines STXBP1 + SYNGAP1, which is evidence that the model works but not proof that they would accept VAMP2.
-2. Outcome measures transfer (seizure and developmental scales).
-3. The VAMP2 variant mechanism is compatible, or the difference is captured as a stratum.
-4. IRB amendment timelines are institution-specific.
+1. PD trial sponsors and funders are willing to share protocols, safety data or biomarker methods with a rare-disease group. MJFF's programme explicitly emphasises shared datasets and research assets, but that is not a commitment to Gaucher.
+2. PD evidence does not transfer automatically to nGD. Population, age, dose (weight-based in nGD vs fixed in PD), disease severity and endpoints all differ. Venglustat is the reminder that the same mechanism can give opposite results.
+3. Regulatory status changes: the venglustat GD3 FDA decision is expected 2026-11-25 [U].
+4. Status-quo durations are team estimates [U]. Cite a source if one is found, or label them clearly as estimates.
 
-Status-quo durations are team estimates [U]. We should cite a source for typical NHS start-up time if one is found, or label them clearly as estimates.
-
-What must be validated next: sponsor interest (one email), a variant-mechanism assay, and family counts (registry contact).
+What must be validated next:
+- one expert check of the brief (Gaucher clinician plus PD trialist)
+- whether ASPro-PD collects GCase or lyso-Gb1 data [U]
+- one contact with the IGA about family interest
 
 ---
 
@@ -472,7 +538,7 @@ What must be validated next: sponsor interest (one email), a variant-mechanism a
 | 4 | Scope creep (multiple clusters, chat agent, fancy viz) | H / M | MoSCoW + hard freeze at T+20; cut-lines per gate |
 | 5 | Data access or licensing surprises (OMIM restrictions, no free org directory, HPO/Monarch terms, Batch SLA) | M / M | No OMIM API (Monarch attribution instead); curated orgs; commit raw JSON; synchronous Extract fallback if the Batch job lags past T+8 |
 | 6 | CI not running (Actions blocked) -> broken main | M / M | `make check` before every PR; Ali runs it on merge; no merges without a local green |
-| 7 | Mechanism facts wrong (e.g. VAMP2 mechanism, SNAP25 classification) | M / H | Every mechanism claim is either GO/OMIM-curated or labelled hypothesis; an expert-review checklist is part of the product |
+| 7 | Mechanism facts wrong (e.g. overstating GBA1-PD as causal, the contested PSAP-PD link, transferring PD dosing to nGD) | M / H | Every mechanism claim is either GO/OMIM-curated or labelled hypothesis; an expert-review checklist is part of the product |
 | 8 | Cost overrun | L / L | Spend cap $50; caching; Batch |
 | 9 | Hackathon rules on pre-built code/data | U / H | Confirm at kickoff; the repo scaffold is already public and dated |
 
@@ -482,8 +548,8 @@ What must be validated next: sponsor interest (one email), a variant-mechanism a
 
 | # | Decision | Recommended default |
 |---|---|---|
-| 1 | Disease cluster | Presynaptic SNAREopathies (hero VAMP2, partner STXBP1, gap CPLX1); fallback NCL |
-| 2 | Sagor's and Clara's skills and roles | Sagor = data/backend, Clara = frontend/UX + story; non-coder fallback per Section 11.4 |
+| 1 | Disease cluster | **Decided:** Gaucher/GBA1 -> PD (hero nGD, partner GBA1-PD, gap saposin C deficiency); fallback SNAREopathies (ADR 0003) |
+| 2 | Sagor's and Clara's skills and roles | **Confirmed:** Sagor = data/backend. Clara has limited availability: curation review and video narration. Ali covers the frontend with agent help |
 | 3 | Models | Extract/Explain `gpt-6.1-sol`, Reconcile `gpt-6-luna` (fallback `gpt-5.4-mini`), embeddings `text-embedding-3-small`; retire the `gpt-4.1-mini` default |
 | 4 | Live vs precomputed Explain | Precomputed by default; live behind a flag for unseen paths |
 | 5 | Snapshot shipping | Baked into the backend Docker image; small snapshot + LLM cache committed |

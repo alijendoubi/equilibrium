@@ -1,4 +1,4 @@
-# ADR 0003: Demo cluster is Gaucher / GBA1 -> Parkinson's
+# ADR 0003: Demo cluster is GBA1/GCase–lysosomal dysfunction (Gaucher / GBA1 -> Parkinson's)
 
 - **Status:** Accepted
 - **Date:** 2026-10-03
@@ -17,7 +17,9 @@ The GBA1 neighbourhood has a property no other candidate has: **one gene links a
 
 ## Decision
 
-1. The demo cluster is **Gaucher / GBA1 -> Parkinson's**, with lysosomal neighbours:
+**Rationale:** We chose the GBA1/GCase–lysosomal dysfunction cluster for three reasons. Neuronopathic Gaucher has a real neurological treatment gap. GBA1/GCase gives a biologically strong link to Parkinson's. And Parkinson's acts as our validated anchor. We are not claiming to discover that known link. We use it to validate the system, then search the same gene-pathway-phenotype neighbourhood for less obvious diseases, assets, researchers and evidence gaps.
+
+1. The demo cluster is **GBA1/GCase–lysosomal dysfunction** (Gaucher / GBA1 -> Parkinson's), with lysosomal neighbours:
    - PSAP (saposin C deficiency)
    - SCARB2 (action myoclonus-renal failure)
    - SMPD1 (Niemann-Pick A/B)

@@ -9,7 +9,7 @@ Legend: **[V]** = verified live during planning (API call, file HEAD, or officia
 
 ## 1. Executive summary
 
-**What we build.** An evidence-first atlas for one disease cluster: **Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours**. The neighbour genes are PSAP, SCARB2, SMPD1, ATP13A2, CTSD and GBA2. The decision is in [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md), and the verified seed list is in [DATA_SOURCES.md](DATA_SOURCES.md#demo-cluster-gaucher--gba1---parkinsons).
+**What we build.** An evidence-first atlas for one disease cluster: **GBA1/GCase–lysosomal dysfunction** (Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours). Parkinson's is the validated anchor; the value is in the less obvious neighbours, assets and gaps around it. The neighbour genes are PSAP, SCARB2, SMPD1, ATP13A2, CTSD and GBA2. The decision is in [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md), and the verified seed list is in [DATA_SOURCES.md](DATA_SOURCES.md#demo-cluster-gaucher--gba1---parkinsons).
 
 Maria types her disease into one search box. The atlas walks her through a chain where every step cites an edge and every edge has a source link:
 1. her disease (neuronopathic Gaucher)
@@ -137,7 +137,10 @@ What the step 7 panel shows. All of it is research evidence from the sources, no
 
 ## 4. Disease cluster: decision and seed list
 
-**Decided (A1, issue #14, 2026-10-03): Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours.**
+**Decided (A1, issue #14, 2026-10-03): the GBA1/GCase–lysosomal dysfunction cluster (Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours).**
+
+**Rationale:** We chose the GBA1/GCase–lysosomal dysfunction cluster for three reasons. Neuronopathic Gaucher has a real neurological treatment gap. GBA1/GCase gives a biologically strong link to Parkinson's. And Parkinson's acts as our validated anchor. We are not claiming to discover that known link. We use it to validate the system, then search the same gene-pathway-phenotype neighbourhood for less obvious diseases, assets, researchers and evidence gaps.
+
 - Rationale and alternatives: [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md).
 - Full verified seed list (MONDO, ORPHA, OMIM, HGNC, HPO, NCT, orgs, gap evidence): [DATA_SOURCES.md](DATA_SOURCES.md#demo-cluster-gaucher--gba1---parkinsons).
 - Curated records: `data/curated/organizations.yaml` and `data/curated/assets.yaml`.

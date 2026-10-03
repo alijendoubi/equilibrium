@@ -58,7 +58,11 @@ This file lists every source named in the challenge brief, plus a few supporting
 
 ## Demo cluster: Gaucher / GBA1 -> Parkinson's
 
-**Decision (2026-10-03, task A1, issue #14):** the demo cluster is **Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours**. The hero is neuronopathic Gaucher disease (types 2 and 3) and the partner is GBA1-associated Parkinson's. The honest-gap disease is **saposin C deficiency**. Rationale and alternatives are in [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md). Snapshot slug: `gba1`.
+**Decision (2026-10-03, task A1, issue #14):** the demo cluster is **GBA1/GCase–lysosomal dysfunction**: Gaucher / GBA1 -> Parkinson's, plus lysosomal neighbours.
+
+**Rationale:** We chose the GBA1/GCase–lysosomal dysfunction cluster for three reasons. Neuronopathic Gaucher has a real neurological treatment gap. GBA1/GCase gives a biologically strong link to Parkinson's. And Parkinson's acts as our validated anchor. We are not claiming to discover that known link. We use it to validate the system, then search the same gene-pathway-phenotype neighbourhood for less obvious diseases, assets, researchers and evidence gaps.
+
+ The hero is neuronopathic Gaucher disease (types 2 and 3) and the partner is GBA1-associated Parkinson's. The honest-gap disease is **saposin C deficiency**. Rationale and alternatives are in [ADR 0003](adr/0003-demo-cluster-gaucher-gba1.md). Snapshot slug: `gba1`.
 
 The seed list below was checked live on 2026-10-03:
 - **[V]** means verified today against the URL or API named.

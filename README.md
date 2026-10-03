@@ -199,7 +199,7 @@ Full table, priorities and slice choice: [docs/DATA_SOURCES.md](docs/DATA_SOURCE
 ## Development workflow
 
 - Branches are named `feat|fix|docs|chore|data/<short-desc>`. PR titles follow Conventional Commits, because PRs are squash-merged and the title becomes the commit.
-- `main` is protected: PR required, 1 approval, required checks `backend`, `frontend`, `pr-title` and `secrets-scan`.
+- `main` is protected: PR required, approval from the code owner (@alijendoubi) only, required checks `backend`, `frontend`, `pr-title` and `secrets-scan`.
 - Run `make check` locally before pushing.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) and [docs/RUNBOOK.md](docs/RUNBOOK.md).

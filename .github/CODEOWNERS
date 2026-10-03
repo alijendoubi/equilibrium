@@ -1,11 +1,4 @@
-# Code owners. Code-owner review is NOT required by the ruleset (hackathon speed);
-# this file only routes review requests.
+# Code owners. The main-protection ruleset REQUIRES code-owner review, so
+# @alijendoubi is the only reviewer whose approval can merge a PR into main.
+# Do not add other owners here unless approval rights are meant to change.
 * @alijendoubi
-
-# Per-area owners - uncomment and replace once teammates are added as collaborators.
-# /backend/              @alijendoubi @teammate-backend
-# /frontend/             @alijendoubi @teammate-frontend
-# /data/                 @alijendoubi @teammate-data
-# /docs/                 @alijendoubi @teammate-docs
-# /.github/              @alijendoubi
-# /scripts/              @alijendoubi

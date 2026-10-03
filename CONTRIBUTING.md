@@ -8,7 +8,7 @@ This repo is built in a 24-hour hackathon. These rules exist to keep `main` demo
 2. Create a branch: `git switch -c feat/edge-panel`
 3. Open a **draft PR** early.
 4. Run `make check` locally until it passes.
-5. Give the PR a Conventional Commit title and get 1 approval.
+5. Give the PR a Conventional Commit title and get approval from @alijendoubi (the only code owner; only his approval can merge).
 6. Squash merge.
 
 ## Branch naming

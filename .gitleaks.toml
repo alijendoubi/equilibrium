@@ -1,0 +1,10 @@
+# gitleaks config: default ruleset plus narrow, reviewed allowlists.
+# Add entries only for confirmed false positives, in a chore/ PR.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Template and example files that contain placeholder keys only"
+paths = [
+  '''(^|/)\.env\.example$''',
+]

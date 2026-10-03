@@ -1,0 +1,62 @@
+"""Application settings loaded from environment variables (and an optional .env file)."""
+
+from functools import lru_cache
+from typing import Literal
+
+from pydantic import Field, SecretStr, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+LogLevel = Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"]
+
+DEFAULT_CORS_ORIGINS = "http://localhost:3000"
+DEFAULT_OPENAI_MODEL = "gpt-4.1-mini"
+
+
+class Settings(BaseSettings):
+    """Runtime configuration. Secrets are SecretStr so they never leak into logs or reprs."""
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+        frozen=True,
+        populate_by_name=True,
+    )
+
+    openai_api_key: SecretStr | None = Field(default=None, alias="OPENAI_API_KEY")
+    openai_model: str = Field(default=DEFAULT_OPENAI_MODEL, alias="OPENAI_MODEL")
+    ncbi_api_key: SecretStr | None = Field(default=None, alias="NCBI_API_KEY")
+    omim_api_key: SecretStr | None = Field(default=None, alias="OMIM_API_KEY")
+    cors_origins: str = Field(default=DEFAULT_CORS_ORIGINS, alias="CORS_ORIGINS")
+    log_level: LogLevel = Field(default="INFO", alias="LOG_LEVEL")
+
+    @field_validator("log_level", mode="before")
+    @classmethod
+    def _normalise_log_level(cls, value: object) -> object:
+        """Accept `info`, `Info`, etc. so a lowercase env value does not crash startup."""
+        return value.strip().upper() if isinstance(value, str) else value
+
+    @field_validator("cors_origins")
+    @classmethod
+    def _reject_wildcard_origin(cls, value: str) -> str:
+        """Refuse `*`: list explicit origins so CORS stays safe if credentials are added later."""
+        if any(origin.strip() == "*" for origin in value.split(",")):
+            raise ValueError("CORS_ORIGINS must list explicit origins, not '*'")
+        return value
+
+    @property
+    def cors_origin_list(self) -> tuple[str, ...]:
+        """CORS origins parsed from the comma-separated CORS_ORIGINS value."""
+        return tuple(origin.strip() for origin in self.cors_origins.split(",") if origin.strip())
+
+    @property
+    def has_openai_key(self) -> bool:
+        """True when an OpenAI key is configured (without exposing the value)."""
+        key = self.openai_api_key
+        return key is not None and bool(key.get_secret_value())
+
+
+@lru_cache(maxsize=1)
+def get_settings() -> Settings:
+    """Return the process-wide settings instance (cached)."""
+    return Settings()

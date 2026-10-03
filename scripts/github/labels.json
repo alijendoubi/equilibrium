@@ -1,0 +1,35 @@
+[
+  { "name": "type:feat", "color": "1d76db", "description": "New feature or capability" },
+  { "name": "type:fix", "color": "d73a4a", "description": "Bug fix" },
+  { "name": "type:docs", "color": "0075ca", "description": "Documentation only" },
+  { "name": "type:chore", "color": "cfd3d7", "description": "Tooling, CI, build, dependencies" },
+  { "name": "type:data", "color": "5319e7", "description": "Data sources, ingestion, graph content" },
+  { "name": "type:refactor", "color": "c5def5", "description": "Code change without behaviour change" },
+  { "name": "type:test", "color": "bfd4f2", "description": "Tests only" },
+
+  { "name": "area:backend", "color": "0e8a16", "description": "backend/ (Python, FastAPI, graph, extraction)" },
+  { "name": "area:frontend", "color": "fbca04", "description": "frontend/ (Next.js UI)" },
+  { "name": "area:data", "color": "8a63d2", "description": "data/, ingestion, DATA_SOURCES" },
+  { "name": "area:infra", "color": "6f42c1", "description": ".github, Docker, Makefile, scripts" },
+  { "name": "area:docs", "color": "006b75", "description": "docs/ and markdown" },
+
+  { "name": "priority:P0", "color": "b60205", "description": "Blocks the demo or submission - drop everything" },
+  { "name": "priority:P1", "color": "d93f0b", "description": "Needed for the submission" },
+  { "name": "priority:P2", "color": "fef2c0", "description": "Nice to have" },
+
+  { "name": "module:graph-builder", "color": "0052cc", "description": "Challenge module: knowledge graph construction" },
+  { "name": "module:trust", "color": "5319e7", "description": "Challenge module: evidence, provenance, confidence" },
+  { "name": "module:action", "color": "e99695", "description": "Challenge module: actionable outputs for users" },
+  { "name": "module:ux", "color": "f9d0c4", "description": "Challenge module: UI journey" },
+
+  { "name": "size/XS", "color": "3cbf00", "description": "<= 10 lines changed" },
+  { "name": "size/S", "color": "5d9801", "description": "<= 50 lines changed" },
+  { "name": "size/M", "color": "7f7203", "description": "<= 200 lines changed" },
+  { "name": "size/L", "color": "a14c05", "description": "<= 800 lines changed" },
+  { "name": "size/XL", "color": "c32607", "description": "> 800 lines changed - consider splitting" },
+
+  { "name": "run-e2e", "color": "ededed", "description": "Run the Playwright E2E workflow on this PR" },
+  { "name": "good-first-task", "color": "7057ff", "description": "Small, well-scoped, good for onboarding" },
+  { "name": "blocked", "color": "000000", "description": "Waiting on something external" },
+  { "name": "skip-changelog", "color": "eeeeee", "description": "Exclude from generated release notes" }
+]

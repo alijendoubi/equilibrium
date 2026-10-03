@@ -1,0 +1,11 @@
+# Code owners. Code-owner review is NOT required by the ruleset (hackathon speed);
+# this file only routes review requests.
+* @alijendoubi
+
+# Per-area owners - uncomment and replace once teammates are added as collaborators.
+# /backend/              @alijendoubi @teammate-backend
+# /frontend/             @alijendoubi @teammate-frontend
+# /data/                 @alijendoubi @teammate-data
+# /docs/                 @alijendoubi @teammate-docs
+# /.github/              @alijendoubi
+# /scripts/              @alijendoubi

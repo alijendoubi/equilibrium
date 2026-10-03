@@ -1,0 +1,10 @@
+# Standalone pnpm project (not a monorepo workspace). This file only carries
+# pnpm 11 settings so `pnpm install --frozen-lockfile` is non-interactive in CI.
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+  esbuild: true
+
+# Flat node_modules: Next standalone output copies traced deps; with the default
+# symlinked layout that needs symlink privileges on Windows (EPERM).
+nodeLinker: hoisted

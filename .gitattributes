@@ -1,0 +1,32 @@
+* text=auto eol=lf
+
+# Scripts must stay LF even on Windows checkouts
+*.sh   text eol=lf
+Makefile text eol=lf
+
+# Windows-only scripts
+*.cmd  text eol=crlf
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+
+# Lockfiles: collapse in diffs, mark generated
+pnpm-lock.yaml linguist-generated=true -diff
+uv.lock        linguist-generated=true -diff
+
+# Binaries
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.zip   binary
+*.gz    binary
+*.parquet binary
+*.sqlite binary
+*.db    binary

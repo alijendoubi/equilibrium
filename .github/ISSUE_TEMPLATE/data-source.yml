@@ -1,0 +1,61 @@
+name: Data source
+description: Propose or track a data source for the knowledge graph
+title: "data: add <source>"
+labels: ["type:data", "area:data"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Source name
+      placeholder: e.g. Orphanet, OMIM, HPO, ClinVar, PubMed
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL
+    validations:
+      required: true
+  - type: textarea
+    id: license
+    attributes:
+      label: License / terms of use
+      description: Can we store, transform and redistribute derived data? Attribution requirements? API key needed?
+    validations:
+      required: true
+  - type: dropdown
+    id: access
+    attributes:
+      label: Access method
+      options:
+        - API
+        - Bulk download
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: fields
+    attributes:
+      label: Fields needed
+      placeholder: identifiers, names, synonyms, phenotypes, genes, prevalence, ...
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Refresh cadence / rate limits
+    validations:
+      required: true
+  - type: textarea
+    id: edges
+    attributes:
+      label: Which edge types does it feed?
+      placeholder: disease-has-phenotype, disease-caused-by-gene, drug-treats-disease, ...
+    validations:
+      required: true
+  - type: checkboxes
+    id: recorded
+    attributes:
+      label: Bookkeeping
+      options:
+        - label: Recorded in docs/DATA_SOURCES.md

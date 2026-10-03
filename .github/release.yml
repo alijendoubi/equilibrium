@@ -1,0 +1,23 @@
+# Categories for auto-generated release notes (labels come from scripts/github/labels.json)
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+    authors:
+      - dependabot
+      - dependabot[bot]
+  categories:
+    - title: Features
+      labels: ['type:feat']
+    - title: Fixes
+      labels: ['type:fix']
+    - title: Data & sources
+      labels: ['type:data', 'area:data']
+    - title: Documentation
+      labels: ['type:docs']
+    - title: Refactoring & tests
+      labels: ['type:refactor', 'type:test']
+    - title: Infrastructure & chores
+      labels: ['type:chore', 'area:infra']
+    - title: Other changes
+      labels: ['*']

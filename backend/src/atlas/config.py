@@ -1,6 +1,7 @@
 """Application settings loaded from environment variables (and an optional .env file)."""
 
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal
 
 from pydantic import Field, SecretStr, field_validator
@@ -13,6 +14,10 @@ DEFAULT_OPENAI_MODEL_EXTRACT = "gpt-6.1-sol"
 DEFAULT_OPENAI_MODEL_EXPLAIN = "gpt-6.1-sol"
 DEFAULT_OPENAI_MODEL_RECONCILE = "gpt-6-luna"
 DEFAULT_OPENAI_EMBED_MODEL = "text-embedding-3-small"
+# Repo checkout default; the Docker image sets SNAPSHOT_PATH explicitly.
+DEFAULT_SNAPSHOT_PATH = (
+    Path(__file__).resolve().parents[3] / "data" / "snapshot" / "atlas-snapshot.json"
+)
 
 
 class Settings(BaseSettings):
@@ -43,6 +48,7 @@ class Settings(BaseSettings):
     omim_api_key: SecretStr | None = Field(default=None, alias="OMIM_API_KEY")
     cors_origins: str = Field(default=DEFAULT_CORS_ORIGINS, alias="CORS_ORIGINS")
     log_level: LogLevel = Field(default="INFO", alias="LOG_LEVEL")
+    snapshot_path: Path = Field(default=DEFAULT_SNAPSHOT_PATH, alias="SNAPSHOT_PATH")
 
     @field_validator("log_level", mode="before")
     @classmethod

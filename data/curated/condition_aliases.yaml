@@ -1,0 +1,67 @@
+# Extra condition names used to map ClinicalTrials.gov `conditions` strings to slice diseases.
+# The ClinicalTrials.gov connector first matches against the MONDO label and synonyms from
+# Monarch; these aliases cover common registry spellings that are not MONDO synonyms.
+# Matching is case-insensitive after normalisation (apostrophe-s, punctuation and Roman type
+# numerals are normalised; "Gaucher Disease, Type III" == "gaucher disease type 3").
+# A condition that matches nothing is reported as unmapped; it is never guessed.
+# Schema and rules: data/curated/README.md
+
+aliases:
+  - name: Parkinson disease
+    disease_id: MONDO:0008199
+    url: https://monarchinitiative.org/MONDO:0008199
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: >-
+      Slice convention. Registry records say "Parkinson Disease" without the GBA1 status;
+      the slice's Parkinson node is late-onset Parkinson disease (OMIM 168600, the GBA1
+      susceptibility entry). Edges made through this alias carry condition_match=alias and a
+      lower confidence.
+  - name: Parkinsons disease
+    disease_id: MONDO:0008199
+    url: https://monarchinitiative.org/MONDO:0008199
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Spelling variant of the alias above.
+  - name: GBA associated Parkinson disease
+    disease_id: MONDO:0008199
+    url: https://monarchinitiative.org/MONDO:0008199
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Registry spelling for GBA1-PD.
+  - name: Gaucher disease
+    disease_id: MONDO:0018150
+    url: https://monarchinitiative.org/MONDO:0018150
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Registry records naming no type map to the grouping node.
+  - name: Type 1 Gaucher disease
+    disease_id: MONDO:0009265
+    url: https://monarchinitiative.org/MONDO:0009265
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Word-order variant of "Gaucher disease type 1".
+  - name: Gaucher disease, non-neuronopathic form
+    disease_id: MONDO:0009265
+    url: https://monarchinitiative.org/MONDO:0009265
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Non-neuronopathic Gaucher disease is type 1 (MONDO:0009265 description).
+  - name: Glucocerebrosidase deficiency disease
+    disease_id: MONDO:0018150
+    url: https://meshb.nlm.nih.gov/record/ui?ui=D005776
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: MeSH entry term for Gaucher Disease (D005776); maps to the grouping node.
+  - name: Glucosylceramide beta-glucosidase deficiency disease
+    disease_id: MONDO:0018150
+    url: https://meshb.nlm.nih.gov/record/ui?ui=D005776
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: MeSH entry term for Gaucher Disease (D005776); maps to the grouping node.
+  - name: Cerebroside lipidosis syndrome
+    disease_id: MONDO:0018150
+    url: https://meshb.nlm.nih.gov/record/ui?ui=D005776
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: MeSH entry term for Gaucher Disease (D005776); maps to the grouping node.

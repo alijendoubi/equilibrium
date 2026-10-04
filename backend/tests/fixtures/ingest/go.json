@@ -1,0 +1,414 @@
+{
+ "annotations": [
+  {
+   "evidence": [
+    "ECO:0000303"
+   ],
+   "gene": "HGNC:1665",
+   "knowledge_source": "infores:aruk-ucl",
+   "matched": [
+    "GO:0007041"
+   ],
+   "publications": [
+    "PMID:25202012"
+   ],
+   "term": "GO:0006622",
+   "term_label": "protein targeting to lysosome"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:1665",
+   "knowledge_source": "infores:bhf-ucl",
+   "matched": [
+    "GO:0007041"
+   ],
+   "publications": [
+    "PMID:18022370"
+   ],
+   "term": "GO:0006622",
+   "term_label": "protein targeting to lysosome"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:1665",
+   "knowledge_source": "infores:ensembl",
+   "matched": [
+    "GO:0007041"
+   ],
+   "publications": [
+    "GO_REF:0000107"
+   ],
+   "term": "GO:0006622",
+   "term_label": "protein targeting to lysosome"
+  },
+  {
+   "evidence": [
+    "ECO:0000318"
+   ],
+   "gene": "HGNC:1665",
+   "knowledge_source": "infores:go-central",
+   "matched": [
+    "GO:0007041"
+   ],
+   "publications": [
+    "GO_REF:0000033"
+   ],
+   "term": "GO:0006622",
+   "term_label": "protein targeting to lysosome"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:1665",
+   "knowledge_source": "infores:ensembl",
+   "matched": [
+    "GO:0006914"
+   ],
+   "publications": [
+    "GO_REF:0000107"
+   ],
+   "term": "GO:0006914",
+   "term_label": "autophagy"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:interpro",
+   "matched": [
+    "GO:0006665"
+   ],
+   "publications": [
+    "GO_REF:0000002"
+   ],
+   "term": "GO:0006665",
+   "term_label": "sphingolipid metabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:aruk-ucl",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:25584808"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:bhf-ucl",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:19279011"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:ensembl",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "GO_REF:0000107"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000318"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:go-central",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "GO_REF:0000033"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:parkinsonsuk-ucl",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:21700325"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000314"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:16293621"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000314"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:24211208"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000314"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:9201993"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "PMID:24022302"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006665",
+    "GO:0006680",
+    "GO:0006687"
+   ],
+   "publications": [
+    "GO_REF:0000117"
+   ],
+   "term": "GO:0006680",
+   "term_label": "glucosylceramide catabolic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:ensembl",
+   "matched": [
+    "GO:0006914"
+   ],
+   "publications": [
+    "GO_REF:0000107"
+   ],
+   "term": "GO:0006914",
+   "term_label": "autophagy"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006914"
+   ],
+   "publications": [
+    "PMID:27378698"
+   ],
+   "term": "GO:0006914",
+   "term_label": "autophagy"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0006914"
+   ],
+   "publications": [
+    "GO_REF:0000117"
+   ],
+   "term": "GO:0006914",
+   "term_label": "autophagy"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:ensembl",
+   "matched": [
+    "GO:0007040"
+   ],
+   "publications": [
+    "GO_REF:0000107"
+   ],
+   "term": "GO:0007040",
+   "term_label": "lysosome organization"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0007040"
+   ],
+   "publications": [
+    "PMID:27378698"
+   ],
+   "term": "GO:0007040",
+   "term_label": "lysosome organization"
+  },
+  {
+   "evidence": [
+    "ECO:0000501"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:uniprot",
+   "matched": [
+    "GO:0007040"
+   ],
+   "publications": [
+    "GO_REF:0000117"
+   ],
+   "term": "GO:0007040",
+   "term_label": "lysosome organization"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:bhf-ucl",
+   "matched": [
+    "GO:0006665"
+   ],
+   "publications": [
+    "PMID:19279011"
+   ],
+   "term": "GO:0046512",
+   "term_label": "sphingosine biosynthetic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000315"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:bhf-ucl",
+   "matched": [
+    "GO:0006665"
+   ],
+   "publications": [
+    "PMID:19279011"
+   ],
+   "term": "GO:0046513",
+   "term_label": "ceramide biosynthetic process"
+  },
+  {
+   "evidence": [
+    "ECO:0000314"
+   ],
+   "gene": "HGNC:4177",
+   "knowledge_source": "infores:parkinsonsuk-ucl",
+   "matched": [
+    "GO:1905146"
+   ],
+   "publications": [
+    "PMID:26392287"
+   ],
+   "term": "GO:1905146",
+   "term_label": "lysosomal protein catabolic process"
+  }
+ ],
+ "meta": {
+  "retrieved_at": "2026-10-03T23:09:43Z",
+  "source_version": "monarch-kg 2026-09-04",
+  "url": "https://api-v3.monarchinitiative.org/v3/api/association"
+ },
+ "whitelist": [
+  "GO:0006665",
+  "GO:0006680",
+  "GO:0006687",
+  "GO:0006914",
+  "GO:0007040",
+  "GO:0007041",
+  "GO:0007042",
+  "GO:1905146"
+ ]
+}

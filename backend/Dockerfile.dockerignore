@@ -1,0 +1,10 @@
+# Used by BuildKit for `docker build -f backend/Dockerfile .` (context = repo root).
+# Allowlist: send only what the backend image needs.
+*
+!backend/pyproject.toml
+!backend/uv.lock
+!backend/README.md
+!backend/src
+!data/snapshot
+**/__pycache__
+**/*.py[cod]

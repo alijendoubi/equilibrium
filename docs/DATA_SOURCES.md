@@ -1,6 +1,6 @@
 # Data Sources
 
-This file lists every source named in the challenge brief, plus a few supporting ones. **None are ingested yet** (Phase 2).
+This file lists every source named in the challenge brief, plus a few supporting ones. **Ingested for the gba1 slice** (connectors in `backend/src/atlas/ingest/`, cache in `data/cache/`): Monarch API v3 (MONDO/HGNC entities, OMIM- and Orphanet-sourced gene-disease links, HPO disease-phenotype annotations, GO biological-process annotations), HPO `phenotype.hpoa` + `hp.obo` (information content only), ClinVar E-utilities (P/LP counts per gene), ClinicalTrials.gov API v2 and `data/curated/`. Everything else is not ingested yet.
 
 "Verify" means nobody on the team has yet read the current license or terms page. The person who adds the connector must check it and replace "verify" with the actual terms and a link.
 

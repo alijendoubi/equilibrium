@@ -3,7 +3,9 @@ name: equilibrium
 services:
   backend:
     build:
-      context: ./backend
+      # Repo root, so the image can include data/snapshot/ (see backend/Dockerfile).
+      context: .
+      dockerfile: backend/Dockerfile
     image: equilibrium-backend:local
     ports:
       - '8000:8000'

@@ -19,6 +19,7 @@ _ENV_VARS = (
     "OMIM_API_KEY",
     "CORS_ORIGINS",
     "LOG_LEVEL",
+    "SNAPSHOT_PATH",
 )
 
 

@@ -14,6 +14,8 @@ Current slice: **Gaucher / GBA1 -> Parkinson's** ([ADR 0003](../../docs/adr/0003
 |---|---|
 | `organizations.yaml` | `organizations` (list), `no_dedicated_org_found` (diseases with no dedicated org; feeds the coverage report) |
 | `assets.yaml` | `assets` (list) |
+| `mechanisms.yaml` | `mechanisms` (list): GO biological-process whitelist (id, name, url, retrieved, curator, notes). Ids checked on QuickGO |
+| `condition_aliases.yaml` | `aliases` (list): registry condition names -> slice MONDO id, used only when the MONDO label/synonyms do not match (name, disease_id, url, retrieved, curator, notes) |
 
 ## Entry fields
 
@@ -30,6 +32,17 @@ Current slice: **Gaucher / GBA1 -> Parkinson's** ([ADR 0003](../../docs/adr/0003
 | `verified` | orgs | What was actually checked (for example "url resolves" vs "page read") |
 | `source_record_id` | assets | NCT id, `PMID:` id, or registry id |
 | `attributes` | no | Registry fields (phase, status, enrollment, sponsor, dates) |
+| `funds` / `operates` | no (orgs) | Asset slugs from `assets.yaml` the org funds or operates; becomes a `funds` / `operates` edge backed by the org's `url` |
+
+## Graph ids (ingest/curated.py)
+
+| Entry | Node id | Node type |
+|---|---|---|
+| organization | `org:<id>` | `patient_group` (`funder` for `research_funder_program`, `research_charity`) |
+| asset with `source_record_id: NCT...` | `clinicaltrials:<NCT>` (merges with the ClinicalTrials.gov record) | `study` |
+| `publication_*` asset with `source_record_id: PMID:...` | `PMID:<n>` | `publication` |
+| any other asset | `asset:<id>` | `asset` |
+| mechanism | the GO id | `mechanism` |
 
 Validate with:
 

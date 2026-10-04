@@ -32,7 +32,7 @@ separators=(",", ":")))[:16]`. If you change one of those five fields, recompute
 Checked against the source:
 
 - MONDO ids and labels (EBI OLS): Gaucher disease `MONDO:0018150`, type II `MONDO:0009266`,
-  type III `MONDO:0009267`, GBA1-related Parkinson disease `MONDO:1040030`, and Gaucher disease
+  type III `MONDO:0009267`, late-onset Parkinson disease `MONDO:0008199` (the id used by the real snapshot), and Gaucher disease
   due to saposin C deficiency `MONDO:0012517`.
 - HGNC: GBA1 `HGNC:4177` and PSAP `HGNC:9498`. HPO and GO term ids and labels.
 - ASPro-PD `NCT05778617` (ClinicalTrials.gov API v2): phase 3, recruiting, 330 estimated,

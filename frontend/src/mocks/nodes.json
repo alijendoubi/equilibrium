@@ -40,10 +40,15 @@
     }
   },
   {
-    "id": "MONDO:1040030",
+    "id": "MONDO:0008199",
     "type": "disease",
-    "label": "GBA1-related Parkinson disease, susceptibility",
-    "synonyms": ["GBA1-associated Parkinson's disease", "GBA-PD", "GBA1-PD"],
+    "label": "late-onset Parkinson disease",
+    "synonyms": [
+      "Parkinson disease, late-onset",
+      "PD",
+      "GBA1-associated Parkinson disease",
+      "GBA-PD"
+    ],
     "xrefs": [],
     "attributes": {
       "description": "[MOCK] Parkinson disease in people who carry a GBA1 variant. Carrying one variant raises the risk of Parkinson disease; it does not cause Gaucher disease."

@@ -32,7 +32,7 @@ describe("/disease/[id]", () => {
     expect(screen.getByText("Cure Parkinson's")).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /Explore connection/ })[0]).toHaveAttribute(
       "href",
-      "/path?from=MONDO%3A0009267&to=MONDO%3A1040030",
+      "/path?from=MONDO%3A0009267&to=MONDO%3A0008199",
     );
     const exploreLinks = screen
       .getAllByRole("link", { name: /Explore connection/ })
@@ -49,7 +49,7 @@ describe("/disease/[id]", () => {
   });
 
   it("shows the GBA1 risk-factor gene as the cause of GBA1-related Parkinson disease", async () => {
-    await renderNode("MONDO:1040030");
+    await renderNode("MONDO:0008199");
     const summary = screen.getByRole("region", { name: "Summary" });
     expect(within(summary).getByText("GBA1")).toBeInTheDocument();
     expect(within(summary).getByText("risk factor")).toBeInTheDocument();

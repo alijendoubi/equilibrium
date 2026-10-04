@@ -69,12 +69,12 @@
   {
     "id": "E:93468e247aa8c342",
     "source_id": "HGNC:4177",
-    "target_id": "MONDO:1040030",
+    "target_id": "MONDO:0008199",
     "relation": "risk_factor_for",
     "provenance": {
       "source": "monarch",
-      "source_record_id": "MONDO:1040030",
-      "url": "https://monarchinitiative.org/MONDO:1040030",
+      "source_record_id": "MONDO:0008199",
+      "url": "https://monarchinitiative.org/MONDO:0008199",
       "retrieved_at": "2026-10-03T12:00:00Z"
     },
     "confidence": 0.9,
@@ -87,7 +87,7 @@
   },
   {
     "id": "E:36c6e1a96c92e376",
-    "source_id": "MONDO:1040030",
+    "source_id": "MONDO:0008199",
     "target_id": "MECH:lysosomal_dysfunction",
     "relation": "has_mechanism",
     "provenance": {
@@ -239,13 +239,13 @@
   },
   {
     "id": "E:a05be51d9125ff8a",
-    "source_id": "MONDO:1040030",
+    "source_id": "MONDO:0008199",
     "target_id": "HP:0002067",
     "relation": "has_phenotype",
     "provenance": {
       "source": "hpo",
-      "source_record_id": "MONDO:1040030",
-      "url": "https://monarchinitiative.org/MONDO:1040030",
+      "source_record_id": "MONDO:0008199",
+      "url": "https://monarchinitiative.org/MONDO:0008199",
       "retrieved_at": "2026-10-03T12:00:00Z"
     },
     "confidence": 0.9,
@@ -255,13 +255,13 @@
   },
   {
     "id": "E:6b8ed9776d2d09d3",
-    "source_id": "MONDO:1040030",
+    "source_id": "MONDO:0008199",
     "target_id": "HP:0100543",
     "relation": "has_phenotype",
     "provenance": {
       "source": "hpo",
-      "source_record_id": "MONDO:1040030",
-      "url": "https://monarchinitiative.org/MONDO:1040030",
+      "source_record_id": "MONDO:0008199",
+      "url": "https://monarchinitiative.org/MONDO:0008199",
       "retrieved_at": "2026-10-03T12:00:00Z"
     },
     "confidence": 0.9,
@@ -288,7 +288,7 @@
   {
     "id": "E:119c21583f5f6a55",
     "source_id": "ORG:cure-parkinsons",
-    "target_id": "MONDO:1040030",
+    "target_id": "MONDO:0008199",
     "relation": "represents",
     "provenance": {
       "source": "curated",
@@ -327,7 +327,7 @@
   {
     "id": "E:d99bd4495f7dbc55",
     "source_id": "clinicaltrials:NCT05778617",
-    "target_id": "MONDO:1040030",
+    "target_id": "MONDO:0008199",
     "relation": "studies_condition",
     "provenance": {
       "source": "ctgov",

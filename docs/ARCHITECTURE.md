@@ -75,6 +75,10 @@ The brief asks to cluster by **variant effect, pathway and phenotype rather than
   - Investigators or funders linked to two or more clusters. This is the brief's "network overlap".
 - **Defensibility:** each cluster membership is explained by its top contributing shared terms, genes or mechanisms. Each of those is a traceable edge. Counterexamples are kept: disease pairs that share a gene but differ in mechanism are shown as "not clustered, and why".
 
+**As built (#20)** in `backend/src/atlas/graph/similarity.py` and `clusters.py`, computed once at startup and served by `GET /api/v1/clusters[/{id}]`:
+`score = 0.5 * IC-weighted phenotype Jaccard (HPO terms with IC >= 2.5) + 0.3 * gene Jaccard (caused_by / risk_factor_for) + 0.2 * GO Jaccard (the genes' participates_in)`.
+Pairs scoring >= 0.15 are linked; Louvain (seed 42) groups them; ids `C1..Cn` by size. Each cluster lists its shared genes, mechanisms and most specific shared symptoms, its strongest bridges (pairs >= 0.05 into other clusters, dashed in the UI) and counterexamples (a member and a non-member linked to the same gene). On the current snapshot the gene signal dominates because few diseases share informative HPO terms, so the grouping is mostly by gene; the UI says so and shows the reasons for every link.
+
 ## OpenAI usage points
 
 All three points use **structured outputs** (JSON schema), use a low temperature, and log each call with the model, prompt version and input hash, so the snapshot can be reproduced. Models come from `OPENAI_MODEL_EXTRACT` (default `gpt-6.1-sol`), `OPENAI_MODEL_EXPLAIN` (`gpt-6.1-sol`), `OPENAI_MODEL_RECONCILE` (`gpt-6-luna`) and `OPENAI_EMBED_MODEL` (`text-embedding-3-small`).
@@ -97,7 +101,7 @@ Neo4j is optional and is a post-hackathon path, adopted only if graph size or qu
 
 ## API sketch
 
-Only the first two endpoints exist today. The rest are planned.
+All of these endpoints exist (the clusters endpoints since #20).
 
 | Method | Path | Purpose |
 |---|---|---|

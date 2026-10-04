@@ -1,6 +1,6 @@
 # Evidence Model
 
-Status: **contract v2**. It matches `backend/src/atlas/models/evidence.py`. The confidence rubric and the coverage report are **planned**. If code and this document disagree, fix one of them in the same PR.
+Status: **contract v2**. It matches `backend/src/atlas/models/evidence.py`. The confidence rubric (`trust-v1`, `backend/src/atlas/trust/rubric.py`) and the coverage report are implemented. If code and this document disagree, fix one of them in the same PR.
 
 All models are immutable (`frozen`) and reject unknown fields (`extra="forbid"`). Mapping fields (`Node.attributes`, `Edge.qualifiers`) are immutable `str -> str` maps; they serialize to plain JSON objects.
 
@@ -67,7 +67,7 @@ The `relation` field is validated against the `Relation` enum; any other value i
 | `works_on` | investigator -> disease / gene / mechanism | RePORTER, PubMed | `INV:...` -> `HGNC:...` |
 | `represents` | patient_group -> disease | NORD, Orphanet, Global Genes, org sites | `ORG:...` -> `MONDO:...` |
 | `operates` | patient_group -> asset | Org sites, press releases | `ORG:...` -> `ASSET:registry/...` |
-| `contradicts` | publication -> edge claim | Extract (polarity = contradicts) | also stored through `contradicted_by` on the target edge |
+| `contradicts` | publication / study -> node of the disputed claim | `data/curated/contradictions.yaml`; Extract (polarity = contradicts) | `PMID:33793763` contradicts `MONDO:0859183`; the disputed edge lists it in `contradicted_by` |
 
 Cluster membership is not an edge: clusters live outside the node set (see PROJECT_PLAN 6.1), so there is no `in_cluster` relation.
 
@@ -119,33 +119,49 @@ Every edge carries:
 
 The brief asks the atlas to *distinguish data from hypotheses and clinical proof*. Clinical proof, meaning an approved therapy or trial results, is marked on study and asset nodes through a status attribute. A link inferred from text is never presented as proof.
 
-## Confidence rubric (planned)
+## Confidence rubric (`trust-v1`)
 
-`confidence` is a value in `[0, 1]` assigned by deterministic rules, not by the LLM's self-reported certainty. Compute a base value, apply the adjustments, then clamp the result to `[0.05, 0.99]`.
+`confidence` is a value in `[0, 1]` assigned by deterministic rules, not by the LLM's self-reported certainty. The pipeline rescores every edge after merging all sources (`atlas.trust.rubric.score(edge, corroboration)`, applied in `atlas.pipeline.build`). Steps: pick a base value from the evidence type and source, apply the adjustments, clamp to `[0.05, 0.99]`, and cap inferred edges at `0.49`. Each step is written to `confidence_reasons`, for example `("curated KB gene-disease (OMIM via Monarch) 0.90", "+0.05 corroborated by 2 sources (omim, orphanet)")`.
 
-| Base | Condition |
-|---|---|
-| 0.90 | Curated knowledge base assertion (OMIM, Orphanet, HPO) or ClinVar with review status of expert panel or higher |
-| 0.75 | ClinVar with multiple submitters and no conflicts; ClinicalTrials.gov or RePORTER record (the record itself is factual) |
-| 0.60 | ClinVar with a single submitter; patient org verified on its own site |
-| 0.50 | LLM-extracted claim with a verbatim quote from a peer-reviewed abstract |
-| 0.30 | LLM-extracted claim from a preprint, or a hedged statement ("may", "suggests") |
-| computed | Analytics edges: the similarity score times the minimum confidence of the supporting edges |
+| Rule | Base | Condition |
+|---|---|---|
+| `kb_gene_disease` | 0.90 | OMIM / Orphanet gene-disease edge (`caused_by`, `risk_factor_for`) via Monarch |
+| `kb_phenotype` | 0.90 | HPO disease-phenotype annotation via Monarch |
+| `go_experimental` | 0.85 | GO annotation with at least one non-IEA evidence code |
+| `go_iea` | 0.80 | GO annotations inferred electronically only (IEA) |
+| `team_curated` | 0.80 | Team curation with a cited url (assets, `funds`/`operates`, verified contradictions) |
+| `ctgov_record` | 0.75 | ClinicalTrials.gov condition matched a MONDO label or synonym |
+| `reporter_record` | 0.75 | NIH RePORTER project record |
+| `ctgov_alias` | 0.65 | ClinicalTrials.gov condition matched only through a curated alias |
+| `org_page_read` | 0.60 | Patient org whose scope page was read (`verification: page_read`) |
+| `org_url_resolves` | 0.50 | Patient org whose url resolves, scope page not read |
+| `curated_unverified` | 0.50 | Team curation whose key claim is marked [U] (`verification: unverified`) |
+| `inferred_high` | 0.45 | OpenAI Extract claim, stated certainty high |
+| `inferred_medium` | 0.35 | OpenAI Extract claim, stated certainty medium |
+| `inferred_low` | 0.25 | OpenAI Extract claim with low certainty, or a `mentions` edge |
+| `inferred_computed` | edge value | Analytics edge: keeps its computed value (then capped) |
 
 | Adjustment | Delta |
 |---|---|
-| Each additional independent source asserting the same relation | +0.05 (max +0.15) |
-| Each contradicting edge | -0.15 |
-| Reconcile match was `synonym` or `broader` rather than `exact` | -0.10 |
-| Record older than 10 years with no newer support | -0.05 |
+| Same `(source_id, relation, target_id)` asserted by N >= 2 independent sources | +0.05 x (N - 1), max +0.15 |
+| Each id in `contradicted_by` (not applied to `contradicts` edges themselves) | -0.15 |
+| Inferred edge | final value capped at 0.49 |
 
-The rubric is versioned (`rubric_version` in the snapshot manifest). Changes to it go through a PR that updates this table.
+**Independent sources.** Monarch edges count by primary knowledge source (OMIM and Orphanet are two sources). Extract edges count per PMID. A curated record that copies a registry record (`source_record_id` NCT...) counts as `clinicaltrials`, so it does not double-count the registry. Everything else counts by `provenance.source`.
+
+**Invariant.** Every inferred value (0.49 at most, even with corroboration) is below every curated base (0.50 at least). Tests: `backend/tests/test_trust_rubric.py`.
+
+Not in `trust-v1` (kept for a later version): ClinVar review-status tiers (ClinVar has no edges yet), reconcile `synonym`/`broader` match penalty, and record age.
+
+The rubric is versioned (`rubric_version` in the snapshot manifest). Changes to it go through a PR that updates this table and `RUBRIC_VERSION`.
 
 ## Contradictions
 
 - When Extract finds a claim with `polarity=contradicts`, or two sources disagree (for example, ClinVar reports conflicting interpretations), both edges are kept. Each lists the other's id in `contradicted_by`.
 - The UI shows contradictions next to the edge, never hidden behind it.
-- Paths that pass through a contradicted edge are flagged, and Explain must say so.
+- Curated contradictions live in `data/curated/contradictions.yaml` (`atlas.trust.contradictions`). Each entry becomes one curated `contradicts` edge (`source_record_id: contradiction:<id>`, url and verbatim quote of the first evidence item, all evidence urls in `qualifiers.evidence_urls`). Every edge the entry `bears_on` gets that edge id in `contradicted_by` (and the -0.15 penalty); the `contradicts` edge lists the disputed edge ids back.
+- Seeded: the venglustat counterexample (`clinicaltrials:NCT02906020` MOVES-PD contradicts `clinicaltrials:NCT05222906` LEAP2MONO; verified, 0.80) and the contested PSAP -> PD 24 susceptibility edge (`PMID:33793763` contradicts `MONDO:0859183`; the letter has no abstract, so its conclusion is [U] and the edge is 0.50).
+- Paths that pass through a contradicted edge, or through a `contradicts` edge, are flagged (`has_contradiction`), and Explain must say so.
 - Counterexamples, such as the same gene with a different mechanism, are first-class. They are why a disease is **not** placed in a cluster.
 
 ## Honest gaps: the coverage report

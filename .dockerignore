@@ -6,5 +6,6 @@
 !backend/README.md
 !backend/src
 !data/snapshot
+!data/cache
 **/__pycache__
 **/*.py[cod]

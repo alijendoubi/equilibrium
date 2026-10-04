@@ -204,7 +204,7 @@ Full table, priorities and slice choice: [docs/DATA_SOURCES.md](docs/DATA_SOURCE
 | Patient progress | Maria's journey from disease to mechanism, related disease, patient group, asset and next step, with a sourced proposal or an honest gap report | Planned (M4) |
 | 10x impact | One milestone (for example, launching a shared natural history study) compared against the existing timeline, with stated assumptions | Template in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) |
 | Ambition and product craft | One global search, progressive reveal, every edge explained, patient action view | Planned (M4) |
-| Built with OpenAI | Extract, Reconcile and Explain with structured outputs. Explanations cite edge ids. | Planned (M2-M3) |
+| Built with OpenAI | Extract, Reconcile and Explain with structured outputs. Explain (`POST /api/v1/explain`, `gpt-6.1-sol`) cites edge ids in every step, is validated, cached, and falls back to a deterministic template offline. | Reconcile + Explain built; Extract planned |
 
 ## Development workflow
 

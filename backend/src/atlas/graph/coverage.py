@@ -29,7 +29,7 @@ SUPPORTED_CONFIDENCE = 0.4
 NOT_SEARCHED = (
     "omim (license not obtained)",
     "orphanet (not ingested in this snapshot)",
-    "nih_reporter (not ingested in this snapshot)",
+    "nih_reporter (only the slice's text searches, fiscal years 2019-2026)",
     "pubmed (only team-curated citations, no systematic search)",
 )
 PARTNER_TYPES = frozenset({NodeType.PATIENT_GROUP, NodeType.FUNDER})
@@ -80,6 +80,13 @@ def sources_searched(store: GraphStore, edges: Iterable[Edge]) -> tuple[SourceSe
     for name in sorted(set(per_source) - seen):
         rows.append(SourceSearched(source=name, records_found=per_source[name]))
     return tuple(rows)
+
+
+def _reporter_searched(store: GraphStore) -> bool:
+    return any(
+        isinstance(source, Mapping) and source.get("source") == "reporter"
+        for source in store.manifest.get("sources") or ()
+    )
 
 
 def _community_labels(store: GraphStore, seed: Mapping[str, Any]) -> list[str]:
@@ -137,6 +144,9 @@ def _disease_report(
             f"Is there a registry or family network for {node.label}?"
             + (f" Closest communities: {closest}." if closest else "")
         )
+    investigators = [e for e in edges if e.relation is Relation.INVESTIGATES]
+    if not investigators and _reporter_searched(store):
+        missing.append(f"No NIH RePORTER project or investigator is linked to {node.label}")
     if not genes:
         missing.append(f"No causal or risk gene is annotated for {node.label}")
         questions.append(f"Which gene or variant explains {node.label}?")

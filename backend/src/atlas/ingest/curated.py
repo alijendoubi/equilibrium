@@ -57,7 +57,7 @@ CONFIDENCE_CURATED = 0.8
 CONFIDENCE_ORG_READ = 0.6
 CONFIDENCE_ORG_RESOLVES = 0.5
 FUNDER_TYPES = frozenset({"research_funder_program", "research_charity"})
-FILES = ("organizations", "assets", "mechanisms", "condition_aliases")
+FILES = ("organizations", "assets", "mechanisms", "condition_aliases", "contradictions")
 
 _NCT = re.compile(r"^NCT\d{8}$")
 _PMID = re.compile(r"^PMID:\d+$")
@@ -189,7 +189,9 @@ def _organization(
             provenance=_provenance(entry, str(entry["id"])),
             confidence=confidence,
             evidence_type=EvidenceType.CURATED,
-            qualifiers=FrozenStrMap({"org_type": org_type}),
+            qualifiers=FrozenStrMap(
+                {"org_type": org_type, "verification": "page_read" if page_read else "url_resolves"}
+            ),
             confidence_reasons=(reason,),
         )
         for disease_id in entry.get("disease_ids") or []

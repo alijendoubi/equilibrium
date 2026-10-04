@@ -156,6 +156,18 @@ class NextExperiment(BaseModel):
     edge_ids: tuple[str, ...]
 
 
+class SharedInvestigator(BaseModel):
+    """An investigator whose RePORTER projects span two communities (network overlap, #38)."""
+
+    model_config = _FROZEN
+
+    node: Node
+    communities: tuple[str, ...]
+    target_ids: tuple[str, ...]
+    why: str
+    edge_ids: tuple[str, ...]
+
+
 class ActionsResponse(BaseModel):
     model_config = _FROZEN
 
@@ -165,3 +177,5 @@ class ActionsResponse(BaseModel):
     next_experiment: NextExperiment | None
     review_checklist: tuple[str, ...]
     coverage: CoverageReport | None
+    # Additive and optional (#38): not in frontend types.ts yet; zod drops unknown keys.
+    shared_investigators: tuple[SharedInvestigator, ...] = ()

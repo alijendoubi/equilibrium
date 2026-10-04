@@ -19,7 +19,7 @@ from typing import Any
 
 from atlas.config import get_settings
 from atlas.extract.edges import ExtractStage, extract_stage
-from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch
+from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch, reporter
 from atlas.ingest.common import CACHE_DIR, DATA_DIR, IngestResult, dedupe_edges, merge_nodes
 from atlas.ingest.common import read_cache as read_source_cache
 from atlas.ingest.refresh import CACHE_NAME
@@ -31,6 +31,7 @@ from atlas.ingest.seeds import (
     SLICE_SLUG,
 )
 from atlas.models.evidence import Edge, Node
+from atlas.trust import contradictions, rubric
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +39,7 @@ SCHEMA_VERSION = "1"
 SNAPSHOT_DIR = DATA_DIR / "snapshot"
 SNAPSHOT_FILE = "atlas-snapshot.json"
 MANIFEST_FILE = "manifest.json"
-RUBRIC_VERSION = "ingest-v1"
+RUBRIC_VERSION = rubric.RUBRIC_VERSION
 OPENAI_USAGE_PLACEHOLDER: dict[str, Any] = {
     "calls": 0,
     "input_tokens": 0,
@@ -89,6 +90,7 @@ def normalize_all(
             curated.condition_aliases(curated_payload),
         ),
         curated.normalize(curated_payload),
+        reporter.normalize(read("reporter"), [node.id for node in monarch_result.nodes]),
     ]
 
 
@@ -159,6 +161,8 @@ def coverage_seeds(results: Sequence[IngestResult], edges: Sequence[Edge]) -> di
         "go_genes_without_whitelisted_terms": notes.get("go", {}).get(
             "genes_without_whitelisted_terms", []
         ),
+        "reporter_query_totals": notes.get("reporter", {}).get("query_totals", {}),
+        "reporter_projects_by_target": notes.get("reporter", {}).get("projects_by_target", {}),
         "seed_diseases_without_studies": sorted(set(SEED_DISEASES) - studied),
         "seed_diseases_without_patient_group": sorted(set(SEED_DISEASES) - represented),
     }
@@ -222,9 +226,12 @@ def build(
     stage = _run_extract(merge_nodes(n for r in results for n in r.nodes), cache, with_extract)
     if stage is not None:
         results = [*results, stage.result]
-    all_nodes = [node for result in results for node in result.nodes]
+    items = contradictions.parse(curated.load_yaml("contradictions", curated_dir))
+    ingested_nodes = [node for result in results for node in result.nodes]
+    ingested_edges = dedupe_edges(edge for result in results for edge in result.edges)
+    all_nodes, trusted_edges = contradictions.apply(items, ingested_nodes, ingested_edges)
     nodes = merge_nodes(all_nodes)
-    edges = dedupe_edges(edge for result in results for edge in result.edges)
+    edges = dedupe_edges(rubric.apply(trusted_edges))
     validate(nodes, edges, all_nodes)
 
     snapshot = {
@@ -245,6 +252,7 @@ def build(
         "snapshot_file": SNAPSHOT_FILE,
         "snapshot_bytes": len(snapshot_bytes),
         "rubric_version": RUBRIC_VERSION,
+        "contradictions": [item.id for item in items],
         "sources": [_source_entry(result, cache) for result in results],
         "counts": {
             "nodes": len(nodes),

@@ -8,6 +8,8 @@ Template-based and deterministic, no LLM.
 * Assets: studies, publications and assets linked to the disease (tier 0), to diseases that
   share one of its genes (tier 1) or a GO mechanism of its genes (tier 2). Team-curated assets
   rank first, then tier, then confidence; capped at ``MAX_ASSETS``.
+* Shared investigators (#38): RePORTER investigators bridging two communities whose work
+  touches the disease or its genes (``atlas.graph.investigators``).
 """
 
 from __future__ import annotations
@@ -16,6 +18,7 @@ from collections import deque
 from dataclasses import dataclass
 
 from atlas.graph.coverage import coverage_report
+from atlas.graph.investigators import shared_investigators
 from atlas.graph.queries import other_end
 from atlas.graph.store import GraphStore
 from atlas.models.evidence import Edge, Node, NodeType, Relation
@@ -288,4 +291,5 @@ def build_actions(store: GraphStore, disease: Node) -> ActionsResponse:
         next_experiment=next_experiment(store, disease, assets),
         review_checklist=REVIEW_CHECKLIST,
         coverage=coverage,
+        shared_investigators=shared_investigators(store, disease.id),
     )

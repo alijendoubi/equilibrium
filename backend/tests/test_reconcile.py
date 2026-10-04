@@ -418,3 +418,14 @@ def test_client_or_none_without_key(monkeypatch: pytest.MonkeyPatch) -> None:
     get_settings.cache_clear()
 
     assert cli._client_or_none() is None
+
+
+def test_search_full_phrase_inside_a_name_beats_partial_overlap() -> None:
+    gap = disease("MONDO:0012517", "Gaucher disease due to saposin C deficiency")
+    psap = Node(id="HGNC:9498", type=NodeType.GENE, label="PSAP", synonyms=("saposin-C",))
+    index = SearchIndex.build((gap, psap))
+
+    hits = index.search("Saposin C deficiency")
+
+    assert [h.node_id for h in hits] == ["MONDO:0012517", "HGNC:9498"]
+    assert hits[0].score == pytest.approx(0.75)

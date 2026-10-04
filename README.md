@@ -192,8 +192,9 @@ uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one sour
 | ClinVar E-utilities (`ingest/clinvar.py`) | pathogenic / likely-pathogenic record counts per seed gene (gene attributes) | counts |
 | ClinicalTrials.gov v2 (`ingest/clinicaltrials.py`) | bounded queries for Gaucher, saposin C, GBA-PD, ambroxol, venglustat, PR001 and neighbour diseases, plus the seed NCTs (`studies_condition`) | trimmed studies |
 | Curated (`ingest/curated.py`) | patient groups, funders, assets (`represents`, `funds`, `studies_condition`, `mentions`); "no dedicated org found" coverage seeds | YAML in `data/curated/` |
+| NIH RePORTER v2 (`ingest/reporter.py`) | projects FY2019-2026 for GBA1, glucocerebrosidase, Gaucher, GBA Parkinson, saposin C deficiency, prosaposin, SCARB2/LIMP2, ambroxol (one record per core project, cap 150): investigators (`investigates`), administering institutes (`funds`), shared-investigator bridges on `/actions` | trimmed projects |
 
-Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
+Not ingested yet: PubMed (beyond the Extract abstracts), Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
 
 Full table, priorities and slice choice: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
@@ -237,7 +238,7 @@ GitHub Actions are not used for deploys. Both hosts deploy straight from `main`.
 | Criterion | Our approach | Status |
 |---|---|---|
 | Graph quality | Typed nodes with stable IDs. Mechanism- and phenotype-based clustering (IC-weighted HPO similarity, gene and pathway overlap, community detection). Counterexamples kept as contradiction edges. | Model drafted; clustering planned |
-| Evidence integrity | Every edge has provenance (source, record id, URL, retrieval date), a confidence rubric and an evidence type (observed, inferred or curated). Contradictions are shown. | Model drafted; rubric documented |
+| Evidence integrity | Every edge has provenance (source, record id, URL, retrieval date), a confidence rubric and an evidence type (observed, inferred or curated). Contradictions are shown. | Rubric `trust-v1` and curated contradictions in the snapshot |
 | Patient progress | Maria's journey from disease to mechanism, related disease, patient group, asset and next step, with a sourced proposal or an honest gap report | Planned (M4) |
 | 10x impact | One milestone (for example, launching a shared natural history study) compared against the existing timeline, with stated assumptions | Template in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) |
 | Ambition and product craft | One global search, progressive reveal, every edge explained, patient action view | Planned (M4) |
@@ -283,7 +284,11 @@ Task breakdown: [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md) (phases, gates,
 - [ ] OpenAI Extract and Reconcile into evidence edges
 - [x] `make data` / `make data-offline` build a validated, deterministic snapshot; the API loads it at startup and reports it in `/health` and `/api/v1/meta` (#33)
 
-**Phase 3: Trust layer (M3), not started.** Confidence, contradictions, coverage report, Explain with edge citations.
+**Phase 3: Trust layer (M3), in progress**
+- [x] Confidence rubric `trust-v1` applied to every edge in the pipeline: base by source and evidence type, corroboration bonus, contradiction penalty, inferred always below curated (#21, table in [docs/EVIDENCE_MODEL.md](docs/EVIDENCE_MODEL.md#confidence-rubric-trust-v1))
+- [x] Curated contradictions in `data/curated/contradictions.yaml`: venglustat GD3 vs GBA-PD counterexample, contested PSAP -> PD susceptibility (#21)
+- [x] NIH RePORTER investigators: 135 projects, 124 investigators, 11 shared-investigator bridges (9 span Gaucher/GBA1 and Parkinson's), listed on `/actions`; saposin C deficiency has 0 RePORTER projects (#38)
+- [ ] Coverage report and Explain with edge citations (see their issues)
 
 **Phase 4: UI journey (M4), not started.** Search, cluster view, edge explanation panel, patient action view.
 

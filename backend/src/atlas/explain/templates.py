@@ -11,7 +11,7 @@ from types import MappingProxyType
 
 from atlas.explain.models import Audience, ExplainResponse, ExplainStep
 from atlas.explain.prompt import PROMPT_VERSION
-from atlas.models.evidence import Edge, EvidenceType, Node, Relation
+from atlas.models.evidence import Edge, EvidenceType, Node, Provenance, Relation
 
 LOW_CONFIDENCE = 0.7
 
@@ -53,6 +53,26 @@ def _label(node_id: str, nodes: Mapping[str, Node]) -> str:
     return node.label if node is not None else node_id
 
 
+_MONARCH_UPSTREAM = {"infores:omim": "OMIM", "infores:orphanet": "Orphanet"}
+
+
+def source_citation(provenance: Provenance) -> str:
+    """Readable source for a citation, e.g. 'OMIM via Monarch' or 'ClinicalTrials.gov NCT...'."""
+    source, record = provenance.source, provenance.source_record_id
+    if source == "monarch":
+        upstream = _MONARCH_UPSTREAM.get(record.split("|", 1)[0])
+        return f"{upstream} via Monarch" if upstream else "Monarch Initiative"
+    if source == "go":
+        return "Gene Ontology annotation"
+    if source == "clinicaltrials":
+        return f"ClinicalTrials.gov {record}"
+    if source == "pubmed":
+        return f"PubMed {record}"
+    if source == "curated":
+        return "team-curated, cited source"
+    return f"{source} {record}"
+
+
 def edge_sentence(edge: Edge, nodes: Mapping[str, Node], audience: Audience = "family") -> str:
     """One sentence for one edge, using the relation's direction-aware phrase."""
     sentence = RELATION_PHRASES[edge.relation].format(
@@ -62,7 +82,7 @@ def edge_sentence(edge: Edge, nodes: Mapping[str, Node], audience: Audience = "f
     if audience == "researcher":
         prov = edge.provenance
         sentence = (
-            f"{sentence} (source: {prov.source} {prov.source_record_id}; "
+            f"{sentence} (Source: {source_citation(prov)}; "
             f"{edge.evidence_type.value}, confidence {edge.confidence:.2f})"
         )
     if edge.evidence_type is EvidenceType.INFERRED:

@@ -1,0 +1,273 @@
+{
+ "gaucher": {
+  "meta": {
+   "total": 198
+  },
+  "results": [
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NIDDK",
+     "admin_funding_url": "",
+     "admin_org_id": "12500020",
+     "code": "DK",
+     "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+    },
+    "appl_id": 11314731,
+    "core_project_num": "R43DK146746",
+    "fiscal_year": 2026,
+    "organization": {
+     "org_city": "BROOKLINE",
+     "org_country": "UNITED STATES",
+     "org_name": "KEYLICON BIOSCIENCES INC",
+     "org_state": "MA"
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Aaron",
+      "full_name": "Aaron Henry Colby",
+      "is_contact_pi": false,
+      "last_name": "Colby",
+      "middle_name": "Henry",
+      "profile_id": 12210790,
+      "title": ""
+     },
+     {
+      "first_name": "Joshua",
+      "full_name": "Joshua  McGee",
+      "is_contact_pi": true,
+      "last_name": "McGee",
+      "middle_name": "",
+      "profile_id": 80054388,
+      "title": "CHIEF SCIENTIFIC OFFICER"
+     }
+    ],
+    "project_num": "1R43DK146746-01",
+    "project_title": "Extended In Situ Production of Glucocerebrosidase (GCase) for the Treatment of Gaucher Disease"
+   },
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NINDS",
+     "admin_funding_url": "",
+     "admin_org_id": "12500053",
+     "code": "NS",
+     "name": "National Institute of Neurological Disorders and Stroke"
+    },
+    "appl_id": 11453161,
+    "core_project_num": "R21NS146759",
+    "fiscal_year": 2026,
+    "organization": {
+     "org_city": "BOSTON",
+     "org_country": "UNITED STATES",
+     "org_name": "BRIGHAM AND WOMEN'S HOSPITAL",
+     "org_state": "MA"
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Gary",
+      "full_name": "Gary P. H. Ho",
+      "is_contact_pi": true,
+      "last_name": "Ho",
+      "middle_name": "P. H.",
+      "profile_id": 14796901,
+      "title": "ASSISTANT PROFESSOR OF NEUROLOGY"
+     }
+    ],
+    "project_num": "1R21NS146759-01A1",
+    "project_title": "Identification of the Palmitoyltransferase for Glucocerebrosidase Trafficking Receptor LIMP2 and Restoration of GBA1 Function in Parkinson Disease and Lewy Body Dementia."
+   },
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NIA",
+     "admin_funding_url": "",
+     "admin_org_id": "12500002",
+     "code": "AG",
+     "name": "National Institute on Aging"
+    },
+    "appl_id": 11319050,
+    "core_project_num": "R01AG082373",
+    "fiscal_year": 2026,
+    "organization": {
+     "org_city": "GAINESVILLE",
+     "org_country": "UNITED STATES",
+     "org_name": "UNIVERSITY OF FLORIDA",
+     "org_state": "FL"
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Matthew",
+      "full_name": "Matthew J LaVoie",
+      "is_contact_pi": true,
+      "last_name": "LaVoie",
+      "middle_name": "J",
+      "profile_id": 1870167,
+      "title": "PROFESSOR AND DIRECTOR"
+     }
+    ],
+    "project_num": "5R01AG082373-03",
+    "project_title": "Intersection of GBA and LRRK2 in Lewy Body Dementia"
+   },
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NIGMS",
+     "admin_funding_url": "",
+     "admin_org_id": "12500024",
+     "code": "GM",
+     "name": "National Institute of General Medical Sciences"
+    },
+    "appl_id": 11316610,
+    "core_project_num": "R44GM154585",
+    "fiscal_year": 2026,
+    "organization": {
+     "org_city": "SAN DIEGO",
+     "org_country": "UNITED STATES",
+     "org_name": "SINOPIA BIOSCIENCES, INC.",
+     "org_state": "CA"
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Bernard",
+      "full_name": "Bernard  Bloem",
+      "is_contact_pi": true,
+      "last_name": "Bloem",
+      "middle_name": "",
+      "profile_id": 16435023,
+      "title": "SR RESEARCH SCIENTIST"
+     }
+    ],
+    "project_num": "2R44GM154585-02",
+    "project_title": "Development and Validation of Data Standards and Computational Methods for Large Scale Metabolomics Data Analysis for Data Driven Drug Discovery"
+   }
+  ]
+ },
+ "gba_parkinson": {
+  "meta": {
+   "total": 22
+  },
+  "results": [
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NINDS",
+     "admin_funding_url": "",
+     "admin_org_id": "12500053",
+     "code": "NS",
+     "name": "National Institute of Neurological Disorders and Stroke"
+    },
+    "appl_id": 11453161,
+    "core_project_num": "R21NS146759",
+    "fiscal_year": 2026,
+    "organization": {
+     "org_city": "BOSTON",
+     "org_country": "UNITED STATES",
+     "org_name": "BRIGHAM AND WOMEN'S HOSPITAL",
+     "org_state": "MA"
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Gary",
+      "full_name": "Gary P. H. Ho",
+      "is_contact_pi": true,
+      "last_name": "Ho",
+      "middle_name": "P. H.",
+      "profile_id": 14796901,
+      "title": "ASSISTANT PROFESSOR OF NEUROLOGY"
+     }
+    ],
+    "project_num": "1R21NS146759-01A1",
+    "project_title": "Identification of the Palmitoyltransferase for Glucocerebrosidase Trafficking Receptor LIMP2 and Restoration of GBA1 Function in Parkinson Disease and Lewy Body Dementia."
+   },
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NCATS",
+     "admin_funding_url": "",
+     "admin_org_id": "12500062",
+     "code": "TR",
+     "name": "National Center for Advancing Translational Sciences"
+    },
+    "appl_id": 11412045,
+    "core_project_num": "ZIATR000432",
+    "fiscal_year": 2025,
+    "organization": {
+     "org_city": null,
+     "org_country": "UNITED STATES",
+     "org_name": "NATIONAL CENTER FOR ADVANCING TRANSLATIONAL SCIENCES",
+     "org_state": null
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Juan",
+      "full_name": "Juan  Marugan",
+      "is_contact_pi": true,
+      "last_name": "Marugan",
+      "middle_name": "",
+      "profile_id": 14380300,
+      "title": ""
+     }
+    ],
+    "project_num": "1ZIATR000432-05",
+    "project_title": "Evaluation of cAbl allosteric inhibitors in Gaucher-Parkinson"
+   },
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NIAID",
+     "admin_funding_url": "",
+     "admin_org_id": "12500003",
+     "code": "AI",
+     "name": "National Institute of Allergy and Infectious Diseases"
+    },
+    "appl_id": 11403310,
+    "core_project_num": "ZIAAI001086",
+    "fiscal_year": 2025,
+    "organization": {
+     "org_city": null,
+     "org_country": "UNITED STATES",
+     "org_name": "NATIONAL INSTITUTE OF ALLERGY AND INFECTIOUS DISEASES",
+     "org_state": null
+    },
+    "principal_investigators": [
+     {
+      "first_name": "BYRON",
+      "full_name": "BYRON  CAUGHEY",
+      "is_contact_pi": true,
+      "last_name": "CAUGHEY",
+      "middle_name": "",
+      "profile_id": 6568487,
+      "title": ""
+     }
+    ],
+    "project_num": "1ZIAAI001086-17",
+    "project_title": "Detection of Prions"
+   },
+   {
+    "agency_ic_admin": {
+     "abbreviation": "NINDS",
+     "admin_funding_url": "",
+     "admin_org_id": "12500053",
+     "code": "NS",
+     "name": "National Institute of Neurological Disorders and Stroke"
+    },
+    "appl_id": 10835007,
+    "core_project_num": "R01NS109209",
+    "fiscal_year": 2024,
+    "organization": {
+     "org_city": "BOSTON",
+     "org_country": "UNITED STATES",
+     "org_name": "BRIGHAM AND WOMEN'S HOSPITAL",
+     "org_state": "MA"
+    },
+    "principal_investigators": [
+     {
+      "first_name": "Vikram",
+      "full_name": "Vikram  Khurana",
+      "is_contact_pi": true,
+      "last_name": "Khurana",
+      "middle_name": "",
+      "profile_id": 11694611,
+      "title": ""
+     }
+    ],
+    "project_num": "5R01NS109209-05",
+    "project_title": "Elucidating the Biological Differences Between Distinct Fibrillar and Non-Fibrillar Alpha-Synuclein Inclusions in Human Stem-Cell Models"
+   }
+  ]
+ }
+}

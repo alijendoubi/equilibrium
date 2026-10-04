@@ -92,11 +92,24 @@ class PoliteClient:
 
     def get(self, url: str, params: Mapping[str, Any] | None = None) -> httpx.Response:
         """GET with retries on transport errors and 429/5xx; raises FetchError when exhausted."""
+        return self._request("GET", url, params=params)
+
+    def post(self, url: str, json_body: Any) -> httpx.Response:
+        """POST a JSON body with the same throttle, retries and errors as ``get``."""
+        return self._request("POST", url, json_body=json_body)
+
+    def _request(
+        self,
+        method: str,
+        url: str,
+        params: Mapping[str, Any] | None = None,
+        json_body: Any = None,
+    ) -> httpx.Response:
         last_error: str = "no attempt made"
         for attempt in range(self._retries + 1):
             self._throttle()
             try:
-                response = self._client.get(url, params=params)
+                response = self._client.request(method, url, params=params, json=json_body)
             except httpx.TransportError as exc:
                 last_error = f"{type(exc).__name__}: {exc}"
             else:
@@ -106,12 +119,15 @@ class PoliteClient:
                 last_error = f"HTTP {response.status_code}"
             if attempt < self._retries:
                 delay = self._backoff_s * (2**attempt)
-                logger.warning("GET %s failed (%s); retry in %.1fs", url, last_error, delay)
+                logger.warning("%s %s failed (%s); retry in %.1fs", method, url, last_error, delay)
                 self._sleep(delay)
-        raise FetchError(f"GET {url} failed after {self._retries + 1} attempts: {last_error}")
+        raise FetchError(f"{method} {url} failed after {self._retries + 1} attempts: {last_error}")
 
     def get_json(self, url: str, params: Mapping[str, Any] | None = None) -> Any:
         return self.get(url, params).json()
+
+    def post_json(self, url: str, json_body: Any) -> Any:
+        return self.post(url, json_body).json()
 
 
 @dataclass(frozen=True)

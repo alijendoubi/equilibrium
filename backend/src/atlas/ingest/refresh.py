@@ -7,12 +7,12 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from atlas.config import get_settings
-from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch
+from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch, reporter
 from atlas.ingest.common import CACHE_DIR, JsonDict, PoliteClient, read_cache, write_cache
 
 logger = logging.getLogger(__name__)
 
-SOURCES: tuple[str, ...] = ("monarch", "hpo", "go", "clinvar", "clinicaltrials")
+SOURCES: tuple[str, ...] = ("monarch", "hpo", "go", "clinvar", "clinicaltrials", "reporter")
 CACHE_NAME = "payload"
 DEFAULT_INTERVAL_S = 0.25
 
@@ -27,6 +27,8 @@ def _interval(name: str) -> float:
         return clinicaltrials.MIN_INTERVAL_S
     if name == "clinvar":
         return clinvar.min_interval(_ncbi_key())
+    if name == "reporter":
+        return reporter.MIN_INTERVAL_S
     return DEFAULT_INTERVAL_S
 
 
@@ -44,6 +46,8 @@ def fetch_source(name: str, client: PoliteClient, cache_dir: Path) -> JsonDict:
         return clinvar.fetch(client, _ncbi_key())
     if name == "clinicaltrials":
         return clinicaltrials.fetch(client)
+    if name == "reporter":
+        return reporter.fetch(client)
     raise ValueError(f"unknown source {name!r}; expected one of {SOURCES}")
 
 

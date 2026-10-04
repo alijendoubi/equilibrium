@@ -21,7 +21,13 @@ function plural(n: number, one: string, many: string) {
 }
 
 /** "Who shares this", "What exists", "What next": the three questions, collapsed by default. */
-export function ActionSections({ actions }: { actions: ActionsResponse }) {
+interface ActionSectionsProps {
+  actions: ActionsResponse;
+  /** The page already shows the gap card, so "What next" only points to it. */
+  gapShownAbove?: boolean;
+}
+
+export function ActionSections({ actions, gapShownAbove = false }: ActionSectionsProps) {
   const id = actions.disease_id;
   const gap = actions.coverage;
 
@@ -122,7 +128,10 @@ export function ActionSections({ actions }: { actions: ActionsResponse }) {
             </ul>
           </div>
         )}
-        {gap && (
+        {gap && gapShownAbove && (
+          <p className="text-sm text-muted">See the honest gap report at the top of this page.</p>
+        )}
+        {gap && !gapShownAbove && (
           <div className={actions.next_experiment ? "mt-4" : undefined}>
             <CoverageReportCard report={gap} />
           </div>

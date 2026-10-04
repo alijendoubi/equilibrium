@@ -175,7 +175,7 @@
     }
   },
   {
-    "id": "ORG:national-gaucher-foundation",
+    "id": "org:national-gaucher-foundation",
     "type": "patient_group",
     "label": "National Gaucher Foundation",
     "synonyms": ["NGF"],
@@ -186,8 +186,8 @@
     }
   },
   {
-    "id": "ORG:cure-parkinsons",
-    "type": "patient_group",
+    "id": "org:cure-parkinsons",
+    "type": "funder",
     "label": "Cure Parkinson's",
     "synonyms": ["Cure Parkinson's Trust"],
     "xrefs": [],

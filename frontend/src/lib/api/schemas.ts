@@ -4,6 +4,8 @@ import type {
   AtlasNode,
   CoverageReport,
   Edge,
+  ExplainRequest,
+  ExplainResponse,
   NodeSummary,
   PathResponse,
   SearchResponse,
@@ -211,6 +213,30 @@ export const actionsResponseSchema = z.object({
   coverage: coverageReportSchema.nullable(),
 });
 
+export const MAX_EXPLAIN_EDGES = 12;
+export const explainAudienceSchema = z.enum(["family", "researcher"]);
+
+export const explainRequestSchema = z.object({
+  edge_ids: z.array(nonBlank).min(1).max(MAX_EXPLAIN_EDGES),
+  audience: explainAudienceSchema,
+});
+
+export const explainStepSchema = z.object({
+  text: nonBlank,
+  edge_ids: z.array(nonBlank).min(1),
+  is_hypothesis: z.boolean().default(false),
+});
+
+export const explainResponseSchema = z.object({
+  steps: z.array(explainStepSchema),
+  summary: z.string(),
+  caveats: z.array(z.string()),
+  source: z.enum(["cache", "live", "template"]),
+  model: z.string().nullable(),
+  prompt_version: z.string(),
+  ai_generated: z.boolean(),
+});
+
 // Compile-time guard: the schemas and the hand-written types must stay in sync.
 type MutuallyAssignable<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;
 type Assert<T extends true> = T;
@@ -222,4 +248,6 @@ export type SchemaTypeChecks = [
   Assert<MutuallyAssignable<z.infer<typeof pathResponseSchema>, PathResponse>>,
   Assert<MutuallyAssignable<z.infer<typeof actionsResponseSchema>, ActionsResponse>>,
   Assert<MutuallyAssignable<z.infer<typeof coverageReportSchema>, CoverageReport>>,
+  Assert<MutuallyAssignable<z.infer<typeof explainRequestSchema>, ExplainRequest>>,
+  Assert<MutuallyAssignable<z.infer<typeof explainResponseSchema>, ExplainResponse>>,
 ];

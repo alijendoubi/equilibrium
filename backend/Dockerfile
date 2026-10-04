@@ -37,6 +37,8 @@ WORKDIR /app
 COPY --from=builder --chown=atlas:atlas /app/.venv /app/.venv
 # Read-only graph snapshot, loaded once at startup (atlas.graph.store).
 COPY --chown=atlas:atlas data/snapshot /app/data/snapshot
+# Committed OpenAI caches (embeddings, explanations), so the deployed demo needs no live calls.
+COPY --chown=atlas:atlas data/cache /app/data/cache
 
 USER atlas
 

@@ -49,6 +49,15 @@ class Settings(BaseSettings):
     cors_origins: str = Field(default=DEFAULT_CORS_ORIGINS, alias="CORS_ORIGINS")
     log_level: LogLevel = Field(default="INFO", alias="LOG_LEVEL")
     snapshot_path: Path = Field(default=DEFAULT_SNAPSHOT_PATH, alias="SNAPSHOT_PATH")
+    # Live OpenAI calls from the public /explain endpoint cost money: off by default, so
+    # production serves the committed cache, then the template. Precompute with the CLI.
+    explain_live: bool = Field(default=False, alias="EXPLAIN_LIVE")
+    explain_rate_per_minute: int = Field(default=10, ge=1, le=600, alias="EXPLAIN_RATE_PER_MINUTE")
+
+    @property
+    def cache_dir(self) -> Path:
+        """data/cache next to the snapshot (works in the repo and in the Docker image)."""
+        return self.snapshot_path.parent.parent / "cache"
 
     @field_validator("log_level", mode="before")
     @classmethod

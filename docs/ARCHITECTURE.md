@@ -83,7 +83,7 @@ All three points use **structured outputs** (JSON schema), use a low temperature
 |---|---|---|---|
 | **Extract** | Abstract or record text with its PMID or record ID | `[{subject, subject_type, relation, object, object_type, evidence_quote, polarity: supports/contradicts}]` | The `evidence_quote` must appear verbatim in the source text, or the claim is dropped. All extracted edges are `evidence_type=inferred` unless the source is curated. |
 | **Reconcile** | Surface name, context and candidate IDs from ontology lookups | `{chosen_id, alternatives[], rationale, match: exact/synonym/broader/none}` | Only IDs from the candidate list are accepted. The model cannot invent an ID. `none` is a valid answer. |
-| **Explain** | A path as an ordered list of edges with provenance | `{steps: [{text, edge_ids[]}], uncertainties[], next_question}` | Every step must cite at least one edge id on the path. A step with uncited text is rejected and regenerated, or omitted. |
+| **Explain** | A path as an ordered list of edges with provenance | `{steps: [{text, edge_ids[], is_hypothesis}], summary, caveats[]}` | Every step must cite at least one edge id from the request (schema enum + validator). A rejected answer is retried once, then replaced by the deterministic template. See [Explain](#explain-cited-plain-language-paths). |
 
 ## Storage
 
@@ -157,3 +157,19 @@ flowchart LR
 - Every embedding and every LLM decision is cached in `data/cache/embeddings/` and `data/cache/reconcile/decisions.json`, committed with the snapshot. With `ATLAS_OFFLINE=1` or no key, only the cache is used, so the demo never depends on a live call.
 - `SearchIndex` powers `GET /api/v1/search`: exact, then synonym/prefix, then semantic hits, with a `searched` list for honest empty states.
 - Precompute embeddings once the snapshot exists: `uv run python -m atlas.reconcile.cli embed --nodes ../data/snapshot/atlas-snapshot.json`.
+
+## Explain (cited plain-language paths)
+
+`backend/src/atlas/explain/` and `POST /api/v1/explain` turn a path (1-12 edge ids, in order) into plain language for a `family` or a `researcher` audience.
+
+```
+POST /api/v1/explain  {"edge_ids": ["E:3dca7369a1f8de8a", ...], "audience": "family"}
+-> {"steps": [{"text", "edge_ids", "is_hypothesis"}], "summary", "caveats": [],
+    "source": "cache" | "live" | "template", "model", "prompt_version", "ai_generated"}
+```
+
+- **Where OpenAI is used.** Responses API with strict JSON-schema structured output, model `OPENAI_MODEL_EXPLAIN` (default `gpt-6.1-sol`), prompt version `explain-v1`. The input holds only facts from the requested edges: relation, endpoint labels, evidence type, confidence, provenance source, record id and URL, quote, qualifiers, contradictions. The instructions forbid outside facts and treatment advice, ask for hypotheses to be flagged and for caveats on what is uncertain or missing.
+- **Citation guarantees.** The schema's `edge_ids` items are an enum of exactly the requested ids. The validator then rejects empty output, a step with no citation, any id outside the request, a multi-digit number or decimal that does not appear in the edge facts, and a contradicted edge that no step cites. One retry, then the template. Unknown ids in the request return 404; malformed requests 422.
+- **Cache.** `data/cache/explain/explanations.json` (committed), keyed by sha256 of model, prompt version, audience, sorted edge ids and a hash of the edge content and labels, so a changed edge or prompt never serves a stale answer. A hit returns `source: "cache"`, `ai_generated: true`. Live answers are added to the in-memory cache of the running API.
+- **Offline / no key.** With `ATLAS_OFFLINE=1` or no `OPENAI_API_KEY`, the API serves the cache, then the template: one deterministic sentence per edge from relation phrases that follow the edge direction (`Gaucher disease type II is caused by changes in GBA1.`, `Changes in GBA1 are a risk factor for late-onset Parkinson disease.`, `Cure Parkinson's funds ...`). Inferred edges are marked as hypotheses. `source: "template"`, `ai_generated: false`, `model: null`.
+- **Precompute (needs a real key).** `uv run python -m atlas.explain.cli golden` finds the golden Gaucher type 2/3 -> GBA1 -> glucosylceramide catabolism / lysosome -> late-onset PD -> ASPro-PD (NCT05778617) -> Cure Parkinson's chain and caches family and researcher answers. `... precompute --paths paths.json` does the same for a JSON list of edge-id lists. Without a key it writes nothing and says so. Usage (calls, tokens) is printed per run.

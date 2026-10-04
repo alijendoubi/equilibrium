@@ -330,59 +330,19 @@ uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one sour
 
 Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
 
-The project stores raw downloaded data separately from reproducible, built outputs. See [data/README.md](data/README.md) for the snapshot conventions and provenance manifest design.
+- **Deterministic.** The same cache gives a byte-identical snapshot and manifest (`snapshot_id` is the SHA-256 of the snapshot file; `created_at` is the latest source `retrieved_at`). A test fails if the committed snapshot is stale against the committed cache.
+- **Validated.** Every node and edge passes the evidence-model pydantic models; every edge endpoint exists; supporting edge ids resolve; no id has two types. The build fails otherwise.
+- **Online refresh** is polite: identifying User-Agent, timeouts, retries with backoff, rate limits (ClinicalTrials.gov ~50 req/min, NCBI 3 req/s or 10 with `NCBI_API_KEY`). HPO downloads `phenotype.hpoa` and `hp.obo` (~47 MB) into `data/raw/hpo/` (gitignored); only the IC map for slice phenotypes is committed.
+- **No OpenAI step yet.** `manifest.openai_usage` is a zero placeholder until Extract/Reconcile land.
 
----
-
-## Status and roadmap
-
-### Current status
-
-Last updated: 2026-10-03
-
-**Phase 1: Repo bootstrap (M1) — largely complete**
-
-- [x] Challenge brief reviewed and documented
-- [x] Monorepo scaffold created for backend and frontend
-- [x] Documentation, architecture, evidence model, and planning materials added
-- [x] Repository ruleset and review flow configured
-- [x] Security reporting and conduct policy implemented
-- [ ] CI, security, and deployment workflows green on `main`
-- [ ] Vercel and Render connected with required secrets
-
-**Phase 2: Graph slice (M2) — not started**
-
-- [x] Disease cluster selected: GBA1 / Gaucher / lysosomal dysfunction
-- [x] Curated organizations and asset notes drafted
-- [ ] Ingest for MONDO, HPO, ClinVar, and PubMed in the selected slice
-- [ ] OpenAI Extract and Reconcile into evidence edges
-- [ ] `make data` reproduces a dated graph snapshot
-
-**Phase 3: Trust layer (M3) — not started**
-
-- [ ] Confidence scoring
-- [ ] Contradiction tracking
-- [ ] Coverage reporting
-- [ ] Explain layer with edge citations and evidence transparency
-
-**Phase 4: UI journey (M4) — not started**
-
-- [ ] Search
-- [ ] Cluster exploration
-- [ ] Edge explanation panel
-- [ ] Patient action view
-
-**Phase 5: Submission (M5) — not started**
-
-See [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md).
-
-### Planning references
-
-- [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md)
-- [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md)
-- [docs/RUNBOOK.md](docs/RUNBOOK.md)
-
----
+| Source (connector) | What we take | Cached |
+|---|---|---|
+| Graph quality | Typed nodes with stable IDs. Mechanism- and phenotype-based clustering (IC-weighted HPO similarity, gene and pathway overlap, community detection). Counterexamples kept as contradiction edges. | Model drafted; clustering planned |
+| Evidence integrity | Every edge has provenance (source, record id, URL, retrieval date), a confidence rubric and an evidence type (observed, inferred or curated). Contradictions are shown. | Model drafted; rubric documented |
+| Patient progress | Maria's journey from disease to mechanism, related disease, patient group, asset and next step, with a sourced proposal or an honest gap report | Planned (M4) |
+| 10x impact | One milestone (for example, launching a shared natural history study) compared against the existing timeline, with stated assumptions | Template in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) |
+| Ambition and product craft | One global search, progressive reveal, every edge explained, patient action view | Planned (M4) |
+| Built with OpenAI | Extract, Reconcile and Explain with structured outputs. Explain (`POST /api/v1/explain`, `gpt-6.1-sol`) cites edge ids in every step, is validated, cached, and falls back to a deterministic template offline. | Reconcile + Explain built; Extract planned |
 
 ## Development workflow
 

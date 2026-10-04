@@ -29,14 +29,16 @@ Each node has one stable, namespaced ID. Synonyms and cross-references are store
 | `disease` | MONDO | `MONDO:0009861` | `ORPHA:`, `OMIM:`, `DOID:`, `UMLS:` |
 | `gene` | HGNC | `HGNC:1884` | `NCBIGene:`, `ENSG`, `OMIM:` gene entry |
 | `variant` | ClinVar Variation ID | `ClinVar:VCV000012345` | HGVS expression, `dbSNP:rs` |
-| `mechanism` | Internal controlled vocabulary | `MECH:loss_of_function`, `MECH:lysosomal_enzyme_deficiency` | GO / Reactome IDs when mapped |
+| `mechanism` | GO biological process (whitelist in `data/curated/mechanisms.yaml`); internal vocabulary later | `GO:0006680`, `MECH:loss_of_function` | Reactome IDs when mapped |
 | `phenotype` | HPO | `HP:0001250` | |
-| `patient_group` | Org slug | `ORG:example-foundation` | Orphanet expert/patient org ID, website URL |
+| `patient_group` | Curated org slug | `org:international-gaucher-alliance` | Orphanet expert/patient org ID, website URL |
 | `publication` | PubMed | `PMID:12345678` | `PMCID:`, `DOI:` |
-| `study` | ClinicalTrials.gov | `NCT01234567` | Registry IDs for natural history studies |
-| `asset` | Internal | `ASSET:registry/<slug>`, `ASSET:model/<slug>` | JAX strain ID, NCT, URL |
+| `study` | ClinicalTrials.gov | `clinicaltrials:NCT05778617` (the UI shows the bare NCT) | Registry IDs for natural history studies |
+| `asset` | Curated asset slug (an asset with an NCT id is the `study` node; a `publication_*` asset is the `PMID:` node) | `asset:biomarker-lyso-gb1` | JAX strain ID, NCT, URL |
 | `investigator` | Internal slug | `INV:<lastname-firstinitial>-<hash>` | ORCID when available, RePORTER PI ID |
-| `funder` | Org slug or RePORTER | `FUNDER:nih-ninds`, `REPORTER:<project_number>` (for the grant) | ROR ID |
+| `funder` | Curated org slug (`research_funder_program`, `research_charity`) or RePORTER | `org:cure-parkinsons`, `REPORTER:<project_number>` (for the grant) | ROR ID |
+
+Node descriptions go in `attributes["description"]` (there is no `description` field). Phenotype information content goes in `attributes["ic"]` as a string. Ingest ids are produced by `backend/src/atlas/ingest/` (see `data/curated/README.md` for curated ids).
 
 The example IDs above show the format only. They are not verified facts about any disease. Grants are represented as `asset` or `funder` edges carrying the RePORTER project number in `source_record_id`.
 

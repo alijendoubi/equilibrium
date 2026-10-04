@@ -1,0 +1,24 @@
+{
+ "annotated_diseases": 12867,
+ "ic": {
+  "HP:0000012": "5.1449",
+  "HP:0000017": "7.0645",
+  "HP:0000020": "4.2529",
+  "HP:0000027": "4.8277",
+  "HP:0000083": "3.1877"
+ },
+ "labels": {
+  "HP:0000012": "Urinary urgency",
+  "HP:0000017": "Nocturia",
+  "HP:0000020": "Urinary incontinence",
+  "HP:0000027": "Azoospermia",
+  "HP:0000083": "Renal insufficiency"
+ },
+ "meta": {
+  "retrieved_at": "2026-10-03T23:10:40Z",
+  "source_version": "2026-09-02",
+  "url": "https://github.com/obophenotype/human-phenotype-ontology/releases/latest/download/phenotype.hpoa"
+ },
+ "method": "-ln(diseases annotated to term or descendants / all annotated diseases), hpoa",
+ "ontology_version": "hp/releases/2026-09-01"
+}

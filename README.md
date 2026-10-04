@@ -400,7 +400,13 @@ This project addresses a clear challenge statement with a product shape that is 
 - It centers the experience around patient and investigator needs, not just technical novelty.
 - It delivers a realistic roadmap from data ingest to explainable product experience.
 
-This is the kind of system judges can understand, developers can build, and teams can iterate on rapidly.
+**Phase 2: Graph slice (M2), not started**
+- [x] Disease cluster chosen: GBA1/GCase–lysosomal dysfunction, Gaucher / GBA1 -> Parkinson's ([ADR 0003](docs/adr/0003-demo-cluster-gaucher-gba1.md), seed list in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md))
+- [x] Curated orgs and assets drafted in `data/curated/` (needs human check)
+- [x] Ingest connectors for the slice: Monarch (MONDO/HGNC/OMIM-sourced links/HPO annotations/GO), HPO IC, ClinVar counts, ClinicalTrials.gov, curated YAML; cache committed in `data/cache/` (#15, #16, #17)
+- [ ] PubMed ingest
+- [ ] OpenAI Extract and Reconcile into evidence edges
+- [ ] `make data` reproduces a dated snapshot
 
 ---
 

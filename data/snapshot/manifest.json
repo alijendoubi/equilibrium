@@ -1,12 +1,17 @@
 {
+  "contradictions": [
+    "venglustat-gd3-vs-gba-pd",
+    "psap-pd-susceptibility-contested"
+  ],
   "counts": {
-    "edges": 1205,
+    "edges": 1207,
     "edges_by_evidence_type": {
-      "curated": 975,
+      "curated": 977,
       "observed": 230
     },
     "edges_by_relation": {
       "caused_by": 32,
+      "contradicts": 2,
       "funds": 1,
       "has_phenotype": 872,
       "mentions": 3,
@@ -15,7 +20,7 @@
       "risk_factor_for": 21,
       "studies_condition": 243
     },
-    "nodes": 691,
+    "nodes": 692,
     "nodes_by_type": {
       "asset": 1,
       "disease": 35,
@@ -24,7 +29,7 @@
       "mechanism": 8,
       "patient_group": 4,
       "phenotype": 424,
-      "publication": 2,
+      "publication": 3,
       "study": 206
     }
   },
@@ -38,12 +43,12 @@
     "note": "no OpenAI step in this build yet; Extract/Reconcile fill this in",
     "output_tokens": 0
   },
-  "rubric_version": "ingest-v1",
+  "rubric_version": "trust-v1",
   "schema_version": "1",
   "slice": "gba1",
-  "snapshot_bytes": 1201406,
+  "snapshot_bytes": 1242345,
   "snapshot_file": "atlas-snapshot.json",
-  "snapshot_id": "sha256:bdb4c12a7209e12414f25e7499d71db137ee39a448b0645f9af4d837583e892b",
+  "snapshot_id": "sha256:46c3c4edaa63785ea4c3ab5b11762da58d69e297f6091c2bf6dba7c61bb52fd2",
   "sources": [
     {
       "edges": 925,

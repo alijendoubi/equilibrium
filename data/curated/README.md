@@ -15,6 +15,7 @@ Current slice: **Gaucher / GBA1 -> Parkinson's** ([ADR 0003](../../docs/adr/0003
 | `organizations.yaml` | `organizations` (list), `no_dedicated_org_found` (diseases with no dedicated org; feeds the coverage report) |
 | `assets.yaml` | `assets` (list) |
 | `mechanisms.yaml` | `mechanisms` (list): GO biological-process whitelist (id, name, url, retrieved, curator, notes). Ids checked on QuickGO |
+| `contradictions.yaml` | `contradictions` (list): curated counterexamples and contested claims; each becomes a `contradicts` edge and fills `contradicted_by` on the edges it `bears_on` (see below) |
 | `condition_aliases.yaml` | `aliases` (list): registry condition names -> slice MONDO id, used only when the MONDO label/synonyms do not match (name, disease_id, url, retrieved, curator, notes) |
 
 ## Entry fields
@@ -33,6 +34,19 @@ Current slice: **Gaucher / GBA1 -> Parkinson's** ([ADR 0003](../../docs/adr/0003
 | `source_record_id` | assets | NCT id, `PMID:` id, or registry id |
 | `attributes` | no | Registry fields (phase, status, enrollment, sponsor, dates) |
 | `funds` / `operates` | no (orgs) | Asset slugs from `assets.yaml` the org funds or operates; becomes a `funds` / `operates` edge backed by the org's `url` |
+
+## contradictions.yaml
+
+| Field | Required | Description |
+|---|---|---|
+| `id` | yes | Unique kebab-case slug (edge record id `contradiction:<id>`) |
+| `summary` | yes | One or two factual sentences |
+| `verification` | yes | `verified` (quotes read, rubric 0.80) or `unverified` (key claim [U], rubric 0.50) |
+| `contradicts` | yes | `source_id`, `target_id` of the `contradicts` edge (existing nodes or `new_nodes`) |
+| `bears_on` | no | Disputed edges: `{edge_id: E:...}` or `{source_id, relation, target_id}` (all sources). Must match at least one edge, or the build fails |
+| `new_nodes` | no | Nodes the entry needs (`id`, `type`, `label`, `url`), e.g. a letter's `PMID:` |
+| `evidence` | yes | List of `url` + verbatim `quote` + `retrieved`; at least one, url required |
+| `curator`, `notes` | yes / no | As above; mark unread claims `[U]` |
 
 ## Graph ids (ingest/curated.py)
 

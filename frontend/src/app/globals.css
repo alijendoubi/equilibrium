@@ -65,3 +65,30 @@ body {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
+
+/* Evidence map (components/graph). Labels get a halo so they stay readable over lines. */
+.evidence-map .node-label {
+  fill: var(--foreground);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.evidence-map .map-node:focus-visible .node-shape {
+  stroke: var(--focus);
+  stroke-width: 4px;
+}
+
+.evidence-map .map-node:hover .node-shape {
+  stroke: var(--foreground);
+}
+
+/* The layout is precomputed and never animated; keep hover feedback instant for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .evidence-map .map-node,
+  .evidence-map [data-edge-id] {
+    transition: opacity 150ms ease;
+  }
+}

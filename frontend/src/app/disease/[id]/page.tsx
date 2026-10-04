@@ -9,8 +9,10 @@ import { GapCard } from "@/components/GapCard";
 import { DataNotice } from "@/components/MockBanner";
 import { NodeChip } from "@/components/NodeChip";
 import { PageHeader } from "@/components/PageHeader";
+import { EvidenceMap } from "@/components/graph/EvidenceMap";
 import { getAtlasClient } from "@/lib/api/client";
-import type { NodeSummary } from "@/lib/api/types";
+import type { GraphMapResponse, NodeSummary } from "@/lib/api/types";
+import { mapHref } from "@/lib/graph-map";
 import { buildDiseaseSummary } from "@/lib/disease-summary";
 import { actionsHref, displayId, pathHref, relationLabel } from "@/lib/format";
 import { closestCommunities } from "@/lib/gap";
@@ -61,6 +63,28 @@ function Connections({ summary }: { summary: NodeSummary }) {
   );
 }
 
+/** Compact depth-1 evidence map of the node, with a way into the full map. */
+function MapPreview({ graph, id }: { graph: GraphMapResponse; id: string }) {
+  return (
+    <section aria-labelledby="map-preview" className="mt-8">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="map-preview" className="text-sm font-medium text-muted">
+          Evidence map · direct links
+        </h2>
+        <Link
+          href={mapHref({ center: id })}
+          className="text-sm font-medium text-cluster underline-offset-4 hover:underline"
+        >
+          Open the full map <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+      <div className="mt-3">
+        <EvidenceMap graph={graph} state={{ center: id }} compact />
+      </div>
+    </section>
+  );
+}
+
 export default async function NodePage({ params }: NodePageProps) {
   const id = decodeSegment((await params).id);
   if (!id) notFound();
@@ -71,9 +95,11 @@ export default async function NodePage({ params }: NodePageProps) {
   const { node } = summary;
   const isDisease = node.type === "disease";
   const description = node.attributes.description;
-  const actions = isDisease ? await client.getActions(id) : null;
-  const cluster =
-    isDisease && summary.cluster_id ? await client.getCluster(summary.cluster_id) : null;
+  const [actions, cluster, graph] = await Promise.all([
+    isDisease ? client.getActions(id) : null,
+    isDisease && summary.cluster_id ? client.getCluster(summary.cluster_id) : null,
+    client.getGraph({ center: id, depth: 1 }),
+  ]);
   const coverage = actions?.coverage ?? null;
   const gap = coverage && coverage.result !== "supported" ? coverage : null;
 
@@ -97,6 +123,14 @@ export default async function NodePage({ params }: NodePageProps) {
           <p className="mt-2 text-sm text-muted">Also known as: {node.synonyms.join(", ")}</p>
         )}
         {description && <p className="mt-4 leading-relaxed">{description}</p>}
+        <p className="mt-5">
+          <Link
+            href={mapHref({ center: id })}
+            className="inline-flex items-center gap-2 rounded-xl bg-cluster px-4 py-2 text-sm font-medium text-background shadow-sm hover:opacity-90"
+          >
+            View on evidence map <span aria-hidden="true">→</span>
+          </Link>
+        </p>
       </header>
 
       {isDisease ? (
@@ -124,6 +158,7 @@ export default async function NodePage({ params }: NodePageProps) {
           <div className="mt-8">
             <SummaryCard summary={buildDiseaseSummary(summary)} />
           </div>
+          {graph && <MapPreview graph={graph} id={id} />}
           {cluster && (
             <div className="mt-8">
               <DiseaseCluster diseaseId={id} cluster={cluster} />
@@ -140,7 +175,10 @@ export default async function NodePage({ params }: NodePageProps) {
           )}
         </>
       ) : (
-        <Connections summary={summary} />
+        <>
+          {graph && <MapPreview graph={graph} id={id} />}
+          <Connections summary={summary} />
+        </>
       )}
     </main>
   );

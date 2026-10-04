@@ -12,6 +12,7 @@ describe("/path", () => {
     const route = screen.getByRole("region", { name: "Route 1" });
     const links = within(route)
       .getAllByRole("link")
+      .filter((a) => a.getAttribute("href")?.startsWith("/disease/"))
       .map((a) => a.textContent);
     expect(links).toEqual([
       "DiseaseGaucher disease type III",

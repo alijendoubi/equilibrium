@@ -335,3 +335,57 @@ export interface ClusterDetail {
   bridges: ClusterBridge[];
   counterexamples: Counterexample[];
 }
+
+/* Evidence map: GET /api/v1/graph (backend/src/atlas/models/graph_map.py). */
+
+/** A node drawn on the evidence map. */
+export interface MapNode {
+  node: AtlasNode;
+  /** Edges touching the node on this map (drives node size). */
+  degree: number;
+  /** Edges touching the node in the whole snapshot. */
+  total_degree: number;
+  /** Disease cluster (diseases only). */
+  cluster_id: string | null;
+  /** Hops from the center (0 = center); null on the overview. */
+  distance: number | null;
+}
+
+/** What the map left out, per node type, so the UI can say "+41 symptoms" instead of hiding it. */
+export interface MapTruncation {
+  by_type: Record<string, number>;
+  nodes_hidden: number;
+  edges_hidden: number;
+}
+
+/** Counts of what is drawn. */
+export interface MapLegend {
+  node_types: Record<string, number>;
+  relations: Record<string, number>;
+  evidence_types: Record<string, number>;
+}
+
+/** GET /api/v1/graph?center=&depth=&types=&relations=&min_confidence=&limit= */
+export interface GraphMapResponse {
+  /** Null for the overview of the whole slice. */
+  center: string | null;
+  /** 0 for the overview. */
+  depth: number;
+  nodes: MapNode[];
+  edges: Edge[];
+  /** Edges that are a `contradicts` claim, or that another edge contradicts. */
+  contradiction_edge_ids: string[];
+  truncated: MapTruncation;
+  legend: MapLegend;
+}
+
+/** Query for the evidence map. Omit `center` for the overview. */
+export interface GraphQuery {
+  center?: string | null;
+  depth?: 1 | 2;
+  /** Node types to draw. Omitted: everything except symptoms. */
+  types?: NodeType[];
+  relations?: Relation[];
+  minConfidence?: number;
+  limit?: number;
+}

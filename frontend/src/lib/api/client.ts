@@ -2,6 +2,7 @@ import type { z } from "zod";
 import { getPublicEnv, getServerEnv } from "@/lib/env";
 import { displayId } from "@/lib/format";
 import { loadMockClusters, mockClusterOf, type MockClusters } from "./clusters-mock";
+import { buildMap } from "@/lib/graph-map";
 import { buildTemplateExplanation } from "./explain-template";
 import { loadMockDataset, type MockDataset } from "./mock-data";
 import {
@@ -10,6 +11,7 @@ import {
   clustersResponseSchema,
   coverageReportSchema,
   explainResponseSchema,
+  graphMapResponseSchema,
   MAX_EXPLAIN_EDGES,
   nodeSummarySchema,
   pathResponseSchema,
@@ -23,6 +25,8 @@ import type {
   CoverageReport,
   ExplainAudience,
   ExplainResponse,
+  GraphMapResponse,
+  GraphQuery,
   NodeSummary,
   Path,
   PathResponse,
@@ -47,6 +51,8 @@ export interface AtlasClient {
   getClusters(): Promise<ClustersResponse>;
   /** Resolves to null when the cluster id is unknown. */
   getCluster(id: string): Promise<ClusterDetail | null>;
+  /** Evidence map (GET /api/v1/graph). Resolves to null when the center id is unknown. */
+  getGraph(query?: GraphQuery): Promise<GraphMapResponse | null>;
 }
 
 /** Abort a backend call after this long and fall back to the bundled demo data. */
@@ -151,6 +157,12 @@ export function createMockClient(
 
     async getCluster(id) {
       return loadClusters().details.get(id) ?? null;
+    },
+
+    async getGraph(query = {}) {
+      const data = load();
+      const clusters = loadClusters();
+      return buildMap(data.nodes, data.edges, query, (id) => mockClusterOf(id, clusters));
     },
 
     async explain(edgeIds, audience = "family") {
@@ -263,6 +275,19 @@ export interface HttpClientOptions {
   explainTimeoutMs?: number;
 }
 
+/** `?center=MONDO%3A0009266&depth=1&types=gene,disease`, or "" for the default overview. */
+export function graphQueryString(query: GraphQuery): string {
+  const params = new URLSearchParams();
+  if (query.center) params.set("center", query.center);
+  if (query.depth) params.set("depth", String(query.depth));
+  if (query.types?.length) params.set("types", query.types.join(","));
+  if (query.relations?.length) params.set("relations", query.relations.join(","));
+  if (query.minConfidence) params.set("min_confidence", String(query.minConfidence));
+  if (query.limit) params.set("limit", String(query.limit));
+  const text = params.toString();
+  return text ? `?${text}` : "";
+}
+
 export function createHttpClient(baseUrl: string, options: HttpClientOptions = {}): AtlasClient {
   const fetchImpl = options.fetchImpl ?? fetch;
   const timeoutMs = options.timeoutMs ?? API_TIMEOUT_MS;
@@ -320,6 +345,7 @@ export function createHttpClient(baseUrl: string, options: HttpClientOptions = {
       return (await get("/clusters", clustersResponseSchema))!;
     },
     getCluster: (id) => get(`/clusters/${enc(id)}`, clusterDetailSchema, true),
+    getGraph: (query = {}) => get(`/graph${graphQueryString(query)}`, graphMapResponseSchema, true),
   };
 }
 
@@ -382,6 +408,11 @@ export function createFallbackClient(primary: AtlasClient, fallback: AtlasClient
       attempt(
         () => primary.getClusters(),
         () => fallback.getClusters(),
+      ),
+    getGraph: (query) =>
+      attempt(
+        () => primary.getGraph(query),
+        () => fallback.getGraph(query),
       ),
     getCluster: (id) =>
       attempt(

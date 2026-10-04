@@ -329,8 +329,9 @@ uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one sour
 | ClinVar E-utilities (`ingest/clinvar.py`) | pathogenic / likely-pathogenic record counts per seed gene (gene attributes) | counts |
 | ClinicalTrials.gov v2 (`ingest/clinicaltrials.py`) | bounded queries for Gaucher, saposin C, GBA-PD, ambroxol, venglustat, PR001 and neighbour diseases, plus the seed NCTs (`studies_condition`) | trimmed studies |
 | Curated (`ingest/curated.py`) | patient groups, funders, assets (`represents`, `funds`, `studies_condition`, `mentions`); "no dedicated org found" coverage seeds | YAML in `data/curated/` |
+| NIH RePORTER v2 (`ingest/reporter.py`) | projects FY2019-2026 for GBA1, glucocerebrosidase, Gaucher, GBA Parkinson, saposin C deficiency, prosaposin, SCARB2/LIMP2, ambroxol (one record per core project, cap 150): investigators (`investigates`), administering institutes (`funds`), shared-investigator bridges on `/actions` | trimmed projects |
 
-Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
+Not ingested yet: PubMed (beyond the Extract abstracts), Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
 
 - **Visible to users:** AI-written text carries an "AI-generated (model)" badge. Template text is labelled "Template (AI unavailable)". Hypotheses are dashed.
 - **Robust demo:** embeddings, reconcile decisions and explanations are cached in `data/cache/` and committed. With `ATLAS_OFFLINE=1` or no key, the app serves the cache, then the template. It never fails because of the API.
@@ -484,6 +485,7 @@ This project addresses a clear challenge statement with a product shape that is 
 **Phase 3: Trust layer (M3), in progress**
 - [x] Confidence rubric `trust-v1` applied to every edge in the pipeline: base by source and evidence type, corroboration bonus, contradiction penalty, inferred always below curated (#21, table in [docs/EVIDENCE_MODEL.md](docs/EVIDENCE_MODEL.md#confidence-rubric-trust-v1))
 - [x] Curated contradictions in `data/curated/contradictions.yaml`: venglustat GD3 vs GBA-PD counterexample, contested PSAP -> PD susceptibility (#21)
+- [x] NIH RePORTER investigators: 135 projects, 124 investigators, 11 shared-investigator bridges (9 span Gaucher/GBA1 and Parkinson's), listed on `/actions`; saposin C deficiency has 0 RePORTER projects (#38)
 - [ ] Coverage report and Explain with edge citations (see their issues)
 
 **Phase 4: UI journey (M4), not started.** Search, cluster view, edge explanation panel, patient action view.

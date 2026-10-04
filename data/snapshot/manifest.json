@@ -4,28 +4,30 @@
     "psap-pd-susceptibility-contested"
   ],
   "counts": {
-    "edges": 1207,
+    "edges": 1498,
     "edges_by_evidence_type": {
       "curated": 977,
-      "observed": 230
+      "observed": 521
     },
     "edges_by_relation": {
       "caused_by": 32,
       "contradicts": 2,
-      "funds": 1,
+      "funds": 125,
       "has_phenotype": 872,
+      "investigates": 167,
       "mentions": 3,
       "participates_in": 19,
       "represents": 14,
       "risk_factor_for": 21,
       "studies_condition": 243
     },
-    "nodes": 692,
+    "nodes": 832,
     "nodes_by_type": {
       "asset": 1,
       "disease": 35,
-      "funder": 2,
+      "funder": 18,
       "gene": 9,
+      "investigator": 124,
       "mechanism": 8,
       "patient_group": 4,
       "phenotype": 424,
@@ -33,7 +35,7 @@
       "study": 206
     }
   },
-  "created_at": "2026-10-03T23:21:47Z",
+  "created_at": "2026-10-04T11:06:01Z",
   "created_at_note": "latest source retrieved_at (deterministic, not wall-clock)",
   "openai_usage": {
     "batch_jobs": 0,
@@ -46,9 +48,9 @@
   "rubric_version": "trust-v1",
   "schema_version": "1",
   "slice": "gba1",
-  "snapshot_bytes": 1242345,
+  "snapshot_bytes": 1481204,
   "snapshot_file": "atlas-snapshot.json",
-  "snapshot_id": "sha256:46c3c4edaa63785ea4c3ab5b11762da58d69e297f6091c2bf6dba7c61bb52fd2",
+  "snapshot_id": "sha256:6dd8d1401e276e8021f89c4298b1739b051441bc7e683d5c534fb5fd5dca2370",
   "sources": [
     {
       "edges": 925,
@@ -103,6 +105,15 @@
       "source": "curated",
       "source_version": null,
       "url": null
+    },
+    {
+      "edges": 291,
+      "nodes": 140,
+      "records": 135,
+      "retrieved_at": "2026-10-04T11:06:01Z",
+      "source": "reporter",
+      "source_version": "fiscal years 2019-2026",
+      "url": "https://api.reporter.nih.gov/v2/projects/search"
     }
   ]
 }

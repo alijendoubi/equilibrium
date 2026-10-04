@@ -19,7 +19,7 @@ from typing import Any
 
 from atlas.config import get_settings
 from atlas.extract.edges import ExtractStage, extract_stage
-from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch
+from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch, reporter
 from atlas.ingest.common import CACHE_DIR, DATA_DIR, IngestResult, dedupe_edges, merge_nodes
 from atlas.ingest.common import read_cache as read_source_cache
 from atlas.ingest.refresh import CACHE_NAME
@@ -90,6 +90,7 @@ def normalize_all(
             curated.condition_aliases(curated_payload),
         ),
         curated.normalize(curated_payload),
+        reporter.normalize(read("reporter"), [node.id for node in monarch_result.nodes]),
     ]
 
 
@@ -160,6 +161,8 @@ def coverage_seeds(results: Sequence[IngestResult], edges: Sequence[Edge]) -> di
         "go_genes_without_whitelisted_terms": notes.get("go", {}).get(
             "genes_without_whitelisted_terms", []
         ),
+        "reporter_query_totals": notes.get("reporter", {}).get("query_totals", {}),
+        "reporter_projects_by_target": notes.get("reporter", {}).get("projects_by_target", {}),
         "seed_diseases_without_studies": sorted(set(SEED_DISEASES) - studied),
         "seed_diseases_without_patient_group": sorted(set(SEED_DISEASES) - represented),
     }

@@ -1,0 +1,3878 @@
+{
+ "meta": {
+  "retrieved_at": "2026-10-04T11:06:01Z",
+  "source_version": "fiscal years 2019-2026",
+  "url": "https://api.reporter.nih.gov/v2/projects/search"
+ },
+ "projects": {
+  "DP2GM159183": {
+   "appl_id": 10910639,
+   "core_project_num": "DP2GM159183",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NIGMS",
+    "name": "National Institute of General Medical Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Shannon Marie Miller",
+     "profile_id": 14962622
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "LA JOLLA",
+    "country": "UNITED STATES",
+    "name": "SCRIPPS RESEARCH INSTITUTE, THE",
+    "state": "CA"
+   },
+   "project_num": "1DP2GM159183-01",
+   "title": "Developing a CRISPR-free mammalian recombineering system"
+  },
+  "F30AG071114": {
+   "appl_id": 10857262,
+   "core_project_num": "F30AG071114",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Nicholas Ryan Boyle",
+     "profile_id": 15039485
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BIRMINGHAM",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF ALABAMA AT BIRMINGHAM",
+    "state": "AL"
+   },
+   "project_num": "5F30AG071114-04",
+   "title": "The cause and effect of reduced ÃÂ²-glucocerebrosidase activity in the setting of progranulin deficiency"
+  },
+  "F31NS115364": {
+   "appl_id": 10326794,
+   "core_project_num": "F31NS115364",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Meigen Yu",
+     "profile_id": 15658278
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "HOUSTON",
+    "country": "UNITED STATES",
+    "name": "BAYLOR COLLEGE OF MEDICINE",
+    "state": "TX"
+   },
+   "project_num": "5F31NS115364-02",
+   "title": "INTERACTIONS BETWEEN LYSOSOMAL STORAGE DISORDER GENES, SPHINGOLIPID HOMEOSTASIS, AND ALPHA-SYNUCLEIN MECHANISMS IN PARKINSON'S DISEASE"
+  },
+  "F31NS125949": {
+   "appl_id": 10663834,
+   "core_project_num": "F31NS125949",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Lauren Komer",
+     "profile_id": 77996602
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "WEILL MEDICAL COLL OF CORNELL UNIV",
+    "state": "NY"
+   },
+   "project_num": "5F31NS125949-02",
+   "title": "The role of beta-synuclein in synaptic vesicle release"
+  },
+  "F31NS129277": {
+   "appl_id": 10660967,
+   "core_project_num": "F31NS129277",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Casey Mahoney-Crane",
+     "profile_id": 16065520
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BIRMINGHAM",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF ALABAMA AT BIRMINGHAM",
+    "state": "AL"
+   },
+   "project_num": "5F31NS129277-02",
+   "title": "The effect of GBA1 L444P heterozygous mutation on synaptic morphology in the hippocampus and cognition related to Lewy body dementias"
+  },
+  "F31NS131055": {
+   "appl_id": 11001963,
+   "core_project_num": "F31NS131055",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Annie Zalon",
+     "profile_id": 78507223
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5F31NS131055-03",
+   "title": "The role of ER-phagy in maintaining protein homeostasis in PD patient derived neurons."
+  },
+  "F32AG079659": {
+   "appl_id": 11177756,
+   "core_project_num": "F32AG079659",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Molly Hodul",
+     "profile_id": 12453729
+    }
+   ],
+   "matched_queries": [
+    "prosaposin"
+   ],
+   "organization": {
+    "city": "SAN FRANCISCO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA, SAN FRANCISCO",
+    "state": "CA"
+   },
+   "project_num": "5F32AG079659-03",
+   "title": "Investigating the regulation of lipid homeostasis and lysosomal function in neurodegenerative disease by prosaposin and progranulin in C. elegans"
+  },
+  "I50RX002999": {
+   "appl_id": 11016920,
+   "core_project_num": "I50RX002999",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "VA",
+    "name": "Veterans Affairs"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "Sulayman D Dib-Hajj",
+     "profile_id": 9611916
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Stephen Waxman",
+     "profile_id": 9097316
+    }
+   ],
+   "matched_queries": [
+    "ambroxol"
+   ],
+   "organization": {
+    "city": "WEST HAVEN",
+    "country": "UNITED STATES",
+    "name": "VA CONNECTICUT HEALTHCARE SYSTEM",
+    "state": "CT"
+   },
+   "project_num": "5I50RX002999-07",
+   "title": "Center for Restoration of Nervous System Function"
+  },
+  "IK2BX003244": {
+   "appl_id": 10643798,
+   "core_project_num": "IK2BX003244",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "VA",
+    "name": "Veterans Affairs"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Marie Ynez Davis",
+     "profile_id": 12224356
+    }
+   ],
+   "matched_queries": [
+    "gba1"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "VA PUGET SOUND HEALTHCARE SYSTEM",
+    "state": "WA"
+   },
+   "project_num": "5IK2BX003244-06",
+   "title": "Understanding Susceptibility to Parkinson's Disease due to GBA1 Mutations"
+  },
+  "K08HD120691": {
+   "appl_id": 11452248,
+   "core_project_num": "K08HD120691",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NICHD",
+    "name": "Eunice Kennedy Shriver National Institute of Child Health and Human Development"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Arek Melkonian",
+     "profile_id": 11962382
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM AND WOMEN'S HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "1K08HD120691-01A1",
+   "title": "Bioengineered extracellular vesicles as a therapeutic platform for inborn errors of metabolism"
+  },
+  "K08HG012221": {
+   "appl_id": 11006272,
+   "core_project_num": "K08HG012221",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Leland Hull",
+     "profile_id": 15252974
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "MASSACHUSETTS GENERAL HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "5K08HG012221-04",
+   "title": "Elucidating the barriers and facilitators to widespread implementation of preconception genetic carrier screening"
+  },
+  "K08NS112467": {
+   "appl_id": 10684724,
+   "core_project_num": "K08NS112467",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "LAURIE A ROBAK",
+     "profile_id": 6931410
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "HOUSTON",
+    "country": "UNITED STATES",
+    "name": "BAYLOR COLLEGE OF MEDICINE",
+    "state": "TX"
+   },
+   "project_num": "5K08NS112467-05",
+   "title": "Parkinson's disease susceptibility in carriers of lysosomal storage disorder genes"
+  },
+  "K08NS131581": {
+   "appl_id": 11234253,
+   "core_project_num": "K08NS131581",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Niccolo E Mencacci",
+     "profile_id": 78048905
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5K08NS131581-03",
+   "title": "Understanding the role of BORCS5 in neuronal lysosomal function and neurodegeneration"
+  },
+  "K08NS138592": {
+   "appl_id": 11328832,
+   "core_project_num": "K08NS138592",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Sarah Marie Brooker",
+     "profile_id": 10689166
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5K08NS138592-02",
+   "title": "Effects of the Parkinsons Disease associated protein LRRK2 on lysosomal function and inflammatory activity in microglia"
+  },
+  "K23NS097625": {
+   "appl_id": 10234214,
+   "core_project_num": "K23NS097625",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Gian D Pal",
+     "profile_id": 12442220
+    }
+   ],
+   "matched_queries": [
+    "gba_parkinson",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "PISCATAWAY",
+    "country": "UNITED STATES",
+    "name": "RBHS-ROBERT WOOD JOHNSON MEDICAL SCHOOL",
+    "state": "NJ"
+   },
+   "project_num": "5K23NS097625-05",
+   "title": "Parkinson disease and DBS: cognitive effects in GBA mutation carriers"
+  },
+  "K99NS114850": {
+   "appl_id": 10341133,
+   "core_project_num": "K99NS114850",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Brett K Beaulieu-Jones",
+     "profile_id": 15241715
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "HARVARD MEDICAL SCHOOL",
+    "state": "MA"
+   },
+   "project_num": "5K99NS114850-02",
+   "title": "Characterizing Population Differences between Clinical Trial and Real World Populations"
+  },
+  "P30AG066515": {
+   "appl_id": 10653524,
+   "core_project_num": "P30AG066515",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Victor Henderson",
+     "profile_id": 1889223
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "STANFORD",
+    "country": "UNITED STATES",
+    "name": "STANFORD UNIVERSITY",
+    "state": "CA"
+   },
+   "project_num": "3P30AG066515-03S1",
+   "title": "Stanford Alzheimer's Disease Research CenterAdmin Supp: Developing iPSC models for AD and PD"
+  },
+  "P50NS094733": {
+   "appl_id": 10268520,
+   "core_project_num": "P50NS094733",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Jie Shen",
+     "profile_id": 1919771
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM AND WOMEN'S HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "3P50NS094733-05S1",
+   "title": "alpha-Synuclein and LRRK2 in the Pathogenesis of Parkinson's Disease"
+  },
+  "R00NS114850": {
+   "appl_id": 11098549,
+   "core_project_num": "R00NS114850",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Brett K Beaulieu-Jones",
+     "profile_id": 15241715
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CHICAGO",
+    "state": "IL"
+   },
+   "project_num": "5R00NS114850-05",
+   "title": "Characterizing Population Differences between Clinical Trial and Real World Populations"
+  },
+  "R01AG063544": {
+   "appl_id": 10202476,
+   "core_project_num": "R01AG063544",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Ta Yuan CHANG",
+     "profile_id": 1891186
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "HANOVER",
+    "country": "UNITED STATES",
+    "name": "DARTMOUTH COLLEGE",
+    "state": "NH"
+   },
+   "project_num": "5R01AG063544-04",
+   "title": "Alleviating lysosomal lipid defects in ADRD by blocking cholesterol storage"
+  },
+  "R01AG066165": {
+   "appl_id": 10642722,
+   "core_project_num": "R01AG066165",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "STEPHEN M STRITTMATTER",
+     "profile_id": 1872724
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW HAVEN",
+    "country": "UNITED STATES",
+    "name": "YALE UNIVERSITY",
+    "state": "CT"
+   },
+   "project_num": "5R01AG066165-05",
+   "title": "Overlapping Molecular Dysregulation of Endolysosomal Function in Alzheimer's Disease and FTLD-TDP"
+  },
+  "R01AG075100": {
+   "appl_id": 11263667,
+   "core_project_num": "R01AG075100",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Leo J Pallanck",
+     "profile_id": 1882993
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF WASHINGTON",
+    "state": "WA"
+   },
+   "project_num": "5R01AG075100-05",
+   "title": "Mechanism of innate immune activation in a Drosophila model of Alzheimer's disease related dementia"
+  },
+  "R01AG080636": {
+   "appl_id": 11456939,
+   "core_project_num": "R01AG080636",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "PENELOPE Jane HALLETT",
+     "profile_id": 10694108
+    },
+    {
+     "is_contact_pi": true,
+     "name": "OLE ISACSON",
+     "profile_id": 1880795
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BELMONT",
+    "country": "UNITED STATES",
+    "name": "MCLEAN HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "4R01AG080636-02",
+   "title": "ApoE, lipid and immune mechanisms of human neurons and glia"
+  },
+  "R01AG081433": {
+   "appl_id": 11307637,
+   "core_project_num": "R01AG081433",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Laura A. Volpicelli-Daley",
+     "profile_id": 8776756
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BIRMINGHAM",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF ALABAMA AT BIRMINGHAM",
+    "state": "AL"
+   },
+   "project_num": "5R01AG081433-04",
+   "title": "Role of GlcSph in cognitive deficits in Lewy body dementias"
+  },
+  "R01AG081436": {
+   "appl_id": 11307578,
+   "core_project_num": "R01AG081436",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Alison J Scott",
+     "profile_id": 11468947
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "BALTIMORE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF MARYLAND BALTIMORE",
+    "state": "MD"
+   },
+   "project_num": "5R01AG081436-04",
+   "title": "Defining lipid droplet homeostasis in Alzheimer's disease and aging with high molecular specificity using mass spectrometry imaging and isomer resolved lipidomics"
+  },
+  "R01AG082373": {
+   "appl_id": 11319050,
+   "core_project_num": "R01AG082373",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Matthew J LaVoie",
+     "profile_id": 1870167
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "GAINESVILLE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF FLORIDA",
+    "state": "FL"
+   },
+   "project_num": "5R01AG082373-03",
+   "title": "Intersection of GBA and LRRK2 in Lewy Body Dementia"
+  },
+  "R01AG087165": {
+   "appl_id": 11303430,
+   "core_project_num": "R01AG087165",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "Owen A Ross",
+     "profile_id": 8542812
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Na Zhao",
+     "profile_id": 12528577
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "JACKSONVILLE",
+    "country": "UNITED STATES",
+    "name": "MAYO CLINIC JACKSONVILLE",
+    "state": "FL"
+   },
+   "project_num": "5R01AG087165-03",
+   "title": "Elucidating the Pathomechanisms of APOE4 in Lewy Body Dementia"
+  },
+  "R01CA218141": {
+   "appl_id": 10165658,
+   "core_project_num": "R01CA218141",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NCI",
+    "name": "National Cancer Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "David G. Schatz",
+     "profile_id": 1970031
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "NEW HAVEN",
+    "country": "UNITED STATES",
+    "name": "YALE UNIVERSITY",
+    "state": "CT"
+   },
+   "project_num": "5R01CA218141-05",
+   "title": "The role of AID/APOBEC3 proteins in genome instability in multiple myeloma"
+  },
+  "R01DK119117": {
+   "appl_id": 11362284,
+   "core_project_num": "R01DK119117",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "BRUCE M. SPIEGELMAN",
+     "profile_id": 1877249
+    }
+   ],
+   "matched_queries": [
+    "prosaposin"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "DANA-FARBER CANCER INST",
+    "state": "MA"
+   },
+   "project_num": "5R01DK119117-08",
+   "title": "PGC1alpha Pathway: Novel Intracellular and Extracellular Mediators"
+  },
+  "R01DK124415": {
+   "appl_id": 10541891,
+   "core_project_num": "R01DK124415",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "MARK E. LOWE",
+     "profile_id": 1864467
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SAINT LOUIS",
+    "country": "UNITED STATES",
+    "name": "WASHINGTON UNIVERSITY",
+    "state": "MO"
+   },
+   "project_num": "5R01DK124415-04",
+   "title": "Does Proteotoxicity Contribute to Chronic Pancreatitis in Murine Models of Human Carboxyl Ester Lipase (CEL) Genetic Risk Variants?"
+  },
+  "R01DK139676": {
+   "appl_id": 11261163,
+   "core_project_num": "R01DK139676",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "MOSHE LEVI",
+     "profile_id": 1944368
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "WASHINGTON",
+    "country": "UNITED STATES",
+    "name": "GEORGETOWN UNIVERSITY",
+    "state": "DC"
+   },
+   "project_num": "5R01DK139676-02",
+   "title": "Role of Glycosphingolipids in Kidney Disease in Diabetes and Obesity"
+  },
+  "R01HD073292": {
+   "appl_id": 10678941,
+   "core_project_num": "R01HD073292",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NICHD",
+    "name": "Eunice Kennedy Shriver National Institute of Child Health and Human Development"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Melissa Pittel Wasserstein",
+     "profile_id": 9785117
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "BRONX",
+    "country": "UNITED STATES",
+    "name": "ALBERT EINSTEIN COLLEGE OF MEDICINE",
+    "state": "NY"
+   },
+   "project_num": "5R01HD073292-10",
+   "title": "NY ScreenPlus: A Comprehensive, Flexible, Multi-disorder Newborn Screening Program"
+  },
+  "R01HD110270": {
+   "appl_id": 11312671,
+   "core_project_num": "R01HD110270",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NICHD",
+    "name": "Eunice Kennedy Shriver National Institute of Child Health and Human Development"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Tippi Mackenzie",
+     "profile_id": 9196466
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SAN FRANCISCO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA, SAN FRANCISCO",
+    "state": "CA"
+   },
+   "project_num": "5R01HD110270-05",
+   "title": "Phase 1 Study of In Utero Enzyme Replacement Therapy for the Treatment of Lysosomal Storage Diseases"
+  },
+  "R01NS051630": {
+   "appl_id": 10561708,
+   "core_project_num": "R01NS051630",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "David Loren Nelson",
+     "profile_id": 7354240
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "HOUSTON",
+    "country": "UNITED STATES",
+    "name": "BAYLOR COLLEGE OF MEDICINE",
+    "state": "TX"
+   },
+   "project_num": "5R01NS051630-18",
+   "title": "Molecular Basis of rCGG-Mediated Neurodegeneration"
+  },
+  "R01NS076054": {
+   "appl_id": 9975946,
+   "core_project_num": "R01NS076054",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "DIMITRI KRAINC",
+     "profile_id": 6193409
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase",
+    "scarb2"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5R01NS076054-10",
+   "title": "The Role of Lysosomal Glucocerebrosidase in Synucleinopathies"
+  },
+  "R01NS092823": {
+   "appl_id": 11375485,
+   "core_project_num": "R01NS092823",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joseph R Mazzulli",
+     "profile_id": 9741809
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5R01NS092823-10",
+   "title": "The role of a-synuclein accumulation in lysosomal hydrolase trafficking and function"
+  },
+  "R01NS094252": {
+   "appl_id": 9774306,
+   "core_project_num": "R01NS094252",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Leo J Pallanck",
+     "profile_id": 1882993
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF WASHINGTON",
+    "state": "WA"
+   },
+   "project_num": "5R01NS094252-05",
+   "title": "A Drosophila model for studying mechanisms of Gaucher's disease and synucleinopathies"
+  },
+  "R01NS095954": {
+   "appl_id": 11320756,
+   "core_project_num": "R01NS095954",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Fenghua Hu",
+     "profile_id": 8224677
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase",
+    "prosaposin"
+   ],
+   "organization": {
+    "city": "ITHACA",
+    "country": "UNITED STATES",
+    "name": "CORNELL UNIVERSITY",
+    "state": "NY"
+   },
+   "project_num": "5R01NS095954-10",
+   "title": "Lysosomal Function of Progranulin and Neurodegeneration"
+  },
+  "R01NS103931": {
+   "appl_id": 11308635,
+   "core_project_num": "R01NS103931",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Chuanju Liu",
+     "profile_id": 8131399
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Ying Sun",
+     "profile_id": 11084045
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW HAVEN",
+    "country": "UNITED STATES",
+    "name": "YALE UNIVERSITY",
+    "state": "CT"
+   },
+   "project_num": "5R01NS103931-08",
+   "title": "Progranulin: A Novel Gene in Gaucher Diseases"
+  },
+  "R01NS104390": {
+   "appl_id": 10462591,
+   "core_project_num": "R01NS104390",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Guomei Tang",
+     "profile_id": 10506660
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "COLUMBIA UNIVERSITY HEALTH SCIENCES",
+    "state": "NY"
+   },
+   "project_num": "5R01NS104390-05",
+   "title": "Cellular and Molecular Basis for Cognitive Impairment Associated with Glucocerebrosidase (GBA1) Mutation"
+  },
+  "R01NS109209": {
+   "appl_id": 10978182,
+   "core_project_num": "R01NS109209",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Vikram Khurana",
+     "profile_id": 11694611
+    }
+   ],
+   "matched_queries": [
+    "gba_parkinson",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM AND WOMEN'S HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "3R01NS109209-05S1",
+   "title": "Elucidating the Biological Differences Between Distinct Fibrillar and Non-Fibrillar Alpha-Synuclein Inclusions in Human Stem-Cell Models"
+  },
+  "R01NS110084": {
+   "appl_id": 10599135,
+   "core_project_num": "R01NS110084",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "RICHARD J SMEYNE",
+     "profile_id": 2080681
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "PHILADELPHIA",
+    "country": "UNITED STATES",
+    "name": "THOMAS JEFFERSON UNIVERSITY",
+    "state": "PA"
+   },
+   "project_num": "5R01NS110084-05",
+   "title": "Role of pathogenic Parkinsonian mutations in the seeding and propagation of alpha-synuclein in the CNS"
+  },
+  "R01NS110354": {
+   "appl_id": 11367378,
+   "core_project_num": "R01NS110354",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Sreeganga S Chandra",
+     "profile_id": 8832169
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW HAVEN",
+    "country": "UNITED STATES",
+    "name": "YALE UNIVERSITY",
+    "state": "CT"
+   },
+   "project_num": "2R01NS110354-03",
+   "title": "Elucidating GBA-linked Parkinson's disease and Dementia with Lewy Bodies"
+  },
+  "R01NS119897": {
+   "appl_id": 10990515,
+   "core_project_num": "R01NS119897",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Marie Ynez Davis",
+     "profile_id": 12224356
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "SEATTLE INST FOR BIOMEDICAL/CLINICAL RES",
+    "state": "WA"
+   },
+   "project_num": "5R01NS119897-05",
+   "title": "Investigating the role of lipid metabolism in protein aggregation and neurodegenerative disease progression"
+  },
+  "R01NS120219": {
+   "appl_id": 11164668,
+   "core_project_num": "R01NS120219",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Su Guo",
+     "profile_id": 6796092
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SAN FRANCISCO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA, SAN FRANCISCO",
+    "state": "CA"
+   },
+   "project_num": "5R01NS120219-05",
+   "title": "Mechanisms of renin-angiotensin signaling in programmed and insult-induced neuronal death"
+  },
+  "R01NS121792": {
+   "appl_id": 11059983,
+   "core_project_num": "R01NS121792",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "MICHAEL J WHALEN",
+     "profile_id": 6717712
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "MASSACHUSETTS GENERAL HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "5R01NS121792-05",
+   "title": "Cell Specific RIPK3 Signaling After Traumatic Brain Injury in Mice"
+  },
+  "R01NS126342": {
+   "appl_id": 11334311,
+   "core_project_num": "R01NS126342",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Jacqueline Burre",
+     "profile_id": 10571121
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Manu Sharma",
+     "profile_id": 10201041
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "WEILL MEDICAL COLL OF CORNELL UNIV",
+    "state": "NY"
+   },
+   "project_num": "5R01NS126342-03",
+   "title": "The Impact of Beta- and Gamma-Synucleins on Alpha-Synuclein's Synaptic Function"
+  },
+  "R01NS127414": {
+   "appl_id": 11333752,
+   "core_project_num": "R01NS127414",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Aimee Kao",
+     "profile_id": 8777046
+    }
+   ],
+   "matched_queries": [
+    "prosaposin"
+   ],
+   "organization": {
+    "city": "SAN FRANCISCO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA, SAN FRANCISCO",
+    "state": "CA"
+   },
+   "project_num": "5R01NS127414-03",
+   "title": "Progranulin Prosaposin and Lipid Biology in FTD"
+  },
+  "R01NS134805": {
+   "appl_id": 11380674,
+   "core_project_num": "R01NS134805",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "ANDREW S MCCALLION",
+     "profile_id": 7838757
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "BALTIMORE",
+    "country": "UNITED STATES",
+    "name": "JOHNS HOPKINS UNIVERSITY",
+    "state": "MD"
+   },
+   "project_num": "5R01NS134805-03",
+   "title": "Systematic investigation of disease-associated, regulatory variation; illuminating their prediction, molecular consequences and mechanisms contributing to risk of Parkinson disease (PD)"
+  },
+  "R01NS138309": {
+   "appl_id": 11380785,
+   "core_project_num": "R01NS138309",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "XIAOYANG QI",
+     "profile_id": 2795867
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Ying Sun",
+     "profile_id": 11084045
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CINCINNATI",
+    "country": "UNITED STATES",
+    "name": "CINCINNATI CHILDRENS HOSP MED CTR",
+    "state": "OH"
+   },
+   "project_num": "5R01NS138309-03",
+   "title": "Systemic Enzyme Delivery by a Brain Targeted SapC-DOPS Nanocarrier for Treatment of Neuronopathic Gaucher Disease"
+  },
+  "R01NS148478": {
+   "appl_id": 11344030,
+   "core_project_num": "R01NS148478",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Hanseok Ko",
+     "profile_id": 10435340
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Jung Soo Suk",
+     "profile_id": 11308421
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BALTIMORE",
+    "country": "UNITED STATES",
+    "name": "JOHNS HOPKINS UNIVERSITY",
+    "state": "MD"
+   },
+   "project_num": "1R01NS148478-01",
+   "title": "Novel non-viral GBA1 gene therapy for Parkinson's disease"
+  },
+  "R03AG070492": {
+   "appl_id": 10323690,
+   "core_project_num": "R03AG070492",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Brian J. North",
+     "profile_id": 8504516
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "OMAHA",
+    "country": "UNITED STATES",
+    "name": "CREIGHTON UNIVERSITY",
+    "state": "NE"
+   },
+   "project_num": "5R03AG070492-02",
+   "title": "Characterizing upstream regulators of glucosylceramide metabolism for Parkinson's disease and Lewy Body Dementia"
+  },
+  "R03NS113038": {
+   "appl_id": 10011905,
+   "core_project_num": "R03NS113038",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "LORRAINE N CLARK",
+     "profile_id": 7940694
+    }
+   ],
+   "matched_queries": [
+    "ambroxol",
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "COLUMBIA UNIVERSITY HEALTH SCIENCES",
+    "state": "NY"
+   },
+   "project_num": "5R03NS113038-02",
+   "title": "Development of a GBA p.E326K associated Parkinsons disease and Dementia with Lewy body mouse model"
+  },
+  "R03NS135450": {
+   "appl_id": 10988959,
+   "core_project_num": "R03NS135450",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Hanseok Ko",
+     "profile_id": 10435340
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BALTIMORE",
+    "country": "UNITED STATES",
+    "name": "JOHNS HOPKINS UNIVERSITY",
+    "state": "MD"
+   },
+   "project_num": "1R03NS135450-01A1",
+   "title": "Validation of Small Molecule Enhancers of Mutant Glucocerebrosidase 1 Activity"
+  },
+  "R13DK139756": {
+   "appl_id": 10902513,
+   "core_project_num": "R13DK139756",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Julia von Blume",
+     "profile_id": 15635867
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "East Greenwich",
+    "country": "UNITED STATES",
+    "name": "GORDON RESEARCH CONFERENCES",
+    "state": "RI"
+   },
+   "project_num": "1R13DK139756-01",
+   "title": "2024 Protein Processing, Secretion, and Trafficking Gordon Research Conference and Gordon Research Seminar"
+  },
+  "R13NS111953": {
+   "appl_id": 10128519,
+   "core_project_num": "R13NS111953",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "MICHAEL A SCHWARZSCHILD",
+     "profile_id": 1887169
+    }
+   ],
+   "matched_queries": [
+    "gba_parkinson"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "MASSACHUSETTS GENERAL HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "5R13NS111953-03",
+   "title": "2019 Parkinson Study Group Symposium and Training"
+  },
+  "R13NS147842": {
+   "appl_id": 11321308,
+   "core_project_num": "R13NS147842",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Maria de Lourdes Gamez Tansey",
+     "profile_id": 7846960
+    }
+   ],
+   "matched_queries": [
+    "gba1"
+   ],
+   "organization": {
+    "city": "INDIANAPOLIS",
+    "country": "UNITED STATES",
+    "name": "INDIANA UNIVERSITY INDIANAPOLIS",
+    "state": "IN"
+   },
+   "project_num": "1R13NS147842-01",
+   "title": "World Parkinson Congress 2026 Support"
+  },
+  "R15GM137449": {
+   "appl_id": 9965521,
+   "core_project_num": "R15GM137449",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NIGMS",
+    "name": "National Institute of General Medical Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Biao Lu",
+     "profile_id": 10408789
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SANTA CLARA",
+    "country": "UNITED STATES",
+    "name": "SANTA CLARA UNIVERSITY",
+    "state": "CA"
+   },
+   "project_num": "1R15GM137449-01",
+   "title": "Development of a novel exosome-based enzyme replacement therapy for the treatment of human lysosomal storage disease (LSDs)"
+  },
+  "R15HL179642": {
+   "appl_id": 11360249,
+   "core_project_num": "R15HL179642",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NHLBI",
+    "name": "National Heart Lung and Blood Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Satoru Kobayashi",
+     "profile_id": 11384641
+    }
+   ],
+   "matched_queries": [
+    "prosaposin"
+   ],
+   "organization": {
+    "city": "OLD WESTBURY",
+    "country": "UNITED STATES",
+    "name": "NEW YORK INST OF TECHNOLOGY",
+    "state": "NY"
+   },
+   "project_num": "1R15HL179642-01A1",
+   "title": "Redefining the Role of lysosomal membrane permeabilization (LMP) inDoxorubicin-induced Cardiotoxicity"
+  },
+  "R21AG060142": {
+   "appl_id": 10000002,
+   "core_project_num": "R21AG060142",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Min Shi",
+     "profile_id": 10454804
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF WASHINGTON",
+    "state": "WA"
+   },
+   "project_num": "5R21AG060142-02",
+   "title": "Targeted drug delivery via CNS cell specific exosomes in neurodegenerative diseases"
+  },
+  "R21AG063007": {
+   "appl_id": 10218979,
+   "core_project_num": "R21AG063007",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Varghese John",
+     "profile_id": 9229145
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "LOS ANGELES",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA LOS ANGELES",
+    "state": "CA"
+   },
+   "project_num": "1R21AG063007-01A1",
+   "title": "Screening for Compounds that Lower Intracellular Alpha-Synuclein Levels"
+  },
+  "R21AG065815": {
+   "appl_id": 10224940,
+   "core_project_num": "R21AG065815",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Emily Graves Allen",
+     "profile_id": 10366048
+    },
+    {
+     "is_contact_pi": false,
+     "name": "David Loren Nelson",
+     "profile_id": 7354240
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "ATLANTA",
+    "country": "UNITED STATES",
+    "name": "EMORY UNIVERSITY",
+    "state": "GA"
+   },
+   "project_num": "5R21AG065815-02",
+   "title": "Metabolic Dysregulation in FXTAS Pathogenesis"
+  },
+  "R21AG068356": {
+   "appl_id": 10259742,
+   "core_project_num": "R21AG068356",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Leo J Pallanck",
+     "profile_id": 1882993
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF WASHINGTON",
+    "state": "WA"
+   },
+   "project_num": "5R21AG068356-02",
+   "title": "Mechanism and importance of innate immune activation in a Drosophila GBA mutant model of Parkinson's disease"
+  },
+  "R21AG068961": {
+   "appl_id": 10223187,
+   "core_project_num": "R21AG068961",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joshua M Shulman",
+     "profile_id": 9555676
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "HOUSTON",
+    "country": "UNITED STATES",
+    "name": "BAYLOR COLLEGE OF MEDICINE",
+    "state": "TX"
+   },
+   "project_num": "5R21AG068961-02",
+   "title": "Metabolo-Genetic Dissection of GBA and Lysosomal Genes in Parkinson's Disease and Lewy Body Dementia"
+  },
+  "R21AG098840": {
+   "appl_id": 11301238,
+   "core_project_num": "R21AG098840",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Guomei Tang",
+     "profile_id": 10506660
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "COLUMBIA UNIVERSITY HEALTH SCIENCES",
+    "state": "NY"
+   },
+   "project_num": "1R21AG098840-01",
+   "title": "Astrocyte-mediated tonic inhibition in a mouse model of Lewy body dementia"
+  },
+  "R21AR080972": {
+   "appl_id": 10652582,
+   "core_project_num": "R21AR080972",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIAMS",
+    "name": "National Institute of Arthritis and Musculoskeletal and Skin Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "VIRGINIA Eunice KIMONIS",
+     "profile_id": 6803749
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "IRVINE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA-IRVINE",
+    "state": "CA"
+   },
+   "project_num": "5R21AR080972-02",
+   "title": "Antisense oligonucleotide treatment for Pompe disease"
+  },
+  "R21EY029393": {
+   "appl_id": 9765315,
+   "core_project_num": "R21EY029393",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NEI",
+    "name": "National Eye Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Santhoshkumar Puttur",
+     "profile_id": 10322365
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "COLUMBIA",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF MISSOURI-COLUMBIA",
+    "state": "MO"
+   },
+   "project_num": "5R21EY029393-02",
+   "title": "Cell-Penetrable and in vivo activatable mini-chaperones: A potential therapeutic strategy for stabilizing protein misfolding in disease states."
+  },
+  "R21HD102788": {
+   "appl_id": 10256632,
+   "core_project_num": "R21HD102788",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NICHD",
+    "name": "Eunice Kennedy Shriver National Institute of Child Health and Human Development"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Ying Sun",
+     "profile_id": 11084045
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CINCINNATI",
+    "country": "UNITED STATES",
+    "name": "CINCINNATI CHILDRENS HOSP MED CTR",
+    "state": "OH"
+   },
+   "project_num": "5R21HD102788-02",
+   "title": "Brain organoid modeling of Gaucher disease for identification of pathogenic pathways and therapy development"
+  },
+  "R21HD119083": {
+   "appl_id": 11213315,
+   "core_project_num": "R21HD119083",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NICHD",
+    "name": "Eunice Kennedy Shriver National Institute of Child Health and Human Development"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Ying Sun",
+     "profile_id": 11084045
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CINCINNATI",
+    "country": "UNITED STATES",
+    "name": "CINCINNATI CHILDRENS HOSP MED CTR",
+    "state": "OH"
+   },
+   "project_num": "1R21HD119083-01",
+   "title": "Microglia-Integrated Brain Organoids for Gaucher Disease Modeling and Therapeutic Discovery"
+  },
+  "R21NS107770": {
+   "appl_id": 9788110,
+   "core_project_num": "R21NS107770",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joseph R Mazzulli",
+     "profile_id": 9741809
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5R21NS107770-02",
+   "title": "Exploring the role of protein farnesylation in the regulation of SNARE protein ykt6 in synucleinopathy models"
+  },
+  "R21NS109871": {
+   "appl_id": 9789065,
+   "core_project_num": "R21NS109871",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Jeffrey H Kordower",
+     "profile_id": 1887107
+    }
+   ],
+   "matched_queries": [
+    "gba_parkinson",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "RUSH UNIVERSITY MEDICAL CENTER",
+    "state": "IL"
+   },
+   "project_num": "5R21NS109871-02",
+   "title": "Does alpha synuclein strain or GCase enzyme activity drive clinical aggression in GBA-PD?"
+  },
+  "R21NS123153": {
+   "appl_id": 10282462,
+   "core_project_num": "R21NS123153",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Ola A. Awad",
+     "profile_id": 14073546
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1"
+   ],
+   "organization": {
+    "city": "BALTIMORE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF MARYLAND BALTIMORE",
+    "state": "MD"
+   },
+   "project_num": "1R21NS123153-01",
+   "title": "Mechanisms of Neuronal Loss Mediated by mTORC1-TFEB Deregulation in Human iPSC Model of GBA1-Associated Parkinsons Disease"
+  },
+  "R21NS124158": {
+   "appl_id": 10605689,
+   "core_project_num": "R21NS124158",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Thomas Robert Clandinin",
+     "profile_id": 7620813
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "STANFORD",
+    "country": "UNITED STATES",
+    "name": "STANFORD UNIVERSITY",
+    "state": "CA"
+   },
+   "project_num": "1R21NS124158-01A1",
+   "title": "Dissecting neuronal lipid metabolism"
+  },
+  "R21NS125847": {
+   "appl_id": 10581666,
+   "core_project_num": "R21NS125847",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joseph R Mazzulli",
+     "profile_id": 9741809
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "5R21NS125847-02",
+   "title": "Exploring the Pathogenic Mechanisms of Batten's disease MFSD8 mutations using patient iPSC derived neurons."
+  },
+  "R21NS146759": {
+   "appl_id": 11453161,
+   "core_project_num": "R21NS146759",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Gary P. H. Ho",
+     "profile_id": 14796901
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "gba_parkinson",
+    "glucocerebrosidase",
+    "limp2"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM AND WOMEN'S HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "1R21NS146759-01A1",
+   "title": "Identification of the Palmitoyltransferase for Glucocerebrosidase Trafficking Receptor LIMP2 and Restoration of GBA1 Function in Parkinson Disease and Lewy Body Dementia."
+  },
+  "R21OD033660": {
+   "appl_id": 10651885,
+   "core_project_num": "R21OD033660",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "OD",
+    "name": "NIH Office of the Director"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "Chuanju Liu",
+     "profile_id": 8131399
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Ying Sun",
+     "profile_id": 11084045
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CINCINNATI",
+    "country": "UNITED STATES",
+    "name": "CINCINNATI CHILDRENS HOSP MED CTR",
+    "state": "OH"
+   },
+   "project_num": "5R21OD033660-02",
+   "title": "A new mouse model to study GBA1 mutation-associated diseases with multiple organs involvement"
+  },
+  "R33NS111079": {
+   "appl_id": 10520201,
+   "core_project_num": "R33NS111079",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "PATRICIA I DICKSON",
+     "profile_id": 8251653
+    },
+    {
+     "is_contact_pi": false,
+     "name": "STUART A KORNFELD",
+     "profile_id": 1866204
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SAINT LOUIS",
+    "country": "UNITED STATES",
+    "name": "WASHINGTON UNIVERSITY",
+    "state": "MO"
+   },
+   "project_num": "4R33NS111079-02",
+   "title": "Recombinant alpha-N-acetylglucosaminidase with improved mannose 6-phosphorylation for treatment of Sanfilippo B syndrome"
+  },
+  "R35GM154959": {
+   "appl_id": 11365865,
+   "core_project_num": "R35GM154959",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIGMS",
+    "name": "National Institute of General Medical Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Mark Louis Schultz",
+     "profile_id": 10121531
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "IOWA CITY",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF IOWA",
+    "state": "IA"
+   },
+   "project_num": "5R35GM154959-03",
+   "title": "Regulation and Mechanisms of ER Proteostasis"
+  },
+  "R35GM166541": {
+   "appl_id": 11430260,
+   "core_project_num": "R35GM166541",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIGMS",
+    "name": "National Institute of General Medical Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Kenneth Wayne Lee",
+     "profile_id": 78271041
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "PROVO",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM YOUNG UNIVERSITY",
+    "state": "UT"
+   },
+   "project_num": "1R35GM166541-01",
+   "title": "Simultaneous Separation, Identification, and Quantification of Lipid Isomers using Non-Covalent Chemistry-Based Enhancement of Tandem Ion Mobility-Mass Spectrometry"
+  },
+  "R37CA269611": {
+   "appl_id": 11319889,
+   "core_project_num": "R37CA269611",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NCI",
+    "name": "National Cancer Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Johannes F Fahrmann",
+     "profile_id": 14158591
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "HOUSTON",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF TX MD ANDERSON CAN CTR",
+    "state": "TX"
+   },
+   "project_num": "5R37CA269611-04",
+   "title": "Repurposing Glucosylceramide Synthase to Promote Mitochondrial Lethality and Potentiate an Anti-Tumor Immune Response in Triple-Negative Breast Cancer"
+  },
+  "R37HL064159": {
+   "appl_id": 9699017,
+   "core_project_num": "R37HL064159",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NHLBI",
+    "name": "National Heart Lung and Blood Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "ROBERT O'Mara RYAN",
+     "profile_id": 1880191
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "RENO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF NEVADA RENO",
+    "state": "NV"
+   },
+   "project_num": "5R37HL064159-21",
+   "title": "Effect of Apolipoprotein Structural Adaptability"
+  },
+  "R41AI145461": {
+   "appl_id": 9908969,
+   "core_project_num": "R41AI145461",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NIAID",
+    "name": "National Institute of Allergy and Infectious Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "GRAHAM S TIMMINS",
+     "profile_id": 7851375
+    }
+   ],
+   "matched_queries": [
+    "ambroxol"
+   ],
+   "organization": {
+    "city": "SANTA FE",
+    "country": "UNITED STATES",
+    "name": "SPINCEUTICA, INC.",
+    "state": "NM"
+   },
+   "project_num": "1R41AI145461-01A1",
+   "title": "Rifampin potentiation in NTM"
+  },
+  "R41TR003752": {
+   "appl_id": 10256443,
+   "core_project_num": "R41TR003752",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "David Rabuka",
+     "profile_id": 16086161
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "KENSINGTON",
+    "country": "UNITED STATES",
+    "name": "ACRIGEN BIOSCIENCES, INC.",
+    "state": "CA"
+   },
+   "project_num": "1R41TR003752-01",
+   "title": "Development of Safe in Utero Gene Editing Technology in Mice"
+  },
+  "R43AG097283": {
+   "appl_id": 11256934,
+   "core_project_num": "R43AG097283",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Robert Johnston",
+     "profile_id": 80116503
+    }
+   ],
+   "matched_queries": [
+    "ambroxol"
+   ],
+   "organization": {
+    "city": "RENO",
+    "country": "UNITED STATES",
+    "name": "ZYWIE LLC",
+    "state": "NV"
+   },
+   "project_num": "1R43AG097283-01",
+   "title": "Developing Novel Ambroxol Analogs as Disease-Modifying Therapies for Alzheimer's Disease and Related Dementias"
+  },
+  "R43DK146746": {
+   "appl_id": 11314731,
+   "core_project_num": "R43DK146746",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "Aaron Henry Colby",
+     "profile_id": 12210790
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Joshua McGee",
+     "profile_id": 80054388
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BROOKLINE",
+    "country": "UNITED STATES",
+    "name": "KEYLICON BIOSCIENCES INC",
+    "state": "MA"
+   },
+   "project_num": "1R43DK146746-01",
+   "title": "Extended In Situ Production of Glucocerebrosidase (GCase) for the Treatment of Gaucher Disease"
+  },
+  "R43GM136071": {
+   "appl_id": 9908833,
+   "core_project_num": "R43GM136071",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NIGMS",
+    "name": "National Institute of General Medical Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "CAROL D BLAIR",
+     "profile_id": 1869188
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Donald L. Jarvis",
+     "profile_id": 1883165
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "LARAMIE",
+    "country": "UNITED STATES",
+    "name": "GLYCOBAC, LLC",
+    "state": "WY"
+   },
+   "project_num": "1R43GM136071-01",
+   "title": "Insect cell lines for glycoprotein structural biology and mannose-dependent protein drugs"
+  },
+  "R43TR005111": {
+   "appl_id": 10919631,
+   "core_project_num": "R43TR005111",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Mingju Cao",
+     "profile_id": 14476055
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "FORT WORTH",
+    "country": "UNITED STATES",
+    "name": "KINETIQ THERAPEUTICS LLC",
+    "state": "TX"
+   },
+   "project_num": "1R43TR005111-01",
+   "title": "Preclinical Efficacy of Subcutaneous Enzyme Therapy for Lysosomal Fabry Disease"
+  },
+  "R43TR006062": {
+   "appl_id": 11405182,
+   "core_project_num": "R43TR006062",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joana M Murad",
+     "profile_id": 11215239
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "LEBANON",
+    "country": "UNITED STATES",
+    "name": "CELDARA MEDICAL, LLC",
+    "state": "NH"
+   },
+   "project_num": "1R43TR006062-01A1",
+   "title": "Engineered Tregs as a therapy to Gaucher syndrome"
+  },
+  "R44GM154585": {
+   "appl_id": 11316610,
+   "core_project_num": "R44GM154585",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NIGMS",
+    "name": "National Institute of General Medical Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Bernard Bloem",
+     "profile_id": 16435023
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SAN DIEGO",
+    "country": "UNITED STATES",
+    "name": "SINOPIA BIOSCIENCES, INC.",
+    "state": "CA"
+   },
+   "project_num": "2R44GM154585-02",
+   "title": "Development and Validation of Data Standards and Computational Methods for Large Scale Metabolomics Data Analysis for Data Driven Drug Discovery"
+  },
+  "R44HD094543": {
+   "appl_id": 10082458,
+   "core_project_num": "R44HD094543",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NICHD",
+    "name": "Eunice Kennedy Shriver National Institute of Child Health and Human Development"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Viren R Amin",
+     "profile_id": 11055803
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "DURHAM",
+    "country": "UNITED STATES",
+    "name": "BAEBIES, INC.",
+    "state": "NC"
+   },
+   "project_num": "5R44HD094543-03",
+   "title": "Feasibility and validation of an integrated newborn screening algorithm with targeted Next Generation Sequencing (tNGS) technology as part of a 2nd-tier test for Pompe and MPS I"
+  },
+  "R56AG060963": {
+   "appl_id": 9791153,
+   "core_project_num": "R56AG060963",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Leo J Pallanck",
+     "profile_id": 1882993
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF WASHINGTON",
+    "state": "WA"
+   },
+   "project_num": "5R56AG060963-02",
+   "title": "Mechanisms of non-cell-autonomous regulation of brain protein aggregation in Drosophila"
+  },
+  "R61NS111079": {
+   "appl_id": 9877850,
+   "core_project_num": "R61NS111079",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "PATRICIA I DICKSON",
+     "profile_id": 8251653
+    },
+    {
+     "is_contact_pi": false,
+     "name": "STUART A KORNFELD",
+     "profile_id": 1866204
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SAINT LOUIS",
+    "country": "UNITED STATES",
+    "name": "WASHINGTON UNIVERSITY",
+    "state": "MO"
+   },
+   "project_num": "1R61NS111079-01A1",
+   "title": "Recombinant alpha-N-acetylglucosaminidase with improved mannose 6-phosphorylation for treatment of Sanfilippo B syndrome"
+  },
+  "R61NS138063": {
+   "appl_id": 10936681,
+   "core_project_num": "R61NS138063",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joseph R Mazzulli",
+     "profile_id": 9741809
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "1R61NS138063-01",
+   "title": "Synergistic Enhancement of ER proteostasis, trafficking, and lysosomes as treatments for Dementia with Lewy bodies and Parkinson’s disease-dementia"
+  },
+  "R61NS138554": {
+   "appl_id": 11121179,
+   "core_project_num": "R61NS138554",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "XIAOYANG QI",
+     "profile_id": 2795867
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Ying Sun",
+     "profile_id": 11084045
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CINCINNATI",
+    "country": "UNITED STATES",
+    "name": "CINCINNATI CHILDRENS HOSP MED CTR",
+    "state": "OH"
+   },
+   "project_num": "1R61NS138554-01A1",
+   "title": "SapC-based Brain-targeting Delivery of Long-acting Enzymes for Neuronopathic Gaucher Disease Therapy"
+  },
+  "RF1AG080636": {
+   "appl_id": 10590145,
+   "core_project_num": "RF1AG080636",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "PENELOPE Jane HALLETT",
+     "profile_id": 10694108
+    },
+    {
+     "is_contact_pi": true,
+     "name": "OLE ISACSON",
+     "profile_id": 1880795
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BELMONT",
+    "country": "UNITED STATES",
+    "name": "MCLEAN HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "1RF1AG080636-01",
+   "title": "ApoE, lipid and immune mechanisms of human neurons and glia"
+  },
+  "RF1NS109157": {
+   "appl_id": 9640047,
+   "core_project_num": "RF1NS109157",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Joseph R Mazzulli",
+     "profile_id": 9741809
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "CHICAGO",
+    "country": "UNITED STATES",
+    "name": "NORTHWESTERN UNIVERSITY",
+    "state": "IL"
+   },
+   "project_num": "1RF1NS109157-01",
+   "title": "Examining the role of glycosphingolipids in the progression and heterogeneity of synucleinopathies"
+  },
+  "RF1NS109510": {
+   "appl_id": 10880982,
+   "core_project_num": "RF1NS109510",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Silke Nuber",
+     "profile_id": 12250497
+    }
+   ],
+   "matched_queries": [
+    "gba1"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM AND WOMEN'S HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "2RF1NS109510-06",
+   "title": "Biologically Novel Mouse Models of PD with Progressive Synucleinopathy and Early-Onset Tremor and Motor Deficits Responsive to L-DOPA"
+  },
+  "RF1NS110354": {
+   "appl_id": 9686204,
+   "core_project_num": "RF1NS110354",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Sreeganga S Chandra",
+     "profile_id": 8832169
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW HAVEN",
+    "country": "UNITED STATES",
+    "name": "YALE UNIVERSITY",
+    "state": "CT"
+   },
+   "project_num": "1RF1NS110354-01",
+   "title": "Role of Glucosylsphingosine in Parkinson Disease and Dementia with Lewy Bodies"
+  },
+  "RF1NS126342": {
+   "appl_id": 10830522,
+   "core_project_num": "RF1NS126342",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Jacqueline Burre",
+     "profile_id": 10571121
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Manu Sharma",
+     "profile_id": 10201041
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "WEILL MEDICAL COLL OF CORNELL UNIV",
+    "state": "NY"
+   },
+   "project_num": "3RF1NS126342-01S1",
+   "title": "The Impact of Beta- and Gamma-synucleins on Alpha-synuclein's Synaptic Function"
+  },
+  "RF1NS127414": {
+   "appl_id": 10734455,
+   "core_project_num": "RF1NS127414",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Aimee Kao",
+     "profile_id": 8777046
+    }
+   ],
+   "matched_queries": [
+    "prosaposin"
+   ],
+   "organization": {
+    "city": "SAN FRANCISCO",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CALIFORNIA, SAN FRANCISCO",
+    "state": "CA"
+   },
+   "project_num": "3RF1NS127414-01S1",
+   "title": "Diversity Supplement - Progranulin, Prosaposin and Lipid Biology in FTD"
+  },
+  "RF1NS145335": {
+   "appl_id": 11388896,
+   "core_project_num": "RF1NS145335",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Yulan Xiong",
+     "profile_id": 11105176
+    }
+   ],
+   "matched_queries": [
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "FARMINGTON",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF CONNECTICUT SCH OF MED/DNT",
+    "state": "CT"
+   },
+   "project_num": "1RF1NS145335-01A1",
+   "title": "Regulation of β-Glucocerebrosidase in Parkinson's disease and related dementias"
+  },
+  "U01NS100603": {
+   "appl_id": 10023952,
+   "core_project_num": "U01NS100603",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "CLEMENS R SCHERZER",
+     "profile_id": 7360441
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "BOSTON",
+    "country": "UNITED STATES",
+    "name": "BRIGHAM AND WOMEN'S HOSPITAL",
+    "state": "MA"
+   },
+   "project_num": "5U01NS100603-05",
+   "title": "GBA pathway markers for Lewy body dementias"
+  },
+  "U01NS107016": {
+   "appl_id": 10597884,
+   "core_project_num": "U01NS107016",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "Laurie J. Ozelius",
+     "profile_id": 1930662
+    },
+    {
+     "is_contact_pi": true,
+     "name": "Rachel Saunders-Pullman",
+     "profile_id": 7753902
+    }
+   ],
+   "matched_queries": [
+    "gba_parkinson",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "NEW YORK",
+    "country": "UNITED STATES",
+    "name": "ICAHN SCHOOL OF MEDICINE AT MOUNT SINAI",
+    "state": "NY"
+   },
+   "project_num": "5U01NS107016-05",
+   "title": "Dissecting Oligogenic Biomarkers in Ashkenazi Jews with Parkinson Disease"
+  },
+  "U54NS065768": {
+   "appl_id": 10930027,
+   "core_project_num": "U54NS065768",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Chester B. Whitley",
+     "profile_id": 1955708
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "MINNEAPOLIS",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF MINNESOTA",
+    "state": "MN"
+   },
+   "project_num": "5U54NS065768-15",
+   "title": "Lysosomal Disease Network"
+  },
+  "U54NS110435": {
+   "appl_id": 10686906,
+   "core_project_num": "U54NS110435",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Pamela J McLean",
+     "profile_id": 6902036
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "JACKSONVILLE",
+    "country": "UNITED STATES",
+    "name": "MAYO CLINIC JACKSONVILLE",
+    "state": "FL"
+   },
+   "project_num": "5U54NS110435-05",
+   "title": "Functional assessment of pathological α-syn and Aβ species in LBD"
+  },
+  "UG3CA290302": {
+   "appl_id": 11335189,
+   "core_project_num": "UG3CA290302",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NCI",
+    "name": "National Cancer Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "MADHAV V DHODAPKAR",
+     "profile_id": 2102018
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Richard A Flavell",
+     "profile_id": 1883483
+    },
+    {
+     "is_contact_pi": false,
+     "name": "NOAH WOLCOTT PALM",
+     "profile_id": 8147464
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "FRED HUTCHINSON CANCER CENTER",
+    "state": "WA"
+   },
+   "project_num": "7UG3CA290302-02",
+   "title": "Targeting microbial triggers of gammopathy for immunoprevention"
+  },
+  "UH3CA290302": {
+   "appl_id": 11541236,
+   "core_project_num": "UH3CA290302",
+   "fiscal_year": 2026,
+   "ic": {
+    "abbreviation": "NCI",
+    "name": "National Cancer Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "MADHAV V DHODAPKAR",
+     "profile_id": 2102018
+    },
+    {
+     "is_contact_pi": false,
+     "name": "Richard A Flavell",
+     "profile_id": 1883483
+    },
+    {
+     "is_contact_pi": false,
+     "name": "NOAH WOLCOTT PALM",
+     "profile_id": 8147464
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "SEATTLE",
+    "country": "UNITED STATES",
+    "name": "FRED HUTCHINSON CANCER CENTER",
+    "state": "WA"
+   },
+   "project_num": "4UH3CA290302-03",
+   "title": "Targeting microbial triggers of gammopathy for immunoprevention"
+  },
+  "UH3NS092981": {
+   "appl_id": 9748003,
+   "core_project_num": "UH3NS092981",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": false,
+     "name": "Scott D Larsen",
+     "profile_id": 9482690
+    },
+    {
+     "is_contact_pi": true,
+     "name": "JAMES ALAN SHAYMAN",
+     "profile_id": 1877089
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "ANN ARBOR",
+    "country": "UNITED STATES",
+    "name": "UNIVERSITY OF MICHIGAN AT ANN ARBOR",
+    "state": "MI"
+   },
+   "project_num": "5UH3NS092981-05",
+   "title": "The Development of Small Molecule Inhibitors for Gaucher Disease Type 3"
+  },
+  "ZIAAG000543": {
+   "appl_id": 10913105,
+   "core_project_num": "ZIAAG000543",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Cornelis Blauwendraat",
+     "profile_id": 79326292
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE ON AGING",
+    "state": ""
+   },
+   "project_num": "1ZIAAG000543-01",
+   "title": "Investigating the GBA1 pathway, from genetics to modifiers"
+  },
+  "ZIAAG000957": {
+   "appl_id": 11177504,
+   "core_project_num": "ZIAAG000957",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NIA",
+    "name": "National Institute on Aging"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Andrew Singleton",
+     "profile_id": 9691113
+    }
+   ],
+   "matched_queries": [
+    "gba1"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE ON AGING",
+    "state": ""
+   },
+   "project_num": "1ZIAAG000957-22",
+   "title": "Assessment of Candidate Loci in Neurological diseases"
+  },
+  "ZIAAI001086": {
+   "appl_id": 11403310,
+   "core_project_num": "ZIAAI001086",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIAID",
+    "name": "National Institute of Allergy and Infectious Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "BYRON CAUGHEY",
+     "profile_id": 6568487
+    }
+   ],
+   "matched_queries": [
+    "gba_parkinson"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF ALLERGY AND INFECTIOUS DISEASES",
+    "state": ""
+   },
+   "project_num": "1ZIAAI001086-17",
+   "title": "Detection of Prions"
+  },
+  "ZIADC000064": {
+   "appl_id": 10923706,
+   "core_project_num": "ZIADC000064",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIDCD",
+    "name": "National Institute on Deafness and Other Communication Disorders"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Ronna Hertzano",
+     "profile_id": 79336343
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE ON DEAFNESS AND OTHER COMMUNICATION DISORDERS",
+    "state": ""
+   },
+   "project_num": "1ZIADC000064-23",
+   "title": "Clinical Analysis of Disorders of Hearing and Balance"
+  },
+  "ZIADK056014": {
+   "appl_id": 11410764,
+   "core_project_num": "ZIADK056014",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Richard Proia",
+     "profile_id": 9415586
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF DIABETES AND DIGESTIVE AND KIDNEY DISEASES",
+    "state": ""
+   },
+   "project_num": "1ZIADK056014-19",
+   "title": "Mouse Models of Novel Sphingolipid Biology and Disease Mechanisms"
+  },
+  "ZIADK056016": {
+   "appl_id": 11417593,
+   "core_project_num": "ZIADK056016",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIDDK",
+    "name": "National Institute of Diabetes and Digestive and Kidney Diseases"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Richard Proia",
+     "profile_id": 9415586
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF DIABETES AND DIGESTIVE AND KIDNEY DISEASES",
+    "state": ""
+   },
+   "project_num": "1ZIADK056016-19",
+   "title": "Sphingolipid Biology of Neurodegeneration"
+  },
+  "ZIAEY000388": {
+   "appl_id": 10930504,
+   "core_project_num": "ZIAEY000388",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NEI",
+    "name": "National Eye Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Edmond J FitzGibbon",
+     "profile_id": 7353771
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL EYE INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZIAEY000388-22",
+   "title": "Neuro-ophthalmic Mechanisms Of Disease"
+  },
+  "ZIAHG000068": {
+   "appl_id": 10901688,
+   "core_project_num": "ZIAHG000068",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "William J Pavan",
+     "profile_id": 1926866
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZIAHG000068-20",
+   "title": "Genetic and Genomic Analysis of Niemann Pick Type C1 disease"
+  },
+  "ZIAHG200318": {
+   "appl_id": 11413034,
+   "core_project_num": "ZIAHG200318",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Charles P Venditti",
+     "profile_id": 8185772
+    }
+   ],
+   "matched_queries": [
+    "gba1"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZIAHG200318-22",
+   "title": "Investigations of Methylmalonic Acidemia and Related Disorders"
+  },
+  "ZIAHG200336": {
+   "appl_id": 11400705,
+   "core_project_num": "ZIAHG200336",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Ellen Sidransky",
+     "profile_id": 9623367
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZIAHG200336-20",
+   "title": "Genetic and clinical studies of Gaucher disease and other lysosomal disorders"
+  },
+  "ZIAHL006144": {
+   "appl_id": 10476867,
+   "core_project_num": "ZIAHL006144",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NHLBI",
+    "name": "National Heart Lung and Blood Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Jennifer Lee",
+     "profile_id": 9416468
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HEART, LUNG, AND BLOOD INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZIAHL006144-10",
+   "title": "Defining a Molecular Link between Parkinson and Gaucher Diseases"
+  },
+  "ZIAMH002652": {
+   "appl_id": 10929800,
+   "core_project_num": "ZIAMH002652",
+   "fiscal_year": 2023,
+   "ic": {
+    "abbreviation": "NIMH",
+    "name": "National Institute of Mental Health"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Karen FAITH Berman",
+     "profile_id": 8469065
+    }
+   ],
+   "matched_queries": [
+    "gba1"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF MENTAL HEALTH",
+    "state": ""
+   },
+   "project_num": "1ZIAMH002652-31",
+   "title": "Imaging of Neuropsychiatric Disorders with Developmental and Genetic Mechanisms"
+  },
+  "ZIAMH002922": {
+   "appl_id": 11416892,
+   "core_project_num": "ZIAMH002922",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIMH",
+    "name": "National Institute of Mental Health"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Maryland Pao",
+     "profile_id": 10422620
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF MENTAL HEALTH",
+    "state": ""
+   },
+   "project_num": "1ZIAMH002922-17",
+   "title": "Clinical Research in the NIMH Office of the Clinical Director"
+  },
+  "ZIANS003033": {
+   "appl_id": 10016955,
+   "core_project_num": "ZIANS003033",
+   "fiscal_year": 2019,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "David Goldstein",
+     "profile_id": 9416892
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF NEUROLOGICAL DISORDERS AND STROKE",
+    "state": ""
+   },
+   "project_num": "1ZIANS003033-13",
+   "title": "Mechanisms of Catecholaminergic Neurodegeneration"
+  },
+  "ZIANS003034": {
+   "appl_id": 10263033,
+   "core_project_num": "ZIANS003034",
+   "fiscal_year": 2020,
+   "ic": {
+    "abbreviation": "NINDS",
+    "name": "National Institute of Neurological Disorders and Stroke"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "David Goldstein",
+     "profile_id": 9416892
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF NEUROLOGICAL DISORDERS AND STROKE",
+    "state": ""
+   },
+   "project_num": "1ZIANS003034-14",
+   "title": "Biomarkers of Catecholaminergic Neurodegeneration"
+  },
+  "ZIATR000201": {
+   "appl_id": 11412006,
+   "core_project_num": "ZIATR000201",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Juan Marugan",
+     "profile_id": 14380300
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL CENTER FOR ADVANCING TRANSLATIONAL SCIENCES",
+    "state": ""
+   },
+   "project_num": "1ZIATR000201-11",
+   "title": "Identification of Modulators of the N370S Mutant Form of Glucocerebrosidase as a Potential Therapy for Gaucher Disease"
+  },
+  "ZIATR000334": {
+   "appl_id": 10476916,
+   "core_project_num": "ZIATR000334",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Noel Southall",
+     "profile_id": 14380147
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL CENTER FOR ADVANCING TRANSLATIONAL SCIENCES",
+    "state": ""
+   },
+   "project_num": "1ZIATR000334-05",
+   "title": "Identification of modulators of PI4K for cellular trafficking-related indications"
+  },
+  "ZIATR000432": {
+   "appl_id": 11412045,
+   "core_project_num": "ZIATR000432",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Juan Marugan",
+     "profile_id": 14380300
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "gba_parkinson"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL CENTER FOR ADVANCING TRANSLATIONAL SCIENCES",
+    "state": ""
+   },
+   "project_num": "1ZIATR000432-05",
+   "title": "Evaluation of cAbl allosteric inhibitors in Gaucher-Parkinson"
+  },
+  "ZIATR000506": {
+   "appl_id": 11412091,
+   "core_project_num": "ZIATR000506",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NCATS",
+    "name": "National Center for Advancing Translational Sciences"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Mark Henderson",
+     "profile_id": 77844220
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL CENTER FOR ADVANCING TRANSLATIONAL SCIENCES",
+    "state": ""
+   },
+   "project_num": "1ZIATR000506-02",
+   "title": "Identification of small molecules for PI4K2a BRET measurements"
+  },
+  "ZICDC000081": {
+   "appl_id": 10693724,
+   "core_project_num": "ZICDC000081",
+   "fiscal_year": 2022,
+   "ic": {
+    "abbreviation": "NIDCD",
+    "name": "National Institute on Deafness and Other Communication Disorders"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Dennis Winkler",
+     "profile_id": 78838610
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE ON DEAFNESS AND OTHER COMMUNICATION DISORDERS",
+    "state": ""
+   },
+   "project_num": "1ZICDC000081-11",
+   "title": "Advanced Imaging Core"
+  },
+  "ZICEB000085": {
+   "appl_id": 11410865,
+   "core_project_num": "ZICEB000085",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NIBIB",
+    "name": "National Institute of Biomedical Imaging and Bioengineering"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "EMILIOS K Dimitriadis",
+     "profile_id": 1972928
+    }
+   ],
+   "matched_queries": [
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF BIOMEDICAL IMAGING AND BIOENGINEERING",
+    "state": ""
+   },
+   "project_num": "1ZICEB000085-13",
+   "title": "Scanning Probe Microscopy for the Intramural Research Community"
+  },
+  "ZICHG200346": {
+   "appl_id": 11413055,
+   "core_project_num": "ZICHG200346",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "settara chandrasekharappa",
+     "profile_id": 8184969
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZICHG200346-18",
+   "title": "NHGRI/DIR Genomics Core"
+  },
+  "ZICHG200348": {
+   "appl_id": 11413056,
+   "core_project_num": "ZICHG200348",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Stephen Wincovitch",
+     "profile_id": 79968918
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZICHG200348-18",
+   "title": "NHGRI Advanced Imaging & Analysis Core"
+  },
+  "ZICHG200351": {
+   "appl_id": 11398545,
+   "core_project_num": "ZICHG200351",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Raman Sood",
+     "profile_id": 12465266
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZICHG200351-18",
+   "title": "NHGRI/DIR Zebrafish Core"
+  },
+  "ZICHG200365": {
+   "appl_id": 10490161,
+   "core_project_num": "ZICHG200365",
+   "fiscal_year": 2021,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Abdel Elkahloun",
+     "profile_id": 12465257
+    }
+   ],
+   "matched_queries": [
+    "gaucher"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZICHG200365-12",
+   "title": "NHGRI/DIR Microarray and single-cell Core"
+  },
+  "ZICMH002903": {
+   "appl_id": 11194858,
+   "core_project_num": "ZICMH002903",
+   "fiscal_year": 2024,
+   "ic": {
+    "abbreviation": "NIMH",
+    "name": "National Institute of Mental Health"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Stefano Marenco",
+     "profile_id": 11999790
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL INSTITUTE OF MENTAL HEALTH",
+    "state": ""
+   },
+   "project_num": "1ZICMH002903-18",
+   "title": "Procurement and Characterization of Postmortem Brain Tissue"
+  },
+  "ZIKHG200358": {
+   "appl_id": 11421005,
+   "core_project_num": "ZIKHG200358",
+   "fiscal_year": 2025,
+   "ic": {
+    "abbreviation": "NHGRI",
+    "name": "National Human Genome Research Institute"
+   },
+   "investigators": [
+    {
+     "is_contact_pi": true,
+     "name": "Anna Solowiej",
+     "profile_id": 79365632
+    }
+   ],
+   "matched_queries": [
+    "gaucher",
+    "gba1",
+    "glucocerebrosidase"
+   ],
+   "organization": {
+    "city": "",
+    "country": "UNITED STATES",
+    "name": "NATIONAL HUMAN GENOME RESEARCH INSTITUTE",
+    "state": ""
+   },
+   "project_num": "1ZIKHG200358-18",
+   "title": "NHGRI/DIR Technology Transfer Program"
+  }
+ },
+ "query_returned": {
+  "ambroxol": 6,
+  "gaucher": 198,
+  "gba1": 89,
+  "gba_parkinson": 22,
+  "glucocerebrosidase": 199,
+  "limp2": 1,
+  "prosaposin": 16,
+  "saposin_c_deficiency": 0,
+  "scarb2": 2
+ },
+ "query_text": {
+  "ambroxol": "ambroxol",
+  "gaucher": "Gaucher",
+  "gba1": "GBA1",
+  "gba_parkinson": "GBA Parkinson",
+  "glucocerebrosidase": "glucocerebrosidase",
+  "limp2": "\"LIMP2\"",
+  "prosaposin": "prosaposin",
+  "saposin_c_deficiency": "\"saposin C deficiency\"",
+  "scarb2": "SCARB2"
+ },
+ "query_totals": {
+  "ambroxol": 6,
+  "gaucher": 198,
+  "gba1": 89,
+  "gba_parkinson": 22,
+  "glucocerebrosidase": 199,
+  "limp2": 1,
+  "prosaposin": 16,
+  "saposin_c_deficiency": 0,
+  "scarb2": 2
+ }
+}

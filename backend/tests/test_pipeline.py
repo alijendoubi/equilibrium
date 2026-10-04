@@ -69,6 +69,7 @@ def test_snapshot_shape_and_manifest_counts() -> None:
         "clinvar",
         "clinicaltrials",
         "curated",
+        "reporter",
     }
     assert len(output.snapshot_bytes) < 5 * 1024 * 1024
     node_ids = {n["id"] for n in snapshot["nodes"]}

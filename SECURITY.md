@@ -31,7 +31,7 @@ Include the affected component, steps to reproduce and the impact. During the ev
 4. Check provider usage logs for abuse, especially OpenAI spend.
 5. Tell the team in the team channel and record the incident in the PR.
 
-The repository is now public: rotate every key used during the hackathon at submission. See [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md).
+The repository is public: rotate every key used during the hackathon after judging (OpenAI, Vercel, Render, NCBI).
 
 ## Data handling
 

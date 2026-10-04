@@ -172,7 +172,9 @@ def _build_path(store: GraphStore, graph: Any, node_ids: list[str]) -> PathOut:
         edges=edges,
         cost=round(sum(hop.cost for hop in hops), 4),
         has_inferred=any(e.evidence_type is EvidenceType.INFERRED for e in edges),
-        has_contradiction=any(e.contradicted_by for e in edges),
+        has_contradiction=any(
+            e.contradicted_by or e.relation is Relation.CONTRADICTS for e in edges
+        ),
     )
 
 

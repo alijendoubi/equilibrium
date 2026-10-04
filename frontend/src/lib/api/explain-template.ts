@@ -33,6 +33,23 @@ function stepFor(edge: Edge, nodesById: Map<string, AtlasNode>, audience: Explai
  * Builds the same shape the backend returns when OpenAI is unavailable: one step per known edge,
  * hypotheses flagged, source "template", ai_generated false. Throws when no edge id is known.
  */
+/** Start and end node ids of a chained path, whatever direction each edge points. */
+export function pathEnds(edges: readonly Edge[]): [string, string] {
+  const first = edges[0];
+  const last = edges[edges.length - 1];
+  if (!first || !last) throw new Error("A path needs at least one link.");
+  if (edges.length === 1) return [first.source_id, first.target_id];
+  const second = edges[1]!;
+  const prev = edges[edges.length - 2]!;
+  const start = [second.source_id, second.target_id].includes(first.target_id)
+    ? first.source_id
+    : first.target_id;
+  const end = [prev.source_id, prev.target_id].includes(last.source_id)
+    ? last.target_id
+    : last.source_id;
+  return [start, end];
+}
+
 export function buildTemplateExplanation(
   edgeIds: string[],
   audience: ExplainAudience,
@@ -48,8 +65,9 @@ export function buildTemplateExplanation(
   if (!firstEdge || !lastEdge) throw new Error("None of these links are in the demo data.");
 
   const steps = known.map((e) => stepFor(e, nodesById, audience));
-  const first = nodeLabel(nodesById, firstEdge.source_id);
-  const last = nodeLabel(nodesById, lastEdge.target_id);
+  const [startId, endId] = pathEnds(known);
+  const first = nodeLabel(nodesById, startId);
+  const last = nodeLabel(nodesById, endId);
   const hypotheses = steps.filter((s) => s.is_hypothesis).length;
   const summary =
     `${first} connects to ${last} through ${known.length} ${known.length === 1 ? "link" : "links"}` +

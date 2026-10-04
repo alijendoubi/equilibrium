@@ -257,7 +257,14 @@ def next_experiment(
             f"and endpoints."
         )
         return NextExperiment(text=text, is_hypothesis=True, edge_ids=asset.edge_ids)
-    genes = store.edges_for(disease.id, relations=GENE_RELATIONS)
+    # Prefer the gene that connects the most diseases in the slice (the shared biology).
+    genes = sorted(
+        store.edges_for(disease.id, relations=GENE_RELATIONS),
+        key=lambda e: (
+            -len(store.edges_for(other_end(e, disease.id), relations=GENE_RELATIONS)),
+            other_end(e, disease.id),
+        ),
+    )
     if genes:
         gene = store.get_node(other_end(genes[0], disease.id))
         label = gene.label if gene else other_end(genes[0], disease.id)

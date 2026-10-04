@@ -84,6 +84,22 @@ def _caveats(edges: Sequence[Edge]) -> list[str]:
     return caveats
 
 
+def path_ends(edges: Sequence[Edge]) -> tuple[str, str] | None:
+    """Start and end node ids of a chained path, independent of each edge's direction."""
+    if not edges:
+        return None
+    if len(edges) == 1:
+        return edges[0].source_id, edges[0].target_id
+    first, second, prev, last = edges[0], edges[1], edges[-2], edges[-1]
+    start = (
+        first.source_id
+        if first.target_id in {second.source_id, second.target_id}
+        else (first.target_id)
+    )
+    end = last.target_id if last.source_id in {prev.source_id, prev.target_id} else last.source_id
+    return start, end
+
+
 def template_explanation(
     edges: Sequence[Edge], nodes: Mapping[str, Node], audience: Audience = "family"
 ) -> ExplainResponse:
@@ -96,8 +112,9 @@ def template_explanation(
         )
         for edge in edges
     ]
-    start = _label(edges[0].source_id, nodes) if edges else "this entity"
-    end = _label(edges[-1].target_id, nodes) if edges else "the next one"
+    ends = path_ends(edges)
+    start = _label(ends[0], nodes) if ends else "this entity"
+    end = _label(ends[1], nodes) if ends else "the next one"
     summary = f"This path links {start} to {end} through {len(edges)} recorded fact(s)."
     return ExplainResponse(
         steps=steps,

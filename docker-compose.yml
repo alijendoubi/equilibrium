@@ -28,6 +28,7 @@ services:
       context: ./frontend
       args:
         NEXT_PUBLIC_API_URL: http://localhost:8000
+        NEXT_PUBLIC_USE_MOCKS: 'false'
     image: equilibrium-frontend:local
     ports:
       - '3000:3000'

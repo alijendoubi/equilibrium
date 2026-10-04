@@ -16,6 +16,9 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG NEXT_PUBLIC_API_URL=http://localhost:8000
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+# Live API by default in the image; the UI still falls back to bundled data if it is down.
+ARG NEXT_PUBLIC_USE_MOCKS=false
+ENV NEXT_PUBLIC_USE_MOCKS=${NEXT_PUBLIC_USE_MOCKS}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm build

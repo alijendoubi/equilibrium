@@ -485,3 +485,33 @@ def test_live_call_caps_output_tokens(golden: tuple[Edge, ...], store: GraphStor
     )
 
     assert fake.responses.calls[0]["max_output_tokens"] == 1500
+
+
+def test_path_ends_follow_the_chain_not_edge_direction(store: GraphStore) -> None:
+    from atlas.explain.templates import path_ends
+
+    gd2_gene = next(
+        e
+        for e in store.edges_for("MONDO:0009266", relations=[Relation.CAUSED_BY])
+        if e.target_id == "HGNC:4177"
+    )
+    funds = next(e for e in store.edges_for("org:cure-parkinsons", relations=[Relation.FUNDS]))
+    study = next(
+        e
+        for e in store.edges_for(
+            "clinicaltrials:NCT05778617", relations=[Relation.STUDIES_CONDITION]
+        )
+        if e.target_id == "MONDO:0008199"
+    )
+    risk = next(
+        e
+        for e in store.edges_for("HGNC:4177", relations=[Relation.RISK_FACTOR_FOR])
+        if e.target_id == "MONDO:0008199"
+    )
+    chain = (gd2_gene, risk, study, funds)
+
+    assert path_ends(chain) == ("MONDO:0009266", "org:cure-parkinsons")
+    summary = template_explanation(chain, nodes_for(store, chain)).summary
+    assert summary.startswith("This path links Gaucher disease type II to Cure Parkinson")
+    assert path_ends(()) is None
+    assert path_ends((risk,)) == ("HGNC:4177", "MONDO:0008199")

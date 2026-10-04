@@ -45,3 +45,9 @@ def test_key_facts_empty_without_curated_fields() -> None:
     node = Node(id="asset:x", type=NodeType.ASSET, label="x")
 
     assert key_facts(node) == ""
+
+
+def test_next_experiment_prefers_the_shared_gene(client: TestClient) -> None:
+    body = client.get("/api/v1/actions/MONDO%3A0008199").json()
+
+    assert "GBA1" in body["next_experiment"]["text"]

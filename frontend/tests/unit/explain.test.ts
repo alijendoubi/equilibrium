@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { mockClient } from "@/lib/api/client";
-import { explanationToText } from "@/lib/api/explain-template";
+import { explanationToText, pathEnds } from "@/lib/api/explain-template";
 import { explainRequestSchema, explainResponseSchema } from "@/lib/api/schemas";
 
 const GOLDEN_EDGES = [
@@ -105,5 +105,25 @@ describe("golden flow mocks", () => {
     const gap = await mockClient.getActions("MONDO:0012517");
     expect(gap?.coverage?.result).toBe("no_supported_route");
     expect((await mockClient.getNode("HGNC:9498"))?.node.label).toBe("PSAP");
+  });
+});
+
+describe("pathEnds", () => {
+  const edge = (id: string, source_id: string, target_id: string) =>
+    ({ id, source_id, target_id }) as unknown as Parameters<typeof pathEnds>[0][number];
+
+  it("follows the chain, not each edge's direction", () => {
+    const chain = [
+      edge("E:1", "MONDO:0009266", "HGNC:4177"),
+      edge("E:2", "HGNC:4177", "MONDO:0008199"),
+      edge("E:3", "clinicaltrials:NCT05778617", "MONDO:0008199"),
+      edge("E:4", "org:cure-parkinsons", "clinicaltrials:NCT05778617"),
+    ];
+    expect(pathEnds(chain)).toEqual(["MONDO:0009266", "org:cure-parkinsons"]);
+  });
+
+  it("handles a single link and rejects an empty path", () => {
+    expect(pathEnds([edge("E:1", "A:1", "B:2")])).toEqual(["A:1", "B:2"]);
+    expect(() => pathEnds([])).toThrow();
   });
 });

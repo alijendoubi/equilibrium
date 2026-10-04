@@ -3,7 +3,7 @@ import { TypeBadge } from "@/components/Badges";
 import { CollapsibleCard } from "@/components/CollapsibleCard";
 import { CoverageReportCard } from "@/components/CoverageReportCard";
 import type { ActionsResponse } from "@/lib/api/types";
-import { nodeHref, pathHref } from "@/lib/format";
+import { clusterHref, nodeHref, pathHref } from "@/lib/format";
 
 function ExploreLink({ from, to }: { from: string; to: string }) {
   return (
@@ -25,9 +25,15 @@ interface ActionSectionsProps {
   actions: ActionsResponse;
   /** The page already shows the gap card, so "What next" only points to it. */
   gapShownAbove?: boolean;
+  /** The disease's similarity cluster, linked from "Who shares this". */
+  clusterId?: string | null;
 }
 
-export function ActionSections({ actions, gapShownAbove = false }: ActionSectionsProps) {
+export function ActionSections({
+  actions,
+  gapShownAbove = false,
+  clusterId = null,
+}: ActionSectionsProps) {
   const id = actions.disease_id;
   const gap = actions.coverage;
 
@@ -43,6 +49,16 @@ export function ActionSections({ actions, gapShownAbove = false }: ActionSection
             : "No connected community found yet"
         }
       >
+        {clusterId && (
+          <p className="mb-4">
+            <Link
+              href={clusterHref(clusterId)}
+              className="text-sm font-medium text-cluster underline-offset-4 hover:underline"
+            >
+              See its disease cluster ({clusterId}) <span aria-hidden="true">→</span>
+            </Link>
+          </p>
+        )}
         {actions.partners.length === 0 ? (
           <p className="text-sm text-muted">
             We found no disease or patient group with a supported link. See &ldquo;What next&rdquo;

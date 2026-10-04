@@ -1,0 +1,172 @@
+{
+  "method": {
+    "description": "[MOCK] Disease similarity = 0.5 x IC-weighted phenotype Jaccard (HPO terms with IC >= 2.5) + 0.3 x shared causal/risk gene (Jaccard) + 0.2 x shared GO mechanism of those genes (Jaccard). Pairs >= 0.15 are linked and grouped with Louvain community detection (seed 42).",
+    "weights": { "phenotype": 0.5, "gene": 0.3, "mechanism": 0.2 },
+    "phenotype_ic_floor": 2.5,
+    "edge_threshold": 0.15,
+    "seed": 42
+  },
+  "clusters": [
+    {
+      "id": "C1",
+      "label": "GBA1 · Lysosomal dysfunction (glucosylceramide breakdown)",
+      "member_ids": ["MONDO:0008199", "MONDO:0009266", "MONDO:0009267", "MONDO:0018150"],
+      "features": {
+        "genes": [
+          {
+            "node_id": "HGNC:4177",
+            "member_ids": ["MONDO:0008199", "MONDO:0009266", "MONDO:0009267", "MONDO:0018150"],
+            "ic": null
+          }
+        ],
+        "mechanisms": [
+          {
+            "node_id": "MECH:lysosomal_dysfunction",
+            "member_ids": ["MONDO:0008199", "MONDO:0009266", "MONDO:0009267", "MONDO:0018150"],
+            "ic": null
+          }
+        ],
+        "phenotypes": [
+          { "node_id": "HP:0000657", "member_ids": ["MONDO:0009266", "MONDO:0009267"], "ic": 7.2 }
+        ]
+      },
+      "edges": [
+        {
+          "source_id": "MONDO:0009266",
+          "target_id": "MONDO:0009267",
+          "kind": "within",
+          "score": 0.6978,
+          "phenotype_score": 0.3956,
+          "gene_score": 1,
+          "mechanism_score": 1,
+          "reasons": [
+            "shares gene GBA1 (caused_by)",
+            "shares GO mechanism via its genes: Lysosomal dysfunction (glucosylceramide breakdown)",
+            "phenotype similarity 0.40 over 1 shared informative terms (e.g. Oculomotor apraxia)"
+          ]
+        },
+        {
+          "source_id": "MONDO:0009266",
+          "target_id": "MONDO:0018150",
+          "kind": "within",
+          "score": 0.5,
+          "phenotype_score": 0,
+          "gene_score": 1,
+          "mechanism_score": 1,
+          "reasons": [
+            "shares gene GBA1 (caused_by)",
+            "shares GO mechanism via its genes: Lysosomal dysfunction (glucosylceramide breakdown)"
+          ]
+        },
+        {
+          "source_id": "MONDO:0009267",
+          "target_id": "MONDO:0018150",
+          "kind": "within",
+          "score": 0.5,
+          "phenotype_score": 0,
+          "gene_score": 1,
+          "mechanism_score": 1,
+          "reasons": [
+            "shares gene GBA1 (caused_by)",
+            "shares GO mechanism via its genes: Lysosomal dysfunction (glucosylceramide breakdown)"
+          ]
+        },
+        {
+          "source_id": "MONDO:0008199",
+          "target_id": "MONDO:0009266",
+          "kind": "within",
+          "score": 0.5,
+          "phenotype_score": 0,
+          "gene_score": 1,
+          "mechanism_score": 1,
+          "reasons": [
+            "shares gene GBA1 (risk_factor_for vs caused_by)",
+            "shares GO mechanism via its genes: Lysosomal dysfunction (glucosylceramide breakdown)"
+          ]
+        },
+        {
+          "source_id": "MONDO:0008199",
+          "target_id": "MONDO:0009267",
+          "kind": "within",
+          "score": 0.5,
+          "phenotype_score": 0,
+          "gene_score": 1,
+          "mechanism_score": 1,
+          "reasons": [
+            "shares gene GBA1 (risk_factor_for vs caused_by)",
+            "shares GO mechanism via its genes: Lysosomal dysfunction (glucosylceramide breakdown)"
+          ]
+        },
+        {
+          "source_id": "MONDO:0008199",
+          "target_id": "MONDO:0018150",
+          "kind": "within",
+          "score": 0.5,
+          "phenotype_score": 0,
+          "gene_score": 1,
+          "mechanism_score": 1,
+          "reasons": [
+            "shares gene GBA1 (risk_factor_for vs caused_by)",
+            "shares GO mechanism via its genes: Lysosomal dysfunction (glucosylceramide breakdown)"
+          ]
+        },
+        {
+          "source_id": "MONDO:0009267",
+          "target_id": "MONDO:0012517",
+          "kind": "bridge",
+          "score": 0.1126,
+          "phenotype_score": 0.2253,
+          "gene_score": 0,
+          "mechanism_score": 0,
+          "reasons": [
+            "phenotype similarity 0.23 over 1 shared informative terms (e.g. Splenomegaly)"
+          ]
+        }
+      ],
+      "bridges": [
+        {
+          "member_id": "MONDO:0009267",
+          "other_id": "MONDO:0012517",
+          "other_cluster_id": "C2",
+          "score": 0.1126,
+          "reasons": [
+            "phenotype similarity 0.23 over 1 shared informative terms (e.g. Splenomegaly)"
+          ]
+        }
+      ],
+      "counterexamples": []
+    },
+    {
+      "id": "C2",
+      "label": "Gaucher disease due to saposin C deficiency",
+      "member_ids": ["MONDO:0012517"],
+      "features": { "genes": [], "mechanisms": [], "phenotypes": [] },
+      "edges": [
+        {
+          "source_id": "MONDO:0009267",
+          "target_id": "MONDO:0012517",
+          "kind": "bridge",
+          "score": 0.1126,
+          "phenotype_score": 0.2253,
+          "gene_score": 0,
+          "mechanism_score": 0,
+          "reasons": [
+            "phenotype similarity 0.23 over 1 shared informative terms (e.g. Splenomegaly)"
+          ]
+        }
+      ],
+      "bridges": [
+        {
+          "member_id": "MONDO:0012517",
+          "other_id": "MONDO:0009267",
+          "other_cluster_id": "C1",
+          "score": 0.1126,
+          "reasons": [
+            "phenotype similarity 0.23 over 1 shared informative terms (e.g. Splenomegaly)"
+          ]
+        }
+      ],
+      "counterexamples": []
+    }
+  ]
+}

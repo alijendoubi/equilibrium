@@ -107,6 +107,11 @@ export function actionsHref(id: string): string {
   return `/actions/${encodeURIComponent(id)}`;
 }
 
+/** Cluster view (ids are URL-encoded like node ids). */
+export function clusterHref(id: string): string {
+  return `/clusters/${encodeURIComponent(id)}`;
+}
+
 export function pathHref(from: string, to: string): string {
   return `/path?${new URLSearchParams({ from, to }).toString()}`;
 }

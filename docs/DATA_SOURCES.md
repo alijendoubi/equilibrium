@@ -28,7 +28,7 @@ This file lists every source named in the challenge brief, plus a few supporting
 |---|---|---|---|---|---|
 | PubMed | https://pubmed.ncbi.nlm.nih.gov | NCBI E-utilities (`NCBI_API_KEY` raises the rate limit) | Metadata is free. Abstracts may be under publisher copyright: store IDs, short quotes and extracted facts only (verify) | publications, `claims`, `authored_by` | P0 |
 | PMC Open Access | https://www.ncbi.nlm.nih.gov/pmc/ | OA subset / BioC API | Per-article license (CC BY, CC BY-NC and others) (verify) | full-text claims | P2 |
-| NIH RePORTER | https://reporter.nih.gov | RePORTER API v2 (no key) | Public data (verify) | `funds`, `works_on`, investigators, active programs | P1 |
+| NIH RePORTER | https://reporter.nih.gov | RePORTER API v2 (no key), `POST /v2/projects/search`; ingested (`atlas.ingest.reporter`, cache `data/cache/reporter/payload.json`) | Public data (verify) | investigators, `investigates`, `funds`, shared-investigator bridges | P1 |
 
 ### Assets already built
 
@@ -185,6 +185,12 @@ Why this disease:
 - It has a real but weak lead: SRT (eliglustat) in a single case, and a brain-penetrant SRT (venglustat) in GD3. That gives a concrete next question.
 
 Runner-up: action myoclonus-renal failure (SCARB2). It had 0 CT.gov records and 0 RePORTER projects for the exact phrase, but it is further from the hero mechanism.
+
+### NIH RePORTER investigators (ingested 2026-10-04)
+
+`POST https://api.reporter.nih.gov/v2/projects/search`, fiscal years 2019-2026, text search over title, terms and abstract. API totals: GBA1 89, glucocerebrosidase 199, Gaucher 198, "GBA Parkinson" 22, prosaposin 16, SCARB2 2, "LIMP2" 1, ambroxol 6, **"saposin C deficiency" 0**. Kept: 135 core projects (latest fiscal year each), 124 investigators. "PSAP" alone is not queried because it also names an unrelated mitochondrial protein, and unquoted "LIMP-2" matched 457,318 records.
+
+Shared-investigator bridges (investigators linked to two communities: Gaucher/GBA1, Parkinson's, lysosomal neighbours): 11. Nine span Gaucher/GBA1 and Parkinson's. A project is linked to the targets of the queries that returned it, so a bridge means RePORTER matched the person's project text, not that they publish in both fields. Check before outreach.
 
 ### Contradictions and counterexamples to seed
 

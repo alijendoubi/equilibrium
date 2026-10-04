@@ -35,8 +35,8 @@ Each node has one stable, namespaced ID. Synonyms and cross-references are store
 | `publication` | PubMed | `PMID:12345678` | `PMCID:`, `DOI:` |
 | `study` | ClinicalTrials.gov | `clinicaltrials:NCT05778617` (the UI shows the bare NCT) | Registry IDs for natural history studies |
 | `asset` | Curated asset slug (an asset with an NCT id is the `study` node; a `publication_*` asset is the `PMID:` node) | `asset:biomarker-lyso-gb1` | JAX strain ID, NCT, URL |
-| `investigator` | Internal slug | `INV:<lastname-firstinitial>-<hash>` | ORCID when available, RePORTER PI ID |
-| `funder` | Curated org slug (`research_funder_program`, `research_charity`) or RePORTER | `org:cure-parkinsons`, `REPORTER:<project_number>` (for the grant) | ROR ID |
+| `investigator` | NIH RePORTER PI profile id | `investigator:14380300` | ORCID when available |
+| `funder` | Curated org slug (`research_funder_program`, `research_charity`) or the RePORTER administering institute | `org:cure-parkinsons`, `funder:reporter-ninds` | ROR ID |
 
 Node descriptions go in `attributes["description"]` (there is no `description` field). Phenotype information content goes in `attributes["ic"]` as a string. Ingest ids are produced by `backend/src/atlas/ingest/` (see `data/curated/README.md` for curated ids).
 
@@ -62,8 +62,8 @@ The `relation` field is validated against the `Relation` enum; any other value i
 | `authored_by` | publication -> investigator | PubMed metadata | `PMID:...` -> `INV:...` |
 | `studies_condition` | study -> disease | ClinicalTrials.gov | `NCT...` -> `MONDO:...` |
 | `tests_intervention` | study -> asset | ClinicalTrials.gov | `NCT...` -> `ASSET:intervention/...` |
-| `investigates` | investigator / study -> gene / mechanism | RePORTER, ClinicalTrials.gov | `INV:...` investigates `HGNC:4177` |
-| `funds` | funder -> investigator / asset | NIH RePORTER | `FUNDER:...` -> `INV:...` |
+| `investigates` | investigator / study -> gene / disease / mechanism | NIH RePORTER (`atlas.ingest.reporter`) | `investigator:14380300` investigates `HGNC:4177`; one edge per pair, backed by the latest matching project (`source_record_id` = project number), all project numbers in `qualifiers.projects` |
+| `funds` | funder -> investigator / asset | NIH RePORTER, team curation | `funder:reporter-ninds` funds `investigator:...` |
 | `works_on` | investigator -> disease / gene / mechanism | RePORTER, PubMed | `INV:...` -> `HGNC:...` |
 | `represents` | patient_group -> disease | NORD, Orphanet, Global Genes, org sites | `ORG:...` -> `MONDO:...` |
 | `operates` | patient_group -> asset | Org sites, press releases | `ORG:...` -> `ASSET:registry/...` |

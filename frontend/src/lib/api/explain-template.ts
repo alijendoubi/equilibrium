@@ -14,6 +14,32 @@ function nodeLabel(nodesById: Map<string, AtlasNode>, id: string): string {
   return nodesById.get(id)?.label ?? displayId(id);
 }
 
+const MONARCH_UPSTREAM: Record<string, string> = {
+  "infores:omim": "OMIM",
+  "infores:orphanet": "Orphanet",
+};
+
+/** Readable source for a citation, e.g. "OMIM via Monarch" (mirrors the backend template). */
+export function sourceCitation(p: Edge["provenance"]): string {
+  const record = p.source_record_id;
+  switch (p.source) {
+    case "monarch": {
+      const upstream = MONARCH_UPSTREAM[record.split("|")[0] ?? ""];
+      return upstream ? `${upstream} via Monarch` : "Monarch Initiative";
+    }
+    case "go":
+      return "Gene Ontology annotation";
+    case "clinicaltrials":
+      return `ClinicalTrials.gov ${record}`;
+    case "pubmed":
+      return `PubMed ${record}`;
+    case "curated":
+      return "team-curated, cited source";
+    default:
+      return `${p.source} ${record}`;
+  }
+}
+
 function stepFor(edge: Edge, nodesById: Map<string, AtlasNode>, audience: ExplainAudience) {
   const source = nodeLabel(nodesById, edge.source_id);
   const target = nodeLabel(nodesById, edge.target_id);
@@ -23,8 +49,8 @@ function stepFor(edge: Edge, nodesById: Map<string, AtlasNode>, audience: Explai
   const base = `${source} ${relation} ${target}.`;
   const text =
     audience === "researcher"
-      ? `${base} Source: ${p.source} ${p.source_record_id} (${edge.evidence_type}, confidence ${formatConfidence(edge.confidence)}).`
-      : `${base} ${isHypothesis ? "This link is a hypothesis our pipeline suggested." : `Recorded by ${p.source}.`}`;
+      ? `${base} Source: ${sourceCitation(p)} (${edge.evidence_type}, confidence ${formatConfidence(edge.confidence)}).`
+      : `${base} ${isHypothesis ? "This link is a hypothesis our pipeline suggested." : `Recorded by ${sourceCitation(p)}.`}`;
   const step: ExplainStep = { text, edge_ids: [edge.id], is_hypothesis: isHypothesis };
   return step;
 }

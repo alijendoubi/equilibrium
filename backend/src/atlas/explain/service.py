@@ -27,13 +27,14 @@ logger = logging.getLogger(__name__)
 
 MAX_ATTEMPTS = 2  # first try + one retry, then the template
 LIVE_TIMEOUT_S = 30.0
+MAX_OUTPUT_TOKENS = 1500
 
 
 def explain_client(settings: Settings) -> Any:
     """An OpenAI client for live Explain calls, or None when offline or no key is set."""
     if is_offline() or not settings.has_openai_key:
         return None
-    return create_openai_client(settings).with_options(timeout=LIVE_TIMEOUT_S, max_retries=1)
+    return create_openai_client(settings).with_options(timeout=LIVE_TIMEOUT_S, max_retries=0)
 
 
 @dataclass(frozen=True)
@@ -94,7 +95,11 @@ def _call_model(
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
             raw = client.responses.create(
-                model=model, instructions=instructions_for(audience), input=context, text=schema
+                model=model,
+                instructions=instructions_for(audience),
+                input=context,
+                text=schema,
+                max_output_tokens=MAX_OUTPUT_TOKENS,
             )
             usage = usage.merge(UsageRecord.single(model, usage_from_response(raw)))
             return validate_output(raw.output_text, edges, context), usage

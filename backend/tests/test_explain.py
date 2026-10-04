@@ -366,6 +366,7 @@ def test_route_live_with_fake_client(
     )
     fake = FakeClient(output)
     monkeypatch.setattr(explain_routes, "explain_client", lambda _settings: fake)
+    api.app.dependency_overrides[get_settings] = lambda: Settings(EXPLAIN_LIVE=True)  # type: ignore[attr-defined]
     body = api.post(
         "/api/v1/explain", json={"edge_ids": [edge.id], "audience": "researcher"}
     ).json()
@@ -431,3 +432,56 @@ def test_cli_precompute_unknown_id(tmp_path: Path) -> None:
     paths.write_text(json.dumps([["E:0000000000000000"]]), encoding="utf-8")
     with pytest.raises(SystemExit):
         cli.main(["--snapshot", str(SNAPSHOT), "precompute", "--paths", str(paths)])
+
+
+def test_route_never_calls_openai_unless_explain_live(
+    api: TestClient, golden: tuple[Edge, ...], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fake = FakeClient(_output([]))
+    monkeypatch.setattr(explain_routes, "explain_client", lambda _settings: fake)
+
+    body = api.post("/api/v1/explain", json={"edge_ids": [golden[0].id]}).json()
+
+    assert body["source"] == "template"
+    assert fake.responses.calls == []
+
+
+def test_route_rate_limits_per_client(api: TestClient, golden: tuple[Edge, ...]) -> None:
+    api.app.dependency_overrides[get_settings] = lambda: Settings(EXPLAIN_RATE_PER_MINUTE=2)  # type: ignore[attr-defined]
+    payload = {"edge_ids": [golden[0].id]}
+    headers = {"x-forwarded-for": "203.0.113.7"}
+
+    codes = [
+        api.post("/api/v1/explain", json=payload, headers=headers).status_code for _ in range(3)
+    ]
+    other = api.post("/api/v1/explain", json=payload, headers={"x-forwarded-for": "198.51.100.1"})
+
+    assert codes == [200, 200, 429]
+    assert other.status_code == 200
+
+
+def test_cache_dir_follows_snapshot_path(tmp_path: Path) -> None:
+    settings = Settings(SNAPSHOT_PATH=tmp_path / "data" / "snapshot" / "s.json")
+
+    assert settings.cache_dir == tmp_path / "data" / "cache"
+    assert Settings().explain_live is False
+
+
+def test_live_call_caps_output_tokens(golden: tuple[Edge, ...], store: GraphStore) -> None:
+    edge = golden[0]
+    fake = FakeClient(
+        _output(
+            [{"text": "Type 2 is linked to GBA1.", "edge_ids": [edge.id], "is_hypothesis": False}]
+        )
+    )
+
+    explain_edges(
+        (edge,),
+        nodes_for(store, (edge,)),
+        audience="family",
+        client=fake,
+        model="gpt-6.1-sol",
+        cache=ExplanationCache(Path("unused.json")),
+    )
+
+    assert fake.responses.calls[0]["max_output_tokens"] == 1500

@@ -21,3 +21,9 @@ services:
         sync: false
       - key: LOG_LEVEL
         value: INFO
+      # Public /explain serves the committed cache, then the template. Set to "1" only if
+      # live OpenAI calls from visitors are wanted (rate limited per IP).
+      - key: EXPLAIN_LIVE
+        value: "0"
+      - key: EXPLAIN_RATE_PER_MINUTE
+        value: "10"

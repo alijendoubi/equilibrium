@@ -283,17 +283,19 @@ make clean
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `OPENAI_API_KEY` | Yes, for extraction / reconciliation / explanation | OpenAI access |
-| `OPENAI_MODEL_EXTRACT` | No | Model used for extract |
-| `OPENAI_MODEL_EXPLAIN` | No | Model used for explanation |
-| `OPENAI_MODEL_RECONCILE` | No | Model used for reconciliation |
-| `OPENAI_EMBED_MODEL` | No | Embedding model |
-| `NCBI_API_KEY` | No | Higher PubMed / ClinVar rate limits |
-| `OMIM_API_KEY` | No | OMIM access |
-| `CORS_ORIGINS` | No | Allowed browser origins |
-| `LOG_LEVEL` | No | Backend logging |
-| `BACKEND_URL` | No | Server-side backend target |
-| `NEXT_PUBLIC_API_URL` | No | Browser-side backend target |
+| `OPENAI_API_KEY` | yes, for Extract / Reconcile / Explain | OpenAI API access |
+| `OPENAI_MODEL_EXTRACT` | no (default `gpt-6.1-sol`) | Model for Extract (abstract -> claim edges) |
+| `OPENAI_MODEL_EXPLAIN` | no (default `gpt-6.1-sol`) | Model for Explain (path -> plain language) |
+| `OPENAI_MODEL_RECONCILE` | no (default `gpt-6-luna`) | Model for Reconcile (ambiguous entity matches); fallback `gpt-5.4-mini` if structured outputs fail |
+| `EXPLAIN_LIVE` | no (default `0`) | `1` lets the public `/explain` endpoint call OpenAI live; otherwise it serves the committed cache, then the template |
+| `EXPLAIN_RATE_PER_MINUTE` | no (default `10`) | Per-IP limit on `/explain` |
+| `OPENAI_EMBED_MODEL` | no (default `text-embedding-3-small`) | Embedding model for Reconcile and semantic search |
+| `NCBI_API_KEY` | no | Higher E-utilities rate limits (PubMed, ClinVar) |
+| `OMIM_API_KEY` | no | OMIM API (license terms apply) |
+| `CORS_ORIGINS` | no | Allowed frontend origins |
+| `LOG_LEVEL` | no | Backend log level |
+| `BACKEND_URL` | no | Backend URL used server-side by the frontend |
+| `NEXT_PUBLIC_API_URL` | no | Backend URL used by the browser |
 
 ---
 
@@ -339,6 +341,9 @@ Precompute the OpenAI caches for the demo (needs `OPENAI_API_KEY`):
 
 ```bash
 cd backend
+uv run python -m atlas.extract.cli fetch     # PubMed corpus (no key needed; already committed)
+uv run python -m atlas.extract.cli run       # OpenAI Extract -> data/cache/extract/claims.json
+uv run python -m atlas.pipeline build --offline   # adds cached claims + real openai_usage
 uv run python -m atlas.reconcile.cli embed --nodes ../data/snapshot/atlas-snapshot.json
 uv run python -m atlas.explain.cli golden
 git add ../data/cache && git commit -m "data: precompute OpenAI caches"

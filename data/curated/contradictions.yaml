@@ -1,0 +1,67 @@
+# Curated contradictions and counterexamples for the gba1 slice.
+# Schema and rules: data/curated/README.md ("contradictions.yaml").
+# Each entry becomes one curated `contradicts` edge (source_id -> target_id). The edges it
+# `bears_on` get that edge id in `contradicted_by` and the trust-rubric penalty (-0.15 each).
+# Every evidence item needs a url, a verbatim quote and a retrieved date.
+
+contradictions:
+  - id: venglustat-gd3-vs-gba-pd
+    summary: >-
+      Same drug, same mechanism (glucosylceramide synthase inhibition), opposite outcomes:
+      venglustat showed no benefit in GBA1-associated Parkinson's disease (MOVES-PD) but met
+      its primary endpoints in Gaucher disease type 3 (LEAP2MONO).
+    verification: verified
+    contradicts:
+      source_id: clinicaltrials:NCT02906020
+      target_id: clinicaltrials:NCT05222906
+    bears_on: []
+    evidence:
+      - url: https://pubmed.ncbi.nlm.nih.gov/37479372/
+        quote: >-
+          In people with GBA1-associated Parkinson's disease in our study, venglustat had a
+          satisfactory safety profile but showed no beneficial treatment effect compared with
+          placebo.
+        retrieved: 2026-10-04
+      - url: https://clinicaltrials.gov/study/NCT02906020
+        quote: The study did not meet the primary or secondary endpoints.
+        retrieved: 2026-10-03
+      - url: https://www.sanofi.com/en/media-room/press-releases/2026/2026-02-02-06-00-00-3229947
+        quote: >-
+          In the LEAP2MONO phase 3 study, venglustat, dosed orally once daily, demonstrated
+          clinically meaningful efficacy in patients with type 3 Gaucher disease (GD3)
+        retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: >-
+      Counterexample to "shared mechanism means shared therapy". Not an efficacy claim: the
+      populations, comparators (placebo vs ERT) and endpoints differ. The GD3 result is from a
+      company press release, not a peer-reviewed paper.
+
+  - id: psap-pd-susceptibility-contested
+    summary: >-
+      The OMIM/Monarch edge PSAP contributes to Parkinson disease 24 susceptibility rests on
+      Oji et al. 2020 (Brain, PMID 32201884, saposin D variants). A 2021 Brain letter on a large
+      Chinese mainland cohort (PMID 33793763) comments on that report.
+    verification: unverified
+    contradicts:
+      source_id: PMID:33793763
+      target_id: MONDO:0859183
+    bears_on:
+      - source_id: HGNC:9498
+        relation: risk_factor_for
+        target_id: MONDO:0859183
+    new_nodes:
+      - id: PMID:33793763
+        type: publication
+        label: "PSAP variants in Parkinson's disease: a large cohort study in Chinese mainland population"
+        url: https://pubmed.ncbi.nlm.nih.gov/33793763/
+    evidence:
+      - url: https://pubmed.ncbi.nlm.nih.gov/33793763/
+        quote: "PSAP variants in Parkinson's disease: a large cohort study in Chinese mainland population."
+        retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: >-
+      Verified via PubMed E-utilities on 2026-10-04: PMID 33793763 is a Letter / Comment in
+      Brain 2021;144(3):e25 commenting on Brain 2020;143(4):1190-1205 (Oji et al.), with an
+      author reply (Brain 2021;144(3):e26). [U] The letter has no abstract in PubMed, so its
+      conclusion (no replication of the PSAP-PD association) was not read; low confidence until
+      a team member reads the full text.

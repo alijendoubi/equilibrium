@@ -12,7 +12,16 @@ assets:
     disease_ids: [MONDO:0008199]
     retrieved: 2026-10-03
     curator: claude-agent, needs human check
-    attributes: {phase: "3", status: RECRUITING, enrollment_estimated: 330, sponsor: University College London, primary_completion: 2029-02}
+    attributes:
+      phase: "3"
+      status: RECRUITING
+      enrollment_estimated: 330
+      sponsor: University College London
+      primary_completion: 2029-02
+      population: "people with Parkinson's disease (within 7 years of diagnosis, age 35-75), GBA1 variant carriers and non-carriers"
+      dose: "ambroxol titrated to 1260 mg/day vs placebo"
+      duration: "104 weeks"
+      primary_endpoint: "MDS-UPDRS parts I-III"
     notes: >-
       UK only. PD within 7 years, age 35-75, GBA1 status known (positive or negative).
       Ambroxol titrated to 1260 mg/day vs placebo for 104 weeks; primary endpoint MDS-UPDRS I-III.
@@ -123,6 +132,11 @@ assets:
     disease_ids: [MONDO:0009266, MONDO:0009267]
     retrieved: 2026-10-03
     curator: claude-agent, needs human check
+    attributes:
+      population: "5 patients with neuronopathic Gaucher disease, on enzyme replacement therapy"
+      dose: "ambroxol target 25 mg/kg/day (maximum 1300 mg/day), open-label"
+      design: "open-label pilot"
+      readouts: "CSF penetration, lymphocyte GCase activity, CSF glucosylsphingosine, myoclonus and seizures"
     notes: >-
       Open-label, 5 patients, ambroxol with ERT, target 25 mg/kg/day (max 1300 mg/day).
       Reported BBB penetration, higher lymphocyte GCase, lower CSF glucosylsphingosine.

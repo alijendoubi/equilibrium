@@ -41,9 +41,9 @@
   "rubric_version": "ingest-v1",
   "schema_version": "1",
   "slice": "gba1",
-  "snapshot_bytes": 1200798,
+  "snapshot_bytes": 1201406,
   "snapshot_file": "atlas-snapshot.json",
-  "snapshot_id": "sha256:9dca705b4a04019368912c5f04670a403a2e6e4d523dc659b5f1adb4a2d9ec12",
+  "snapshot_id": "sha256:bdb4c12a7209e12414f25e7499d71db137ee39a448b0645f9af4d837583e892b",
   "sources": [
     {
       "edges": 925,

@@ -147,6 +147,36 @@ def reusable_text(node: Node) -> str:
     return _first_sentence(source) if source else f"{node.label}: published evidence to reuse."
 
 
+KEY_FACT_FIELDS = (
+    ("population", "population"),
+    ("dose", "dose"),
+    ("duration", "duration"),
+    ("primary_endpoint", "primary endpoint"),
+    ("design", "design"),
+)
+
+
+def key_facts(node: Node) -> str:
+    """Curated comparison facts (population, dose, duration, endpoint), '; '-joined."""
+    attrs = node.attributes
+    parts = [
+        f"{label} {attrs[f'curated_{field}']}"
+        for field, label in KEY_FACT_FIELDS
+        if attrs.get(f"curated_{field}")
+    ]
+    return "; ".join(parts)
+
+
+def _own_clinical_evidence(store: GraphStore, disease: Node) -> str | None:
+    """The disease's own curated clinical evidence (e.g. a pilot study), for contrast."""
+    for edge in store.edges_for(disease.id):
+        node = store.get_node(other_end(edge, disease.id))
+        if node is None or node.type not in ASSET_TYPES or not node.attributes.get("curated_dose"):
+            continue
+        return f"{node.label} ({key_facts(node)})"
+    return None
+
+
 def differs_text(store: GraphStore, node: Node, disease: Node, tier: int, reach: _Reach) -> str:
     attrs = node.attributes
     if tier == 0:
@@ -159,6 +189,13 @@ def differs_text(store: GraphStore, node: Node, disease: Node, tier: int, reach:
             f"Studies {target}, not {disease.label} ({shared}: {via}); eligibility, dosing and "
             f"endpoints would need re-checking for {disease.label}."
         )
+    facts = key_facts(node)
+    if facts:
+        text += f" This asset: {facts}."
+    if tier > 0:
+        own = _own_clinical_evidence(store, disease)
+        if own is not None:
+            text += f" For {disease.label} the closest clinical evidence is {own}."
     status = attrs.get("status", "")
     if status in STOPPED_STATUSES:
         reason = attrs.get("why_stopped")

@@ -23,8 +23,8 @@ export function FallbackNotice({ show }: { show: boolean }) {
       role="status"
       className="rounded-xl border border-dashed border-muted px-4 py-2 text-xs text-muted"
     >
-      <strong className="font-semibold">{FALLBACK_NOTICE}.</strong> The live atlas did not answer
-      in time, so this view uses the demo data bundled with the app.
+      <strong className="font-semibold">{FALLBACK_NOTICE}.</strong> The live atlas did not answer in
+      time, so this view uses the demo data bundled with the app.
     </p>
   );
 }

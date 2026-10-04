@@ -5,7 +5,7 @@ import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { PathExplorer } from "@/components/path/PathExplorer";
 import { getAtlasClient } from "@/lib/api/client";
-import { nodeHref } from "@/lib/format";
+import { actionsHref, nodeHref } from "@/lib/format";
 import { firstParam } from "@/lib/params";
 
 export const metadata: Metadata = { title: "Connection · Equilibrium" };
@@ -52,6 +52,17 @@ export default async function PathPage({ searchParams }: PathPageProps) {
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">
         How {fromLabel} connects to {toLabel}
       </h1>
+
+      {fromNode?.node.type === "disease" && (
+        <p className="mt-2 text-sm">
+          <Link
+            href={actionsHref(from)}
+            className="font-medium text-action underline-offset-4 hover:underline"
+          >
+            What to do next for {fromLabel} <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+      )}
 
       <div className="mt-6">
         {response.paths.length > 0 ? (

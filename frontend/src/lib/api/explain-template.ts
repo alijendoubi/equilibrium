@@ -53,9 +53,7 @@ export function buildTemplateExplanation(
   const hypotheses = steps.filter((s) => s.is_hypothesis).length;
   const summary =
     `${first} connects to ${last} through ${known.length} ${known.length === 1 ? "link" : "links"}` +
-    (hypotheses > 0
-      ? `, ${hypotheses} of them a hypothesis.`
-      : ", all backed by recorded data.");
+    (hypotheses > 0 ? `, ${hypotheses} of them a hypothesis.` : ", all backed by recorded data.");
   const caveats = [
     ...(hypotheses > 0 ? [HYPOTHESIS_CAVEAT] : []),
     ...(known.length < unique.length

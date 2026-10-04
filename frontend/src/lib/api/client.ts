@@ -267,7 +267,8 @@ export function createHttpClient(baseUrl: string, options: HttpClientOptions = {
       throw new AtlasApiError(`Atlas API ${path} unreachable: ${reason}`, null);
     }
     if (allow404 && res.status === 404) return null;
-    if (!res.ok) throw new AtlasApiError(`Atlas API ${path} failed with HTTP ${res.status}`, res.status);
+    if (!res.ok)
+      throw new AtlasApiError(`Atlas API ${path} failed with HTTP ${res.status}`, res.status);
     const parsed = schema.safeParse(await res.json());
     if (!parsed.success) {
       throw new AtlasApiError(`Atlas API ${path} returned an unexpected shape`, res.status);
@@ -323,14 +324,36 @@ export function createFallbackClient(primary: AtlasClient, fallback: AtlasClient
     get usedFallback() {
       return usedFallback;
     },
-    search: (q) => attempt(() => primary.search(q), () => fallback.search(q)),
-    getNode: (id) => attempt(() => primary.getNode(id), () => fallback.getNode(id)),
+    search: (q) =>
+      attempt(
+        () => primary.search(q),
+        () => fallback.search(q),
+      ),
+    getNode: (id) =>
+      attempt(
+        () => primary.getNode(id),
+        () => fallback.getNode(id),
+      ),
     getPath: (from, to) =>
-      attempt(() => primary.getPath(from, to), () => fallback.getPath(from, to)),
-    getActions: (id) => attempt(() => primary.getActions(id), () => fallback.getActions(id)),
-    getCoverage: (id) => attempt(() => primary.getCoverage(id), () => fallback.getCoverage(id)),
+      attempt(
+        () => primary.getPath(from, to),
+        () => fallback.getPath(from, to),
+      ),
+    getActions: (id) =>
+      attempt(
+        () => primary.getActions(id),
+        () => fallback.getActions(id),
+      ),
+    getCoverage: (id) =>
+      attempt(
+        () => primary.getCoverage(id),
+        () => fallback.getCoverage(id),
+      ),
     explain: (ids, audience) =>
-      attempt(() => primary.explain(ids, audience), () => fallback.explain(ids, audience)),
+      attempt(
+        () => primary.explain(ids, audience),
+        () => fallback.explain(ids, audience),
+      ),
   };
 }
 

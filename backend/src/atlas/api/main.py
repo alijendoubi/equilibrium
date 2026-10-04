@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from atlas import __version__
+from atlas.api.explain_routes import explain_router
 from atlas.api.routes import router
 from atlas.config import Settings, get_settings
 from atlas.graph.store import load_store
@@ -40,6 +41,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_headers=["*"],
     )
     application.include_router(router)
+    application.include_router(explain_router)
     logger.info(
         "Atlas API configured (models: extract=%s explain=%s reconcile=%s embed=%s, "
         "openai_key_configured=%s, cors_origins=%d)",

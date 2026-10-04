@@ -212,3 +212,33 @@ export interface CoverageReport {
   weak_leads: WeakLead[];
   next_questions: string[];
 }
+
+/* Explain: POST /api/v1/explain (backend/src/atlas/explain/models.py). */
+
+export type ExplainAudience = "family" | "researcher";
+
+/** cache = stored OpenAI answer, live = fresh OpenAI call, template = deterministic, no AI. */
+export type ExplainSource = "cache" | "live" | "template";
+
+export interface ExplainRequest {
+  /** 1..12 edge ids, in path order. */
+  edge_ids: string[];
+  audience: ExplainAudience;
+}
+
+export interface ExplainStep {
+  text: string;
+  /** Edges this step rests on (at least one). */
+  edge_ids: string[];
+  is_hypothesis: boolean;
+}
+
+export interface ExplainResponse {
+  steps: ExplainStep[];
+  summary: string;
+  caveats: string[];
+  source: ExplainSource;
+  model: string | null;
+  prompt_version: string;
+  ai_generated: boolean;
+}

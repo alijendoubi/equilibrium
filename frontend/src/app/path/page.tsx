@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CoverageReportCard } from "@/components/CoverageReportCard";
-import { MockBanner } from "@/components/MockBanner";
+import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { PathExplorer } from "@/components/path/PathExplorer";
 import { getAtlasClient } from "@/lib/api/client";
@@ -43,9 +43,7 @@ export default async function PathPage({ searchParams }: PathPageProps) {
   return (
     <main className="mx-auto max-w-5xl px-6 py-8">
       <PageHeader />
-      <div className="mt-6">
-        <MockBanner isMock={client.isMock} />
-      </div>
+      <DataNotice isMock={client.isMock} usedFallback={client.usedFallback} />
       <p className="mt-8 text-sm">
         <Link href={nodeHref(from)} className="text-muted underline-offset-4 hover:underline">
           <span aria-hidden="true">←</span> Back to {fromLabel}

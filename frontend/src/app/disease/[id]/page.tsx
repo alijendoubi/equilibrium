@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { EvidenceBadge, TypeBadge } from "@/components/Badges";
 import { ActionSections } from "@/components/disease/ActionSections";
 import { SummaryCard } from "@/components/disease/SummaryCard";
-import { MockBanner } from "@/components/MockBanner";
+import { DataNotice } from "@/components/MockBanner";
 import { NodeChip } from "@/components/NodeChip";
 import { PageHeader } from "@/components/PageHeader";
 import { getAtlasClient } from "@/lib/api/client";
@@ -73,9 +73,7 @@ export default async function NodePage({ params }: NodePageProps) {
   return (
     <main className="mx-auto max-w-3xl px-6 py-8">
       <PageHeader />
-      <div className="mt-6">
-        <MockBanner isMock={client.isMock} />
-      </div>
+      <DataNotice isMock={client.isMock} usedFallback={client.usedFallback} />
 
       <header className="mt-8">
         <div className="flex flex-wrap items-center gap-2">

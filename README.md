@@ -1,6 +1,6 @@
-# Equilibrium: AI atlas for rare diseases
+# Equilibrium: an evidence-first atlas for rare diseases
 
-We are building an evidence-first atlas that helps rare-disease communities move from fragmented information to actionable next steps.
+Equilibrium is a research-grade product concept and platform for turning fragmented rare-disease knowledge into a usable, explainable, and evidence-backed atlas. It helps patient groups, clinicians, researchers, and biotech teams move from an isolated diagnosis to a credible network of related mechanisms, assets, collaborators, and action-oriented next steps.
 
 [![CI](https://github.com/alijendoubi/equilibrium/actions/workflows/ci.yml/badge.svg)](https://github.com/alijendoubi/equilibrium/actions/workflows/ci.yml)
 [![Security](https://github.com/alijendoubi/equilibrium/actions/workflows/security.yml/badge.svg)](https://github.com/alijendoubi/equilibrium/actions/workflows/security.yml)
@@ -9,21 +9,55 @@ We are building an evidence-first atlas that helps rare-disease communities move
 
 Team Equilibrium's submission to Hack-Nation's 7th Global AI Hackathon, Challenge 05: AI Atlas for the World's Rare Diseases, supported by OpenAI and the Buffalo Initiative.
 
-> Status: early prototype. This README separates the product vision, the technical implementation, and the current roadmap status.
+> Status: early-stage research prototype. This README separates the product, the technology, and the current implementation status.
 
 ---
 
-## Product overview
+## Product thesis
 
-Rare diseases are often under-studied, poorly connected, and difficult to navigate for patients, caregivers, researchers, and biotech teams. Much of the knowledge is scattered across scientific papers, disease registries, trial data, funder databases, and patient organizations.
+Rare disease research suffers from a structural information problem: the relevant evidence is distributed across scientific literature, disease ontologies, clinical databases, patient organizations, trial registries, and funding networks. The result is a slow, fragmented, and often unproductive discovery process.
 
-Equilibrium aims to turn that fragmented landscape into an evidence-backed knowledge graph that answers three practical questions:
+Equilibrium addresses that problem by creating an evidence-first knowledge graph that connects disease mechanisms to the entities that matter most to real-world decision-making:
+
+- genes and variants
+- disease phenotypes and related conditions
+- patient communities and advocacy groups
+- relevant assets such as registries, natural history studies, and models
+- investigators, trial activity, and funding signals
+- next-step opportunities grounded in evidence
+
+The system is designed to help users answer three questions quickly and responsibly:
 
 1. Who shares our disease characteristics?
 2. What useful work already exists?
 3. What should we do together next?
 
-The product is designed around a patient-organization leader, Maria, whose journey is:
+A disease is not treated as a label; it is modeled as a network of mechanisms, relationships, and opportunities.
+
+---
+
+## The problem we are solving
+
+Rare diseases create one of the hardest data and discovery problems in modern medicine:
+
+- About 10,000 rare diseases are known.
+- Roughly 80% are genetic, and around 5,000 are monogenic.
+- Rare diseases affect about 350 million people worldwide.
+- Fewer than 5% of these diseases have an approved treatment.
+- The relevant information is fragmented across many disconnected sources.
+- Disease names often hide the underlying mechanism, which means naming alone is a weak proxy for similarity and therapeutic relevance.
+
+This creates an acute challenge for patient groups, researchers, and biotech teams: they cannot easily see which communities, genes, pathways, assets, or collaborators are already connected to the disease they are studying.
+
+The brief sets a bold objective: help rare-disease research move toward a possible treatment 10x faster.
+
+---
+
+## What Equilibrium does
+
+Equilibrium is an evidence-backed atlas intended to support a patient-centered discovery journey.
+
+### Core user journey
 
 ```text
 Search "disease X"
@@ -34,64 +68,56 @@ Search "disease X"
   -> next step: sourced proposal + what needs expert review
 ```
 
-This is not a generic “search engine.” It is a trustable map of relationships between disease mechanisms, genes, patient communities, and reusable assets.
+This is the core product idea: from an initial disease entry point, the user discovers a connected map of biological, scientific, and operational context that leads to concrete action.
 
-### Who it serves
+### Product principles
+
+- Evidence first: every connection in the atlas is traceable to a source.
+- Transparent uncertainty: when evidence is absent, the system shows what was searched and what remains unresolved.
+- Trustworthy explanation: graph paths are expressed in plain language with citations to the supporting edges.
+- Actionability: the product does not stop at listing entities; it helps surface the next useful move.
+
+### Target personas
 
 | Persona | Need | Planned experience |
 |---|---|---|
-| Maria, patient org leader | Clusters, shared assets, partners, next experiments | Cluster view, mechanism navigator, action view |
-| Devon, newly diagnosed caregiver | Closest communities and relevant context in plain language | Global search with synonym resolution and explanation |
-| Priya, biotech scout | Ranked clusters for one therapeutic mechanism | Mechanism-first cluster ranking |
-| Dr. Osei, researcher | Who else works on a mechanism under different gene names | Connector view and network overlap |
-
-### Design principles
-
-- Evidence first: every claim is linked to a source and provenance record
-- Honest gaps: if evidence is missing, the system shows what was searched and what is absent
-- Explainability: graph paths become plain-language explanations with cited edges
-- Actionability: the product surfaces next steps, not just literature connections
+| Maria, patient org leader | Understand disease clusters, shared assets, and potential collaborators | Cluster and mechanism navigator with action view |
+| Devon, newly diagnosed caregiver | Find the closest communities and appropriate context in plain language | Global search with synonym resolution and explanation |
+| Priya, biotech scout | Rank and prioritize target mechanisms and related disease communities | Mechanism-first ranked cluster view |
+| Dr. Osei, researcher | Identify investigators and disease groups working on the same mechanism under different gene names | Connector view and network overlap analysis |
 
 ---
 
-## Why this matters
+## Why this is compelling
 
-- About 10,000 rare diseases are known.
-- Roughly 80% are genetic, and around 5,000 are monogenic.
-- Rare diseases affect about 350 million people worldwide.
-- Fewer than 5% of rare diseases have an approved treatment.
-- Relevant knowledge is spread across papers, disease databases, trials, funders, and patient communities.
-- Disease names often hide the underlying mechanisms, which makes standard name-based search incomplete.
+The opportunity is not simply to build another search tool. The real value lies in creating a system that can reliably connect biological meaning to patient action.
 
-The 10x goal is simple: help research move toward a possible treatment 10x faster.
+A strong evidence graph creates three strategic advantages:
 
----
+1. Discovery acceleration: find hidden connections that naming-based search misses.
+2. Fewer dead ends: show what work already exists before a team starts from scratch.
+3. Better decision quality: make it easier to distinguish between verified relationships and uncertain ones.
 
-## What Equilibrium does
-
-Equilibrium builds an evidence-backed knowledge graph that connects:
-
-- disease entities and phenotypes
-- genes, variants, and pathways
-- related diseases with shared mechanisms
-- patient organizations and communities
-- registries, natural history studies, and model assets
-- active trials, funding signals, and investigators
-- action-oriented next steps backed by evidence
-
-Every edge in the graph carries:
-
-- source record or URL
-- relation type
-- confidence
-- evidence type (observed, inferred, or curated)
-- contradictory evidence when present
-
-This keeps the graph useful without pretending that weak or unverified links are facts.
+This matters because research progress in rare diseases is often gated not by lack of information alone, but by lack of connectivity between information sources and decision-making workflows.
 
 ---
 
-## Product architecture
+## Solution design
+
+Equilibrium treats rare-disease knowledge as a graph problem, not a document retrieval problem.
+
+Each node and edge is designed to encode meaningful evidence and provenance:
+
+- node types: disease, gene, phenotype, variant, pathway, organization, asset, trial, investigator
+- edge types: shared mechanism, phenotype overlap, co-occurrence, evidence link, collaboration, funding, asset relationship
+- provenance: source, record ID, URL, retrieval date, confidence, and evidence type
+- contradictions: conflicting evidence is retained and surfaced rather than hidden
+
+This is crucial for a domain where false confidence is damaging. The system is explicitly built to be cautious, explainable, and grounded in evidence.
+
+---
+
+## Technical architecture
 
 ```mermaid
 flowchart LR
@@ -126,19 +152,60 @@ flowchart LR
     API --> UI
 ```
 
-### Technical flow
+### Pipeline design
 
-- Extract: OpenAI reads source text and pulls genes, variants, phenotypes, claims, and investigator entities into candidate edges.
-- Reconcile: names and synonyms are normalized to stable IDs such as MONDO, HGNC, HP, ClinVar VCV, PMID, and NCT.
-- Explain: a graph path is converted into plain-language reasoning, with every sentence backed by an edge ID.
-- Trust layer: evidence confidence, contradictions, and missing-source reporting are tracked explicitly.
+- Ingest: fetch and normalize source data into cached records.
+- Extract: use OpenAI and structured outputs to turn source content into candidate facts and entities.
+- Reconcile: normalize names and synonyms to stable biomedical identifiers.
+- Graph: construct typed nodes and weighted, cited edges.
+- Analytics: compute similarity, clustering, and mechanism overlap.
+- Explain: transform graph paths into plain-language answers grounded in the underlying evidence.
 
-Detailed references:
+### Why this architecture matters
 
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- [docs/EVIDENCE_MODEL.md](docs/EVIDENCE_MODEL.md)
-- [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md)
-- [docs/adr/](docs/adr/)
+This is not a monolithic AI demo. It is a production-minded system design built around:
+
+- explicit evidence provenance
+- reproducible data pipelines
+- human-checkable reasoning paths
+- graph analytics for similarity and clustering
+- clean separation between source ingestion, extraction, and explanation
+
+---
+
+## Technical stack
+
+### Backend
+
+- Python 3.12
+- FastAPI
+- uv for dependency and environment management
+- Pydantic v2 for type-safe models
+- Graph and analytics logic built around networkx and structured data workflows
+
+### Frontend
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- UI optimized for exploration and explanation
+
+### Data ecosystem
+
+- Public biomedical sources and curated domain data
+- JSON/Parquet snapshots for reproducible graph artifacts
+- Data conventions for raw and processed snapshots under `data/`
+
+### AI integration
+
+Equilibrium uses OpenAI for structured extraction, reconciliation, and explanation. The design follows a controlled pattern:
+
+- extraction turns text into candidate facts
+- reconciliation resolves biomedical ambiguity
+- explanation converts graph paths into plain-language narratives
+- every explanation cites the edge IDs that support it
+
+This is essential because open-ended AI output without provenance is not acceptable in a domain where evidence quality matters.
 
 ---
 
@@ -156,8 +223,8 @@ Detailed references:
 ├── frontend/             Next.js 15 + TypeScript + Tailwind
 ├── data/                 data conventions; raw/ and processed/ are not committed
 │   └── scripts/          dataset build scripts
-├── docs/                 architecture, evidence model, data sources, ADRs, runbook
-├── scripts/github/       repo bootstrap scripts
+├── docs/                 architecture, evidence model, sources, runbook, ADRs
+├── scripts/github/       repo bootstrap and release scripts
 ├── .github/              workflows, rulesets, templates
 ├── docker-compose.yml
 ├── Makefile
@@ -166,14 +233,15 @@ Detailed references:
 ├── LICENSE
 ├── CONTRIBUTING.md
 ├── SECURITY.md
-└── CODE_OF_CONDUCT.md
+├── CODE_OF_CONDUCT.md
+└── .gitignore
 ```
 
 ---
 
 ## Quickstart
 
-Prerequisites:
+### Prerequisites
 
 - Python 3.12
 - uv
@@ -181,6 +249,8 @@ Prerequisites:
 - pnpm
 - GNU Make
 - Docker (optional)
+
+### Run locally
 
 ```bash
 git clone https://github.com/alijendoubi/equilibrium.git
@@ -192,41 +262,44 @@ make dev-backend
 make dev-frontend
 ```
 
-Or run both services with Docker:
+### Run with containers
 
 ```bash
 docker compose up --build
 ```
 
-Run `make help` to see all available targets. Common commands include:
+### Common commands
 
 ```bash
-make check   # lint, typecheck, tests, CI parity
-make fmt     # format code
-make clean   # clean generated artifacts
+make help
+make check
+make fmt
+make clean
 ```
 
-### Environment variables
+---
+
+## Environment configuration
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `OPENAI_API_KEY` | Yes, for extract / reconcile / explain | OpenAI API access |
-| `OPENAI_MODEL_EXTRACT` | No | Model for extract |
-| `OPENAI_MODEL_EXPLAIN` | No | Model for explanation |
-| `OPENAI_MODEL_RECONCILE` | No | Model for reconciliation |
+| `OPENAI_API_KEY` | Yes, for extraction / reconciliation / explanation | OpenAI access |
+| `OPENAI_MODEL_EXTRACT` | No | Model used for extract |
+| `OPENAI_MODEL_EXPLAIN` | No | Model used for explanation |
+| `OPENAI_MODEL_RECONCILE` | No | Model used for reconciliation |
 | `OPENAI_EMBED_MODEL` | No | Embedding model |
-| `NCBI_API_KEY` | No | Better PubMed / ClinVar rate limits |
+| `NCBI_API_KEY` | No | Higher PubMed / ClinVar rate limits |
 | `OMIM_API_KEY` | No | OMIM access |
 | `CORS_ORIGINS` | No | Allowed browser origins |
-| `LOG_LEVEL` | No | Backend log level |
+| `LOG_LEVEL` | No | Backend logging |
 | `BACKEND_URL` | No | Server-side backend target |
 | `NEXT_PUBLIC_API_URL` | No | Browser-side backend target |
 
 ---
 
-## Data and evidence model
+## Data strategy and evidence model
 
-Equilibrium is designed to work with public sources and curated evidence rather than unverified model-generated claims.
+Equilibrium is designed to work with public datasets and curated evidence rather than unsupported model-generated claims. The repository includes a data-first framework for building reproducible snapshots and provenance-aware outputs.
 
 ### Planned data sources
 
@@ -234,17 +307,15 @@ Equilibrium is designed to work with public sources and curated evidence rather 
 |---|---|---|---|
 | MONDO | disease IDs and synonyms | OBO / JSON | disease taxonomy |
 | HPO | phenotype and disease relations | annotation downloads | phenotype semantics |
-| ClinVar | gene/variant/disease assertions | NCBI FTP / E-utilities | public data |
+| ClinVar | gene / variant / disease assertions | NCBI FTP / E-utilities | public domain |
 | OMIM | gene-phenotype associations | API | license terms apply |
-| Orphanet | disease and patient resources | data downloads | public / attribution-based |
-| PubMed / PMC | claims and investigators | NCBI APIs | abstracts subject to publisher rights |
-| ClinicalTrials.gov | studies and interventions | API v2 | public |
+| Orphanet | disease and patient resources | downloads | public / attribution-based |
+| PubMed / PMC | claims and investigators | E-utilities | abstracts subject to publisher rights |
+| ClinicalTrials.gov | trial data | API v2 | public |
 | NIH RePORTER | funding and investigators | API v2 | public |
-| Patient org directories | community and asset mapping | manual curation / site policies | per-site terms |
+| Patient org directories | community and asset mapping | manual curation | per-site terms |
 
-The project stores snapshots in `data/processed/` and keeps raw downloads under `data/raw/`. These folders are not committed.
-
-The evidence model is documented in [docs/EVIDENCE_MODEL.md](docs/EVIDENCE_MODEL.md). See also [data/README.md](data/README.md).
+The project stores raw downloaded data separately from reproducible, built outputs. See [data/README.md](data/README.md) for the snapshot conventions and provenance manifest design.
 
 ---
 
@@ -257,40 +328,40 @@ Last updated: 2026-10-03
 **Phase 1: Repo bootstrap (M1) — largely complete**
 
 - [x] Challenge brief reviewed and documented
-- [x] Monorepo scaffolding completed for backend and frontend
-- [x] Architecture, evidence model, and project planning docs added
-- [x] Rulesets for PRs, code owner approval, and required checks applied
-- [x] Repo made public and security reporting enabled
-- [ ] CI, security, and deployment workflows fully green on `main`
-- [ ] Vercel and Render wired up with proper secrets
+- [x] Monorepo scaffold created for backend and frontend
+- [x] Documentation, architecture, evidence model, and planning materials added
+- [x] Repository ruleset and review flow configured
+- [x] Security reporting and conduct policy implemented
+- [ ] CI, security, and deployment workflows green on `main`
+- [ ] Vercel and Render connected with required secrets
 
 **Phase 2: Graph slice (M2) — not started**
 
-- [x] Disease cluster selected: GBA1 / Gaucher / lysosomal dysfunction cluster
-- [x] Curated organizations and asset notes drafted in `data/curated/`
-- [ ] Ingest for MONDO, HPO, ClinVar, and PubMed in the slice
+- [x] Disease cluster selected: GBA1 / Gaucher / lysosomal dysfunction
+- [x] Curated organizations and asset notes drafted
+- [ ] Ingest for MONDO, HPO, ClinVar, and PubMed in the selected slice
 - [ ] OpenAI Extract and Reconcile into evidence edges
-- [ ] `make data` reproduces a dated snapshot
+- [ ] `make data` reproduces a dated graph snapshot
 
 **Phase 3: Trust layer (M3) — not started**
 
-- Confidence scoring
-- Contradiction tracking
-- Coverage reporting
-- Explain layer with edge citations
+- [ ] Confidence scoring
+- [ ] Contradiction tracking
+- [ ] Coverage reporting
+- [ ] Explain layer with edge citations and evidence transparency
 
 **Phase 4: UI journey (M4) — not started**
 
-- Search
-- Cluster view
-- Edge explanation panel
-- Patient action view
+- [ ] Search
+- [ ] Cluster exploration
+- [ ] Edge explanation panel
+- [ ] Patient action view
 
 **Phase 5: Submission (M5) — not started**
 
 See [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md).
 
-### Project planning references
+### Planning references
 
 - [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md)
 - [docs/EXECUTION_PLAN.md](docs/EXECUTION_PLAN.md)
@@ -301,9 +372,9 @@ See [docs/SUBMISSION_CHECKLIST.md](docs/SUBMISSION_CHECKLIST.md).
 ## Development workflow
 
 - Branches follow `feat|fix|docs|chore|data/<short-desc>` naming
-- PR titles follow Conventional Commits because PRs are squash merged and the title becomes the commit message
+- PR titles follow Conventional Commits because PRs are squash-merged and the title becomes the commit message
 - `main` is protected and requires PR review by the code owner (`@alijendoubi`)
-- Required checks include backend, frontend, PR title validation, and secrets scanning
+- Required checks include backend validation, frontend validation, title checks, and secrets scanning
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and [docs/RUNBOOK.md](docs/RUNBOOK.md).
 
@@ -319,6 +390,20 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and [docs/RU
 
 ---
 
+## Why this matters to the challenge
+
+This project addresses a clear challenge statement with a product shape that is practical, evidence-driven, and immediately understandable to users:
+
+- It recognizes the disease knowledge problem as messy and fragmented.
+- It proposes a graph-based solution rooted in biomedical structure and provenance.
+- It treats AI as a reasoning assistant rather than a source of final truth.
+- It centers the experience around patient and investigator needs, not just technical novelty.
+- It delivers a realistic roadmap from data ingest to explainable product experience.
+
+This is the kind of system judges can understand, developers can build, and teams can iterate on rapidly.
+
+---
+
 ## License
 
 [MIT](LICENSE)
@@ -331,6 +416,6 @@ Third-party data remains subject to its own license terms. See [docs/DATA_SOURCE
 
 - Hack-Nation for the 7th Global AI Hackathon
 - OpenAI and the Buffalo Initiative for supporting Challenge 05
-- MONDO, HPO, ClinVar, PubMed / NCBI, OMIM, Orphanet, ClinicalTrials.gov, NIH RePORTER, and patient organizations for the public knowledge this work builds on
+- MONDO, HPO, ClinVar, PubMed, OMIM, Orphanet, ClinicalTrials.gov, NIH RePORTER, and patient organizations whose public data this work builds on
 
 Equilibrium is a research and hackathon prototype. It is not medical advice.

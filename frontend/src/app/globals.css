@@ -5,6 +5,7 @@
  *   cluster  (teal)   - who shares our disease characteristics
  *   evidence (amber)  - what useful work already exists
  *   action   (violet) - what we should do together next
+ *   contradiction (red) - sources disagree (always shown with a text label)
  */
 :root {
   --background: #fbfbf9;
@@ -16,6 +17,7 @@
   --evidence: #b45309;
   --action: #6d28d9;
   --focus: #2563eb;
+  --contradiction: #b91c1c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,6 +31,7 @@
     --evidence: #fbbf24;
     --action: #a78bfa;
     --focus: #60a5fa;
+    --contradiction: #f87171;
   }
 }
 
@@ -42,6 +45,7 @@
   --color-evidence: var(--evidence);
   --color-action: var(--action);
   --color-focus: var(--focus);
+  --color-contradiction: var(--contradiction);
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }

@@ -139,3 +139,21 @@ flowchart LR
 - [ ] Is OMIM licensing workable for a public snapshot? If not, use OMIM only at runtime with a key, and fall back to ClinVar and Orphanet for mechanism.
 - [ ] Confidence calibration: hand-tuned rubric vs a small labelled set
 - [ ] Should the snapshot ship inside the backend Docker image, or be fetched at start from a release asset?
+
+## Reconcile (name resolution and search)
+
+`backend/src/atlas/reconcile/` maps surface names (from sources, papers, or the search box) to one stable node id.
+
+| Step | Method | OpenAI |
+|---|---|---|
+| 1 | Exact label (after normalisation: case, punctuation, Greek letters, `type II` = `type 2`) | no |
+| 2 | Id or cross-reference (`OMIM:230900`, `ORPHA:77260`) | no |
+| 3 | Normalised synonym (filler words like "disease" dropped) | no |
+| 4 | Embedding similarity over labels and synonyms | `text-embedding-3-small` |
+| 5 | Ambiguous only: structured choice among the top 5 candidates | `gpt-6-luna` (`OPENAI_MODEL_RECONCILE`) |
+
+- The model can only return an id from the candidate list (the JSON schema enumerates them, and the answer is validated again). Anything else becomes "no match". Ids are never invented.
+- `merge_duplicates` merges same-type nodes sharing an id/xref or a normalised label, keeping the most authoritative id (MONDO > ORPHA > OMIM; HGNC for genes).
+- Every embedding and every LLM decision is cached in `data/cache/embeddings/` and `data/cache/reconcile/decisions.json`, committed with the snapshot. With `ATLAS_OFFLINE=1` or no key, only the cache is used, so the demo never depends on a live call.
+- `SearchIndex` powers `GET /api/v1/search`: exact, then synonym/prefix, then semantic hits, with a `searched` list for honest empty states.
+- Precompute embeddings once the snapshot exists: `uv run python -m atlas.reconcile.cli embed --nodes ../data/snapshot/atlas-snapshot.json`.

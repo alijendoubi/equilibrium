@@ -1,0 +1,84 @@
+[
+  {
+    "disease_id": "MONDO:0009267",
+    "partners": [
+      {
+        "node_id": "MONDO:1040030",
+        "why": "Same gene (GBA1) and the same lysosomal mechanism. GBA1 variants raise the risk of Parkinson's.",
+        "edge_ids": ["E:277fc6b6e1911b65", "E:93468e247aa8c342", "E:36c6e1a96c92e376"]
+      },
+      {
+        "node_id": "ORG:cure-parkinsons",
+        "why": "Funds ASPro-PD, a phase 3 ambroxol trial that enrols GBA1 carriers.",
+        "edge_ids": ["E:11d2b7cd5c593849", "E:d99bd4495f7dbc55"]
+      },
+      {
+        "node_id": "ORG:national-gaucher-foundation",
+        "why": "Patient organization for all types of Gaucher disease.",
+        "edge_ids": ["E:2f71210211ad660c"]
+      }
+    ],
+    "assets": [
+      {
+        "node_id": "clinicaltrials:NCT05778617",
+        "reusable": "Ambroxol dosing, safety monitoring and GCase-activity measures in adults with GBA1 variants.",
+        "differs": "Adults with Parkinson's, not children with neuronopathic Gaucher disease. The outcome is motor progression, not myoclonus or seizures.",
+        "edge_ids": ["E:d99bd4495f7dbc55", "E:aaf6fb9814e43d1c"]
+      },
+      {
+        "node_id": "PMID:27042680",
+        "reusable": "High-dose oral ambroxol reached the brain and lowered a disease marker in spinal fluid in neuronopathic Gaucher disease.",
+        "differs": "Five patients, open label, no control group: a signal, not clinical proof.",
+        "edge_ids": ["E:a2144c8a83a43c36", "E:dc85c36a4b200459"]
+      }
+    ],
+    "next_experiment": {
+      "text": "Ask the ASPro-PD team whether its GCase-activity and biomarker protocol could be reused in a small natural history study in neuronopathic Gaucher disease. Hypothesis: the same markers track ambroxol response in both conditions.",
+      "is_hypothesis": true,
+      "edge_ids": ["E:aaf6fb9814e43d1c", "E:dc85c36a4b200459", "E:36c6e1a96c92e376"]
+    },
+    "review_checklist": [
+      "Is the ASPro-PD dose (420 mg) comparable to the high doses used in the Gaucher pilot?",
+      "Do GBA1 variants in Parkinson's carriers behave like those in neuronopathic Gaucher disease?",
+      "Which outcome measures could both communities share?"
+    ]
+  },
+  {
+    "disease_id": "MONDO:0009266",
+    "partners": [
+      {
+        "node_id": "MONDO:1040030",
+        "why": "Same gene (GBA1). GBA1 variants raise the risk of Parkinson's.",
+        "edge_ids": ["E:685afda62f30e82a", "E:93468e247aa8c342"]
+      },
+      {
+        "node_id": "ORG:national-gaucher-foundation",
+        "why": "Patient organization for all types of Gaucher disease.",
+        "edge_ids": ["E:2f71210211ad660c"]
+      }
+    ],
+    "assets": [],
+    "next_experiment": null,
+    "review_checklist": []
+  },
+  {
+    "disease_id": "MONDO:1040030",
+    "partners": [
+      {
+        "node_id": "MONDO:0009267",
+        "why": "Same gene (GBA1) and the same lysosomal mechanism.",
+        "edge_ids": ["E:93468e247aa8c342", "E:277fc6b6e1911b65", "E:85cb8958e184d978"]
+      }
+    ],
+    "assets": [
+      {
+        "node_id": "PMID:27042680",
+        "reusable": "Evidence that high-dose ambroxol reaches the brain in people.",
+        "differs": "Children and young people with Gaucher disease, not adults with Parkinson's.",
+        "edge_ids": ["E:dc85c36a4b200459"]
+      }
+    ],
+    "next_experiment": null,
+    "review_checklist": []
+  }
+]

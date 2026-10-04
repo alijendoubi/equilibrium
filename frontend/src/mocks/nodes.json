@@ -1,0 +1,230 @@
+[
+  {
+    "id": "MONDO:0018150",
+    "type": "disease",
+    "label": "Gaucher disease",
+    "synonyms": ["glucocerebrosidase deficiency", "GD"],
+    "xrefs": ["ORPHA:355"],
+    "attributes": {
+      "description": "[MOCK] A lysosomal storage disease caused by deficient glucocerebrosidase (GCase) activity. Types 2 and 3 involve the nervous system (neuronopathic)."
+    }
+  },
+  {
+    "id": "MONDO:0009266",
+    "type": "disease",
+    "label": "Gaucher disease type II",
+    "synonyms": [
+      "Gaucher disease type 2",
+      "acute neuronopathic Gaucher disease",
+      "neuronopathic Gaucher disease",
+      "GD2"
+    ],
+    "xrefs": ["OMIM:230900"],
+    "attributes": {
+      "description": "[MOCK] The acute neuronopathic form of Gaucher disease, with onset in infancy and rapid neurological decline."
+    }
+  },
+  {
+    "id": "MONDO:0009267",
+    "type": "disease",
+    "label": "Gaucher disease type III",
+    "synonyms": [
+      "Gaucher disease type 3",
+      "chronic neuronopathic Gaucher disease",
+      "neuronopathic Gaucher disease",
+      "GD3"
+    ],
+    "xrefs": ["OMIM:231000"],
+    "attributes": {
+      "description": "[MOCK] The chronic neuronopathic form of Gaucher disease: enlarged spleen and liver, low platelets, and slowly progressive neurological signs such as abnormal eye movements and seizures."
+    }
+  },
+  {
+    "id": "MONDO:1040030",
+    "type": "disease",
+    "label": "GBA1-related Parkinson disease, susceptibility",
+    "synonyms": ["GBA1-associated Parkinson's disease", "GBA-PD", "GBA1-PD"],
+    "xrefs": [],
+    "attributes": {
+      "description": "[MOCK] Parkinson disease in people who carry a GBA1 variant. Carrying one variant raises the risk of Parkinson disease; it does not cause Gaucher disease."
+    }
+  },
+  {
+    "id": "MONDO:0012517",
+    "type": "disease",
+    "label": "Gaucher disease due to saposin C deficiency",
+    "synonyms": [
+      "atypical Gaucher disease",
+      "Saposin C deficiency",
+      "atypical Gaucher disease due to saposin C deficiency"
+    ],
+    "xrefs": [],
+    "attributes": {
+      "description": "[MOCK, PLACEHOLDER] Used as the honest-gap demo: a Gaucher-like disease with normal GCase, caused by PSAP variants. Coverage counts for it are placeholders until the snapshot exists."
+    }
+  },
+  {
+    "id": "HGNC:4177",
+    "type": "gene",
+    "label": "GBA1",
+    "synonyms": [
+      "GBA",
+      "glucosylceramidase beta 1",
+      "glucocerebrosidase",
+      "GCase",
+      "acid beta-glucosidase"
+    ],
+    "xrefs": ["NCBIGene:2629", "UniProtKB:P04062"],
+    "attributes": {
+      "description": "[MOCK] Encodes glucocerebrosidase (GCase), the lysosomal enzyme that breaks down glucosylceramide."
+    }
+  },
+  {
+    "id": "HGNC:9498",
+    "type": "gene",
+    "label": "PSAP",
+    "synonyms": ["prosaposin", "saposin C"],
+    "xrefs": [],
+    "attributes": {
+      "description": "[MOCK] Encodes prosaposin, which is cut into saposins A-D. Saposin C activates GCase."
+    }
+  },
+  {
+    "id": "MECH:lysosomal_dysfunction",
+    "type": "mechanism",
+    "label": "Lysosomal dysfunction (glucosylceramide breakdown)",
+    "synonyms": ["lysosomal function", "glucosylceramide catabolic process", "lysosomal storage"],
+    "xrefs": ["GO:0006680", "GO:0007040"],
+    "attributes": {
+      "description": "[MOCK] Cells cannot clear glucosylceramide inside the lysosome, so lipids build up and lysosomes work poorly."
+    }
+  },
+  {
+    "id": "HP:0001744",
+    "type": "phenotype",
+    "label": "Splenomegaly",
+    "synonyms": ["enlarged spleen"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "4.1"
+    }
+  },
+  {
+    "id": "HP:0002240",
+    "type": "phenotype",
+    "label": "Hepatomegaly",
+    "synonyms": ["enlarged liver"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "3.6"
+    }
+  },
+  {
+    "id": "HP:0000657",
+    "type": "phenotype",
+    "label": "Oculomotor apraxia",
+    "synonyms": ["difficulty moving the eyes on purpose", "abnormal eye movements"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "7.2"
+    }
+  },
+  {
+    "id": "HP:0001250",
+    "type": "phenotype",
+    "label": "Seizure",
+    "synonyms": ["seizures", "epileptic seizure"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "2.4"
+    }
+  },
+  {
+    "id": "HP:0001873",
+    "type": "phenotype",
+    "label": "Thrombocytopenia",
+    "synonyms": ["low platelet count"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "3.3"
+    }
+  },
+  {
+    "id": "HP:0002067",
+    "type": "phenotype",
+    "label": "Bradykinesia",
+    "synonyms": ["slow movements"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "5"
+    }
+  },
+  {
+    "id": "HP:0100543",
+    "type": "phenotype",
+    "label": "Cognitive impairment",
+    "synonyms": ["memory and thinking problems"],
+    "xrefs": [],
+    "attributes": {
+      "ic": "2.9"
+    }
+  },
+  {
+    "id": "ORG:national-gaucher-foundation",
+    "type": "patient_group",
+    "label": "National Gaucher Foundation",
+    "synonyms": ["NGF"],
+    "xrefs": [],
+    "attributes": {
+      "description": "[MOCK] US patient organization for people with Gaucher disease.",
+      "url": "https://www.gaucherdisease.org/"
+    }
+  },
+  {
+    "id": "ORG:cure-parkinsons",
+    "type": "patient_group",
+    "label": "Cure Parkinson's",
+    "synonyms": ["Cure Parkinson's Trust"],
+    "xrefs": [],
+    "attributes": {
+      "description": "[MOCK] UK charity funding research to slow, stop or reverse Parkinson's. A funder of the ASPro-PD trial.",
+      "url": "https://cureparkinsons.org.uk/"
+    }
+  },
+  {
+    "id": "clinicaltrials:NCT05778617",
+    "type": "study",
+    "label": "ASPro-PD: Ambroxol to Slow Progression in Parkinson Disease",
+    "synonyms": ["ASPro-PD", "Ambroxol to Slow Progression in Parkinson Disease"],
+    "xrefs": [],
+    "attributes": {
+      "description": "Phase IIIa multi-centre randomised placebo-controlled trial (University College London). Enrols people with Parkinson's with and without GBA1 variants.",
+      "phase": "PHASE3",
+      "status": "RECRUITING",
+      "enrollment": "330",
+      "enrollment_type": "ESTIMATED",
+      "clinical_proof": "false"
+    }
+  },
+  {
+    "id": "PMID:27042680",
+    "type": "publication",
+    "label": "Ambroxol chaperone therapy for neuronopathic Gaucher disease: a pilot study (Narita et al., 2016)",
+    "synonyms": ["Narita 2016", "ambroxol pilot"],
+    "xrefs": ["DOI:10.1002/acn3.292", "PMCID:PMC4774255"],
+    "attributes": {
+      "description": "Open-label pilot in five patients with neuronopathic Gaucher disease. Ann Clin Transl Neurol 2016;3(3):200-15."
+    }
+  },
+  {
+    "id": "ASSET:intervention/ambroxol",
+    "type": "asset",
+    "label": "Ambroxol (candidate pharmacological chaperone)",
+    "synonyms": ["ambroxol", "ambroxol hydrochloride"],
+    "xrefs": [],
+    "attributes": {
+      "description": "[MOCK] An old cough medicine studied as a chaperone that may raise GCase activity. Not an approved therapy for either disease.",
+      "clinical_proof": "false"
+    }
+  }
+]

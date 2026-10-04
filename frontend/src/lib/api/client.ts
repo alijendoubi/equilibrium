@@ -1,10 +1,13 @@
 import type { z } from "zod";
 import { getPublicEnv, getServerEnv } from "@/lib/env";
 import { displayId } from "@/lib/format";
+import { loadMockClusters, mockClusterOf, type MockClusters } from "./clusters-mock";
 import { buildTemplateExplanation } from "./explain-template";
 import { loadMockDataset, type MockDataset } from "./mock-data";
 import {
   actionsResponseSchema,
+  clusterDetailSchema,
+  clustersResponseSchema,
   coverageReportSchema,
   explainResponseSchema,
   MAX_EXPLAIN_EDGES,
@@ -15,6 +18,8 @@ import {
 import type {
   ActionsResponse,
   AtlasNode,
+  ClusterDetail,
+  ClustersResponse,
   CoverageReport,
   ExplainAudience,
   ExplainResponse,
@@ -38,6 +43,10 @@ export interface AtlasClient {
   getCoverage(id: string): Promise<CoverageReport | null>;
   /** Cited plain-language explanation of up to 12 edges (POST /api/v1/explain). */
   explain(edgeIds: string[], audience?: ExplainAudience): Promise<ExplainResponse>;
+  /** Every disease cluster (GET /api/v1/clusters). */
+  getClusters(): Promise<ClustersResponse>;
+  /** Resolves to null when the cluster id is unknown. */
+  getCluster(id: string): Promise<ClusterDetail | null>;
 }
 
 /** Abort a backend call after this long and fall back to the bundled demo data. */
@@ -126,12 +135,23 @@ function genericGap(query: string): CoverageReport {
   };
 }
 
-export function createMockClient(load: () => MockDataset = loadMockDataset): AtlasClient {
+export function createMockClient(
+  load: () => MockDataset = loadMockDataset,
+  loadClusters: () => MockClusters = loadMockClusters,
+): AtlasClient {
   const nodeById = (data: MockDataset, id: string) => data.nodes.find((n) => n.id === id);
 
   return {
     isMock: true,
     usedFallback: false,
+
+    async getClusters() {
+      return loadClusters().list;
+    },
+
+    async getCluster(id) {
+      return loadClusters().details.get(id) ?? null;
+    },
 
     async explain(edgeIds, audience = "family") {
       const data = load();
@@ -168,7 +188,7 @@ export function createMockClient(load: () => MockDataset = loadMockDataset): Atl
         counts: { edges: edges.length, by_relation: byRelation },
         edges: edges.slice(0, MAX_TOP_EDGES),
         neighbors: data.nodes.filter((n) => neighborIds.has(n.id)),
-        cluster_id: node.type === "disease" && !coverage ? "cluster:gba1_lysosomal" : null,
+        cluster_id: node.type === "disease" ? mockClusterOf(id, loadClusters()) : null,
         coverage_status: coverage ? "gap" : "supported",
       };
     },
@@ -296,6 +316,10 @@ export function createHttpClient(baseUrl: string, options: HttpClientOptions = {
     },
     getActions: (id) => get(`/actions/${enc(id)}`, actionsResponseSchema, true),
     getCoverage: (id) => get(`/coverage/${enc(id)}`, coverageReportSchema, true),
+    async getClusters() {
+      return (await get("/clusters", clustersResponseSchema))!;
+    },
+    getCluster: (id) => get(`/clusters/${enc(id)}`, clusterDetailSchema, true),
   };
 }
 
@@ -353,6 +377,16 @@ export function createFallbackClient(primary: AtlasClient, fallback: AtlasClient
       attempt(
         () => primary.explain(ids, audience),
         () => fallback.explain(ids, audience),
+      ),
+    getClusters: () =>
+      attempt(
+        () => primary.getClusters(),
+        () => fallback.getClusters(),
+      ),
+    getCluster: (id) =>
+      attempt(
+        () => primary.getCluster(id),
+        () => fallback.getCluster(id),
       ),
   };
 }

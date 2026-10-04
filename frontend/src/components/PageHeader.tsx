@@ -7,6 +7,9 @@ export function PageHeader({ query = "" }: { query?: string }) {
       <Link href="/" className="text-sm font-semibold tracking-tight">
         Equilibrium
       </Link>
+      <Link href="/clusters" className="text-sm text-muted underline-offset-4 hover:underline">
+        Clusters
+      </Link>
       <form role="search" action="/search" method="get" className="ml-auto flex-1 sm:max-w-sm">
         <label htmlFor="header-search" className="sr-only">
           Search the atlas

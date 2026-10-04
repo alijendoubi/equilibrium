@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EvidenceBadge, TypeBadge } from "@/components/Badges";
 import { ActionSections } from "@/components/disease/ActionSections";
+import { DiseaseCluster } from "@/components/disease/DiseaseCluster";
 import { SummaryCard } from "@/components/disease/SummaryCard";
 import { GapCard } from "@/components/GapCard";
 import { DataNotice } from "@/components/MockBanner";
@@ -71,6 +72,8 @@ export default async function NodePage({ params }: NodePageProps) {
   const isDisease = node.type === "disease";
   const description = node.attributes.description;
   const actions = isDisease ? await client.getActions(id) : null;
+  const cluster =
+    isDisease && summary.cluster_id ? await client.getCluster(summary.cluster_id) : null;
   const coverage = actions?.coverage ?? null;
   const gap = coverage && coverage.result !== "supported" ? coverage : null;
 
@@ -121,9 +124,18 @@ export default async function NodePage({ params }: NodePageProps) {
           <div className="mt-8">
             <SummaryCard summary={buildDiseaseSummary(summary)} />
           </div>
+          {cluster && (
+            <div className="mt-8">
+              <DiseaseCluster diseaseId={id} cluster={cluster} />
+            </div>
+          )}
           {actions && (
             <div className="mt-8">
-              <ActionSections actions={actions} gapShownAbove={Boolean(gap)} />
+              <ActionSections
+                actions={actions}
+                gapShownAbove={Boolean(gap)}
+                clusterId={cluster?.id ?? null}
+              />
             </div>
           )}
         </>

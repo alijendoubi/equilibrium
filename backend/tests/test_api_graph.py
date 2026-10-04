@@ -140,7 +140,7 @@ def test_node_summary_accepts_raw_and_encoded_ids(api: TestClient, node_id: str)
     assert body["node"]["id"] == GAUCHER_2
     assert set(body["counts"]) == {"edges", "by_relation"}
     assert body["counts"]["edges"] >= len(body["edges"])
-    assert body["cluster_id"] is None
+    assert str(body["cluster_id"]).startswith("C")  # diseases get a cluster (#20)
     assert body["coverage_status"] == "supported"
     for edge in body["edges"]:
         _check_edge(edge)

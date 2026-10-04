@@ -2,6 +2,8 @@ import { z } from "zod";
 import type {
   ActionsResponse,
   AtlasNode,
+  ClusterDetail,
+  ClustersResponse,
   CoverageReport,
   Edge,
   ExplainRequest,
@@ -237,6 +239,83 @@ export const explainResponseSchema = z.object({
   ai_generated: z.boolean(),
 });
 
+const unitScore = z.number().min(0).max(1);
+
+export const clusterSummarySchema = z.object({
+  id: nonBlank,
+  label: nonBlank,
+  size: z.number().int().min(1),
+  member_ids: z.array(curie).min(1),
+});
+
+export const clustersResponseSchema = z.object({
+  clusters: z.array(clusterSummarySchema),
+  method: z.object({
+    description: z.string(),
+    weights: z.record(z.string(), z.number()),
+    phenotype_ic_floor: z.number(),
+    edge_threshold: z.number(),
+    seed: z.number().int(),
+  }),
+});
+
+const sharedFeatureSchema = z.object({
+  node: nodeSchema,
+  member_ids: z.array(curie),
+  ic: z.number().nullable().default(null),
+});
+
+export const clusterDetailSchema = z.object({
+  id: nonBlank,
+  label: nonBlank,
+  size: z.number().int().min(1),
+  member_ids: z.array(curie).min(1),
+  nodes: z.array(
+    z.object({
+      node: nodeSchema,
+      cluster_id: nonBlank,
+      is_member: z.boolean(),
+      degree: z.number().int().min(0),
+    }),
+  ),
+  features: z.object({
+    genes: z.array(sharedFeatureSchema),
+    mechanisms: z.array(sharedFeatureSchema),
+    phenotypes: z.array(sharedFeatureSchema),
+  }),
+  edges: z.array(
+    z.object({
+      source_id: curie,
+      target_id: curie,
+      kind: z.enum(["within", "bridge"]),
+      score: unitScore,
+      phenotype_score: unitScore,
+      gene_score: unitScore,
+      mechanism_score: unitScore,
+      reasons: z.array(z.string()),
+    }),
+  ),
+  bridges: z.array(
+    z.object({
+      member_id: curie,
+      other_id: curie,
+      other_cluster_id: nonBlank,
+      score: unitScore,
+      reasons: z.array(z.string()),
+    }),
+  ),
+  counterexamples: z.array(
+    z.object({
+      gene: nodeSchema,
+      member_id: curie,
+      other_id: curie,
+      other_cluster_id: nonBlank,
+      score: unitScore,
+      note: z.string(),
+    }),
+  ),
+});
+
 // Compile-time guard: the schemas and the hand-written types must stay in sync.
 type MutuallyAssignable<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;
 type Assert<T extends true> = T;
@@ -250,4 +329,6 @@ export type SchemaTypeChecks = [
   Assert<MutuallyAssignable<z.infer<typeof coverageReportSchema>, CoverageReport>>,
   Assert<MutuallyAssignable<z.infer<typeof explainRequestSchema>, ExplainRequest>>,
   Assert<MutuallyAssignable<z.infer<typeof explainResponseSchema>, ExplainResponse>>,
+  Assert<MutuallyAssignable<z.infer<typeof clustersResponseSchema>, ClustersResponse>>,
+  Assert<MutuallyAssignable<z.infer<typeof clusterDetailSchema>, ClusterDetail>>,
 ];

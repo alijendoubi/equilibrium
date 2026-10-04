@@ -8,6 +8,7 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
+from atlas.api.cluster_routes import ClusterIndexDep
 from atlas.api.deps import StoreDep
 from atlas.graph import queries
 from atlas.graph.actions import build_actions
@@ -117,8 +118,8 @@ def node_neighbors(
 
 
 @router.get("/nodes/{node_id}", response_model=NodeSummary)
-def node_summary(node_id: str, store: StoreDep) -> NodeSummary:
-    """Node card: counts, top edges (best first), their neighbors, coverage status."""
+def node_summary(node_id: str, store: StoreDep, clusters: ClusterIndexDep) -> NodeSummary:
+    """Node card: counts, top edges (best first), neighbors, cluster (diseases), coverage."""
     node = _node_or_404(store, node_id)
     edges = queries.top_edges(store, node.id)
     return NodeSummary(
@@ -126,7 +127,7 @@ def node_summary(node_id: str, store: StoreDep) -> NodeSummary:
         counts=queries.node_counts(store.edges_for(node.id)),
         edges=edges,
         neighbors=queries.nodes_across(store, node.id, edges),
-        cluster_id=None,
+        cluster_id=clusters.cluster_of(node.id),
         coverage_status=coverage_status(store, node),
     )
 

@@ -12,6 +12,11 @@ They let us build the UI before the API is live (task B6, issue #23). Any node d
 | `paths.json`    | demo paths stored as node and edge ids. The mock client fills them in and slices them     | `GET /api/v1/paths`                |
 | `actions.json`  | the action view for each disease, as node and edge ids                                    | `GET /api/v1/actions/{disease_id}` |
 | `coverage.json` | `CoverageReport[]`                                                                        | `GET /api/v1/coverage/{node_id}`   |
+| `clusters.json` | clusters as node ids (`src/lib/api/clusters-mock.ts` fills them in and validates them)    | `GET /api/v1/clusters[/{id}]`      |
+
+`clusters.json` follows what the real snapshot shows (the GBA1 Gaucher types and late-onset PD
+group together; saposin C deficiency sits in another cluster). Its scores are computed by hand
+with the backend formula from the mock edges and IC values, so they are placeholders too.
 
 When the mock client loads (`src/lib/api/mock-data.ts`), zod validates every file. It also checks
 referential integrity: each edge endpoint and each referenced id must exist.

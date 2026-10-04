@@ -73,3 +73,16 @@ test("gap flow: Saposin C deficiency shows the honest gap card", async ({ page }
   await expect(gap).toBeVisible();
   await expect(gap.getByText("Help build the missing community")).toBeVisible();
 });
+
+test("clusters: Gaucher types sit in a cluster with a graph and member links", async ({ page }) => {
+  await page.goto("/clusters");
+  await expect(page.getByRole("heading", { level: 1, name: "Disease clusters" })).toBeVisible();
+  const gaucherLink = page.locator('a[href*="/clusters/"]').filter({ hasText: /GBA1/ }).first();
+  await gaucherLink.click();
+  await expect(page).toHaveURL(/\/clusters\//);
+  await expect(page.locator('a[href="/disease/MONDO%3A0009266"]').first()).toBeVisible();
+  await page.locator('a[href="/disease/MONDO%3A0009266"]').first().click();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Gaucher disease type II" }),
+  ).toBeVisible();
+});

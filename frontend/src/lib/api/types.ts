@@ -242,3 +242,96 @@ export interface ExplainResponse {
   prompt_version: string;
   ai_generated: boolean;
 }
+
+/* Clusters: GET /api/v1/clusters and /clusters/{id} (backend/src/atlas/models/clusters.py). */
+
+export interface ClusterSummary {
+  id: string;
+  /** Top shared gene and mechanism, e.g. "GBA1 · lysosomal protein catabolic process". */
+  label: string;
+  size: number;
+  member_ids: string[];
+}
+
+/** How the clusters were computed, so the page can say it plainly. */
+export interface ClusterMethod {
+  description: string;
+  weights: Record<string, number>;
+  phenotype_ic_floor: number;
+  edge_threshold: number;
+  seed: number;
+}
+
+/** GET /api/v1/clusters */
+export interface ClustersResponse {
+  clusters: ClusterSummary[];
+  method: ClusterMethod;
+}
+
+/** A disease drawn in the cluster view: a member, or the far end of a bridge/counterexample. */
+export interface ClusterNode {
+  node: AtlasNode;
+  cluster_id: string;
+  is_member: boolean;
+  /** Similarity links above the threshold; drives node size. */
+  degree: number;
+}
+
+/** A gene, GO mechanism or symptom shared by two or more members. */
+export interface SharedFeature {
+  node: AtlasNode;
+  member_ids: string[];
+  /** Information content (symptoms only); higher is more specific. */
+  ic: number | null;
+}
+
+export interface ClusterFeatures {
+  genes: SharedFeature[];
+  mechanisms: SharedFeature[];
+  phenotypes: SharedFeature[];
+}
+
+/** within = solid link inside the cluster; bridge = dashed link to another cluster. */
+export type ClusterEdgeKind = "within" | "bridge";
+
+export interface ClusterEdge {
+  source_id: string;
+  target_id: string;
+  kind: ClusterEdgeKind;
+  score: number;
+  phenotype_score: number;
+  gene_score: number;
+  mechanism_score: number;
+  reasons: string[];
+}
+
+export interface ClusterBridge {
+  member_id: string;
+  other_id: string;
+  other_cluster_id: string;
+  score: number;
+  reasons: string[];
+}
+
+/** Same gene, different cluster: the gene alone does not decide the grouping. */
+export interface Counterexample {
+  gene: AtlasNode;
+  member_id: string;
+  other_id: string;
+  other_cluster_id: string;
+  score: number;
+  note: string;
+}
+
+/** GET /api/v1/clusters/{id} */
+export interface ClusterDetail {
+  id: string;
+  label: string;
+  size: number;
+  member_ids: string[];
+  nodes: ClusterNode[];
+  features: ClusterFeatures;
+  edges: ClusterEdge[];
+  bridges: ClusterBridge[];
+  counterexamples: Counterexample[];
+}

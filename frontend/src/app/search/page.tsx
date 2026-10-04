@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MatchReasonBadge, TypeBadge } from "@/components/Badges";
-import { MockBanner } from "@/components/MockBanner";
+import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { getAtlasClient } from "@/lib/api/client";
 import { displayId, nodeHref } from "@/lib/format";
@@ -21,9 +21,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <main className="mx-auto max-w-3xl px-6 py-8">
       <PageHeader query={q} />
-      <div className="mt-6">
-        <MockBanner isMock={client.isMock} />
-      </div>
+      <DataNotice isMock={client.isMock} usedFallback={client.usedFallback} />
 
       <h1 className="mt-8 text-2xl font-semibold tracking-tight">
         {q ? (

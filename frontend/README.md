@@ -30,20 +30,27 @@ the app itself unless `E2E_BASE_URL` points at a running instance.
 Copy `.env.example` to `.env.local`. Both default to `http://localhost:8000` and are
 validated in `src/lib/env.ts`.
 
-| Variable                | Scope   | Purpose                                                  |
-| ----------------------- | ------- | -------------------------------------------------------- |
-| `NEXT_PUBLIC_API_URL`   | browser | Backend base URL (inlined at build time)                 |
-| `BACKEND_URL`           | server  | Backend base URL used by route handlers                  |
-| `NEXT_PUBLIC_USE_MOCKS` | both    | `false` switches the UI from `src/mocks` to the live API |
+| Variable                | Scope   | Purpose                                                                                         |
+| ----------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL`   | browser | Backend base URL (inlined at build time)                                                        |
+| `BACKEND_URL`           | server  | Backend base URL for server components and route handlers (falls back to `NEXT_PUBLIC_API_URL`) |
+| `NEXT_PUBLIC_USE_MOCKS` | both    | `false` switches the UI from `src/mocks` to the live API (inlined at build time)                |
+
+Live mode: `NEXT_PUBLIC_USE_MOCKS=false NEXT_PUBLIC_API_URL=http://localhost:8000 pnpm dev`
+(or set them before `pnpm build`). Every live call times out after 4 s (explain: 15 s). If the
+backend is down, times out, answers 5xx or sends an unexpected shape, that call is answered from
+the bundled demo data and the page shows "Showing cached demo data". A 404 is a real answer. The
+browser calls `POST /api/v1/explain` directly, so the backend must allow the frontend origin (CORS).
 
 ## Routes and data
 
-| Route             | What it shows                                                                                      |
-| ----------------- | -------------------------------------------------------------------------------------------------- |
-| `/`               | Global search, example chips, Maria's three questions                                              |
-| `/search?q=`      | Results with type and match reason (exact, synonym, semantic); honest empty state                  |
-| `/disease/[id]`   | Summary first (cause, top symptoms, mechanism), then "Who shares this", "What exists", "What next" |
-| `/path?from=&to=` | Chain of chips; solid = data, dashed = hypothesis; side panel with the edge evidence               |
+| Route             | What it shows                                                                                                                                                                                            |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`               | Global search, example chips, Maria's three questions                                                                                                                                                    |
+| `/search?q=`      | Results with type and match reason (exact, synonym, semantic); honest empty state                                                                                                                        |
+| `/disease/[id]`   | Gap card first when there is no supported route; summary (cause, top symptoms, mechanism), then "Who shares this", "What exists", "What next"                                                            |
+| `/path?from=&to=` | Chain of chips; solid = data, dashed = hypothesis; side panel with the edge evidence; "Explain this path"                                                                                                |
+| `/actions/[id]`   | Patient action view: partners (why + cited edges), reusable vs what differs, next experiment (hypothesis), expert checklist, "Draft collaboration brief" (family/researcher, AI or template label, copy) |
 
 Pages read data only through `AtlasClient` (`src/lib/api/client.ts`). Wire types are in
 `src/lib/api/types.ts`, and zod schemas in `src/lib/api/schemas.ts` validate both the mock

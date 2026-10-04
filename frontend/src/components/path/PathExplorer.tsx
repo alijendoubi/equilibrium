@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useMemo, useState } from "react";
+import { ExplainPanel } from "@/components/explain/ExplainPanel";
 import { NodeChip } from "@/components/NodeChip";
 import type { AtlasNode, Edge, Path } from "@/lib/api/types";
 import { EVIDENCE_LABEL, formatConfidence, relationLabel } from "@/lib/format";
@@ -99,6 +100,15 @@ export function PathExplorer({ paths }: { paths: Path[] }) {
                 );
               })}
             </ol>
+            <div className="mt-4">
+              <ExplainPanel
+                edgeIds={path.edges.map((e) => e.id)}
+                edges={path.edges}
+                nodes={path.nodes}
+                triggerLabel="Explain this path"
+                title={`Route ${index + 1} in plain language`}
+              />
+            </div>
           </section>
         ))}
         <p className="text-xs text-muted">

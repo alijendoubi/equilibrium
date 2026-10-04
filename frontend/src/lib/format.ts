@@ -102,6 +102,11 @@ export function nodeHref(id: string): string {
   return `/disease/${encodeURIComponent(id)}`;
 }
 
+/** Patient action view for a disease (ids are URL-encoded, so "MONDO:0009266" -> "MONDO%3A0009266"). */
+export function actionsHref(id: string): string {
+  return `/actions/${encodeURIComponent(id)}`;
+}
+
 export function pathHref(from: string, to: string): string {
   return `/path?${new URLSearchParams({ from, to }).toString()}`;
 }

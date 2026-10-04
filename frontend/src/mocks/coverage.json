@@ -40,7 +40,7 @@
     ],
     "weak_leads": [
       {
-        "path_edge_ids": ["E:b98dcbc74f509b35", "E:1988aa7d342b0b00"],
+        "path_edge_ids": ["E:230963366420a9c0", "E:cea46b73cab53180"],
         "min_confidence": 0.3,
         "why_weak": "Only one shared symptom (enlarged spleen) with Gaucher disease type III: too little to call it a shared community"
       }

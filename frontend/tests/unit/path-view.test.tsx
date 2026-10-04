@@ -17,8 +17,8 @@ describe("/path", () => {
       "DiseaseGaucher disease type III",
       "GeneGBA1",
       "MechanismLysosomal dysfunction (glucosylceramide breakdown)",
-      "DiseaseGBA1-related Parkinson disease, susceptibility",
-      "Patient groupCure Parkinson's",
+      "Diseaselate-onset Parkinson disease",
+      "FunderCure Parkinson's",
       "StudyASPro-PD: Ambroxol to Slow Progression in Parkinson Disease",
     ]);
   });
@@ -59,7 +59,7 @@ describe("/path", () => {
     const panel = screen.getByRole("complementary", { name: "Edge evidence" });
     expect(within(panel).getByText("Hypothesis")).toBeInTheDocument();
     expect(within(panel).getByText(/A hypothesis, not proof/)).toBeInTheDocument();
-    expect(within(panel).getByText("E:93468e247aa8c342, E:0123bcf2d717e9f0")).toBeInTheDocument();
+    expect(within(panel).getByText("E:ced5f936ba08b8ef, E:0123bcf2d717e9f0")).toBeInTheDocument();
   });
 
   it("URL-encodes CURIE ids and shows the trial id without its namespace", async () => {

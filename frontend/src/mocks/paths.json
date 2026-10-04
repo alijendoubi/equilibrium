@@ -1,20 +1,52 @@
 [
   {
+    "id": "gaucher2_to_aspro",
+    "node_ids": [
+      "MONDO:0009266",
+      "HGNC:4177",
+      "MONDO:0008199",
+      "clinicaltrials:NCT05778617",
+      "org:cure-parkinsons"
+    ],
+    "edge_ids": [
+      "E:61528699fb974eda",
+      "E:ced5f936ba08b8ef",
+      "E:ee3efd9484282caf",
+      "E:3fe1decec2edca53"
+    ]
+  },
+  {
+    "id": "gaucher2_to_aspro_via_mechanism",
+    "node_ids": [
+      "MONDO:0009266",
+      "HGNC:4177",
+      "MECH:lysosomal_dysfunction",
+      "MONDO:0008199",
+      "clinicaltrials:NCT05778617"
+    ],
+    "edge_ids": [
+      "E:61528699fb974eda",
+      "E:0123bcf2d717e9f0",
+      "E:36c6e1a96c92e376",
+      "E:ee3efd9484282caf"
+    ]
+  },
+  {
     "id": "gaucher_to_aspro",
     "node_ids": [
       "MONDO:0009267",
       "HGNC:4177",
       "MECH:lysosomal_dysfunction",
-      "MONDO:1040030",
-      "ORG:cure-parkinsons",
+      "MONDO:0008199",
+      "org:cure-parkinsons",
       "clinicaltrials:NCT05778617"
     ],
     "edge_ids": [
-      "E:277fc6b6e1911b65",
+      "E:a4e7f7759ceab35e",
       "E:0123bcf2d717e9f0",
       "E:36c6e1a96c92e376",
-      "E:119c21583f5f6a55",
-      "E:11d2b7cd5c593849"
+      "E:649d5cc8f52ef083",
+      "E:3fe1decec2edca53"
     ]
   },
   {
@@ -25,16 +57,16 @@
       "ASSET:intervention/ambroxol",
       "clinicaltrials:NCT05778617"
     ],
-    "edge_ids": ["E:a2144c8a83a43c36", "E:dc85c36a4b200459", "E:aaf6fb9814e43d1c"]
+    "edge_ids": ["E:b47f4b20be4660d9", "E:dc85c36a4b200459", "E:aaf6fb9814e43d1c"]
   },
   {
     "id": "gaucher2_to_pd",
-    "node_ids": ["MONDO:0009266", "HGNC:4177", "MONDO:1040030"],
-    "edge_ids": ["E:685afda62f30e82a", "E:93468e247aa8c342"]
+    "node_ids": ["MONDO:0009266", "HGNC:4177", "MONDO:0008199"],
+    "edge_ids": ["E:61528699fb974eda", "E:ced5f936ba08b8ef"]
   },
   {
     "id": "gaucher_to_ngf",
-    "node_ids": ["MONDO:0009267", "HGNC:4177", "MONDO:0018150", "ORG:national-gaucher-foundation"],
-    "edge_ids": ["E:277fc6b6e1911b65", "E:9d7d51b880a23486", "E:2f71210211ad660c"]
+    "node_ids": ["MONDO:0009267", "HGNC:4177", "MONDO:0018150", "org:national-gaucher-foundation"],
+    "edge_ids": ["E:a4e7f7759ceab35e", "E:9d7d51b880a23486", "E:800acbe2a70cda0f"]
   }
 ]

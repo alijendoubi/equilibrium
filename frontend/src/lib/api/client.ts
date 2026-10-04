@@ -1,10 +1,13 @@
 import type { z } from "zod";
-import { getPublicEnv } from "@/lib/env";
+import { getPublicEnv, getServerEnv } from "@/lib/env";
 import { displayId } from "@/lib/format";
+import { buildTemplateExplanation } from "./explain-template";
 import { loadMockDataset, type MockDataset } from "./mock-data";
 import {
   actionsResponseSchema,
   coverageReportSchema,
+  explainResponseSchema,
+  MAX_EXPLAIN_EDGES,
   nodeSummarySchema,
   pathResponseSchema,
   searchResponseSchema,
@@ -13,6 +16,8 @@ import type {
   ActionsResponse,
   AtlasNode,
   CoverageReport,
+  ExplainAudience,
+  ExplainResponse,
   NodeSummary,
   Path,
   PathResponse,
@@ -23,13 +28,22 @@ import type {
 /** The UI talks to the atlas only through this interface. Mock and HTTP versions are swappable. */
 export interface AtlasClient {
   readonly isMock: boolean;
+  /** True once any call on this client was answered from the bundled demo data. */
+  readonly usedFallback: boolean;
   search(q: string): Promise<SearchResponse>;
   /** Resolves to null when the id is unknown. */
   getNode(id: string): Promise<NodeSummary | null>;
   getPath(from: string, to: string): Promise<PathResponse>;
   getActions(id: string): Promise<ActionsResponse | null>;
   getCoverage(id: string): Promise<CoverageReport | null>;
+  /** Cited plain-language explanation of up to 12 edges (POST /api/v1/explain). */
+  explain(edgeIds: string[], audience?: ExplainAudience): Promise<ExplainResponse>;
 }
+
+/** Abort a backend call after this long and fall back to the bundled demo data. */
+export const API_TIMEOUT_MS = 4000;
+/** Explain may call OpenAI; give it longer before falling back to the template. */
+export const EXPLAIN_TIMEOUT_MS = 15000;
 
 export const MAX_SEARCH_RESULTS = 10;
 const MAX_TOP_EDGES = 25;
@@ -117,6 +131,12 @@ export function createMockClient(load: () => MockDataset = loadMockDataset): Atl
 
   return {
     isMock: true,
+    usedFallback: false,
+
+    async explain(edgeIds, audience = "family") {
+      const data = load();
+      return buildTemplateExplanation(edgeIds, audience, data.edges, data.nodes);
+    },
 
     async search(raw) {
       const data = load();
@@ -207,19 +227,66 @@ export const mockClient: AtlasClient = createMockClient();
 // HTTP client (for when the API is live). Validates every response with the same schemas.
 // ---------------------------------------------------------------------------------------------
 
-export function createHttpClient(baseUrl: string, fetchImpl: typeof fetch = fetch): AtlasClient {
-  async function get<T>(path: string, schema: z.ZodType<T>, allow404 = false): Promise<T | null> {
-    const res = await fetchImpl(`${baseUrl}/api/v1${path}`, { cache: "no-store" });
+export class AtlasApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number | null,
+  ) {
+    super(message);
+    this.name = "AtlasApiError";
+  }
+}
+
+export interface HttpClientOptions {
+  fetchImpl?: typeof fetch;
+  timeoutMs?: number;
+  explainTimeoutMs?: number;
+}
+
+export function createHttpClient(baseUrl: string, options: HttpClientOptions = {}): AtlasClient {
+  const fetchImpl = options.fetchImpl ?? fetch;
+  const timeoutMs = options.timeoutMs ?? API_TIMEOUT_MS;
+  const explainTimeoutMs = options.explainTimeoutMs ?? EXPLAIN_TIMEOUT_MS;
+
+  async function request<T>(
+    path: string,
+    schema: z.ZodType<T>,
+    init: RequestInit,
+    timeout: number,
+    allow404: boolean,
+  ): Promise<T | null> {
+    let res: Response;
+    try {
+      res = await fetchImpl(`${baseUrl}/api/v1${path}`, {
+        cache: "no-store",
+        ...init,
+        signal: AbortSignal.timeout(timeout),
+      });
+    } catch (cause) {
+      const reason = cause instanceof Error ? cause.message : "network error";
+      throw new AtlasApiError(`Atlas API ${path} unreachable: ${reason}`, null);
+    }
     if (allow404 && res.status === 404) return null;
-    if (!res.ok) throw new Error(`Atlas API ${path} failed with HTTP ${res.status}`);
+    if (!res.ok)
+      throw new AtlasApiError(`Atlas API ${path} failed with HTTP ${res.status}`, res.status);
     const parsed = schema.safeParse(await res.json());
-    if (!parsed.success) throw new Error(`Atlas API ${path} returned an unexpected shape`);
+    if (!parsed.success) {
+      throw new AtlasApiError(`Atlas API ${path} returned an unexpected shape`, res.status);
+    }
     return parsed.data;
   }
+  const get = <T>(path: string, schema: z.ZodType<T>, allow404 = false) =>
+    request(path, schema, {}, timeoutMs, allow404);
   const enc = encodeURIComponent;
 
   return {
     isMock: false,
+    usedFallback: false,
+    async explain(edgeIds, audience = "family") {
+      const body = JSON.stringify({ edge_ids: edgeIds.slice(0, MAX_EXPLAIN_EDGES), audience });
+      const init = { method: "POST", headers: { "Content-Type": "application/json" }, body };
+      return (await request("/explain", explainResponseSchema, init, explainTimeoutMs, false))!;
+    },
     async search(q) {
       return (await get(`/search?q=${enc(q)}`, searchResponseSchema))!;
     },
@@ -237,7 +304,68 @@ export function shouldUseMocks(value: string | undefined = process.env.NEXT_PUBL
   return value?.trim().toLowerCase() !== "false";
 }
 
+/**
+ * Wraps the live client: when the backend is down, times out, answers 5xx or sends an unexpected
+ * shape, the call is answered from the bundled demo data and `usedFallback` flips to true so the
+ * page can say "Showing cached demo data". A 404 is a real answer and is not replaced.
+ */
+export function createFallbackClient(primary: AtlasClient, fallback: AtlasClient): AtlasClient {
+  let usedFallback = false;
+  async function attempt<T>(live: () => Promise<T>, cached: () => Promise<T>): Promise<T> {
+    try {
+      return await live();
+    } catch {
+      usedFallback = true;
+      return cached();
+    }
+  }
+  return {
+    isMock: false,
+    get usedFallback() {
+      return usedFallback;
+    },
+    search: (q) =>
+      attempt(
+        () => primary.search(q),
+        () => fallback.search(q),
+      ),
+    getNode: (id) =>
+      attempt(
+        () => primary.getNode(id),
+        () => fallback.getNode(id),
+      ),
+    getPath: (from, to) =>
+      attempt(
+        () => primary.getPath(from, to),
+        () => fallback.getPath(from, to),
+      ),
+    getActions: (id) =>
+      attempt(
+        () => primary.getActions(id),
+        () => fallback.getActions(id),
+      ),
+    getCoverage: (id) =>
+      attempt(
+        () => primary.getCoverage(id),
+        () => fallback.getCoverage(id),
+      ),
+    explain: (ids, audience) =>
+      attempt(
+        () => primary.explain(ids, audience),
+        () => fallback.explain(ids, audience),
+      ),
+  };
+}
+
+/** Server components may reach the backend on a private URL (BACKEND_URL, e.g. inside compose). */
+export function apiBaseUrl(): string {
+  const isServer = typeof window === "undefined";
+  if (isServer && process.env.BACKEND_URL?.trim()) return getServerEnv().BACKEND_URL;
+  return getPublicEnv().NEXT_PUBLIC_API_URL;
+}
+
+/** A fresh client per call, so `usedFallback` describes one page render or one button press. */
 export function getAtlasClient(): AtlasClient {
   if (shouldUseMocks()) return mockClient;
-  return createHttpClient(getPublicEnv().NEXT_PUBLIC_API_URL);
+  return createFallbackClient(createHttpClient(apiBaseUrl()), mockClient);
 }

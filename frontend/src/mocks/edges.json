@@ -16,7 +16,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:685afda62f30e82a",
+    "id": "E:61528699fb974eda",
     "source_id": "MONDO:0009266",
     "target_id": "HGNC:4177",
     "relation": "caused_by",
@@ -32,7 +32,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:277fc6b6e1911b65",
+    "id": "E:a4e7f7759ceab35e",
     "source_id": "MONDO:0009267",
     "target_id": "HGNC:4177",
     "relation": "caused_by",
@@ -67,14 +67,14 @@
     }
   },
   {
-    "id": "E:93468e247aa8c342",
+    "id": "E:ced5f936ba08b8ef",
     "source_id": "HGNC:4177",
-    "target_id": "MONDO:1040030",
+    "target_id": "MONDO:0008199",
     "relation": "risk_factor_for",
     "provenance": {
       "source": "monarch",
-      "source_record_id": "MONDO:1040030",
-      "url": "https://monarchinitiative.org/MONDO:1040030",
+      "source_record_id": "MONDO:0008199",
+      "url": "https://monarchinitiative.org/MONDO:0008199",
       "retrieved_at": "2026-10-03T12:00:00Z"
     },
     "confidence": 0.9,
@@ -87,7 +87,7 @@
   },
   {
     "id": "E:36c6e1a96c92e376",
-    "source_id": "MONDO:1040030",
+    "source_id": "MONDO:0008199",
     "target_id": "MECH:lysosomal_dysfunction",
     "relation": "has_mechanism",
     "provenance": {
@@ -95,7 +95,7 @@
       "source_record_id": "rule:gene_mechanism_propagation@r1",
       "url": null,
       "retrieved_at": "2026-10-03T12:00:00Z",
-      "supporting_edge_ids": ["E:93468e247aa8c342", "E:0123bcf2d717e9f0"]
+      "supporting_edge_ids": ["E:ced5f936ba08b8ef", "E:0123bcf2d717e9f0"]
     },
     "confidence": 0.62,
     "confidence_reasons": [
@@ -115,7 +115,7 @@
       "source_record_id": "rule:gene_mechanism_propagation@r1",
       "url": null,
       "retrieved_at": "2026-10-03T12:00:00Z",
-      "supporting_edge_ids": ["E:277fc6b6e1911b65", "E:0123bcf2d717e9f0"]
+      "supporting_edge_ids": ["E:a4e7f7759ceab35e", "E:0123bcf2d717e9f0"]
     },
     "confidence": 0.71,
     "confidence_reasons": [
@@ -126,7 +126,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:1988aa7d342b0b00",
+    "id": "E:cea46b73cab53180",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0001744",
     "relation": "has_phenotype",
@@ -142,7 +142,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:13ec26cc40f98085",
+    "id": "E:ca2c2c8345af96fa",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0002240",
     "relation": "has_phenotype",
@@ -174,7 +174,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:8aeba637a987976f",
+    "id": "E:b9be0359ad43bc28",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0001250",
     "relation": "has_phenotype",
@@ -190,7 +190,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:d967843726e30d13",
+    "id": "E:9d2f5d8b75945ac7",
     "source_id": "MONDO:0009267",
     "target_id": "HP:0001873",
     "relation": "has_phenotype",
@@ -206,7 +206,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:9417491330c3efae",
+    "id": "E:63a01036ce046701",
     "source_id": "MONDO:0009266",
     "target_id": "HP:0001250",
     "relation": "has_phenotype",
@@ -222,7 +222,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:fc102349c7ca77bb",
+    "id": "E:f5b0ebf973d85556",
     "source_id": "MONDO:0009266",
     "target_id": "HP:0000657",
     "relation": "has_phenotype",
@@ -238,14 +238,14 @@
     "contradicted_by": []
   },
   {
-    "id": "E:a05be51d9125ff8a",
-    "source_id": "MONDO:1040030",
+    "id": "E:92114c7fccedf3f8",
+    "source_id": "MONDO:0008199",
     "target_id": "HP:0002067",
     "relation": "has_phenotype",
     "provenance": {
       "source": "hpo",
-      "source_record_id": "MONDO:1040030",
-      "url": "https://monarchinitiative.org/MONDO:1040030",
+      "source_record_id": "MONDO:0008199",
+      "url": "https://monarchinitiative.org/MONDO:0008199",
       "retrieved_at": "2026-10-03T12:00:00Z"
     },
     "confidence": 0.9,
@@ -255,13 +255,13 @@
   },
   {
     "id": "E:6b8ed9776d2d09d3",
-    "source_id": "MONDO:1040030",
+    "source_id": "MONDO:0008199",
     "target_id": "HP:0100543",
     "relation": "has_phenotype",
     "provenance": {
       "source": "hpo",
-      "source_record_id": "MONDO:1040030",
-      "url": "https://monarchinitiative.org/MONDO:1040030",
+      "source_record_id": "MONDO:0008199",
+      "url": "https://monarchinitiative.org/MONDO:0008199",
       "retrieved_at": "2026-10-03T12:00:00Z"
     },
     "confidence": 0.9,
@@ -270,8 +270,8 @@
     "contradicted_by": []
   },
   {
-    "id": "E:2f71210211ad660c",
-    "source_id": "ORG:national-gaucher-foundation",
+    "id": "E:800acbe2a70cda0f",
+    "source_id": "org:national-gaucher-foundation",
     "target_id": "MONDO:0018150",
     "relation": "represents",
     "provenance": {
@@ -286,9 +286,9 @@
     "contradicted_by": []
   },
   {
-    "id": "E:119c21583f5f6a55",
-    "source_id": "ORG:cure-parkinsons",
-    "target_id": "MONDO:1040030",
+    "id": "E:649d5cc8f52ef083",
+    "source_id": "org:cure-parkinsons",
+    "target_id": "MONDO:0008199",
     "relation": "represents",
     "provenance": {
       "source": "curated",
@@ -305,8 +305,8 @@
     "contradicted_by": []
   },
   {
-    "id": "E:11d2b7cd5c593849",
-    "source_id": "ORG:cure-parkinsons",
+    "id": "E:3fe1decec2edca53",
+    "source_id": "org:cure-parkinsons",
     "target_id": "clinicaltrials:NCT05778617",
     "relation": "funds",
     "provenance": {
@@ -325,9 +325,9 @@
     "contradicted_by": []
   },
   {
-    "id": "E:d99bd4495f7dbc55",
+    "id": "E:ee3efd9484282caf",
     "source_id": "clinicaltrials:NCT05778617",
-    "target_id": "MONDO:1040030",
+    "target_id": "MONDO:0008199",
     "relation": "studies_condition",
     "provenance": {
       "source": "ctgov",
@@ -363,7 +363,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:a2144c8a83a43c36",
+    "id": "E:b47f4b20be4660d9",
     "source_id": "PMID:27042680",
     "target_id": "MONDO:0009267",
     "relation": "mentions",
@@ -409,7 +409,7 @@
     }
   },
   {
-    "id": "E:6dd22710e2416e83",
+    "id": "E:bbfd1d9e49df8116",
     "source_id": "MONDO:0012517",
     "target_id": "HGNC:9498",
     "relation": "caused_by",
@@ -425,7 +425,7 @@
     "contradicted_by": []
   },
   {
-    "id": "E:b98dcbc74f509b35",
+    "id": "E:230963366420a9c0",
     "source_id": "MONDO:0012517",
     "target_id": "HP:0001744",
     "relation": "has_phenotype",

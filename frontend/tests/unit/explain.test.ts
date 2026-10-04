@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { mockClient } from "@/lib/api/client";
-import { explanationToText, pathEnds } from "@/lib/api/explain-template";
+import { explanationToText, pathEnds, sourceCitation } from "@/lib/api/explain-template";
 import { explainRequestSchema, explainResponseSchema } from "@/lib/api/schemas";
 
 const GOLDEN_EDGES = [
@@ -125,5 +125,25 @@ describe("pathEnds", () => {
   it("handles a single link and rejects an empty path", () => {
     expect(pathEnds([edge("E:1", "A:1", "B:2")])).toEqual(["A:1", "B:2"]);
     expect(() => pathEnds([])).toThrow();
+  });
+});
+
+describe("sourceCitation", () => {
+  const prov = (source: string, source_record_id: string) =>
+    ({ source, source_record_id }) as unknown as Parameters<typeof sourceCitation>[0];
+
+  it("names the upstream database instead of raw record ids", () => {
+    expect(
+      sourceCitation(prov("monarch", "infores:omim|HGNC:4177|biolink:causes|MONDO:0009266")),
+    ).toBe("OMIM via Monarch");
+    expect(sourceCitation(prov("monarch", "infores:orphanet|x"))).toBe("Orphanet via Monarch");
+    expect(sourceCitation(prov("monarch", "infores:other|x"))).toBe("Monarch Initiative");
+    expect(sourceCitation(prov("clinicaltrials", "NCT05778617"))).toBe(
+      "ClinicalTrials.gov NCT05778617",
+    );
+    expect(sourceCitation(prov("go", "HGNC:4177"))).toBe("Gene Ontology annotation");
+    expect(sourceCitation(prov("pubmed", "PMID:1"))).toBe("PubMed PMID:1");
+    expect(sourceCitation(prov("curated", "x"))).toBe("team-curated, cited source");
+    expect(sourceCitation(prov("other", "r"))).toBe("other r");
   });
 });

@@ -19,6 +19,8 @@ MatchReason = Literal["exact", "synonym", "semantic"]
 SCORE_EXACT = 1.0
 SCORE_SYNONYM = 0.95
 SCORE_PREFIX = 0.8
+# Every query word appears, in order, inside the name: ranks above partial word overlap.
+SCORE_CONTAINS = 0.75
 SCORE_TOKENS_BASE = 0.4
 TOKEN_FLOOR = 0.5
 SEMANTIC_FLOOR = 0.45
@@ -46,6 +48,8 @@ def _lexical(query: str, node: Node) -> SearchHit | None:
             return SearchHit(node.id, SCORE_SYNONYM, "synonym", text)
         if key.startswith(q_key) and len(q_key) >= 3:
             hit = SearchHit(node.id, SCORE_PREFIX, "synonym", text)
+        elif len(q_key) >= 3 and f" {q_key} " in f" {key} ":
+            hit = SearchHit(node.id, SCORE_CONTAINS, "synonym", text)
         else:
             overlap = token_jaccard(query, text)
             if overlap < TOKEN_FLOOR:

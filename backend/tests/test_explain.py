@@ -515,3 +515,27 @@ def test_path_ends_follow_the_chain_not_edge_direction(store: GraphStore) -> Non
     assert summary.startswith("This path links Gaucher disease type II to Cure Parkinson")
     assert path_ends(()) is None
     assert path_ends((risk,)) == ("HGNC:4177", "MONDO:0008199")
+
+
+@pytest.mark.parametrize(
+    ("source", "record", "expected"),
+    [
+        ("monarch", "infores:omim|HGNC:4177|biolink:causes|MONDO:0009266", "OMIM via Monarch"),
+        ("monarch", "infores:orphanet|x", "Orphanet via Monarch"),
+        ("monarch", "infores:other|x", "Monarch Initiative"),
+        ("go", "HGNC:4177", "Gene Ontology annotation"),
+        ("clinicaltrials", "NCT05778617", "ClinicalTrials.gov NCT05778617"),
+        ("pubmed", "PMID:1", "PubMed PMID:1"),
+        ("curated", "x", "team-curated, cited source"),
+        ("other", "r", "other r"),
+    ],
+)
+def test_source_citation_is_readable(source: str, record: str, expected: str) -> None:
+    from datetime import UTC, datetime
+
+    from atlas.explain.templates import source_citation
+
+    prov = Provenance(
+        source=source, source_record_id=record, retrieved_at=datetime(2026, 10, 4, tzinfo=UTC)
+    )
+    assert source_citation(prov) == expected

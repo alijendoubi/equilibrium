@@ -58,7 +58,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 ## 4. Connect Vercel (frontend)
 
 1. In Vercel, add a new project and import `alijendoubi/equilibrium`.
-2. Leave **Root Directory** empty. `deploy.yml` already runs the Vercel CLI from `frontend/`, so setting it to `frontend` would make Vercel look for `frontend/frontend`. The framework preset (Next.js) and the pnpm install command are detected automatically.
+2. Set **Root Directory** to `frontend` and use Vercel's own Git integration: GitHub Actions do not run on this account, so `deploy.yml` never deploys. (If Actions are ever enabled and `deploy.yml` deploys through the CLI, leave Root Directory empty instead and turn off Vercel's Git auto-deploy.) The framework preset (Next.js) and the pnpm install command are detected automatically. Set `NEXT_PUBLIC_USE_MOCKS=false`.
 3. Add environment variables for both Production and Preview:
    - `NEXT_PUBLIC_API_URL`: the Render backend URL, for example `https://<service>.onrender.com`
    - `BACKEND_URL`: the same URL
@@ -71,7 +71,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 
 ## 5. Connect Render (backend)
 
-1. In Render, create a new **Web Service** from `alijendoubi/equilibrium`.
+1. Fastest: in Render, choose **New + then Blueprint** and pick the repo; [`render.yaml`](../render.yaml) sets everything below. Otherwise create a new **Web Service** from `alijendoubi/equilibrium`.
 2. Set the runtime to **Docker**, leave the **Root Directory** empty (repo root), set **Docker Build Context Directory** to `.` and **Dockerfile Path** to `./backend/Dockerfile`. The backend image bakes in the committed `data/snapshot/`, so its build context must be the repo root (see the comment at the top of `backend/Dockerfile`).
 3. Set the **Health Check Path** to `/health`.
 4. Add environment variables:

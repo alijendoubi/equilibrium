@@ -195,6 +195,38 @@ Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts r
 
 Full table, priorities and slice choice: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
+## Built with OpenAI
+
+OpenAI models do three jobs in the atlas. Every AI output is tied to graph evidence, cached, and labelled in the UI.
+
+| Job | Where | Model / API | Guarantee |
+|---|---|---|---|
+| **Reconcile**: map names and synonyms to one stable node | `backend/src/atlas/reconcile/` | `text-embedding-3-small` (Embeddings API); `gpt-6-luna` (Responses API, strict JSON schema) for ambiguous cases only | The model can only pick an id from a fixed candidate list (enumerated in the schema and re-validated). It cannot invent ids |
+| **Explain**: turn a graph path into a collaboration brief | `backend/src/atlas/explain/`, `POST /api/v1/explain` | `gpt-6.1-sol` (Responses API, strict JSON schema) | Every step must cite edge ids from the path. Uncited steps, unknown ids or numbers not in the evidence are rejected, then retried, then replaced by a deterministic template |
+| **Extract**: pull cited claims from PubMed abstracts | `backend/src/atlas/extract/` (planned) | `gpt-6.1-sol` with structured outputs | Extracted edges are always `evidence_type: inferred` and quote the abstract verbatim |
+
+- **Visible to users:** AI-written text carries an "AI-generated (model)" badge. Template text is labelled "Template (AI unavailable)". Hypotheses are dashed.
+- **Robust demo:** embeddings, reconcile decisions and explanations are cached in `data/cache/` and committed. With `ATLAS_OFFLINE=1` or no key, the app serves the cache, then the template. It never fails because of the API.
+- **Only OpenAI:** a test (`backend/tests/test_openai_only.py`) fails if any other LLM SDK is imported or added as a dependency.
+- **Usage:** `GET /api/v1/meta` reports OpenAI usage from the snapshot manifest.
+
+Precompute the OpenAI caches for the demo (needs `OPENAI_API_KEY`):
+
+```bash
+cd backend
+uv run python -m atlas.reconcile.cli embed --nodes ../data/snapshot/atlas-snapshot.json
+uv run python -m atlas.explain.cli golden
+git add ../data/cache && git commit -m "data: precompute OpenAI caches"
+```
+
+## Deploy
+
+GitHub Actions are not used for deploys. Both hosts deploy straight from `main`.
+
+1. **Backend (Render):** New + then Blueprint, pick this repo. [`render.yaml`](render.yaml) builds `backend/Dockerfile` from the repo root with the snapshot baked in. Set `OPENAI_API_KEY`, and set `CORS_ORIGINS` to the Vercel URL.
+2. **Frontend (Vercel):** import the repo and set **Root Directory** to `frontend`. Set environment variables `NEXT_PUBLIC_USE_MOCKS=false` and `NEXT_PUBLIC_API_URL=https://<render-service>.onrender.com`, then deploy. They are baked in at build time, so redeploy after changing them.
+3. Check `https://<render-service>.onrender.com/health`, which should show `"snapshot":"loaded"`, then open the Vercel URL and run the demo journey. If the backend is unreachable, the UI falls back to bundled demo data and says so.
+
 ## Judging criteria: how we address them
 
 | Criterion | Our approach | Status |

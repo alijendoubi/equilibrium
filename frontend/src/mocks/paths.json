@@ -5,7 +5,7 @@
       "MONDO:0009267",
       "HGNC:4177",
       "MECH:lysosomal_dysfunction",
-      "MONDO:1040030",
+      "MONDO:0008199",
       "ORG:cure-parkinsons",
       "clinicaltrials:NCT05778617"
     ],
@@ -29,7 +29,7 @@
   },
   {
     "id": "gaucher2_to_pd",
-    "node_ids": ["MONDO:0009266", "HGNC:4177", "MONDO:1040030"],
+    "node_ids": ["MONDO:0009266", "HGNC:4177", "MONDO:0008199"],
     "edge_ids": ["E:685afda62f30e82a", "E:93468e247aa8c342"]
   },
   {

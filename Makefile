@@ -8,7 +8,7 @@ BACKEND  := backend
 FRONTEND := frontend
 
 .PHONY: help setup dev dev-backend dev-frontend lint fmt typecheck test check build \
-        docker-up docker-down data openai-smoke clean
+        docker-up docker-down data data-offline data-report openai-smoke clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
@@ -53,7 +53,7 @@ check: lint typecheck test ## lint + typecheck + test (what CI runs)
 build: ## Production build of the frontend
 	cd $(FRONTEND) && pnpm build
 
-docker-up: ## Build and start backend + frontend containers
+docker-up: ## Build and start backend + frontend containers (backend image bakes in data/snapshot/)
 	docker compose up --build -d
 	@echo "backend:  http://localhost:8000/health"
 	@echo "frontend: http://localhost:3000"
@@ -61,8 +61,14 @@ docker-up: ## Build and start backend + frontend containers
 docker-down: ## Stop containers
 	docker compose down
 
-data: ## Ingest data sources (Phase 2)
-	@echo "Data ingestion is coming in Phase 2: cd $(BACKEND) && uv run python -m atlas.ingest"
+data: ## Refresh every source online (rewrites data/cache/) and rebuild data/snapshot/
+	cd $(BACKEND) && uv run python -m atlas.pipeline build
+
+data-offline: ## Rebuild data/snapshot/ from the committed cache only (no network, deterministic)
+	cd $(BACKEND) && uv run python -m atlas.pipeline build --offline
+
+data-report: ## Print snapshot counts and the hero-path / honest-gap checks
+	cd $(BACKEND) && uv run python -m atlas.pipeline report
 
 openai-smoke: ## Check OpenAI models/embeddings with a real key (BATCH=1 also submits a Batch)
 	cd $(BACKEND) && uv run python scripts/openai_smoke.py $(if $(BATCH),--batch,)

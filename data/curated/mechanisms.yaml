@@ -1,0 +1,56 @@
+# Mechanism whitelist for the gba1 slice: GO biological-process terms that tell the
+# GBA1/GCase-lysosomal story. Schema and rules: data/curated/README.md
+# Ids, names and definitions were checked against the QuickGO ontology API
+# (https://www.ebi.ac.uk/QuickGO/services/ontology/go/terms/<ids>) on the retrieved date.
+# A seed gene gets a `participates_in` edge to a term when one of its GO BP annotations
+# (via Monarch) is the term itself or a descendant of it.
+
+mechanisms:
+  - id: GO:0006680
+    name: glucosylceramide catabolic process
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0006680
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: GCase (GBA1) substrate breakdown; saposin C (PSAP) is its activator.
+  - id: GO:0006687
+    name: glycosphingolipid metabolic process
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0006687
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Parent pathway shared by GBA1, GBA2 and PSAP.
+  - id: GO:0006665
+    name: sphingolipid metabolic process
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0006665
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Broader lipid pathway; brings in SMPD1 (sphingomyelin).
+  - id: GO:0007040
+    name: lysosome organization
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0007040
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Lysosomal dysfunction axis of the cluster.
+  - id: GO:0007041
+    name: lysosomal transport
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0007041
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: GCase trafficking to the lysosome (SCARB2/LIMP-2).
+  - id: GO:0007042
+    name: lysosomal lumen acidification
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0007042
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Lysosomal pH; relevant to ATP13A2 and enzyme activity.
+  - id: GO:1905146
+    name: lysosomal protein catabolic process
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:1905146
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Lysosomal protein degradation (CTSD, alpha-synuclein clearance).
+  - id: GO:0006914
+    name: autophagy
+    url: https://www.ebi.ac.uk/QuickGO/term/GO:0006914
+    retrieved: 2026-10-04
+    curator: claude-agent, needs human check
+    notes: Autophagy-lysosome pathway linking lysosomal storage to Parkinson's.

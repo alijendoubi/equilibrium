@@ -1,0 +1,103 @@
+{
+  "counts": {
+    "edges": 1205,
+    "edges_by_evidence_type": {
+      "curated": 975,
+      "observed": 230
+    },
+    "edges_by_relation": {
+      "caused_by": 32,
+      "funds": 1,
+      "has_phenotype": 872,
+      "mentions": 3,
+      "participates_in": 19,
+      "represents": 14,
+      "risk_factor_for": 21,
+      "studies_condition": 243
+    },
+    "nodes": 691,
+    "nodes_by_type": {
+      "asset": 1,
+      "disease": 35,
+      "funder": 2,
+      "gene": 9,
+      "mechanism": 8,
+      "patient_group": 4,
+      "phenotype": 424,
+      "publication": 2,
+      "study": 206
+    }
+  },
+  "created_at": "2026-10-03T23:21:47Z",
+  "created_at_note": "latest source retrieved_at (deterministic, not wall-clock)",
+  "openai_usage": {
+    "batch_jobs": 0,
+    "calls": 0,
+    "input_tokens": 0,
+    "models": {},
+    "note": "no OpenAI step in this build yet; Extract/Reconcile fill this in",
+    "output_tokens": 0
+  },
+  "rubric_version": "ingest-v1",
+  "schema_version": "1",
+  "slice": "gba1",
+  "snapshot_bytes": 1200798,
+  "snapshot_file": "atlas-snapshot.json",
+  "snapshot_id": "sha256:9dca705b4a04019368912c5f04670a403a2e6e4d523dc659b5f1adb4a2d9ec12",
+  "sources": [
+    {
+      "edges": 925,
+      "nodes": 468,
+      "records": 926,
+      "retrieved_at": "2026-10-03T23:21:41Z",
+      "source": "monarch",
+      "source_version": "monarch-kg 2026-09-04",
+      "url": "https://api-v3.monarchinitiative.org/v3/api/association"
+    },
+    {
+      "edges": 0,
+      "nodes": 424,
+      "records": 424,
+      "retrieved_at": "2026-10-03T23:21:47Z",
+      "source": "hpo",
+      "source_version": "2026-09-02",
+      "url": "https://github.com/obophenotype/human-phenotype-ontology/releases/latest/download/phenotype.hpoa"
+    },
+    {
+      "edges": 19,
+      "nodes": 8,
+      "records": 77,
+      "retrieved_at": "2026-10-03T23:09:43Z",
+      "source": "go",
+      "source_version": "monarch-kg 2026-09-04",
+      "url": "https://api-v3.monarchinitiative.org/v3/api/association"
+    },
+    {
+      "edges": 0,
+      "nodes": 9,
+      "records": 9,
+      "retrieved_at": "2026-10-03T23:10:03Z",
+      "source": "clinvar",
+      "source_version": "Build260929-0200.1",
+      "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+    },
+    {
+      "edges": 230,
+      "nodes": 206,
+      "records": 323,
+      "retrieved_at": "2026-10-03T23:10:59Z",
+      "source": "clinicaltrials",
+      "source_version": "ctgov data 2026-10-02T09:00:04",
+      "url": "https://clinicaltrials.gov/api/v2/studies"
+    },
+    {
+      "edges": 31,
+      "nodes": 18,
+      "records": 18,
+      "retrieved_at": "2026-10-03T00:00:00Z",
+      "source": "curated",
+      "source_version": null,
+      "url": null
+    }
+  ]
+}

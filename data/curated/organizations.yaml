@@ -57,6 +57,7 @@ organizations:
     type: research_charity
     url: https://cureparkinsons.org.uk/research/research-projects/ambroxol/
     disease_ids: [MONDO:0008199]
+    funds: [aspro-pd]
     retrieved: 2026-10-03
     verified: page read
     curator: claude-agent, needs human check

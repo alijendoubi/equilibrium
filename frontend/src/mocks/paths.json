@@ -1,0 +1,40 @@
+[
+  {
+    "id": "gaucher_to_aspro",
+    "node_ids": [
+      "MONDO:0009267",
+      "HGNC:4177",
+      "MECH:lysosomal_dysfunction",
+      "MONDO:1040030",
+      "ORG:cure-parkinsons",
+      "clinicaltrials:NCT05778617"
+    ],
+    "edge_ids": [
+      "E:277fc6b6e1911b65",
+      "E:0123bcf2d717e9f0",
+      "E:36c6e1a96c92e376",
+      "E:119c21583f5f6a55",
+      "E:11d2b7cd5c593849"
+    ]
+  },
+  {
+    "id": "gaucher_to_ambroxol_pilot",
+    "node_ids": [
+      "MONDO:0009267",
+      "PMID:27042680",
+      "ASSET:intervention/ambroxol",
+      "clinicaltrials:NCT05778617"
+    ],
+    "edge_ids": ["E:a2144c8a83a43c36", "E:dc85c36a4b200459", "E:aaf6fb9814e43d1c"]
+  },
+  {
+    "id": "gaucher2_to_pd",
+    "node_ids": ["MONDO:0009266", "HGNC:4177", "MONDO:1040030"],
+    "edge_ids": ["E:685afda62f30e82a", "E:93468e247aa8c342"]
+  },
+  {
+    "id": "gaucher_to_ngf",
+    "node_ids": ["MONDO:0009267", "HGNC:4177", "MONDO:0018150", "ORG:national-gaucher-foundation"],
+    "edge_ids": ["E:277fc6b6e1911b65", "E:9d7d51b880a23486", "E:2f71210211ad660c"]
+  }
+]

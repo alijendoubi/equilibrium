@@ -27,7 +27,7 @@ describe("HomePage", () => {
     expect(input).toHaveAttribute("type", "search");
     expect(input).toHaveAttribute(
       "placeholder",
-      'Search a disease, gene, or symptom — e.g. "STXBP1"',
+      'Search a disease, gene, or symptom — e.g. "GBA1"',
     );
     expect(screen.getByRole("searchbox", { name: "Search the atlas" })).toBe(input);
   });

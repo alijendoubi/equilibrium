@@ -330,10 +330,27 @@ uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one sour
 
 Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
 
-- **Deterministic.** The same cache gives a byte-identical snapshot and manifest (`snapshot_id` is the SHA-256 of the snapshot file; `created_at` is the latest source `retrieved_at`). A test fails if the committed snapshot is stale against the committed cache.
-- **Validated.** Every node and edge passes the evidence-model pydantic models; every edge endpoint exists; supporting edge ids resolve; no id has two types. The build fails otherwise.
-- **Online refresh** is polite: identifying User-Agent, timeouts, retries with backoff, rate limits (ClinicalTrials.gov ~50 req/min, NCBI 3 req/s or 10 with `NCBI_API_KEY`). HPO downloads `phenotype.hpoa` and `hp.obo` (~47 MB) into `data/raw/hpo/` (gitignored); only the IC map for slice phenotypes is committed.
-- **No OpenAI step yet.** `manifest.openai_usage` is a zero placeholder until Extract/Reconcile land.
+- **Visible to users:** AI-written text carries an "AI-generated (model)" badge. Template text is labelled "Template (AI unavailable)". Hypotheses are dashed.
+- **Robust demo:** embeddings, reconcile decisions and explanations are cached in `data/cache/` and committed. With `ATLAS_OFFLINE=1` or no key, the app serves the cache, then the template. It never fails because of the API.
+- **Only OpenAI:** a test (`backend/tests/test_openai_only.py`) fails if any other LLM SDK is imported or added as a dependency.
+- **Usage:** `GET /api/v1/meta` reports OpenAI usage from the snapshot manifest.
+
+Precompute the OpenAI caches for the demo (needs `OPENAI_API_KEY`):
+
+```bash
+cd backend
+uv run python -m atlas.reconcile.cli embed --nodes ../data/snapshot/atlas-snapshot.json
+uv run python -m atlas.explain.cli golden
+git add ../data/cache && git commit -m "data: precompute OpenAI caches"
+```
+
+## Deploy
+
+GitHub Actions are not used for deploys. Both hosts deploy straight from `main`.
+
+1. **Backend (Render):** New + then Blueprint, pick this repo. [`render.yaml`](render.yaml) builds `backend/Dockerfile` from the repo root with the snapshot baked in. Set `OPENAI_API_KEY`, and set `CORS_ORIGINS` to the Vercel URL.
+2. **Frontend (Vercel):** import the repo and set **Root Directory** to `frontend`. Set environment variables `NEXT_PUBLIC_USE_MOCKS=false` and `NEXT_PUBLIC_API_URL=https://<render-service>.onrender.com`, then deploy. They are baked in at build time, so redeploy after changing them.
+3. Check `https://<render-service>.onrender.com/health`, which should show `"snapshot":"loaded"`, then open the Vercel URL and run the demo journey. If the backend is unreachable, the UI falls back to bundled demo data and says so.
 
 ## Built with OpenAI
 

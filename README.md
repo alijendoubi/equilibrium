@@ -337,6 +337,22 @@ Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts r
 
 | Source (connector) | What we take | Cached |
 |---|---|---|
+| Monarch API v3 (`ingest/monarch.py`) | seed MONDO diseases and HGNC genes (labels, synonyms, xrefs, descriptions); OMIM- and Orphanet-sourced gene-disease links (`caused_by`, `risk_factor_for`); HPO disease-phenotype annotations (`has_phenotype`) | trimmed records |
+| HPO release (`ingest/hpo.py`) | phenotype information content, IC = -ln(fraction of annotated diseases with the term or a descendant), propagated over `hp.obo` | IC map + release version |
+| GO via Monarch (`ingest/go.py`) | biological-process annotations of seed genes under the whitelist in `data/curated/mechanisms.yaml` (`participates_in`) | matching annotations |
+| ClinVar E-utilities (`ingest/clinvar.py`) | pathogenic / likely-pathogenic record counts per seed gene (gene attributes) | counts |
+| ClinicalTrials.gov v2 (`ingest/clinicaltrials.py`) | bounded queries for Gaucher, saposin C, GBA-PD, ambroxol, venglustat, PR001 and neighbour diseases, plus the seed NCTs (`studies_condition`) | trimmed studies |
+| Curated (`ingest/curated.py`) | patient groups, funders, assets (`represents`, `funds`, `studies_condition`, `mentions`); "no dedicated org found" coverage seeds | YAML in `data/curated/` |
+
+Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
+
+- **Deterministic.** The same cache gives a byte-identical snapshot and manifest (`snapshot_id` is the SHA-256 of the snapshot file; `created_at` is the latest source `retrieved_at`). A test fails if the committed snapshot is stale against the committed cache.
+- **Validated.** Every node and edge passes the evidence-model pydantic models; every edge endpoint exists; supporting edge ids resolve; no id has two types. The build fails otherwise.
+- **Online refresh** is polite: identifying User-Agent, timeouts, retries with backoff, rate limits (ClinicalTrials.gov ~50 req/min, NCBI 3 req/s or 10 with `NCBI_API_KEY`). HPO downloads `phenotype.hpoa` and `hp.obo` (~47 MB) into `data/raw/hpo/` (gitignored); only the IC map for slice phenotypes is committed.
+- **No OpenAI step yet.** `manifest.openai_usage` is a zero placeholder until Extract/Reconcile land.
+
+| Source (connector) | What we take | Cached |
+|---|---|---|
 | Graph quality | Typed nodes with stable IDs. Mechanism- and phenotype-based clustering (IC-weighted HPO similarity, gene and pathway overlap, community detection). Counterexamples kept as contradiction edges. | Model drafted; clustering planned |
 | Evidence integrity | Every edge has provenance (source, record id, URL, retrieval date), a confidence rubric and an evidence type (observed, inferred or curated). Contradictions are shown. | Model drafted; rubric documented |
 | Patient progress | Maria's journey from disease to mechanism, related disease, patient group, asset and next step, with a sourced proposal or an honest gap report | Planned (M4) |

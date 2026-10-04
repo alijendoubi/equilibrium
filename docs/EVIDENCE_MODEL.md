@@ -148,9 +148,11 @@ The rubric is versioned (`rubric_version` in the snapshot manifest). Changes to 
 - Paths that pass through a contradicted edge are flagged, and Explain must say so.
 - Counterexamples, such as the same gene with a different mechanism, are first-class. They are why a disease is **not** placed in a cluster.
 
-## Honest gaps: the coverage report (planned)
+## Honest gaps: the coverage report
 
 When no supported route exists, or only weak ones (for example, all paths below confidence 0.4), the API returns a **coverage report** instead of a weak suggestion:
+
+Implemented by `GET /api/v1/coverage/{node_id}` (rules in `backend/src/atlas/graph/coverage.py`); `/paths` and `/actions` embed the same report when there is no route, partner or asset.
 
 ```json
 {

@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from atlas.config import get_settings
+from atlas.extract.edges import ExtractStage, extract_stage
 from atlas.ingest import clinicaltrials, clinvar, curated, go, hpo, monarch
 from atlas.ingest.common import CACHE_DIR, DATA_DIR, IngestResult, dedupe_edges, merge_nodes
 from atlas.ingest.common import read_cache as read_source_cache
@@ -162,9 +164,37 @@ def coverage_seeds(results: Sequence[IngestResult], edges: Sequence[Edge]) -> di
     }
 
 
+def openai_usage(stage: ExtractStage | None) -> dict[str, Any]:
+    """Manifest block: real Extract usage recorded in the claims cache, else the placeholder."""
+    if stage is None:
+        return OPENAI_USAGE_PLACEHOLDER
+    models = stage.usage.as_dict()
+    return {
+        "calls": sum(m["calls"] for m in models.values()),
+        "input_tokens": sum(m["input_tokens"] for m in models.values()),
+        "output_tokens": sum(m["output_tokens"] for m in models.values()),
+        "batch_jobs": 0,
+        "models": models,
+        "note": "Extract usage recorded in data/cache/extract/claims.json when it was filled",
+    }
+
+
+def _run_extract(
+    nodes: Sequence[Node], cache: Path, with_extract: bool | None
+) -> ExtractStage | None:
+    if with_extract is False:
+        return None
+    return extract_stage(
+        nodes,
+        get_settings().openai_model_extract,
+        claims_path=cache / "extract" / "claims.json",
+        abstracts_path=cache / "pubmed" / "abstracts.json",
+    )
+
+
 def _source_entry(result: IngestResult, cache_dir: Path) -> dict[str, Any]:
-    url = None
-    if result.source != "curated":
+    url = result.notes.get("url")
+    if url is None and result.source != "curated":
         url = read_source_cache(result.source, CACHE_NAME, cache_dir)["meta"].get("url")
     return {
         "source": result.source,
@@ -177,10 +207,21 @@ def _source_entry(result: IngestResult, cache_dir: Path) -> dict[str, Any]:
     }
 
 
-def build(cache_dir: Path | None = None, curated_dir: Path | None = None) -> BuildOutput:
-    """Build snapshot + manifest bytes from the cache (no network, deterministic)."""
+def build(
+    cache_dir: Path | None = None,
+    curated_dir: Path | None = None,
+    with_extract: bool | None = None,
+) -> BuildOutput:
+    """Build snapshot + manifest bytes from the cache (no network, deterministic).
+
+    The extract stage only reads ``extract/claims.json``: with an empty or missing claims
+    cache (or ``with_extract=False``) the output is identical to a build without it.
+    """
     cache = cache_dir or CACHE_DIR
     results = normalize_all(cache, curated_dir)
+    stage = _run_extract(merge_nodes(n for r in results for n in r.nodes), cache, with_extract)
+    if stage is not None:
+        results = [*results, stage.result]
     all_nodes = [node for result in results for node in result.nodes]
     nodes = merge_nodes(all_nodes)
     edges = dedupe_edges(edge for result in results for edge in result.edges)
@@ -214,7 +255,7 @@ def build(cache_dir: Path | None = None, curated_dir: Path | None = None) -> Bui
                 sorted(Counter(e.evidence_type.value for e in edges).items())
             ),
         },
-        "openai_usage": OPENAI_USAGE_PLACEHOLDER,
+        "openai_usage": openai_usage(stage),
     }
     return BuildOutput(snapshot_bytes, _pretty(manifest), snapshot_id, manifest)
 

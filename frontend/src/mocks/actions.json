@@ -3,7 +3,7 @@
     "disease_id": "MONDO:0009267",
     "partners": [
       {
-        "node_id": "MONDO:1040030",
+        "node_id": "MONDO:0008199",
         "why": "Same gene (GBA1) and the same lysosomal mechanism. GBA1 variants raise the risk of Parkinson's.",
         "edge_ids": ["E:277fc6b6e1911b65", "E:93468e247aa8c342", "E:36c6e1a96c92e376"]
       },
@@ -47,7 +47,7 @@
     "disease_id": "MONDO:0009266",
     "partners": [
       {
-        "node_id": "MONDO:1040030",
+        "node_id": "MONDO:0008199",
         "why": "Same gene (GBA1). GBA1 variants raise the risk of Parkinson's.",
         "edge_ids": ["E:685afda62f30e82a", "E:93468e247aa8c342"]
       },
@@ -62,7 +62,7 @@
     "review_checklist": []
   },
   {
-    "disease_id": "MONDO:1040030",
+    "disease_id": "MONDO:0008199",
     "partners": [
       {
         "node_id": "MONDO:0009267",

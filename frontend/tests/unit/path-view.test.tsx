@@ -17,7 +17,7 @@ describe("/path", () => {
       "DiseaseGaucher disease type III",
       "GeneGBA1",
       "MechanismLysosomal dysfunction (glucosylceramide breakdown)",
-      "DiseaseGBA1-related Parkinson disease, susceptibility",
+      "Diseaselate-onset Parkinson disease",
       "Patient groupCure Parkinson's",
       "StudyASPro-PD: Ambroxol to Slow Progression in Parkinson Disease",
     ]);

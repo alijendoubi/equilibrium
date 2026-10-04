@@ -475,7 +475,7 @@ Extract (#18) and clustering (#20) run in parallel and feed the snapshot. The **
 | **Sagor** (data/backend) | Ingest connectors (Monarch, HPO, GO, CT.gov, PubMed, RePORTER), analytics, pipeline, tests, verifying every [U] in the seed list |
 | **Clara** (limited availability) | Review of the curated YAML (spot-check URLs, about 30 min) and the video narration (async) |
 
-Task-level owners are in [EXECUTION_PLAN.md](EXECUTION_PLAN.md). Where the Clara column in section 12 lists frontend work, Ali now owns it.
+Owners and timings were tracked in GitHub issues and milestones during the hackathon.
 
 PR flow: small PRs, `make check` locally as the gate (Actions are not running), Ali approves with admin bypass. Batch reviews at gates to avoid blocking.
 

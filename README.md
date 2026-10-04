@@ -180,7 +180,7 @@ uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one sour
 - **Deterministic.** The same cache gives a byte-identical snapshot and manifest (`snapshot_id` is the SHA-256 of the snapshot file; `created_at` is the latest source `retrieved_at`). A test fails if the committed snapshot is stale against the committed cache.
 - **Validated.** Every node and edge passes the evidence-model pydantic models; every edge endpoint exists; supporting edge ids resolve; no id has two types. The build fails otherwise.
 - **Online refresh** is polite: identifying User-Agent, timeouts, retries with backoff, rate limits (ClinicalTrials.gov ~50 req/min, NCBI 3 req/s or 10 with `NCBI_API_KEY`). HPO downloads `phenotype.hpoa` and `hp.obo` (~47 MB) into `data/raw/hpo/` (gitignored); only the IC map for slice phenotypes is committed.
-- **No OpenAI step yet.** `manifest.openai_usage` is a zero placeholder until Extract/Reconcile land.
+- **OpenAI Extract stage.** When `data/cache/extract/claims.json` holds claims, the build adds them (publication nodes, inferred claim edges, `mentions` edges) and fills `manifest.openai_usage` from the usage recorded in that cache; `--no-with-extract` skips it. With an empty claims cache the snapshot is byte-identical to a build without the stage and `openai_usage` stays a zero placeholder.
 
 | Source (connector) | What we take | Cached |
 |---|---|---|
@@ -203,7 +203,7 @@ OpenAI models do three jobs in the atlas. Every AI output is tied to graph evide
 |---|---|---|---|
 | **Reconcile**: map names and synonyms to one stable node | `backend/src/atlas/reconcile/` | `text-embedding-3-small` (Embeddings API); `gpt-6-luna` (Responses API, strict JSON schema) for ambiguous cases only | The model can only pick an id from a fixed candidate list (enumerated in the schema and re-validated). It cannot invent ids |
 | **Explain**: turn a graph path into a collaboration brief | `backend/src/atlas/explain/`, `POST /api/v1/explain` | `gpt-6.1-sol` (Responses API, strict JSON schema) | Every step must cite edge ids from the path. Uncited steps, unknown ids or numbers not in the evidence are rejected, then retried, then replaced by a deterministic template |
-| **Extract**: pull cited claims from PubMed abstracts | `backend/src/atlas/extract/` (planned) | `gpt-6.1-sol` with structured outputs | Extracted edges are always `evidence_type: inferred` and quote the abstract verbatim |
+| **Extract**: pull cited claims from PubMed abstracts | `backend/src/atlas/extract/` (`python -m atlas.extract.cli`); runs with a key, results cached in `data/cache/extract/claims.json` | `gpt-6.1-sol` (Responses API, strict JSON schema) over ~150 cached PubMed abstracts | Subject/object ids are an enum of slice gene/disease/mechanism node ids; the quote must be a verbatim substring of the abstract or the claim is dropped. Edges are always `evidence_type: inferred`, `openai:<model>`, PMID provenance, confidence 0.3-0.6 |
 
 - **Visible to users:** AI-written text carries an "AI-generated (model)" badge. Template text is labelled "Template (AI unavailable)". Hypotheses are dashed.
 - **Robust demo:** embeddings, reconcile decisions and explanations are cached in `data/cache/` and committed. With `ATLAS_OFFLINE=1` or no key, the app serves the cache, then the template. It never fails because of the API.
@@ -214,6 +214,9 @@ Precompute the OpenAI caches for the demo (needs `OPENAI_API_KEY`):
 
 ```bash
 cd backend
+uv run python -m atlas.extract.cli fetch     # PubMed corpus (no key needed; already committed)
+uv run python -m atlas.extract.cli run       # OpenAI Extract -> data/cache/extract/claims.json
+uv run python -m atlas.pipeline build --offline   # adds cached claims + real openai_usage
 uv run python -m atlas.reconcile.cli embed --nodes ../data/snapshot/atlas-snapshot.json
 uv run python -m atlas.explain.cli golden
 git add ../data/cache && git commit -m "data: precompute OpenAI caches"
@@ -236,7 +239,7 @@ GitHub Actions are not used for deploys. Both hosts deploy straight from `main`.
 | Patient progress | Maria's journey from disease to mechanism, related disease, patient group, asset and next step, with a sourced proposal or an honest gap report | Planned (M4) |
 | 10x impact | One milestone (for example, launching a shared natural history study) compared against the existing timeline, with stated assumptions | Template in [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) |
 | Ambition and product craft | One global search, progressive reveal, every edge explained, patient action view | Planned (M4) |
-| Built with OpenAI | Extract, Reconcile and Explain with structured outputs. Explain (`POST /api/v1/explain`, `gpt-6.1-sol`) cites edge ids in every step, is validated, cached, and falls back to a deterministic template offline. | Reconcile + Explain built; Extract planned |
+| Built with OpenAI | Extract, Reconcile and Explain with structured outputs. Explain (`POST /api/v1/explain`, `gpt-6.1-sol`) cites edge ids in every step, is validated, cached, and falls back to a deterministic template offline. | Reconcile + Explain built; Extract built (runs with a key; results cached) |
 
 ## Development workflow
 

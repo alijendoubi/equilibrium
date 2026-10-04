@@ -297,23 +297,38 @@ make clean
 
 ---
 
-## Data strategy and evidence model
+The committed snapshot (`data/snapshot/atlas-snapshot.json` + `manifest.json`) is what the API serves. It is built from a compact source cache that is also committed (`data/cache/<source>/payload.json`, about 1 MB) plus the hand-curated YAML in `data/curated/`.
 
-Equilibrium is designed to work with public datasets and curated evidence rather than unsupported model-generated claims. The repository includes a data-first framework for building reproducible snapshots and provenance-aware outputs.
+```bash
+make data-offline   # rebuild data/snapshot/ from the committed cache: no network, no keys, ~3 s
+make data-report    # counts by node type / relation + hero-path and honest-gap checks
+make data           # refresh every source online (rewrites data/cache/), then rebuild (~3-5 min)
+```
 
-### Planned data sources
+The same as raw commands, from `backend/`:
 
-| Source | Purpose | Access | Notes |
-|---|---|---|---|
-| MONDO | disease IDs and synonyms | OBO / JSON | disease taxonomy |
-| HPO | phenotype and disease relations | annotation downloads | phenotype semantics |
-| ClinVar | gene / variant / disease assertions | NCBI FTP / E-utilities | public domain |
-| OMIM | gene-phenotype associations | API | license terms apply |
-| Orphanet | disease and patient resources | downloads | public / attribution-based |
-| PubMed / PMC | claims and investigators | E-utilities | abstracts subject to publisher rights |
-| ClinicalTrials.gov | trial data | API v2 | public |
-| NIH RePORTER | funding and investigators | API v2 | public |
-| Patient org directories | community and asset mapping | manual curation | per-site terms |
+```bash
+uv run python -m atlas.pipeline build --offline
+uv run python -m atlas.pipeline report
+uv run python -m atlas.pipeline build           # online
+uv run python -m atlas.ingest fetch --source clinicaltrials   # refresh one source's cache
+```
+
+- **Deterministic.** The same cache gives a byte-identical snapshot and manifest (`snapshot_id` is the SHA-256 of the snapshot file; `created_at` is the latest source `retrieved_at`). A test fails if the committed snapshot is stale against the committed cache.
+- **Validated.** Every node and edge passes the evidence-model pydantic models; every edge endpoint exists; supporting edge ids resolve; no id has two types. The build fails otherwise.
+- **Online refresh** is polite: identifying User-Agent, timeouts, retries with backoff, rate limits (ClinicalTrials.gov ~50 req/min, NCBI 3 req/s or 10 with `NCBI_API_KEY`). HPO downloads `phenotype.hpoa` and `hp.obo` (~47 MB) into `data/raw/hpo/` (gitignored); only the IC map for slice phenotypes is committed.
+- **No OpenAI step yet.** `manifest.openai_usage` is a zero placeholder until Extract/Reconcile land.
+
+| Source (connector) | What we take | Cached |
+|---|---|---|
+| Monarch API v3 (`ingest/monarch.py`) | seed MONDO diseases and HGNC genes (labels, synonyms, xrefs, descriptions); OMIM- and Orphanet-sourced gene-disease links (`caused_by`, `risk_factor_for`); HPO disease-phenotype annotations (`has_phenotype`) | trimmed records |
+| HPO release (`ingest/hpo.py`) | phenotype information content, IC = -ln(fraction of annotated diseases with the term or a descendant), propagated over `hp.obo` | IC map + release version |
+| GO via Monarch (`ingest/go.py`) | biological-process annotations of seed genes under the whitelist in `data/curated/mechanisms.yaml` (`participates_in`) | matching annotations |
+| ClinVar E-utilities (`ingest/clinvar.py`) | pathogenic / likely-pathogenic record counts per seed gene (gene attributes) | counts |
+| ClinicalTrials.gov v2 (`ingest/clinicaltrials.py`) | bounded queries for Gaucher, saposin C, GBA-PD, ambroxol, venglustat, PR001 and neighbour diseases, plus the seed NCTs (`studies_condition`) | trimmed studies |
+| Curated (`ingest/curated.py`) | patient groups, funders, assets (`represents`, `funds`, `studies_condition`, `mentions`); "no dedicated org found" coverage seeds | YAML in `data/curated/` |
+
+Not ingested yet: PubMed, NIH RePORTER, Orphadata, OMIM (its licence restricts redistribution; OMIM-sourced links arrive through Monarch with attribution).
 
 The project stores raw downloaded data separately from reproducible, built outputs. See [data/README.md](data/README.md) for the snapshot conventions and provenance manifest design.
 
@@ -406,7 +421,7 @@ This project addresses a clear challenge statement with a product shape that is 
 - [x] Ingest connectors for the slice: Monarch (MONDO/HGNC/OMIM-sourced links/HPO annotations/GO), HPO IC, ClinVar counts, ClinicalTrials.gov, curated YAML; cache committed in `data/cache/` (#15, #16, #17)
 - [ ] PubMed ingest
 - [ ] OpenAI Extract and Reconcile into evidence edges
-- [ ] `make data` reproduces a dated snapshot
+- [x] `make data` / `make data-offline` build a validated, deterministic snapshot; the API loads it at startup and reports it in `/health` and `/api/v1/meta` (#33)
 
 ---
 

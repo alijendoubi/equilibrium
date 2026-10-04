@@ -12,6 +12,7 @@ repos:
         exclude: (tsconfig.*\.json|\.vscode/.*\.json)$ # allow JSONC
       - id: check-added-large-files
         args: [--maxkb=1000]
+        exclude: ^data/snapshot/atlas-snapshot\.json$ # built snapshot; budget < 5 MB
       - id: check-merge-conflict
       - id: detect-private-key
 

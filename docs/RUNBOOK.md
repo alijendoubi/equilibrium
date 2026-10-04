@@ -72,7 +72,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 ## 5. Connect Render (backend)
 
 1. In Render, create a new **Web Service** from `alijendoubi/equilibrium`.
-2. Set the runtime to **Docker**, the **Root Directory** to `backend`, and the Dockerfile path to `./Dockerfile` (Render resolves it relative to the Root Directory).
+2. Set the runtime to **Docker**, leave the **Root Directory** empty (repo root), set **Docker Build Context Directory** to `.` and **Dockerfile Path** to `./backend/Dockerfile`. The backend image bakes in the committed `data/snapshot/`, so its build context must be the repo root (see the comment at the top of `backend/Dockerfile`).
 3. Set the **Health Check Path** to `/health`.
 4. Add environment variables:
    - `OPENAI_API_KEY`

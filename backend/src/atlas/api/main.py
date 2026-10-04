@@ -1,6 +1,8 @@
 """FastAPI application entrypoint: `atlas.api.main:app`."""
 
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from atlas import __version__
 from atlas.api.routes import router
 from atlas.config import Settings, get_settings
+from atlas.graph.store import load_store
 from atlas.logging_config import configure_logging
 
 logger = logging.getLogger(__name__)
@@ -18,7 +21,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     resolved = settings if settings is not None else get_settings()
     configure_logging(resolved.log_level)
 
-    application = FastAPI(title="Equilibrium Atlas", version=__version__)
+    @asynccontextmanager
+    async def lifespan(application: FastAPI) -> AsyncIterator[None]:
+        # Load the snapshot once; the app still starts (and /health says why) if it is missing.
+        store, status = load_store(resolved.snapshot_path)
+        application.state.store = store
+        application.state.snapshot_status = status
+        yield
+
+    application = FastAPI(title="Equilibrium Atlas", version=__version__, lifespan=lifespan)
+    application.state.store = None
+    application.state.snapshot_status = None
     application.add_middleware(
         CORSMiddleware,
         allow_origins=list(resolved.cors_origin_list),

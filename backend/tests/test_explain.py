@@ -485,3 +485,57 @@ def test_live_call_caps_output_tokens(golden: tuple[Edge, ...], store: GraphStor
     )
 
     assert fake.responses.calls[0]["max_output_tokens"] == 1500
+
+
+def test_path_ends_follow_the_chain_not_edge_direction(store: GraphStore) -> None:
+    from atlas.explain.templates import path_ends
+
+    gd2_gene = next(
+        e
+        for e in store.edges_for("MONDO:0009266", relations=[Relation.CAUSED_BY])
+        if e.target_id == "HGNC:4177"
+    )
+    funds = next(e for e in store.edges_for("org:cure-parkinsons", relations=[Relation.FUNDS]))
+    study = next(
+        e
+        for e in store.edges_for(
+            "clinicaltrials:NCT05778617", relations=[Relation.STUDIES_CONDITION]
+        )
+        if e.target_id == "MONDO:0008199"
+    )
+    risk = next(
+        e
+        for e in store.edges_for("HGNC:4177", relations=[Relation.RISK_FACTOR_FOR])
+        if e.target_id == "MONDO:0008199"
+    )
+    chain = (gd2_gene, risk, study, funds)
+
+    assert path_ends(chain) == ("MONDO:0009266", "org:cure-parkinsons")
+    summary = template_explanation(chain, nodes_for(store, chain)).summary
+    assert summary.startswith("This path links Gaucher disease type II to Cure Parkinson")
+    assert path_ends(()) is None
+    assert path_ends((risk,)) == ("HGNC:4177", "MONDO:0008199")
+
+
+@pytest.mark.parametrize(
+    ("source", "record", "expected"),
+    [
+        ("monarch", "infores:omim|HGNC:4177|biolink:causes|MONDO:0009266", "OMIM via Monarch"),
+        ("monarch", "infores:orphanet|x", "Orphanet via Monarch"),
+        ("monarch", "infores:other|x", "Monarch Initiative"),
+        ("go", "HGNC:4177", "Gene Ontology annotation"),
+        ("clinicaltrials", "NCT05778617", "ClinicalTrials.gov NCT05778617"),
+        ("pubmed", "PMID:1", "PubMed PMID:1"),
+        ("curated", "x", "team-curated, cited source"),
+        ("other", "r", "other r"),
+    ],
+)
+def test_source_citation_is_readable(source: str, record: str, expected: str) -> None:
+    from datetime import UTC, datetime
+
+    from atlas.explain.templates import source_citation
+
+    prov = Provenance(
+        source=source, source_record_id=record, retrieved_at=datetime(2026, 10, 4, tzinfo=UTC)
+    )
+    assert source_citation(prov) == expected

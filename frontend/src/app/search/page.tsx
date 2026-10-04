@@ -13,6 +13,11 @@ interface SearchPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
+/** True when two names differ only in case or surrounding space (no need to repeat the match). */
+function sameText(a: string, b: string): boolean {
+  return a.trim().toLowerCase() === b.trim().toLowerCase();
+}
+
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const q = firstParam((await searchParams).q).trim();
   const client = getAtlasClient();
@@ -68,7 +73,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                     <span className="text-xs text-muted">{displayId(r.node.id)}</span>
                   </div>
                   <p className="mt-2 font-semibold">{r.node.label}</p>
-                  {r.match_reason !== "exact" && (
+                  {r.match_reason !== "exact" && !sameText(r.matched_text, r.node.label) && (
                     <p className="mt-1 text-sm text-muted">
                       Matched {r.match_reason === "synonym" ? "synonym" : "on"}:{" "}
                       <span className="text-foreground">&ldquo;{r.matched_text}&rdquo;</span>

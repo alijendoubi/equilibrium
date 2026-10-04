@@ -36,6 +36,26 @@ def test_client_sends_user_agent_and_returns_json() -> None:
     assert seen[0].url.params["a"] == "1"
 
 
+def test_client_posts_json_and_retries_like_get() -> None:
+    seen: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        if len(seen) == 1:
+            return httpx.Response(503)
+        return httpx.Response(200, json={"echo": request.read().decode()})
+
+    with fake_client(handler) as client:
+        body = client.post_json("https://example.org/search", {"q": "GBA1"})
+    assert [r.method for r in seen] == ["POST", "POST"]
+    assert body == {"echo": '{"q":"GBA1"}'}
+    with (
+        fake_client(lambda _: httpx.Response(503)) as client,
+        pytest.raises(FetchError, match="POST https://example.org/search failed"),
+    ):
+        client.post("https://example.org/search", {})
+
+
 def test_client_retries_transient_errors_then_succeeds() -> None:
     calls = {"n": 0}
 

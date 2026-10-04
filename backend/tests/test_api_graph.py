@@ -52,6 +52,7 @@ ACTIONS_KEYS = {
     "next_experiment",
     "review_checklist",
     "coverage",
+    "shared_investigators",  # additive (#38); not in types.ts yet, zod drops unknown keys
 }
 PARTNER_KEYS = {"node", "why", "edge_ids"}
 ASSET_KEYS = {"node", "reusable", "differs", "edge_ids"}

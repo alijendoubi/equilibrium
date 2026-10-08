@@ -20,12 +20,24 @@ test("landing page renders search and Maria's questions", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("orb traces a disease to its real evidence map", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Gaucher disease", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Tracing Gaucher disease");
+  const heading = page.getByRole("heading", { level: 2 }).first();
+  await expect(heading).toBeVisible();
+  await expect(page.getByText(/sourced links? to/)).toBeVisible();
+  await page.getByRole("link", { name: /Open full map/ }).click();
+  await expect(page).toHaveURL(/\/map\?center=/);
+});
+
 test("golden flow: Gaucher -> type II -> ASPro-PD -> evidence -> actions -> brief", async ({
   page,
 }) => {
   await page.goto("/");
   await page.getByRole("searchbox", { name: "Search the atlas" }).fill("Gaucher");
   await page.keyboard.press("Enter");
+  await page.getByRole("link", { name: "See all matches" }).click();
   await expect(page).toHaveURL(/\/search\?q=Gaucher/);
 
   await page.locator('a[href="/disease/MONDO%3A0009266"]').first().click();

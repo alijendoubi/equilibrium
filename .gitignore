@@ -260,3 +260,6 @@ Desktop.ini
 *.swp
 *~
 .idea/
+
+# Local Claude Code worktrees and settings
+.claude/

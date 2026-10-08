@@ -109,6 +109,6 @@ export function edgeWidth(confidence: number): number {
 
 export const DASH = "7 5";
 
-export function truncateLabel(label: string, max = 26): string {
+export function truncateLabel(label: string, max = 24): string {
   return label.length > max ? `${label.slice(0, max - 1).trimEnd()}…` : label;
 }

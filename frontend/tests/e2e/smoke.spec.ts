@@ -98,3 +98,29 @@ test("clusters: Gaucher types sit in a cluster with a graph and member links", a
     page.getByRole("heading", { level: 1, name: "Gaucher disease type II" }),
   ).toBeVisible();
 });
+
+test("evidence map: centre on Gaucher type II, open GBA1, read an edge's evidence", async ({
+  page,
+}) => {
+  await page.goto("/map");
+  await expect(page.getByRole("button", { name: /^Gene: GBA1\./ })).toBeVisible();
+
+  await page.goto("/map?center=MONDO%3A0009266");
+  const gba1 = page.getByRole("button", { name: /^Gene: GBA1\./ });
+  await expect(gba1).toBeVisible();
+  await gba1.click();
+  const details = page.getByRole("complementary", { name: "Node details" });
+  await expect(details).toContainText("GBA1");
+
+  await details
+    .getByRole("region", { name: "Links on this map" })
+    .getByRole("button")
+    .first()
+    .click();
+  await expect(page.getByRole("complementary", { name: "Edge evidence" })).toContainText(
+    "Confidence",
+  );
+
+  await page.getByRole("button", { name: "Table view" }).click();
+  await expect(page.getByRole("table").first()).toBeVisible();
+});

@@ -17,14 +17,16 @@ import { ALL_NODE_TYPES } from "@/lib/graph-map";
  *
  * The simulation runs to completion up front (at most MAX_TICKS, stopping early once it has
  * settled) and is never animated, so the same data always draws the same picture and
- * prefers-reduced-motion users never see motion. Initial positions are seeded by node type
+ * prefers-reduced-motion users never see motion. Positions are abstract layout units: the
+ * canvas scales them to fit, while node sizes and labels stay a constant size in pixels. Initial positions are seeded by node type
  * (one sector per type) and hop distance (one ring per hop), so types read as neighbourhoods.
  */
 
 export const MAX_TICKS = 300;
 const RING = 190;
 const OVERVIEW_RING = 260;
-const LABEL_ROOM = 16;
+/** Minimum distance between node centres, in layout units (drawing sizes are in pixels). */
+const NODE_SPACING = 44;
 
 export interface Point {
   x: number;
@@ -33,8 +35,8 @@ export interface Point {
 
 export interface MapLayout {
   positions: Map<string, Point>;
-  /** viewBox [x, y, width, height] that frames every node and its label. */
-  viewBox: [number, number, number, number];
+  /** [minX, minY, maxX, maxY] of the node centres, in layout units. */
+  bounds: [number, number, number, number];
   ticks: number;
 }
 
@@ -96,14 +98,14 @@ export function computeLayout(nodes: MapNode[], edges: Edge[], center: string | 
       "link",
       forceLink<SimNode, SimulationLinkDatum<SimNode>>(links)
         .id((d) => d.id)
-        .distance(center ? 90 : 70)
-        .strength(0.35),
+        .distance(center ? 100 : 105)
+        .strength(0.3),
     )
-    .force("charge", forceManyBody<SimNode>().strength(center ? -320 : -240))
+    .force("charge", forceManyBody<SimNode>().strength(center ? -380 : -760))
     .force(
       "collide",
       forceCollide<SimNode>()
-        .radius((d) => d.r + LABEL_ROOM)
+        .radius(center ? NODE_SPACING : NODE_SPACING * 1.35)
         .strength(0.9),
     )
     .force("x", forceX<SimNode>(0).strength(center ? 0.02 : 0.06))
@@ -123,28 +125,16 @@ export function computeLayout(nodes: MapNode[], edges: Edge[], center: string | 
   }
 
   const positions = new Map<string, Point>();
-  let minX = 0;
-  let minY = 0;
-  let maxX = 0;
-  let maxY = 0;
+  const bounds: MapLayout["bounds"] = [Infinity, Infinity, -Infinity, -Infinity];
   for (const n of simNodes) {
     const x = n.x ?? 0;
     const y = n.y ?? 0;
     positions.set(n.id, { x, y });
-    minX = Math.min(minX, x - n.r);
-    maxX = Math.max(maxX, x + n.r);
-    minY = Math.min(minY, y - n.r);
-    maxY = Math.max(maxY, y + n.r);
+    bounds[0] = Math.min(bounds[0], x);
+    bounds[1] = Math.min(bounds[1], y);
+    bounds[2] = Math.max(bounds[2], x);
+    bounds[3] = Math.max(bounds[3], y);
   }
-  // Labels sit under the nodes and run sideways, so leave room on every edge.
-  const padX = 110;
-  const padTop = 30;
-  const padBottom = 40;
-  const viewBox: MapLayout["viewBox"] = [
-    minX - padX,
-    minY - padTop,
-    Math.max(maxX - minX + 2 * padX, 480),
-    Math.max(maxY - minY + padTop + padBottom, 320),
-  ];
-  return { positions, viewBox, ticks };
+  if (simNodes.length === 0) return { positions, bounds: [0, 0, 0, 0], ticks };
+  return { positions, bounds, ticks };
 }

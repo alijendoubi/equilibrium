@@ -1,3 +1,4 @@
+import { sourceCitation } from "@/lib/api/explain-template";
 import Link from "next/link";
 import { EvidenceBadge, TypeBadge } from "@/components/Badges";
 import type { Edge, MapNode } from "@/lib/api/types";
@@ -116,6 +117,7 @@ export function MapNodePanel({
                     </span>
                     <span className="font-medium">{other}</span>
                     <EvidenceBadge type={edge.evidence_type} />
+                    <span className="text-muted">{sourceCitation(edge.provenance)}</span>
                     {contradictionIds.has(edge.id) && (
                       <span className="rounded-full border border-contradiction px-2 py-0.5 font-medium text-contradiction">
                         {contradictionBadge(edge)}

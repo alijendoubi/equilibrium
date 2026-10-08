@@ -35,6 +35,8 @@ validated in `src/lib/env.ts`.
 | `NEXT_PUBLIC_API_URL`   | browser | Backend base URL (inlined at build time)                                                        |
 | `BACKEND_URL`           | server  | Backend base URL for server components and route handlers (falls back to `NEXT_PUBLIC_API_URL`) |
 | `NEXT_PUBLIC_USE_MOCKS` | both    | `false` switches the UI from `src/mocks` to the live API (inlined at build time)                |
+| `NEXT_PUBLIC_APP_URL`   | browser | Primary Atlas URL used by calls to action from the marketing subdomain                          |
+| `MARKETING_HOST`        | server  | Hostname that serves the marketing page, e.g. `home.mydomain.com`                               |
 
 Live mode: `NEXT_PUBLIC_USE_MOCKS=false NEXT_PUBLIC_API_URL=http://localhost:8000 pnpm dev`
 (or set them before `pnpm build`). Every live call times out after 4 s (explain: 15 s). If the
@@ -58,6 +60,13 @@ JSON and live responses. Mocks are on by default: see `src/mocks/README.md`.
 
 `GET /api/health` returns `{ "status": "ok", "backend": "ok" | "unreachable" }`, probing
 `${BACKEND_URL}/health` with a 2 s timeout.
+
+## Marketing subdomain
+
+The Atlas continues to live on the primary frontend host. Set `MARKETING_HOST=home.mydomain.com`
+and point that DNS record at the same Vercel deployment to serve the public marketing page there.
+Set `NEXT_PUBLIC_APP_URL=https://mydomain.com` so the marketing calls to action return visitors to
+the Atlas. Locally, `home.localhost:3000` routes to the marketing page when your browser resolves it.
 
 ## Docker
 

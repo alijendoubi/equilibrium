@@ -35,6 +35,11 @@ export function EdgePanel({ edge, nodesById }: EdgePanelProps) {
         {edge.contradicted_by.length > 0 && (
           <ContradictionBadge count={edge.contradicted_by.length} />
         )}
+        {edge.relation === "contradicts" && (
+          <span className="inline-flex items-center rounded-full border border-contradiction px-2 py-0.5 text-xs font-medium text-contradiction">
+            Contradicting evidence
+          </span>
+        )}
       </div>
       <p className="mt-2 text-xs text-muted">{EVIDENCE_DESCRIPTION[edge.evidence_type]}</p>
 

@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { Fragment, useMemo, useState } from "react";
+import { mapHref } from "@/lib/graph-map";
 import { ExplainPanel } from "@/components/explain/ExplainPanel";
 import { NodeChip } from "@/components/NodeChip";
 import type { AtlasNode, Edge, Path } from "@/lib/api/types";
@@ -49,6 +51,16 @@ function Connector({ edge, left, right, selected, onSelect }: ConnectorProps) {
       </span>
     </button>
   );
+}
+
+/** The map centred on the path's start, with every hop expanded and the route highlighted. */
+export function pathMapHref(path: Path): string {
+  const [first, ...rest] = path.nodes;
+  return mapHref({
+    center: first?.id ?? null,
+    expand: rest.map((n) => n.id),
+    highlight: path.edges.map((e) => e.id),
+  });
 }
 
 export function PathExplorer({ paths }: { paths: Path[] }) {
@@ -100,6 +112,14 @@ export function PathExplorer({ paths }: { paths: Path[] }) {
                 );
               })}
             </ol>
+            <p className="mt-4 text-sm">
+              <Link
+                href={pathMapHref(path)}
+                className="font-medium text-cluster underline-offset-4 hover:underline"
+              >
+                Show this path on the map <span aria-hidden="true">→</span>
+              </Link>
+            </p>
             <div className="mt-4">
               <ExplainPanel
                 edgeIds={path.edges.map((e) => e.id)}

@@ -11,6 +11,7 @@ from atlas import __version__
 from atlas.api.cluster_routes import router as cluster_router
 from atlas.api.explain_routes import explain_router
 from atlas.api.graph_routes import router as graph_router
+from atlas.api.map_routes import router as map_router
 from atlas.api.routes import router
 from atlas.config import Settings, get_settings
 from atlas.graph.clusters import build_cluster_index
@@ -67,6 +68,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application.include_router(router)
     application.include_router(graph_router)
     application.include_router(cluster_router)
+    application.include_router(map_router)
     application.include_router(explain_router)
     logger.info(
         "Atlas API configured (models: extract=%s explain=%s reconcile=%s embed=%s, "

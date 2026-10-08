@@ -8,6 +8,7 @@ import type {
   Edge,
   ExplainRequest,
   ExplainResponse,
+  GraphMapResponse,
   NodeSummary,
   PathResponse,
   SearchResponse,
@@ -316,6 +317,34 @@ export const clusterDetailSchema = z.object({
   ),
 });
 
+const countMap = z.record(z.string(), z.number().int().min(0));
+
+export const graphMapResponseSchema = z.object({
+  center: curie.nullable(),
+  depth: z.number().int().min(0).max(2),
+  nodes: z.array(
+    z.object({
+      node: nodeSchema,
+      degree: z.number().int().min(0),
+      total_degree: z.number().int().min(0),
+      cluster_id: z.string().nullable().default(null),
+      distance: z.number().int().min(0).nullable().default(null),
+    }),
+  ),
+  edges: z.array(edgeSchema),
+  contradiction_edge_ids: z.array(edgeId).default([]),
+  truncated: z.object({
+    by_type: countMap,
+    nodes_hidden: z.number().int().min(0),
+    edges_hidden: z.number().int().min(0),
+  }),
+  legend: z.object({
+    node_types: countMap,
+    relations: countMap,
+    evidence_types: countMap,
+  }),
+});
+
 // Compile-time guard: the schemas and the hand-written types must stay in sync.
 type MutuallyAssignable<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;
 type Assert<T extends true> = T;
@@ -331,4 +360,5 @@ export type SchemaTypeChecks = [
   Assert<MutuallyAssignable<z.infer<typeof explainResponseSchema>, ExplainResponse>>,
   Assert<MutuallyAssignable<z.infer<typeof clustersResponseSchema>, ClustersResponse>>,
   Assert<MutuallyAssignable<z.infer<typeof clusterDetailSchema>, ClusterDetail>>,
+  Assert<MutuallyAssignable<z.infer<typeof graphMapResponseSchema>, GraphMapResponse>>,
 ];

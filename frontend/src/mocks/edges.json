@@ -439,5 +439,61 @@
     "confidence_reasons": ["HPO annotation: base 0.90 (placeholder until snapshot)"],
     "evidence_type": "curated",
     "contradicted_by": []
+  },
+  {
+    "id": "E:e817c6fa6b8cd2d0",
+    "source_id": "HGNC:9498",
+    "target_id": "MONDO:0859183",
+    "relation": "risk_factor_for",
+    "provenance": {
+      "evidence_quote": null,
+      "extractor": "ingest:monarch",
+      "retrieved_at": "2026-10-03T23:21:41Z",
+      "source": "monarch",
+      "source_record_id": "infores:omim|HGNC:9498|biolink:contributes_to|MONDO:0859183",
+      "source_version": "monarch-kg 2026-09-04",
+      "supporting_edge_ids": [],
+      "url": "https://monarchinitiative.org/MONDO:0859183"
+    },
+    "confidence": 0.75,
+    "confidence_reasons": [
+      "curated KB gene-disease (OMIM via Monarch) 0.90",
+      "-0.15 contradicted by 1 record"
+    ],
+    "evidence_type": "curated",
+    "contradicted_by": ["E:7cf4995e7e48a159"],
+    "qualifiers": {
+      "monarch_predicate": "biolink:contributes_to",
+      "original_subject": "OMIM:176801",
+      "primary_knowledge_source": "infores:omim"
+    }
+  },
+  {
+    "id": "E:7cf4995e7e48a159",
+    "source_id": "PMID:33793763",
+    "target_id": "MONDO:0859183",
+    "relation": "contradicts",
+    "provenance": {
+      "evidence_quote": "PSAP variants in Parkinson's disease: a large cohort study in Chinese mainland population.",
+      "extractor": "curated:contradictions",
+      "retrieved_at": "2026-10-04T00:00:00Z",
+      "source": "curated",
+      "source_record_id": "contradiction:psap-pd-susceptibility-contested",
+      "source_version": null,
+      "supporting_edge_ids": [],
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33793763/"
+    },
+    "confidence": 0.5,
+    "confidence_reasons": ["team-curated, key claim unverified [U] 0.50"],
+    "evidence_type": "curated",
+    "contradicted_by": ["E:e817c6fa6b8cd2d0"],
+    "qualifiers": {
+      "contradiction_id": "psap-pd-susceptibility-contested",
+      "curator": "claude-agent, needs human check",
+      "evidence_urls": "https://pubmed.ncbi.nlm.nih.gov/33793763/",
+      "notes": "Verified via PubMed E-utilities on 2026-10-04: PMID 33793763 is a Letter / Comment in Brain 2021;144(3):e25 commenting on Brain 2020;143(4):1190-1205 (Oji et al.), with an author reply (Brain 2021;144(3):e26). [U] The letter has no abstract in PubMed, so its conclusion (no replication of the PSAP-PD association) was not read; low confidence until a team member reads the full text.",
+      "summary": "The OMIM/Monarch edge PSAP contributes to Parkinson disease 24 susceptibility rests on Oji et al. 2020 (Brain, PMID 32201884, saposin D variants). A 2021 Brain letter on a large Chinese mainland cohort (PMID 33793763) comments on that report.",
+      "verification": "unverified"
+    }
   }
 ]

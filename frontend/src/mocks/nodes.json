@@ -231,5 +231,27 @@
       "description": "[MOCK] An old cough medicine studied as a chaperone that may raise GCase activity. Not an approved therapy for either disease.",
       "clinical_proof": "false"
     }
+  },
+  {
+    "id": "MONDO:0859183",
+    "type": "disease",
+    "label": "Parkinson disease 24, autosomal dominant, susceptibility to",
+    "synonyms": [],
+    "xrefs": ["MEDGEN:1794179", "OMIM:619491", "UMLS:C5561969"],
+    "attributes": {
+      "monarch_url": "https://monarchinitiative.org/MONDO:0859183",
+      "slice_role": "hypothesis"
+    }
+  },
+  {
+    "id": "PMID:33793763",
+    "type": "publication",
+    "label": "PSAP variants in Parkinson's disease: a large cohort study in Chinese mainland population",
+    "synonyms": [],
+    "xrefs": ["PMID:33793763"],
+    "attributes": {
+      "curated_by": "psap-pd-susceptibility-contested",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33793763/"
+    }
   }
 ]

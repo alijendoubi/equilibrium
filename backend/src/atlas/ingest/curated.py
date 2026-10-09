@@ -62,6 +62,19 @@ FILES = ("organizations", "assets", "mechanisms", "condition_aliases", "contradi
 _NCT = re.compile(r"^NCT\d{8}$")
 _PMID = re.compile(r"^PMID:\d+$")
 _PAGE_READ = re.compile(r"\b(?:page|homepage) read\b")
+_SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+_MONDO = re.compile(r"^MONDO:\d{7}$")
+
+_ENTRY_FIELDS = (
+    "id",
+    "name",
+    "type",
+    "url",
+    "disease_ids",
+    "retrieved",
+    "curator",
+    "notes",
+)
 
 
 class CuratedDataError(ValueError):
@@ -81,12 +94,37 @@ def load_all(curated_dir: Path | None = None) -> JsonDict:
     return {name: load_yaml(name, curated_dir) for name in FILES}
 
 
-def _require(entry: Mapping[str, Any], kind: str) -> None:
-    missing = [key for key in ("id", "url", "retrieved") if not entry.get(key)]
+def _require(
+    entry: Mapping[str, Any],
+    kind: str,
+    fields: Sequence[str] = _ENTRY_FIELDS,
+    *,
+    slug_id: bool = True,
+) -> None:
+    missing = [key for key in fields if key != "disease_ids" and not entry.get(key)]
     if missing:
         raise CuratedDataError(f"{kind} entry {entry.get('id')!r} is missing {missing}")
     if not str(entry["url"]).startswith(("https://", "http://")):
         raise CuratedDataError(f"{kind} entry {entry['id']!r} url must be http(s)")
+    if slug_id and "id" in fields and not _SLUG.fullmatch(str(entry["id"])):
+        raise CuratedDataError(f"{kind} entry {entry['id']!r} id must be a kebab-case slug")
+    if "disease_ids" in fields:
+        disease_ids = entry.get("disease_ids")
+        if not isinstance(disease_ids, Sequence) or isinstance(disease_ids, str) or not disease_ids:
+            raise CuratedDataError(f"{kind} entry {entry['id']!r} needs non-empty disease_ids")
+        invalid = [
+            disease_id for disease_id in disease_ids if not _MONDO.fullmatch(str(disease_id))
+        ]
+        if invalid:
+            raise CuratedDataError(
+                f"{kind} entry {entry['id']!r} has invalid MONDO disease_ids {invalid}"
+            )
+    try:
+        _retrieved(entry)
+    except (TypeError, ValueError) as exc:
+        raise CuratedDataError(
+            f"{kind} entry {entry.get('id')!r} retrieved must be an ISO date"
+        ) from exc
 
 
 def _retrieved(entry: Mapping[str, Any]) -> datetime:
@@ -125,7 +163,7 @@ def asset_node_id(entry: Mapping[str, Any]) -> tuple[str, NodeType]:
 
 
 def _asset(entry: Mapping[str, Any]) -> tuple[Node, list[Edge]]:
-    _require(entry, "asset")
+    _require(entry, "asset", (*_ENTRY_FIELDS, "source_record_id"))
     node_id, node_type = asset_node_id(entry)
     attributes = _base_attributes(entry)
     attributes["asset_slug"] = str(entry["id"])
@@ -161,7 +199,7 @@ def _asset(entry: Mapping[str, Any]) -> tuple[Node, list[Edge]]:
 def _organization(
     entry: Mapping[str, Any], asset_ids: Mapping[str, str]
 ) -> tuple[Node, list[Edge]]:
-    _require(entry, "organization")
+    _require(entry, "organization", (*_ENTRY_FIELDS, "verified"))
     org_id = f"{ORG_PREFIX}{entry['id']}"
     org_type = str(entry.get("type") or "unknown")
     attributes = _base_attributes(entry)
@@ -219,7 +257,12 @@ def _organization(
 
 def _mechanism_check(mechanisms: Sequence[Mapping[str, Any]]) -> None:
     for item in mechanisms:
-        _require(item, "mechanism")
+        _require(
+            item,
+            "mechanism",
+            ("id", "name", "url", "retrieved", "curator", "notes"),
+            slug_id=False,
+        )
         if not re.match(r"^GO:\d{7}$", str(item["id"])):
             raise CuratedDataError(f"mechanism {item['id']!r} is not a GO id")
 
@@ -233,15 +276,62 @@ def mechanisms(payload: Mapping[str, Any]) -> list[JsonDict]:
 def condition_aliases(payload: Mapping[str, Any]) -> list[JsonDict]:
     items = list((payload.get("condition_aliases") or {}).get("aliases") or [])
     for item in items:
-        if not item.get("name") or not item.get("disease_id") or not item.get("url"):
-            raise CuratedDataError(f"condition alias {item!r} needs name, disease_id and url")
+        fields = ("name", "disease_id", "url", "retrieved", "curator", "notes")
+        missing = [field for field in fields if not item.get(field)]
+        if missing:
+            raise CuratedDataError(f"condition alias {item!r} is missing {missing}")
+        if not str(item["url"]).startswith(("https://", "http://")):
+            raise CuratedDataError(f"condition alias {item['name']!r} url must be http(s)")
+        if not _MONDO.fullmatch(str(item["disease_id"])):
+            raise CuratedDataError(
+                f"condition alias {item['name']!r} disease_id must be a MONDO id"
+            )
+        try:
+            _retrieved(item)
+        except (TypeError, ValueError) as exc:
+            raise CuratedDataError(
+                f"condition alias {item['name']!r} retrieved must be an ISO date"
+            ) from exc
     return items
+
+
+def _coverage_gaps(items: Sequence[Mapping[str, Any]]) -> list[JsonDict]:
+    gaps: list[JsonDict] = []
+    for item in items:
+        missing = [field for field in ("disease_id", "name", "retrieved") if not item.get(field)]
+        if missing:
+            raise CuratedDataError(f"coverage gap {item.get('disease_id')!r} is missing {missing}")
+        if not _MONDO.fullmatch(str(item["disease_id"])):
+            raise CuratedDataError(f"coverage gap {item['disease_id']!r} must use a MONDO id")
+        searched = item.get("searched")
+        if not isinstance(searched, Sequence) or isinstance(searched, str) or not searched:
+            raise CuratedDataError(f"coverage gap {item['disease_id']!r} needs non-empty searched")
+        try:
+            _retrieved(item)
+        except (TypeError, ValueError) as exc:
+            raise CuratedDataError(
+                f"coverage gap {item['disease_id']!r} retrieved must be an ISO date"
+            ) from exc
+        gaps.append(
+            {key: (str(value) if isinstance(value, date) else value) for key, value in item.items()}
+        )
+    return gaps
+
+
+def _unique_ids(entries: Sequence[Mapping[str, Any]], kind: str) -> None:
+    ids = [str(entry.get("id") or "") for entry in entries]
+    duplicates = sorted({entry_id for entry_id in ids if entry_id and ids.count(entry_id) > 1})
+    if duplicates:
+        raise CuratedDataError(f"duplicate {kind} ids: {duplicates}")
 
 
 def normalize(payload: Mapping[str, Any]) -> IngestResult:
     """Org/asset nodes and their edges; coverage seeds go to ``notes``."""
     orgs_doc = payload.get("organizations") or {}
     assets = list((payload.get("assets") or {}).get("assets") or [])
+    organizations = list(orgs_doc.get("organizations") or [])
+    _unique_ids(assets, "asset")
+    _unique_ids(organizations, "organization")
     asset_ids = {str(entry["id"]): asset_node_id(entry)[0] for entry in assets}
     nodes: list[Node] = []
     edges: list[Edge] = []
@@ -249,19 +339,14 @@ def normalize(payload: Mapping[str, Any]) -> IngestResult:
         node, asset_edges = _asset(entry)
         nodes.append(node)
         edges.extend(asset_edges)
-    for entry in orgs_doc.get("organizations") or []:
+    for entry in organizations:
         node, org_edges = _organization(entry, asset_ids)
         nodes.append(node)
         edges.extend(org_edges)
     _mechanism_check(mechanisms(payload))
     condition_aliases(payload)
-    gaps = [
-        {key: (str(v) if isinstance(v, date) else v) for key, v in item.items()}
-        for item in orgs_doc.get("no_dedicated_org_found") or []
-    ]
-    dates = sorted(
-        str(entry["retrieved"]) for entry in [*assets, *orgs_doc.get("organizations", [])]
-    )
+    gaps = _coverage_gaps(list(orgs_doc.get("no_dedicated_org_found") or []))
+    dates = sorted(str(entry["retrieved"]) for entry in [*assets, *organizations])
     return IngestResult(
         source=SOURCE,
         source_version=None,
@@ -269,7 +354,7 @@ def normalize(payload: Mapping[str, Any]) -> IngestResult:
         nodes=merge_nodes(nodes),
         edges=dedupe_edges(edges),
         notes={
-            "records": len(assets) + len(orgs_doc.get("organizations") or []),
+            "records": len(assets) + len(organizations),
             "no_dedicated_org_found": gaps,
         },
     )

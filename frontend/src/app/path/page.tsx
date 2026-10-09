@@ -4,7 +4,7 @@ import { CoverageReportCard } from "@/components/CoverageReportCard";
 import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { PathExplorer } from "@/components/path/PathExplorer";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import { actionsHref, nodeHref } from "@/lib/format";
 import { firstParam } from "@/lib/params";
 
@@ -18,7 +18,7 @@ export default async function PathPage({ searchParams }: PathPageProps) {
   const params = await searchParams;
   const from = firstParam(params.from).trim();
   const to = firstParam(params.to).trim();
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
 
   if (!from || !to) {
     return (

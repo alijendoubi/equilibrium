@@ -260,6 +260,7 @@ The frontend uses mock data unless `NEXT_PUBLIC_USE_MOCKS=false` and `NEXT_PUBLI
 | `LOG_LEVEL` | backend | `INFO` | Logging; keys are never logged |
 | `NEXT_PUBLIC_USE_MOCKS` | frontend (build time) | `true` | `false` uses the live API |
 | `NEXT_PUBLIC_API_URL` / `BACKEND_URL` | frontend | `http://localhost:8000` | API for the browser / for server rendering |
+| `FRONTEND_API_TOKEN` | frontend server **and** backend (same value) | none | Server-only secret; lets server-rendered calls vouch for the visitor's IP so rate limits apply per visitor. Never `NEXT_PUBLIC_` |
 
 ## Deployment
 

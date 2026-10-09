@@ -5,7 +5,7 @@ import { ClusterDetails } from "@/components/clusters/ClusterDetails";
 import { ClusterGraph } from "@/components/clusters/ClusterGraph";
 import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import { decodeSegment } from "@/lib/params";
 
 interface ClusterPageProps {
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: ClusterPageProps): Promise<Me
 export default async function ClusterPage({ params }: ClusterPageProps) {
   const id = decodeSegment((await params).id);
   if (!id) notFound();
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
   const detail = await client.getCluster(id);
   if (!detail) notFound();
 

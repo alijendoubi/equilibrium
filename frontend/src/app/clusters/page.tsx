@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import { clusterColor } from "@/lib/cluster-layout";
 import { clusterHref } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Disease clusters · Equilibrium" };
 
 export default async function ClustersPage() {
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
   const { clusters, method } = await client.getClusters();
 
   return (

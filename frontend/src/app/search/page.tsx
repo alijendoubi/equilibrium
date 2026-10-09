@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MatchReasonBadge, TypeBadge } from "@/components/Badges";
 import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import { displayId, nodeHref } from "@/lib/format";
 import { firstParam } from "@/lib/params";
 
@@ -20,7 +20,7 @@ function sameText(a: string, b: string): boolean {
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const q = firstParam((await searchParams).q).trim();
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
   const response = q ? await client.search(q) : null;
 
   return (

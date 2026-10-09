@@ -6,7 +6,7 @@ import { GapCard } from "@/components/GapCard";
 import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { loadActionView } from "@/lib/action-view";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import { nodeHref } from "@/lib/format";
 import { closestCommunities } from "@/lib/gap";
 import { decodeSegment } from "@/lib/params";
@@ -20,7 +20,7 @@ export const metadata: Metadata = { title: "What to do next · Equilibrium" };
 export default async function ActionsPage({ params }: ActionsPageProps) {
   const id = decodeSegment((await params).id);
   if (!id) notFound();
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
   const view = await loadActionView(client, id);
   if (!view) notFound();
 

@@ -1,6 +1,6 @@
 "use server";
 
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import { CURIE_PATTERN } from "@/lib/api/schemas";
 import {
   MAX_ALTERNATIVES,
@@ -22,7 +22,7 @@ export async function traceQuery(raw: unknown): Promise<TraceResult> {
     return { status: "invalid", query, message: "Type a disease, gene or symptom first." };
   }
   try {
-    const client = getAtlasClient();
+    const client = await getServerAtlasClient();
     const search = await client.search(query);
     const [match, ...rest] = search.results;
     if (!match) {
@@ -57,7 +57,7 @@ export async function traceNode(rawId: unknown): Promise<GraphResult> {
     return { status: "error", message: "That is not an atlas id." };
   }
   try {
-    const client = getAtlasClient();
+    const client = await getServerAtlasClient();
     const graph = await client.getGraph({ center: id, depth: 1 });
     return { status: "ok", graph, isMock: client.isMock, usedFallback: client.usedFallback };
   } catch (error) {

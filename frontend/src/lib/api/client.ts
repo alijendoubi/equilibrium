@@ -273,6 +273,8 @@ export interface HttpClientOptions {
   fetchImpl?: typeof fetch;
   timeoutMs?: number;
   explainTimeoutMs?: number;
+  /** Extra headers on every request. Server-only callers pass the frontend token here. */
+  headers?: Readonly<Record<string, string>>;
 }
 
 /** `?center=MONDO%3A0009266&depth=1&types=gene,disease`, or "" for the default overview. */
@@ -292,6 +294,7 @@ export function createHttpClient(baseUrl: string, options: HttpClientOptions = {
   const fetchImpl = options.fetchImpl ?? fetch;
   const timeoutMs = options.timeoutMs ?? API_TIMEOUT_MS;
   const explainTimeoutMs = options.explainTimeoutMs ?? EXPLAIN_TIMEOUT_MS;
+  const extraHeaders = options.headers ?? {};
 
   async function request<T>(
     path: string,
@@ -305,6 +308,7 @@ export function createHttpClient(baseUrl: string, options: HttpClientOptions = {
       res = await fetchImpl(`${baseUrl}/api/v1${path}`, {
         cache: "no-store",
         ...init,
+        headers: { ...extraHeaders, ...(init.headers as Record<string, string> | undefined) },
         signal: AbortSignal.timeout(timeout),
       });
     } catch (cause) {
@@ -429,8 +433,12 @@ export function apiBaseUrl(): string {
   return getPublicEnv().NEXT_PUBLIC_API_URL;
 }
 
-/** A fresh client per call, so `usedFallback` describes one page render or one button press. */
-export function getAtlasClient(): AtlasClient {
+/**
+ * A fresh client per call, so `usedFallback` describes one page render or one button press.
+ * Called with no arguments (the browser path, e.g. the explain panel) it sends no extra headers;
+ * server code uses `getServerAtlasClient` in ./server-client.ts to add the frontend token.
+ */
+export function getAtlasClient(headers?: Readonly<Record<string, string>>): AtlasClient {
   if (shouldUseMocks()) return mockClient;
-  return createFallbackClient(createHttpClient(apiBaseUrl()), mockClient);
+  return createFallbackClient(createHttpClient(apiBaseUrl(), { headers }), mockClient);
 }

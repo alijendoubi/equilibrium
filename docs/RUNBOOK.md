@@ -82,7 +82,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
    - optionally `NCBI_API_KEY` and `OMIM_API_KEY`
 5. Turn auto-deploy off if deploys should come only from `deploy.yml` on `main`.
 6. Under Settings, then **Deploy Hook**, copy the URL and run `gh secret set RENDER_DEPLOY_HOOK_URL`.
-7. Free instances sleep when idle. Warm the service before judging, or upgrade it.
+7. Free instances sleep when idle. Warm the service before a demo, or upgrade it.
 
 ## 6. Local development
 

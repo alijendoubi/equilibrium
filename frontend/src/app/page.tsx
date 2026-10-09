@@ -118,7 +118,13 @@ export default function HomePage() {
         </section>
 
         <footer className="mt-auto pt-16 text-xs text-muted">
-          Hack-Nation Challenge 05 · Team Equilibrium
+          Equilibrium · open-source rare disease atlas ·{" "}
+          <a
+            href="https://github.com/alijendoubi/equilibrium"
+            className="underline-offset-4 hover:text-foreground hover:underline"
+          >
+            Source on GitHub
+          </a>
         </footer>
       </div>
     </main>

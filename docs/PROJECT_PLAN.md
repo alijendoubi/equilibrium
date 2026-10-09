@@ -1,5 +1,7 @@
 # Equilibrium: Full Project Plan (Challenge 05, AI Atlas for the World's Rare Diseases)
 
+> **Historical document.** Written for the Hack-Nation submission (October 2026) and kept for the record; it is not maintained. Code comments cite its section numbers. For the current project see the [README](../README.md) and [ARCHITECTURE](ARCHITECTURE.md).
+
 Team Equilibrium (Ali, Sagor, Clara). Hack-Nation 7th Global AI Hackathon, OpenAI x Buffalo Initiative track.
 Prepared 2026-10-03. Repo state: M1 bootstrap done. FastAPI `/health` + `/api/v1/meta`, draft `models/evidence.py`, Next.js landing shell, issues #14-#27 seeded, CI not executing (Actions blocked on account).
 

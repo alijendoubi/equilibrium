@@ -7,7 +7,11 @@ import { getAtlasClient } from "@/lib/api/client";
 import { displayId, nodeHref } from "@/lib/format";
 import { firstParam } from "@/lib/params";
 
-export const metadata: Metadata = { title: "Search · Equilibrium" };
+// Result pages are endless query permutations: crawl the links, do not index the pages.
+export const metadata: Metadata = {
+  title: "Search · Equilibrium",
+  robots: { index: false, follow: true },
+};
 
 interface SearchPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

@@ -8,7 +8,12 @@ import type { GraphMapResponse } from "@/lib/api/types";
 import { NODE_TYPE_LABEL, nodeHref } from "@/lib/format";
 import { ALL_NODE_TYPES, mapHref, mergeMaps, parseMapParams } from "@/lib/graph-map";
 
-export const metadata: Metadata = { title: "Evidence map · Equilibrium" };
+export const metadata: Metadata = {
+  title: "Evidence map · Equilibrium",
+  description:
+    "Every disease, gene, mechanism, study and patient group in the slice, linked by sourced claims.",
+  alternates: { canonical: "/map" },
+};
 
 /** Lists of ids (expand, highlight) are longer than a single id, so they get a larger cap. */
 const MAX_LIST_PARAM = 2000;

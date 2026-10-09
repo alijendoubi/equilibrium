@@ -6,7 +6,12 @@ import { getAtlasClient } from "@/lib/api/client";
 import { clusterColor } from "@/lib/cluster-layout";
 import { clusterHref } from "@/lib/format";
 
-export const metadata: Metadata = { title: "Disease clusters · Equilibrium" };
+export const metadata: Metadata = {
+  title: "Disease clusters · Equilibrium",
+  description:
+    "Diseases grouped by shared genes, mechanisms and symptoms, with the bridges between groups.",
+  alternates: { canonical: "/clusters" },
+};
 
 export default async function ClustersPage() {
   const client = getAtlasClient();

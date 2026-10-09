@@ -260,6 +260,7 @@ The frontend uses mock data unless `NEXT_PUBLIC_USE_MOCKS=false` and `NEXT_PUBLI
 | `LOG_LEVEL` | backend | `INFO` | Logging; keys are never logged |
 | `NEXT_PUBLIC_USE_MOCKS` | frontend (build time) | `true` | `false` uses the live API |
 | `NEXT_PUBLIC_API_URL` / `BACKEND_URL` | frontend | `http://localhost:8000` | API for the browser / for server rendering |
+| `NEXT_PUBLIC_SITE_URL` | frontend (build time) | the live Vercel URL | Canonical origin for page metadata, `sitemap.xml` and `robots.txt`; set it to the production domain |
 
 ## Deployment
 

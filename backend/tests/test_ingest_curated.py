@@ -70,6 +70,33 @@ def test_non_http_url_is_rejected() -> None:
         curated.normalize(payload)
 
 
+@pytest.mark.parametrize(
+    ("field", "value", "match"),
+    [
+        ("disease_ids", [], "non-empty disease_ids"),
+        ("retrieved", "not-a-date", "ISO date"),
+        ("id", "Not a slug", "kebab-case slug"),
+        ("source_record_id", None, "source_record_id"),
+    ],
+)
+def test_asset_schema_fields_are_required_and_valid(
+    field: str, value: object, match: str
+) -> None:
+    payload = _payload()
+    asset = {**payload["assets"]["assets"][0], field: value}
+    payload["assets"] = {"assets": [asset]}
+    with pytest.raises(curated.CuratedDataError, match=match):
+        curated.normalize(payload)
+
+
+def test_duplicate_asset_ids_are_rejected() -> None:
+    payload = _payload()
+    first = payload["assets"]["assets"][0]
+    payload["assets"] = {"assets": [first, {**first, "name": "Duplicate"}]}
+    with pytest.raises(curated.CuratedDataError, match="duplicate asset ids"):
+        curated.normalize(payload)
+
+
 def test_unknown_funded_asset_is_rejected() -> None:
     payload = _payload()
     org = {**payload["organizations"]["organizations"][0], "funds": ["nope"]}
@@ -85,6 +112,17 @@ def test_bad_mechanism_and_alias_are_rejected() -> None:
         curated.mechanisms({"mechanisms": {"mechanisms": [mech]}})
     with pytest.raises(curated.CuratedDataError, match="alias"):
         curated.condition_aliases({"condition_aliases": {"aliases": [{"name": "x"}]}})
+
+
+def test_invalid_coverage_gap_is_rejected() -> None:
+    payload = _payload()
+    gap = {**payload["organizations"]["no_dedicated_org_found"][0], "searched": []}
+    payload["organizations"] = {
+        **payload["organizations"],
+        "no_dedicated_org_found": [gap],
+    }
+    with pytest.raises(curated.CuratedDataError, match="non-empty searched"):
+        curated.normalize(payload)
 
 
 def test_load_yaml_rejects_non_mapping(tmp_path: Path) -> None:

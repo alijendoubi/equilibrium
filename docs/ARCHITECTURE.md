@@ -91,13 +91,13 @@ All three points use **structured outputs** (JSON schema), use a low temperature
 
 ## Storage
 
-For the hackathon, the graph lives **in memory as networkx** in the backend process and is loaded at startup from a **snapshot**:
+The graph lives **in memory as networkx** in the backend process and is loaded at startup from a **snapshot**:
 - `nodes.parquet` and `edges.parquet`, with JSON as an equally valid alternative
 - a `manifest.json`
 
 This needs no database server and diffs cleanly. A snapshot of a single cluster comfortably fits in memory.
 
-Neo4j is optional and is a post-hackathon path, adopted only if graph size or query needs require it. See [ADR 0001](adr/0001-stack-and-monorepo.md).
+Neo4j is an optional future path, adopted only if graph size or query needs require it. See [ADR 0001](adr/0001-stack-and-monorepo.md).
 
 ## API sketch
 
@@ -121,7 +121,7 @@ All of these endpoints exist (the clusters endpoints since #20).
 
 ```mermaid
 flowchart LR
-    U["Judge / user browser"] --> V["Vercel<br/>Next.js frontend<br/>root dir: frontend"]
+    U["User browser"] --> V["Vercel<br/>Next.js frontend<br/>root dir: frontend"]
     V -- "NEXT_PUBLIC_API_URL" --> RB["Render web service<br/>Docker, root: backend<br/>health: /health"]
     RB --> OAI["OpenAI API"]
     RB --> SNAP[("Bundled snapshot<br/>data/processed/")]

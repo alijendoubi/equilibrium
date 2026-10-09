@@ -6,9 +6,9 @@ This file lists every source named in the challenge brief, plus a few supporting
 
 ## Priority legend
 
-- **P0:** needed for the 24-hour slice and Maria's journey
-- **P1:** strengthens the demo if time allows
-- **P2:** stretch or post-hackathon
+- **P0:** needed for the current slice and Maria's journey
+- **P1:** strengthens the atlas once P0 is solid
+- **P2:** later
 
 ## Sources
 

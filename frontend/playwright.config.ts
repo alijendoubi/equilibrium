@@ -9,6 +9,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? "github" : "list",
+  // Every page renders per request (the CSP nonce needs it), so a cold server answers the first
+  // requests slowly; 10 s keeps a fresh CI server from flaking without hiding real hangs.
+  expect: { timeout: 10_000 },
   use: {
     baseURL,
     trace: "on-first-retry",

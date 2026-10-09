@@ -1,6 +1,7 @@
 import { ContradictionBadge, EvidenceBadge } from "@/components/Badges";
 import type { AtlasNode, Edge } from "@/lib/api/types";
 import { EVIDENCE_DESCRIPTION, formatConfidence, formatDate, relationLabel } from "@/lib/format";
+import { ReportEdgeLink } from "./ReportEdgeLink";
 
 interface EdgePanelProps {
   edge: Edge | null;
@@ -114,6 +115,7 @@ export function EdgePanel({ edge, nodesById }: EdgePanelProps) {
         </figure>
       )}
       <p className="mt-4 text-xs text-muted">Edge id: {edge.id}</p>
+      <ReportEdgeLink edge={edge} labelOf={(id) => nodesById.get(id)?.label ?? id} />
     </aside>
   );
 }

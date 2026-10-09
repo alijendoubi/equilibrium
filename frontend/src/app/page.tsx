@@ -116,16 +116,6 @@ export default function HomePage() {
           </div>
           <MapMotif />
         </section>
-
-        <footer className="mt-auto pt-16 text-xs text-muted">
-          Equilibrium · open-source rare disease atlas ·{" "}
-          <a
-            href="https://github.com/alijendoubi/equilibrium"
-            className="underline-offset-4 hover:text-foreground hover:underline"
-          >
-            Source on GitHub
-          </a>
-        </footer>
       </div>
     </main>
   );

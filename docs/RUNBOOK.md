@@ -62,12 +62,20 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 3. Add environment variables for both Production and Preview:
    - `NEXT_PUBLIC_API_URL`: the Render backend URL, for example `https://<service>.onrender.com`
    - `BACKEND_URL`: the same URL
-4. Get the IDs:
+4. Optional: serve the marketing page from its own subdomain (the Atlas stays on the primary host). These are **Vercel (frontend) variables only**; never put them in the Render backend config:
+
+   | Variable | Production | Preview | When it is read |
+   |---|---|---|---|
+   | `NEXT_PUBLIC_APP_URL` | The canonical Atlas URL, for example `https://equilibrium.example.org` (absolute, `https://`, no trailing slash) | The production Atlas URL, so marketing calls to action on a preview still land on a working Atlas | Build time (inlined into the page), so redeploy after changing it |
+   | `MARKETING_HOST` | The marketing hostname only, for example `home.equilibrium.example.org` (no scheme, no port) | **Leave unset.** Previews then serve the Atlas; open `/home` on the preview URL to check the marketing page | Every request (middleware) |
+
+   Then, in Vercel **Settings → Domains**, add the marketing hostname to the same project and create the DNS record Vercel shows (a `CNAME` to `cname.vercel-dns.com`). Set `NEXT_PUBLIC_APP_URL` whenever `MARKETING_HOST` is set: on the marketing host every path is rewritten to the marketing page, so calls to action need the Atlas's absolute URL to leave it.
+5. Get the IDs:
    - run `pnpm dlx vercel link` inside `frontend/`, then read `.vercel/project.json` for `orgId` and `projectId`
    - or copy them from Project Settings
-5. Create a token at https://vercel.com/account/tokens.
-6. Set the `VERCEL_*` secrets from step 3.
-7. If `deploy.yml` deploys through the CLI, consider disabling Vercel's own Git auto-deploy to avoid duplicate deploys. Check `deploy.yml` first.
+6. Create a token at https://vercel.com/account/tokens.
+7. Set the `VERCEL_*` secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`) from steps 5 and 6.
+8. If `deploy.yml` deploys through the CLI, consider disabling Vercel's own Git auto-deploy to avoid duplicate deploys. Check `deploy.yml` first.
 
 ## 5. Connect Render (backend)
 

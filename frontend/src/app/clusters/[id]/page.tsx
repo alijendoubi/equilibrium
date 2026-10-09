@@ -14,7 +14,11 @@ interface ClusterPageProps {
 
 export async function generateMetadata({ params }: ClusterPageProps): Promise<Metadata> {
   const id = decodeSegment((await params).id);
-  return { title: `${id ? `Cluster ${id}` : "Cluster"} · Equilibrium` };
+  if (!id) return { title: "Cluster · Equilibrium", robots: { index: false } };
+  return {
+    title: `Cluster ${id} · Equilibrium`,
+    alternates: { canonical: `/clusters/${encodeURIComponent(id)}` },
+  };
 }
 
 export default async function ClusterPage({ params }: ClusterPageProps) {

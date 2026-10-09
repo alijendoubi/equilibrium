@@ -14,9 +14,17 @@ import { getAtlasClient } from "@/lib/api/client";
 import type { GraphMapResponse, NodeSummary } from "@/lib/api/types";
 import { mapHref } from "@/lib/graph-map";
 import { buildDiseaseSummary } from "@/lib/disease-summary";
-import { actionsHref, displayId, pathHref, relationLabel } from "@/lib/format";
+import {
+  NODE_TYPE_LABEL,
+  actionsHref,
+  displayId,
+  nodeHref,
+  pathHref,
+  relationLabel,
+} from "@/lib/format";
 import { closestCommunities } from "@/lib/gap";
 import { decodeSegment } from "@/lib/params";
+import { metaDescription } from "@/lib/site";
 
 interface NodePageProps {
   params: Promise<{ id: string }>;
@@ -25,7 +33,20 @@ interface NodePageProps {
 export async function generateMetadata({ params }: NodePageProps): Promise<Metadata> {
   const id = decodeSegment((await params).id);
   const summary = id ? await getAtlasClient().getNode(id) : null;
-  return { title: `${summary?.node.label ?? "Not found"} · Equilibrium` };
+  if (!id || !summary) return { title: "Not found · Equilibrium", robots: { index: false } };
+  const { node } = summary;
+  const about = typeof node.attributes.description === "string" ? node.attributes.description : "";
+  const description = metaDescription(
+    about ||
+      `${NODE_TYPE_LABEL[node.type]} in the Equilibrium atlas: ${summary.counts.edges} sourced connections to genes, mechanisms, studies and patient groups, with the evidence behind each link.`,
+  );
+  const title = `${node.label} · Equilibrium`;
+  return {
+    title,
+    description,
+    alternates: { canonical: nodeHref(id) },
+    openGraph: { title, description, url: nodeHref(id), type: "article" },
+  };
 }
 
 /** Non-disease nodes (genes, studies, ...) get a plain list of their connections for now. */

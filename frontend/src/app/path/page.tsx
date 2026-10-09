@@ -8,7 +8,11 @@ import { getAtlasClient } from "@/lib/api/client";
 import { actionsHref, nodeHref } from "@/lib/format";
 import { firstParam } from "@/lib/params";
 
-export const metadata: Metadata = { title: "Connection · Equilibrium" };
+// One page per (from, to) pair: crawl the links, do not index the permutations.
+export const metadata: Metadata = {
+  title: "Connection · Equilibrium",
+  robots: { index: false, follow: true },
+};
 
 interface PathPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

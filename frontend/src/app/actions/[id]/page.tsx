@@ -7,7 +7,7 @@ import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
 import { loadActionView } from "@/lib/action-view";
 import { getAtlasClient } from "@/lib/api/client";
-import { nodeHref } from "@/lib/format";
+import { actionsHref, nodeHref } from "@/lib/format";
 import { closestCommunities } from "@/lib/gap";
 import { decodeSegment } from "@/lib/params";
 
@@ -15,7 +15,15 @@ interface ActionsPageProps {
   params: Promise<{ id: string }>;
 }
 
-export const metadata: Metadata = { title: "What to do next · Equilibrium" };
+export async function generateMetadata({ params }: ActionsPageProps): Promise<Metadata> {
+  const id = decodeSegment((await params).id);
+  if (!id) return { title: "What to do next · Equilibrium", robots: { index: false } };
+  return {
+    title: "What to do next · Equilibrium",
+    description: "Partners, reusable research assets and a checklist of next steps, each cited.",
+    alternates: { canonical: actionsHref(id) },
+  };
+}
 
 export default async function ActionsPage({ params }: ActionsPageProps) {
   const id = decodeSegment((await params).id);

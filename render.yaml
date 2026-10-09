@@ -8,9 +8,10 @@ services:
     runtime: docker
     dockerContext: .
     dockerfilePath: ./backend/Dockerfile
-    # The free plan sleeps when idle (about 50 s cold start). Use starter during judging.
+    # Starter avoids the roughly 50-second cold start of the free plan.
     plan: starter
     branch: main
+    # Keep the proven Blueprint deploy path until Actions and the hook are verified (#25).
     autoDeploy: true
     healthCheckPath: /health
     envVars:

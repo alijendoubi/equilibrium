@@ -26,7 +26,7 @@ export function GapCard({ diseaseLabel, report, communities }: GapCardProps) {
       </p>
 
       <div className="mt-4">
-        <CoverageReportCard report={report} />
+        <CoverageReportCard report={report} headingLevel={3} />
       </div>
 
       {communities.length > 0 && (

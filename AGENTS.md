@@ -67,25 +67,20 @@ E2E_BASE_URL=http://localhost:3010 pnpm test:e2e
 
 Paste the actual pass counts into the PR test plan. Never write "should pass".
 
-## Current priorities (launch)
+## What to work on
 
-Claude Code:
+The plan lives in [docs/ROADMAP.md](docs/ROADMAP.md); open issues carry its task IDs (`F1`, `L6`,
+`Q5` ...). To pick your next task:
 
-1. Triage open issues #25, #26, #27, #32, #35, #40: close the hackathon-only ones and relabel
-   the ones that carry over.
-2. Remove hackathon framing: the home page footer, README, metadata and milestone names.
-3. Polish the frontend once the owner's evidence skyline view lands; check accessibility and
-   responsive layout at 375/768/1440 in both themes.
-4. Review every Codex PR before the owner merges it.
+1. Take the **earliest open milestone** (v0 Foundations, then v1.0 Public launch, then v1.1 ...).
+2. In it, take the **first issue in your lane** (`agent:claude` / `agent:codex`) in roadmap order
+   that is not claimed, not `blocked:owner`, and whose dependencies are merged.
+3. If there is none, review the other lane's open PRs (Claude Code reviews every Codex PR), then
+   look ahead one milestone.
+4. If you are blocked, comment on the issue with what you need and add `blocked:owner` when only the
+   owner can unblock it. Do not start work the roadmap does not contain; propose it in an issue.
 
-Codex:
-
-1. #32 curated seed data (`data/curated/*.yaml`) with schema validation and tests.
-2. #35 extraction quality: quote verification, the 30-abstract gold set and an eval script.
-3. #25 deploy config (Render backend + Vercel frontend). Document env vars; the owner sets the
-   secrets.
-4. Backend hardening: per-IP rate limiting on `/api/v1/search` and `/api/v1/graph` (the home page
-   calls both through a server action), plus a structured error envelope.
+Fix review comments on your own open PRs before starting anything new.
 
 ## Handoff
 

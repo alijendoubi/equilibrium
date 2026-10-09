@@ -79,9 +79,7 @@ def test_non_http_url_is_rejected() -> None:
         ("source_record_id", None, "source_record_id"),
     ],
 )
-def test_asset_schema_fields_are_required_and_valid(
-    field: str, value: object, match: str
-) -> None:
+def test_asset_schema_fields_are_required_and_valid(field: str, value: object, match: str) -> None:
     payload = _payload()
     asset = {**payload["assets"]["assets"][0], field: value}
     payload["assets"] = {"assets": [asset]}
@@ -94,6 +92,16 @@ def test_duplicate_asset_ids_are_rejected() -> None:
     first = payload["assets"]["assets"][0]
     payload["assets"] = {"assets": [first, {**first, "name": "Duplicate"}]}
     with pytest.raises(curated.CuratedDataError, match="duplicate asset ids"):
+        curated.normalize(payload)
+
+
+def test_missing_asset_disease_ids_is_rejected_without_key_error() -> None:
+    payload = _payload()
+    asset = {**payload["assets"]["assets"][0]}
+    asset.pop("disease_ids")
+    payload["assets"] = {"assets": [asset]}
+
+    with pytest.raises(curated.CuratedDataError, match="non-empty disease_ids"):
         curated.normalize(payload)
 
 
@@ -121,6 +129,19 @@ def test_invalid_coverage_gap_is_rejected() -> None:
         **payload["organizations"],
         "no_dedicated_org_found": [gap],
     }
+    with pytest.raises(curated.CuratedDataError, match="non-empty searched"):
+        curated.normalize(payload)
+
+
+def test_missing_coverage_gap_searches_is_rejected_without_key_error() -> None:
+    payload = _payload()
+    gap = {**payload["organizations"]["no_dedicated_org_found"][0]}
+    gap.pop("searched")
+    payload["organizations"] = {
+        **payload["organizations"],
+        "no_dedicated_org_found": [gap],
+    }
+
     with pytest.raises(curated.CuratedDataError, match="non-empty searched"):
         curated.normalize(payload)
 

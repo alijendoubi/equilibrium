@@ -109,7 +109,7 @@ def _require(
     if slug_id and "id" in fields and not _SLUG.fullmatch(str(entry["id"])):
         raise CuratedDataError(f"{kind} entry {entry['id']!r} id must be a kebab-case slug")
     if "disease_ids" in fields:
-        disease_ids = entry["disease_ids"]
+        disease_ids = entry.get("disease_ids")
         if not isinstance(disease_ids, Sequence) or isinstance(disease_ids, str) or not disease_ids:
             raise CuratedDataError(f"{kind} entry {entry['id']!r} needs non-empty disease_ids")
         invalid = [
@@ -298,16 +298,12 @@ def condition_aliases(payload: Mapping[str, Any]) -> list[JsonDict]:
 def _coverage_gaps(items: Sequence[Mapping[str, Any]]) -> list[JsonDict]:
     gaps: list[JsonDict] = []
     for item in items:
-        missing = [
-            field
-            for field in ("disease_id", "name", "searched", "retrieved")
-            if field != "searched" and not item.get(field)
-        ]
+        missing = [field for field in ("disease_id", "name", "retrieved") if not item.get(field)]
         if missing:
             raise CuratedDataError(f"coverage gap {item.get('disease_id')!r} is missing {missing}")
         if not _MONDO.fullmatch(str(item["disease_id"])):
             raise CuratedDataError(f"coverage gap {item['disease_id']!r} must use a MONDO id")
-        searched = item["searched"]
+        searched = item.get("searched")
         if not isinstance(searched, Sequence) or isinstance(searched, str) or not searched:
             raise CuratedDataError(f"coverage gap {item['disease_id']!r} needs non-empty searched")
         try:

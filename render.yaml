@@ -1,20 +1,18 @@
 # Render Blueprint for the Equilibrium Atlas API.
 # In Render: New + -> Blueprint -> select alijendoubi/equilibrium. Render builds the backend
 # Docker image from the repo root (the snapshot in data/snapshot is copied into the image)
-# and is triggered by the GitHub deploy hook after a push to main. Secrets are entered in the
-# dashboard (sync: false).
+# and redeploys on every push to main. Secrets are entered in the dashboard (sync: false).
 services:
   - type: web
     name: equilibrium-api
     runtime: docker
     dockerContext: .
     dockerfilePath: ./backend/Dockerfile
-    # The free plan sleeps when idle (about 50 s cold start). Use starter during judging.
+    # Starter avoids the roughly 50-second cold start of the free plan.
     plan: starter
     branch: main
-    # deploy.yml owns main deployments through RENDER_DEPLOY_HOOK_URL. Keeping Blueprint
-    # auto-deploy off avoids two concurrent deploys for one commit.
-    autoDeploy: false
+    # Keep the proven Blueprint deploy path until Actions and the hook are verified (#25).
+    autoDeploy: true
     healthCheckPath: /health
     envVars:
       - key: OPENAI_API_KEY

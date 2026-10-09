@@ -1,4 +1,4 @@
-"""Tiny in-memory sliding-window rate limiter for the public, billable /explain endpoint.
+"""Tiny in-memory sliding-window rate limiter for public API endpoints.
 
 Per process and per client IP. Good enough for a single-instance demo; not a substitute for
 an edge rate limit in a real deployment.

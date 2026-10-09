@@ -10,6 +10,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from atlas.api.cluster_routes import ClusterIndexDep
 from atlas.api.deps import StoreDep
+from atlas.api.ratelimit import RateLimiter, client_ip
+from atlas.config import Settings, get_settings
 from atlas.graph import queries
 from atlas.graph.actions import build_actions
 from atlas.graph.coverage import coverage_report, coverage_status
@@ -45,6 +47,20 @@ def get_search_index(request: Request, store: StoreDep) -> SearchIndex:
 SearchIndexDep = Annotated[SearchIndex, Depends(get_search_index)]
 
 
+def enforce_query_rate(request: Request, settings: Settings) -> None:
+    """Rate-limit read-heavy graph queries per client IP for this app process."""
+    limiter: RateLimiter | None = getattr(request.app.state, "query_limiter", None)
+    if limiter is None:
+        limiter = RateLimiter(settings.query_rate_per_minute, window_s=60.0)
+        request.app.state.query_limiter = limiter
+    if not limiter.allow(client_ip(request)):
+        raise HTTPException(
+            status_code=429,
+            detail="Too many graph requests; try again soon.",
+            headers={"Retry-After": "60"},
+        )
+
+
 def _split(values: list[str] | None) -> list[str]:
     """Accept both ?x=a,b and ?x=a&x=b."""
     return [part.strip() for value in values or [] for part in value.split(",") if part.strip()]
@@ -69,13 +85,16 @@ def _node_or_404(store: GraphStore, node_id: str) -> Node:
 
 @router.get("/search", response_model=SearchResponse)
 def search(
+    request: Request,
     store: StoreDep,
     index: SearchIndexDep,
+    settings: Annotated[Settings, Depends(get_settings)],
     q: Annotated[str, Query(max_length=200)] = "",
     types: Annotated[list[str] | None, Query()] = None,
     limit: Annotated[int, Query(ge=1, le=MAX_SEARCH_LIMIT)] = DEFAULT_SEARCH_LIMIT,
 ) -> SearchResponse:
     """Ranked nodes with why they matched (exact / synonym / semantic from cached vectors)."""
+    enforce_query_rate(request, settings)
     query = q.strip()
     if not query:
         raise HTTPException(status_code=422, detail="q must not be empty")

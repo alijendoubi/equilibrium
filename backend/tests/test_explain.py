@@ -379,7 +379,7 @@ def test_route_live_with_fake_client(
 def test_route_unknown_edge_404(api: TestClient, golden: tuple[Edge, ...]) -> None:
     response = api.post("/api/v1/explain", json={"edge_ids": [golden[0].id, "E:0000000000000000"]})
     assert response.status_code == 404
-    assert "E:0000000000000000" in response.json()["detail"]
+    assert "E:0000000000000000" in response.json()["error"]["message"]
 
 
 @pytest.mark.parametrize(

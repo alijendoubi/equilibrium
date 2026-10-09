@@ -4,11 +4,13 @@ import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 
 from atlas import __version__
 from atlas.api.cluster_routes import router as cluster_router
+from atlas.api.errors import http_error_handler, validation_error_handler
 from atlas.api.explain_routes import explain_router
 from atlas.api.graph_routes import router as graph_router
 from atlas.api.map_routes import router as map_router
@@ -54,6 +56,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         yield
 
     application = FastAPI(title="Equilibrium Atlas", version=__version__, lifespan=lifespan)
+    application.add_exception_handler(HTTPException, http_error_handler)
+    application.add_exception_handler(RequestValidationError, validation_error_handler)
     application.state.store = None
     application.state.snapshot_status = None
     application.state.search_index = None

@@ -53,6 +53,7 @@ class Settings(BaseSettings):
     # production serves the committed cache, then the template. Precompute with the CLI.
     explain_live: bool = Field(default=False, alias="EXPLAIN_LIVE")
     explain_rate_per_minute: int = Field(default=10, ge=1, le=600, alias="EXPLAIN_RATE_PER_MINUTE")
+    query_rate_per_minute: int = Field(default=60, ge=1, le=600, alias="QUERY_RATE_PER_MINUTE")
 
     @property
     def cache_dir(self) -> Path:

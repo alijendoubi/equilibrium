@@ -3,7 +3,7 @@ import Link from "next/link";
 import { EvidenceMap } from "@/components/graph/EvidenceMap";
 import { DataNotice } from "@/components/MockBanner";
 import { PageHeader } from "@/components/PageHeader";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import type { GraphMapResponse } from "@/lib/api/types";
 import { NODE_TYPE_LABEL, nodeHref } from "@/lib/format";
 import { ALL_NODE_TYPES, mapHref, mergeMaps, parseMapParams } from "@/lib/graph-map";
@@ -28,7 +28,7 @@ function flatten(params: Record<string, string | string[] | undefined>): Record<
 
 export default async function MapPage({ searchParams }: MapPageProps) {
   const state = parseMapParams(flatten(await searchParams));
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
   const base = await client.getGraph({
     center: state.center,
     depth: state.depth,

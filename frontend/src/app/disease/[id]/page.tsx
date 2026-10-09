@@ -10,7 +10,7 @@ import { DataNotice } from "@/components/MockBanner";
 import { NodeChip } from "@/components/NodeChip";
 import { PageHeader } from "@/components/PageHeader";
 import { EvidenceMap } from "@/components/graph/EvidenceMap";
-import { getAtlasClient } from "@/lib/api/client";
+import { getServerAtlasClient } from "@/lib/api/server-client";
 import type { GraphMapResponse, NodeSummary } from "@/lib/api/types";
 import { mapHref } from "@/lib/graph-map";
 import { buildDiseaseSummary } from "@/lib/disease-summary";
@@ -24,7 +24,7 @@ interface NodePageProps {
 
 export async function generateMetadata({ params }: NodePageProps): Promise<Metadata> {
   const id = decodeSegment((await params).id);
-  const summary = id ? await getAtlasClient().getNode(id) : null;
+  const summary = id ? await (await getServerAtlasClient()).getNode(id) : null;
   return { title: `${summary?.node.label ?? "Not found"} · Equilibrium` };
 }
 
@@ -88,7 +88,7 @@ function MapPreview({ graph, id }: { graph: GraphMapResponse; id: string }) {
 export default async function NodePage({ params }: NodePageProps) {
   const id = decodeSegment((await params).id);
   if (!id) notFound();
-  const client = getAtlasClient();
+  const client = await getServerAtlasClient();
   const summary = await client.getNode(id);
   if (!summary) notFound();
 

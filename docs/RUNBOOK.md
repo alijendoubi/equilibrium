@@ -62,6 +62,7 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
 3. Add environment variables for both Production and Preview:
    - `NEXT_PUBLIC_API_URL`: the Render backend URL, for example `https://<service>.onrender.com`
    - `BACKEND_URL`: the same URL
+   - `FRONTEND_API_TOKEN`: a long random secret (for example `openssl rand -hex 32`), **the same value as on Render**. Server-only: never prefix it `NEXT_PUBLIC_`. With it, server-side API calls carry the visitor's IP (from Vercel's `x-real-ip`) so the API rate-limits each visitor instead of all of Vercel as one client.
 4. Get the IDs:
    - run `pnpm dlx vercel link` inside `frontend/`, then read `.vercel/project.json` for `orgId` and `projectId`
    - or copy them from Project Settings
@@ -79,6 +80,8 @@ Deploy jobs **skip** when their secrets are missing, so CI stays green before de
    - optionally `OPENAI_MODEL_EXTRACT`, `OPENAI_MODEL_EXPLAIN`, `OPENAI_MODEL_RECONCILE`, `OPENAI_EMBED_MODEL` (defaults: `gpt-6.1-sol`, `gpt-6.1-sol`, `gpt-6-luna`, `text-embedding-3-small`)
    - `CORS_ORIGINS`: the Vercel production URL and the preview pattern
    - `LOG_LEVEL=INFO`
+   - `FRONTEND_API_TOKEN`: the same secret as on Vercel. Without it, every visitor shares one rate-limit bucket (Vercel's egress address).
+   - `TRUSTED_PROXY_HOPS=1` (set by `render.yaml`): Render's proxy appends the real client address to `X-Forwarded-For`.
    - optionally `NCBI_API_KEY` and `OMIM_API_KEY`
 5. Turn auto-deploy off if deploys should come only from `deploy.yml` on `main`.
 6. Under Settings, then **Deploy Hook**, copy the URL and run `gh secret set RENDER_DEPLOY_HOOK_URL`.

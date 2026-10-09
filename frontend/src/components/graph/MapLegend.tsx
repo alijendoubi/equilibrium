@@ -41,12 +41,16 @@ interface MapLegendProps {
 
 /** Explains shapes, colours and line styles in words, so nothing depends on colour alone. */
 export function MapLegend({ types, showHighlight = false, compact = false }: MapLegendProps) {
+  // Compact maps sit under a section h2; the full /map page puts the legend right under its h1.
+  const Heading = compact ? "h3" : "h2";
   return (
     <section
       aria-label="Map legend"
       className="rounded-2xl border border-border bg-surface p-4 text-xs leading-relaxed"
     >
-      <h3 className="text-[0.7rem] font-semibold tracking-wider text-muted uppercase">Legend</h3>
+      <Heading className="text-[0.7rem] font-semibold tracking-wider text-muted uppercase">
+        Legend
+      </Heading>
       <ul className={`mt-3 grid gap-x-4 gap-y-1.5 ${compact ? "grid-cols-2" : "sm:grid-cols-2"}`}>
         {types.map((type) => (
           <li key={type} className="flex items-center gap-2">

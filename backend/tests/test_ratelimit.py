@@ -4,9 +4,10 @@ from types import SimpleNamespace
 from typing import Any
 
 import pytest
+from pydantic import SecretStr
 
 from atlas.api import ratelimit
-from atlas.api.ratelimit import RateLimiter, client_ip
+from atlas.api.ratelimit import RateLimiter, client_ip, rate_limit_key
 
 
 class Clock:
@@ -42,9 +43,25 @@ def _request(headers: dict[str, str], host: str | None) -> Any:
     return SimpleNamespace(headers=headers, client=client)
 
 
-def test_client_ip_prefers_first_forwarded_hop() -> None:
+def test_client_ip_uses_the_trusted_rightmost_forwarded_hop() -> None:
     forwarded = _request({"x-forwarded-for": "203.0.113.7, 10.0.0.1"}, "10.0.0.2")
 
-    assert client_ip(forwarded) == "203.0.113.7"
+    assert client_ip(forwarded) == "10.0.0.2"
+    assert client_ip(forwarded, trusted_proxy_hops=1) == "10.0.0.1"
     assert client_ip(_request({}, "10.0.0.2")) == "10.0.0.2"
-    assert client_ip(_request({"x-forwarded-for": " "}, None)) == "unknown"
+    assert client_ip(_request({"x-forwarded-for": " "}, None), trusted_proxy_hops=1) == "unknown"
+
+
+def test_rate_limit_key_requires_the_frontend_token() -> None:
+    request = _request(
+        {"x-atlas-visitor-ip": "203.0.113.7", "x-atlas-frontend": "correct"}, "10.0.0.2"
+    )
+
+    assert (
+        rate_limit_key(request, trusted_proxy_hops=0, frontend_api_token=SecretStr("correct"))
+        == "visitor:203.0.113.7"
+    )
+    assert (
+        rate_limit_key(request, trusted_proxy_hops=0, frontend_api_token=SecretStr("wrong"))
+        == "ip:10.0.0.2"
+    )

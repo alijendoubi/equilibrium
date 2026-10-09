@@ -19,6 +19,12 @@ services:
       - key: CORS_ORIGINS
         # Set to the Vercel production URL, e.g. https://equilibrium-atlas.vercel.app
         sync: false
+      # Server-only token shared with the Vercel server. It authorizes the forwarded visitor IP.
+      - key: FRONTEND_API_TOKEN
+        sync: false
+      # Render appends the trusted right-most X-Forwarded-For hop.
+      - key: TRUSTED_PROXY_HOPS
+        value: "1"
       - key: LOG_LEVEL
         value: INFO
       # Public /explain serves the committed cache, then the template. Set to "1" only if

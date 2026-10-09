@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from atlas.api.cluster_routes import ClusterIndexDep
 from atlas.api.deps import StoreDep
-from atlas.api.ratelimit import RateLimiter, client_ip
+from atlas.api.ratelimit import RateLimiter, rate_limit_key
 from atlas.config import Settings, get_settings
 from atlas.graph import queries
 from atlas.graph.actions import build_actions
@@ -53,7 +53,12 @@ def enforce_query_rate(request: Request, settings: Settings) -> None:
     if limiter is None:
         limiter = RateLimiter(settings.query_rate_per_minute, window_s=60.0)
         request.app.state.query_limiter = limiter
-    if not limiter.allow(client_ip(request)):
+    key = rate_limit_key(
+        request,
+        trusted_proxy_hops=settings.trusted_proxy_hops,
+        frontend_api_token=settings.frontend_api_token,
+    )
+    if not limiter.allow(key):
         raise HTTPException(
             status_code=429,
             detail="Too many graph requests; try again soon.",

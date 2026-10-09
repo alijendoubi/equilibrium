@@ -4,8 +4,9 @@ import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from atlas import __version__
@@ -56,7 +57,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         yield
 
     application = FastAPI(title="Equilibrium Atlas", version=__version__, lifespan=lifespan)
-    application.add_exception_handler(HTTPException, http_error_handler)
+    application.add_exception_handler(StarletteHTTPException, http_error_handler)
     application.add_exception_handler(RequestValidationError, validation_error_handler)
     application.state.store = None
     application.state.snapshot_status = None

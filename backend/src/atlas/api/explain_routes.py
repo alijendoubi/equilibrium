@@ -6,7 +6,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from atlas.api.deps import StoreDep
-from atlas.api.ratelimit import RateLimiter, client_ip
+from atlas.api.ratelimit import RateLimiter, rate_limit_key
 from atlas.config import Settings, get_settings
 from atlas.explain.cache import ExplanationCache
 from atlas.explain.golden import nodes_for
@@ -41,7 +41,12 @@ def explain(
     if limiter is None:
         limiter = RateLimiter(settings.explain_rate_per_minute, window_s=60.0)
         request.app.state.explain_limiter = limiter
-    if not limiter.allow(client_ip(request)):
+    key = rate_limit_key(
+        request,
+        trusted_proxy_hops=settings.trusted_proxy_hops,
+        frontend_api_token=settings.frontend_api_token,
+    )
+    if not limiter.allow(key):
         raise HTTPException(status_code=429, detail="Too many explain requests; try again soon.")
     edges = tuple(store.get_edge(edge_id) for edge_id in body.edge_ids)
     missing = [edge_id for edge_id, edge in zip(body.edge_ids, edges, strict=True) if edge is None]

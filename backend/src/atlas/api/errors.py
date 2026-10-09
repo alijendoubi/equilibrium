@@ -2,10 +2,11 @@
 
 from typing import Any
 
-from fastapi import HTTPException, Request
+from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 
 class ApiError(BaseModel):
@@ -37,8 +38,9 @@ def _message(detail: Any, fallback: str) -> str:
     return detail if isinstance(detail, str) and detail else fallback
 
 
-async def http_error_handler(_request: Request, exc: HTTPException) -> JSONResponse:
+async def http_error_handler(_request: Request, exc: Exception) -> JSONResponse:
     """Turn explicit route errors into the documented envelope."""
+    assert isinstance(exc, StarletteHTTPException)
     body = ErrorResponse(
         error=ApiError(
             code=_CODES.get(exc.status_code, "http_error"),
@@ -48,8 +50,9 @@ async def http_error_handler(_request: Request, exc: HTTPException) -> JSONRespo
     return JSONResponse(status_code=exc.status_code, content=body.model_dump(), headers=exc.headers)
 
 
-async def validation_error_handler(_request: Request, _exc: RequestValidationError) -> JSONResponse:
+async def validation_error_handler(_request: Request, _exc: Exception) -> JSONResponse:
     """Avoid exposing framework-specific validation details as the public contract."""
+    assert isinstance(_exc, RequestValidationError)
     body = ErrorResponse(
         error=ApiError(code="validation_error", message="Request validation failed")
     )

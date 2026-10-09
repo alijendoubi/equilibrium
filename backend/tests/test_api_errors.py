@@ -12,7 +12,9 @@ from atlas.config import Settings, get_settings
 @pytest.fixture
 def limited_api() -> Iterator[TestClient]:
     app = create_app(Settings())
-    app.dependency_overrides[get_settings] = lambda: Settings(QUERY_RATE_PER_MINUTE=2)
+    app.dependency_overrides[get_settings] = lambda: Settings(
+        QUERY_RATE_PER_MINUTE=2, TRUSTED_PROXY_HOPS=1
+    )
     with TestClient(app) as client:
         yield client
 
@@ -58,6 +60,7 @@ def test_search_and_graph_share_the_query_limit(limited_api: TestClient) -> None
         ("/api/v1/search", {"q": " "}, 422, "validation_error"),
         ("/api/v1/search", {"q": "gaucher", "limit": 0}, 422, "validation_error"),
         ("/api/v1/graph", {"center": "MONDO:0000000"}, 404, "not_found"),
+        ("/api/v1/does-not-exist", {}, 404, "not_found"),
     ],
 )
 def test_query_errors_use_the_stable_envelope(

@@ -1,15 +1,18 @@
-"""Tiny in-memory sliding-window rate limiter for the public, billable /explain endpoint.
+"""Tiny in-memory sliding-window rate limiter for public API endpoints.
 
 Per process and per client IP. Good enough for a single-instance demo; not a substitute for
 an edge rate limit in a real deployment.
 """
 
+import hmac
+import ipaddress
 import threading
 import time
 from collections import deque
 from collections.abc import Callable
 
 from fastapi import Request
+from pydantic import SecretStr
 
 MAX_TRACKED_CLIENTS = 10_000
 
@@ -40,10 +43,36 @@ class RateLimiter:
             return True
 
 
-def client_ip(request: Request) -> str:
-    """First X-Forwarded-For hop (Render and Vercel sit behind a proxy), else the peer."""
-    forwarded = request.headers.get("x-forwarded-for", "")
-    first = forwarded.split(",")[0].strip()
-    if first:
-        return first
+def _ip(value: str) -> str | None:
+    try:
+        return str(ipaddress.ip_address(value.strip()))
+    except ValueError:
+        return None
+
+
+def client_ip(request: Request, trusted_proxy_hops: int = 0) -> str:
+    """The address added by a trusted proxy, or the direct peer when none are trusted."""
+    hops = [part.strip() for part in request.headers.get("x-forwarded-for", "").split(",")]
+    if trusted_proxy_hops and len(hops) >= trusted_proxy_hops:
+        forwarded = _ip(hops[-trusted_proxy_hops])
+        if forwarded is not None:
+            return forwarded
     return request.client.host if request.client else "unknown"
+
+
+def rate_limit_key(
+    request: Request,
+    *,
+    trusted_proxy_hops: int,
+    frontend_api_token: SecretStr | None,
+) -> str:
+    """Use a verified frontend visitor address, else a trusted direct-client address."""
+    token = frontend_api_token.get_secret_value() if frontend_api_token else ""
+    visitor_ip = _ip(request.headers.get("x-atlas-visitor-ip", ""))
+    if (
+        token
+        and visitor_ip
+        and hmac.compare_digest(request.headers.get("x-atlas-frontend", ""), token)
+    ):
+        return f"visitor:{visitor_ip}"
+    return f"ip:{client_ip(request, trusted_proxy_hops)}"

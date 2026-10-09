@@ -379,7 +379,7 @@ def test_route_live_with_fake_client(
 def test_route_unknown_edge_404(api: TestClient, golden: tuple[Edge, ...]) -> None:
     response = api.post("/api/v1/explain", json={"edge_ids": [golden[0].id, "E:0000000000000000"]})
     assert response.status_code == 404
-    assert "E:0000000000000000" in response.json()["detail"]
+    assert "E:0000000000000000" in response.json()["error"]["message"]
 
 
 @pytest.mark.parametrize(
@@ -447,7 +447,9 @@ def test_route_never_calls_openai_unless_explain_live(
 
 
 def test_route_rate_limits_per_client(api: TestClient, golden: tuple[Edge, ...]) -> None:
-    api.app.dependency_overrides[get_settings] = lambda: Settings(EXPLAIN_RATE_PER_MINUTE=2)  # type: ignore[attr-defined]
+    api.app.dependency_overrides[get_settings] = lambda: Settings(  # type: ignore[attr-defined]
+        EXPLAIN_RATE_PER_MINUTE=2, TRUSTED_PROXY_HOPS=1
+    )
     payload = {"edge_ids": [golden[0].id]}
     headers = {"x-forwarded-for": "203.0.113.7"}
 

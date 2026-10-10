@@ -53,7 +53,7 @@ jobs:
             echo "::notice title=Vercel preview skipped::VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID not configured."
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.secrets.outputs.ok == 'true'
 
       - uses: pnpm/action-setup@v6
@@ -126,7 +126,7 @@ jobs:
             echo "::notice title=Vercel production skipped::VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID not configured."
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.secrets.outputs.ok == 'true'
 
       - uses: pnpm/action-setup@v6

@@ -28,7 +28,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       # Real API keys are intentionally NOT injected; e2e must run against fixtures/mocks.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: astral-sh/setup-uv@v6
         with:

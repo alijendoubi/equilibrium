@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-This is a hackathon prototype. Only the latest commit on `main` and the deployed demo are supported.
+Equilibrium is an early-stage open-source project. Only the latest commit on `main` and the deployed app are supported.
 
 ## Reporting a vulnerability
 
@@ -11,7 +11,7 @@ This is a hackathon prototype. Only the latest commit on `main` and the deployed
 - Report it privately through GitHub private vulnerability reporting: [open a draft security advisory](https://github.com/alijendoubi/equilibrium/security/advisories/new) (or **Security** tab, then **Report a vulnerability**).
 - This is the only reporting channel. The report is visible only to you and the maintainer (@alijendoubi).
 
-Include the affected component, steps to reproduce and the impact. During the event we aim to acknowledge reports within 24 hours.
+Include the affected component, steps to reproduce and the impact. We aim to acknowledge reports within 72 hours.
 
 ## Secrets
 
@@ -31,7 +31,7 @@ Include the affected component, steps to reproduce and the impact. During the ev
 4. Check provider usage logs for abuse, especially OpenAI spend.
 5. Tell the team in the team channel and record the incident in the PR.
 
-The repository is public: rotate every key used during the hackathon after judging (OpenAI, Vercel, Render, NCBI).
+The repository is public: every key used before the v1.0 launch (OpenAI, Vercel, Render, NCBI) must be rotated before release; this is tracked in the v1.0 launch checklist (#69).
 
 ## Data handling
 

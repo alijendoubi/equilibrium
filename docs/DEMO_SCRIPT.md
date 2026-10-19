@@ -1,5 +1,7 @@
 # Demo Script
 
+> **Historical document.** Written for the Hack-Nation submission (October 2026) and kept for the record; it is not maintained. Code comments cite its section numbers. For the current project see the [README](../README.md) and [ARCHITECTURE](ARCHITECTURE.md).
+
 Status: **ready to record**. Every step below exists in the build (checked end to end against the live API on 2026-10-04). Record on the deployed URL; if the backend is unreachable, the UI falls back to bundled demo data and shows "Showing cached demo data", so do a warm-up first.
 
 The brief requires: *"A Team video and a 1-minute walkthrough. Follow a family or patient group through the graph to either a justified collaboration and next step, or an honest gap with a plan to investigate it."* We show both.

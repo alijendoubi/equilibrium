@@ -1,6 +1,6 @@
 # Contributing to Equilibrium
 
-This repo is built in a 24-hour hackathon. These rules exist to keep `main` demoable at all times. They are not meant to slow anyone down.
+These rules keep `main` releasable at all times. They are not meant to slow anyone down. Coding agents (Claude Code, Codex) also follow [AGENTS.md](AGENTS.md).
 
 ## TL;DR
 
@@ -107,11 +107,11 @@ A PR is done when:
 
 ## Emergency hotfix policy
 
-Admin bypass of the ruleset is allowed **only** when the deployed demo is broken during a judging-critical window and normal review would take too long. When it is used:
+Admin bypass of the ruleset is allowed **only** in two cases: the deployed app is broken and normal review would take too long, or CI cannot run at all (as now, while GitHub Actions is billing-locked). When it is used:
 
-1. Make the smallest possible fix on a `fix/` branch, push it and merge it with admin rights.
-2. Post in the team channel what was bypassed and why.
-3. Within 2 hours, open a follow-up PR for review that adds tests or a cleanup, labelled `priority:P0`.
+1. Run every gate locally first (see [AGENTS.md](AGENTS.md#definition-of-done)) and paste the results into the PR.
+2. Keep the change small; for an outage, use a `fix/` branch with the smallest possible fix.
+3. Say in the PR what was bypassed and why. For an outage fix, open a follow-up PR with tests or cleanup within a day, labelled `priority:P0`.
 
 Never bypass for convenience, and never force-push `main`.
 
@@ -121,7 +121,7 @@ Never bypass for convenience, and never force-push `main`.
 |---|---|---|
 | Type | `type:*` (feat, bug, docs, chore, data) | Kind of work |
 | Area | `area:*` (backend, frontend, infra, data, docs) | Where the change lives |
-| Priority | `priority:P0`, `priority:P1`, `priority:P2` | P0 = demo-blocking, P1 = needed for submission, P2 = nice to have |
+| Priority | `priority:P0`, `priority:P1`, `priority:P2` | P0 = blocks the next release, P1 = planned for the current milestone, P2 = nice to have |
 | Module | `module:graph-builder`, `module:trust`, `module:action`, `module:ux` | Brief module the work serves |
 | Size | `size/*` | Applied automatically from the diff size |
 | CI | `run-e2e` | Triggers the Playwright E2E workflow |
@@ -130,21 +130,19 @@ Never bypass for convenience, and never force-push `main`.
 
 | Milestone | Scope |
 |---|---|
-| M1 Repo ready | Scaffold, CI, rulesets, deploy targets |
-| M2 Graph slice | One disease cluster ingested, Extract and Reconcile, `make data` |
-| M3 Trust layer | Confidence, contradictions, coverage and honest gaps, Explain with edge citations |
-| M4 UI journey | Search, cluster view, edge panel, patient action view |
-| M5 Submission | Deployed prototype, README, videos, go-public |
+| v1.0 Public launch | Deployed, keys rotated, hackathon framing removed, tagged `v1.0.0` |
+| v1.1 Evidence quality | Human-verified curated data, measured extraction quality |
 
-## 24-hour working agreements
+The hackathon milestones (M1 to M5) are closed and kept for history.
 
-- **Sync cadence:** a 10-minute stand-up every 4 hours covering what is done, what is next and what is blocked. Post blockers in the team channel immediately instead of waiting for the next stand-up.
+## Working agreements
+
+- **Blockers go on the issue:** comment on the issue as soon as you are blocked, and add `blocked:owner` when only the maintainer can unblock it.
 - **Claim before you code:** assign the issue to yourself. If nothing exists, open an issue first. Unassign if you drop it.
-- **Draft PRs early:** opening a PR in the first 30 minutes of work makes progress visible and surfaces conflicts.
-- **Reviews are fast:** a review request gets a response within 30 minutes. Review the smallest PRs first.
-- **`main` is always demoable.** Put risky work behind a flag or keep it in a branch.
-- **Freeze:** feature freeze 3 hours before the deadline. After that, only P0 fixes, docs and the video.
-- **Honesty over polish:** never fake a feature in the demo. Label anything planned as planned.
+- **Draft PRs early:** an early draft PR makes progress visible and surfaces conflicts.
+- **Small PRs, fast reviews:** review the smallest PRs first.
+- **`main` is always releasable.** Put risky work behind a flag or keep it in a branch.
+- **Honesty over polish:** never fake a feature. Label anything planned as planned.
 
 ## Code of conduct
 

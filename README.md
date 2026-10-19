@@ -260,6 +260,8 @@ The frontend uses mock data unless `NEXT_PUBLIC_USE_MOCKS=false` and `NEXT_PUBLI
 | `LOG_LEVEL` | backend | `INFO` | Logging; keys are never logged |
 | `NEXT_PUBLIC_USE_MOCKS` | frontend (build time) | `true` | `false` uses the live API |
 | `NEXT_PUBLIC_API_URL` / `BACKEND_URL` | frontend | `http://localhost:8000` | API for the browser / for server rendering |
+| `NEXT_PUBLIC_APP_URL` | frontend (Vercel, build time) | none | Absolute Atlas URL that marketing calls to action link to; required when `MARKETING_HOST` is set ([Runbook](docs/RUNBOOK.md#4-connect-vercel-frontend)) |
+| `MARKETING_HOST` | frontend (Vercel, runtime) | none | Hostname that serves the marketing page, e.g. `home.example.org`; leave unset on previews |
 
 ## Deployment
 
